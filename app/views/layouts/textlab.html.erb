@@ -3,13 +3,12 @@
 <head>
 	<meta charset="utf-8"> 
   <title>TextLab</title>
-  <%= stylesheet_link_tag    'application', media: 'all' %>
-  <%= javascript_include_tag 'application' %>
-
+  <%= stylesheet_link_tag    'textlab', media: 'all' %>
+  <%= javascript_include_tag 'textlab' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if user_signed_in? && current_user.enabled? %>
+  <% if user_signed_in? %>
     <%= render partial: 'layouts/header' %>
   <% end %>
   <div class="content">

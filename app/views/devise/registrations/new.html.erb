@@ -1,0 +1,33 @@
+<div class="signup-panel panel panel-default">
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-signup'}) do |f| %>
+      <h2 class="form-signup-heading">Sign up for DiBB</h2>
+
+		  <div class="devise-notice"><%= notice %></div>
+		  <div class="devise-alert"><%= alert %></div>
+      <%= devise_error %>
+
+      <div class="field">
+        <%= f.label :email %>
+        <%= f.email_field :email, autofocus: true, required: true, class: "form-control" %>
+      </div>
+            
+      <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", required: true, class: "form-control" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>      
