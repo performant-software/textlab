@@ -2,6 +2,7 @@
 TextLab.Routes = Backbone.Router.extend({
 
   routes: {
+    "" : "testPage"
   },
     
   initialize: function(options) {
@@ -9,6 +10,11 @@ TextLab.Routes = Backbone.Router.extend({
     // global singleton
     TextLab.Routes.routes = this;
         
+  },
+  
+  testPage: function() {
+    var testPage = new TextLab.TestPage();
+    testPage.render();
   },
   
    // TODO improve error handling
