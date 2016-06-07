@@ -21,6 +21,22 @@ TextLab.TestPage = Backbone.View.extend({
 			springStiffness: 20,
 			zoomPerClick: 1.5
 		});
+    
+    var overlay = this.seaDragonViewer.svgOverlay();
+    var d3Rect = d3.select(overlay.node()).append("rect")
+        .style('fill', '#f00')
+        .attr("x", 0.5)
+        .attr("width", 0.25)
+        .attr("y", 0.5)
+        .attr("height", 0.25);
+    overlay.onClick(d3Rect.node(), function() {
+        console.log('click', arguments);
+        d3Rect.style('fill', '#fff')
+    });
+    
+    $(window).resize(function() {
+        overlay.resize();
+    });
             
   }
   
