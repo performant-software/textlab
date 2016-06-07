@@ -6,29 +6,14 @@ TextLab.TestPage = Backbone.View.extend({
             	
 	initialize: function(options) {
   },
-  
-  render: function() {
-    
+      
+  render: function() {      
     this.$el.html(this.template({}));  
 
 		this.$('div.split-pane').splitPane();
-    this.$('button:first').on('click', function() {
-      $('div.split-pane').splitPane('lastComponentSize', 10);
-    });
-    this.$('button:last').on('click', function() {
-      $('div.split-pane').splitPane('firstComponentSize', 0);
-    });
 
     $(".textlab-app").html(this.$el);
         
-  },
-      
-  render_zoom: function() {      
-    this.$el.html(this.template({}));  
-    $(".textlab-app").html(this.$el);
-    
-    var tileSource = '{"type":"legacy-image-pyramid","levels":[{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-3.jpg","width":336,"height":530},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-2.jpg","width":671,"height":1059},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-1.jpg","width":1342,"height":2117},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2.jpg","width":2683,"height":4234}]}';
-    
 		window.viewer = OpenSeadragon({
 			id : "openseadragon",
 			prefixUrl : "/openseadragon/",
@@ -105,7 +90,9 @@ TextLab.TestPage = Backbone.View.extend({
       dragHandler: drag_handler,
       dragEndHandler: dragEnd_handler
     }).setTracking(true);
-    
+
+    var tileSource = '{"type":"legacy-image-pyramid","levels":[{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-3.jpg","width":336,"height":530},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-2.jpg","width":671,"height":1059},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-1.jpg","width":1342,"height":2117},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2.jpg","width":2683,"height":4234}]}';
+        
     window.viewer.addTiledImage({
             tileSource: tileSource,
             x: 0,
@@ -114,10 +101,30 @@ TextLab.TestPage = Backbone.View.extend({
         });
 
     window.onresize = function() {
+
+			var editorViewport = $("#test-page");
+      var seaDragonViewport = $("#openseadragon")
+      
+			var windowHeight = $(window).height();
+			var editorTop = editorViewport.offset().top;
+			var viewportHeight = windowHeight - editorTop;
+			var viewportInnerHeight = viewportHeight;
+			editorViewport.height(viewportHeight);				
+
+			var windowWidth = $(window).width();
+			var editorLeft = editorViewport.offset().left;
+			var viewportWidth = windowWidth - editorLeft;
+			var viewportInnerWidth = viewportWidth;
+			editorViewport.width(viewportWidth);				
+			
+			seaDragonViewport.height(viewportHeight/2-50);				
+      seaDragonViewport.width(viewportWidth-200);	      
+              
       overlay.resize();
       overlay.resizecanvas();
-      console.log("circles[0]=", circles[0]);
-    };
+       
+		}; 
+
                 
   }
   
