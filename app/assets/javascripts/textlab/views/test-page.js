@@ -6,8 +6,24 @@ TextLab.TestPage = Backbone.View.extend({
             	
 	initialize: function(options) {
   },
+  
+  render: function() {
+    
+    this.$el.html(this.template({}));  
+
+		this.$('div.split-pane').splitPane();
+    this.$('button:first').on('click', function() {
+      $('div.split-pane').splitPane('lastComponentSize', 10);
+    });
+    this.$('button:last').on('click', function() {
+      $('div.split-pane').splitPane('firstComponentSize', 0);
+    });
+
+    $(".textlab-app").html(this.$el);
+        
+  },
       
-  render: function() {      
+  render_zoom: function() {      
     this.$el.html(this.template({}));  
     $(".textlab-app").html(this.$el);
     
