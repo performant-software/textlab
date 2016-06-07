@@ -16,28 +16,91 @@ TextLab.TestPage = Backbone.View.extend({
 		this.seaDragonViewer = OpenSeadragon({
 			id : "openseadragon",
 			prefixUrl : "/openseadragon/",
-			tileSources : tileSource,
 			maxZoomPixelRatio : 5,
 			springStiffness: 20,
 			zoomPerClick: 1.5
 		});
     
-    var overlay = this.seaDragonViewer.svgOverlay();
-    var d3Rect = d3.select(overlay.node()).append("rect")
-        .style('fill', '#f00')
-        .attr("x", 0.5)
-        .attr("width", 0.25)
-        .attr("y", 0.5)
-        .attr("height", 0.25);
-    overlay.onClick(d3Rect.node(), function() {
-        console.log('click', arguments);
-        d3Rect.style('fill', '#fff')
-    });
+    var overlay = this.seaDragonViewer.paperjsOverlay();
+   
+    var circles = [];
+    var paintCircles = function(jsondata, overlay) {
+    };
+    var hit_item = null;
+    var drag_handler = function(event) {
+        if (hit_item) {
+            var transformed_point1 = paper.view.viewToProject(new paper.Point(0,0));
+            var transformed_point2 = paper.view.viewToProject(new paper.Point(event.delta.x, event.delta.y));
+            hit_item.position = hit_item.position.add(transformed_point2.subtract(transformed_point1));
+            window.viewer.setMouseNavEnabled(false);
+            paper.view.draw();
+        }
+    };
+    var dragEnd_handler = function(event) {
+        if (hit_item) {
+            window.viewer.setMouseNavEnabled(true);
+        }
+        hit_item = null;
+    };
     
-    $(window).resize(function() {
-        overlay.resize();
-    });
-            
+    var press_handler = function(event) {
+        hit_item = null;
+        var transformed_point = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+        var hit_test_result = paper.project.hitTest(transformed_point);
+        if (hit_test_result) {
+            hit_item = hit_test_result.item;
+        }
+    };
+    
+    var paint_circles = function(overlay, event) {
+      var circles = [
+        {
+          "pixel_x": 100,
+          "pixel_y": 100,
+          "radius": 100
+        },
+        {
+          "pixel_x": 400,
+          "pixel_y": 400,
+          "radius": 50
+        }
+      ];
+
+      var num_circles = circles.length;
+      for (var i = 0; i < num_circles; i++) {
+        var circle = circles[i];
+        var circle = new paper.Path.Circle(new paper.Point(circle.pixel_x, circle.pixel_y), circle.radius);
+        circle.fillColor = 'red';
+        circle.visible = true;
+        circles.push(circle);
+        circle.onMouseDown = function (event) {
+        console.log("circle.onMouseDown" , "event.point.x = ", event.point.x , "event.point.y = ", event.point.y);
+        };
+      }
+      overlay.resize();
+      overlay.resizecanvas();
+    }.bind(null, overlay);
+
+    new OpenSeadragon.MouseTracker({
+      element: this.seaDragonViewer.canvas,
+      pressHandler: press_handler,
+      dragHandler: drag_handler,
+      dragEndHandler: dragEnd_handler
+    }).setTracking(true);
+    
+    this.seaDragonViewer.addTiledImage({
+            tileSource: tileSource,
+            x: 0,
+            y: 0,
+            success: paint_circles
+        });
+
+    window.onresize = function() {
+      overlay.resize();
+      overlay.resizecanvas();
+      console.log("circles[0]=", circles[0]);
+    };
+                
   }
   
   
