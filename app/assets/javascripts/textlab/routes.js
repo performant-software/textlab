@@ -2,7 +2,7 @@
 TextLab.Routes = Backbone.Router.extend({
 
   routes: {
-    "" : "testPage"
+    "" : "primaryEditingView"
   },
     
   initialize: function(options) {
@@ -10,6 +10,11 @@ TextLab.Routes = Backbone.Router.extend({
     // global singleton
     TextLab.Routes.routes = this;
         
+  },
+  
+  primaryEditingView: function() {
+    var primaryEditingView = new TextLab.PrimaryEditingView();
+    primaryEditingView.render();    
   },
   
   testPage: function() {
