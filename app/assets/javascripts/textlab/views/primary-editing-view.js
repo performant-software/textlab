@@ -11,6 +11,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   onWindowResize: function() {
 
 		var editorViewport = this.$el;
+    var leafImageViewerPanel = this.$("#leaf-image-viewer-panel");
     var seaDragonViewport = this.$("#openseadragon");
     var window$ = $(window);
       
@@ -26,8 +27,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 		var viewportInnerWidth = viewportWidth;
 		editorViewport.width(viewportWidth);				
 	
-		seaDragonViewport.height(viewportHeight/2-50);				
-    seaDragonViewport.width(viewportWidth-200);	      
+		seaDragonViewport.height(leafImageViewerPanel.height());				
+    seaDragonViewport.width(leafImageViewerPanel.width());	      
      
     var overlay = this.leafImageViewer.overlay;     
     overlay.resize();

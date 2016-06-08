@@ -51,7 +51,6 @@ TextLab.LeafImageViewer = Backbone.View.extend({
       debugMode:  false,
       visibilityRatio: 1.0,
       constrainDuringPan: true,
-      showNavigator: true,
       zoomPerScroll: 1.8
 		});
     

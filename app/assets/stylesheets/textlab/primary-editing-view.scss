@@ -27,48 +27,39 @@
   	padding: 0 1em;
   	overflow: auto;
   }
+
+	#horizontal-divider {
+		bottom: 20em;
+		height: 5px;
+	}
   
-	#top-component {
-			bottom: 20em;
-			margin-bottom: 5px;
-		}
+	#horizontal-divider2 {
+		bottom: 50%;
+		height: 5px;
+	}
 
-		#horizontal-divider {
-			bottom: 20em;
-			height: 5px;
-		}
+	#vertical-divider {
+		left: 10em;
+		width: 5px;
+	}
+  
+	#left-component {
+		width: 10em;
+	}
 
-		#bottom-component {
-			height: 20em;
-		}
-
-		#left-component {
-			width: 10em;
-		}
-
-		#vertical-divider {
-			left: 10em;
-			width: 5px;
-		}
-
-		#right-component {
-			left: 10em;
-			margin-left: 5px;
-		}
+	#right-component {
+		left: 10em;
+		margin-left: 5px;
+	}
 		
-		#top-component2 {
-			bottom: 50%;
-			margin-bottom: 5px;
-		}
+	#leaf-image-viewer-panel {
+		bottom: 50%;
+		margin-bottom: 5px;
+	}
 
-		#horizontal-divider2 {
-			bottom: 50%;
-			height: 5px;
-		}
-
-		#bottom-component2 {
-			height: 50%;
-		}
+	#xml-editor-panel {
+		height: 50%;
+	}
     
   #openseadragon {
     height: 1000px;
