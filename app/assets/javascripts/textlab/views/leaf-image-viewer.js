@@ -5,6 +5,38 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   id: 'leaf-image-viewer',
             	
 	initialize: function(options) {
+    
+    _.bindAll( this, "drag_handler", "dragEnd_handler", "press_handler" );
+    this.hit_item = null;
+    
+    this.tileSource = '{"type":"legacy-image-pyramid","levels":[{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-3.jpg","width":336,"height":530},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-2.jpg","width":671,"height":1059},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-1.jpg","width":1342,"height":2117},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2.jpg","width":2683,"height":4234}]}';
+    
+  },
+  
+  drag_handler: function(event) {
+      if (this.hit_item) {
+          var transformed_point1 = paper.view.viewToProject(new paper.Point(0,0));
+          var transformed_point2 = paper.view.viewToProject(new paper.Point(event.delta.x, event.delta.y));
+          this.hit_item.position = this.hit_item.position.add(transformed_point2.subtract(transformed_point1));
+          this.viewer.setMouseNavEnabled(false);
+          paper.view.draw();
+      }
+  },
+  
+  dragEnd_handler: function(event) {
+      if (this.hit_item) {
+          this.viewer.setMouseNavEnabled(true);
+      }
+      this.hit_item = null;
+  },
+  
+  press_handler: function(event) {
+      this.hit_item = null;
+      var transformed_point = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+      var hit_test_result = paper.project.hitTest(transformed_point);
+      if (hit_test_result) {
+          this.hit_item = hit_test_result.item;
+      }
   },
       
   render: function() {        
@@ -13,46 +45,17 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   
   renderImage: function() {      
         
-		window.viewer = OpenSeadragon({
+		this.viewer = OpenSeadragon({
 			id : "openseadragon",
 			prefixUrl : "/openseadragon/",
- debugMode:  false,
-        visibilityRatio: 1.0,
-        constrainDuringPan: true,
-        showNavigator: true,
-        zoomPerScroll: 1.8
+      debugMode:  false,
+      visibilityRatio: 1.0,
+      constrainDuringPan: true,
+      showNavigator: true,
+      zoomPerScroll: 1.8
 		});
     
-    var overlay = window.viewer.paperjsOverlay();
-   
-    var circles = [];
-    var paintCircles = function(jsondata, overlay) {
-    };
-    var hit_item = null;
-    var drag_handler = function(event) {
-        if (hit_item) {
-            var transformed_point1 = paper.view.viewToProject(new paper.Point(0,0));
-            var transformed_point2 = paper.view.viewToProject(new paper.Point(event.delta.x, event.delta.y));
-            hit_item.position = hit_item.position.add(transformed_point2.subtract(transformed_point1));
-            window.viewer.setMouseNavEnabled(false);
-            paper.view.draw();
-        }
-    };
-    var dragEnd_handler = function(event) {
-        if (hit_item) {
-            window.viewer.setMouseNavEnabled(true);
-        }
-        hit_item = null;
-    };
-    
-    var press_handler = function(event) {
-        hit_item = null;
-        var transformed_point = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
-        var hit_test_result = paper.project.hitTest(transformed_point);
-        if (hit_test_result) {
-            hit_item = hit_test_result.item;
-        }
-    };
+    this.overlay = this.viewer.paperjsOverlay();
     
     var paint_circles = function(overlay, event) {
       var circles = [
@@ -81,50 +84,21 @@ TextLab.LeafImageViewer = Backbone.View.extend({
       }
       overlay.resize();
       overlay.resizecanvas();
-    }.bind(null, overlay);
-
+    }.bind(null, this.overlay);
+    
     new OpenSeadragon.MouseTracker({
-      element: window.viewer.canvas,
-      pressHandler: press_handler,
-      dragHandler: drag_handler,
-      dragEndHandler: dragEnd_handler
+      element: this.viewer.canvas,
+      pressHandler: this.press_handler,
+      dragHandler: this.drag_handler,
+      dragEndHandler: this.dragEnd_handler
     }).setTracking(true);
-
-    var tileSource = '{"type":"legacy-image-pyramid","levels":[{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-3.jpg","width":336,"height":530},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-2.jpg","width":671,"height":1059},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-1.jpg","width":1342,"height":2117},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2.jpg","width":2683,"height":4234}]}';
         
-    window.viewer.addTiledImage({
-            tileSource: tileSource,
-            x: 0,
-            y: 0,
-            success: paint_circles
-        });
-
-    window.onresize = function() {
-
-			var editorViewport = $("#leaf-image-viewer");
-      var seaDragonViewport = $("#openseadragon")
-      
-			var windowHeight = $(window).height();
-			var editorTop = editorViewport.offset().top;
-			var viewportHeight = windowHeight - editorTop;
-			var viewportInnerHeight = viewportHeight;
-			editorViewport.height(viewportHeight);				
-
-			var windowWidth = $(window).width();
-			var editorLeft = editorViewport.offset().left;
-			var viewportWidth = windowWidth - editorLeft;
-			var viewportInnerWidth = viewportWidth;
-			editorViewport.width(viewportWidth);				
-			
-			seaDragonViewport.height(viewportHeight/2-50);				
-      seaDragonViewport.width(viewportWidth-200);	      
-              
-      overlay.resize();
-      overlay.resizecanvas();
-       
-		}; 
-
-                
+    this.viewer.addTiledImage({
+        tileSource: this.tileSource,
+        x: 0,
+        y: 0,
+        success: paint_circles
+    });
   }
 	
   

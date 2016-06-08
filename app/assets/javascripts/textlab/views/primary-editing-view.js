@@ -5,7 +5,34 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   id: 'primary-editing-view',
             	
 	initialize: function(options) {
+    _.bindAll( this, 'onWindowResize' );
   },
+  
+  onWindowResize: function() {
+
+		var editorViewport = this.$el;
+    var seaDragonViewport = this.$("#openseadragon");
+    var window$ = $(window);
+      
+		var windowHeight = window$.height();
+		var editorTop = editorViewport.offset().top;
+		var viewportHeight = windowHeight - editorTop;
+		var viewportInnerHeight = viewportHeight;
+		editorViewport.height(viewportHeight);				
+
+		var windowWidth = window$.width();
+		var editorLeft = editorViewport.offset().left;
+		var viewportWidth = windowWidth - editorLeft;
+		var viewportInnerWidth = viewportWidth;
+		editorViewport.width(viewportWidth);				
+	
+		seaDragonViewport.height(viewportHeight/2-50);				
+    seaDragonViewport.width(viewportWidth-200);	      
+     
+    var overlay = this.leafImageViewer.overlay;     
+    overlay.resize();
+    overlay.resizecanvas();     
+	},
       
   render: function() {      
     
@@ -28,6 +55,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     $(".textlab-app").html(this.$el);                
   
     this.leafImageViewer.renderImage();
+        
+    $(window).resize(this.onWindowResize);
   }
   
 });
