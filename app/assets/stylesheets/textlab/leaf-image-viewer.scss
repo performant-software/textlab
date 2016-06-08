@@ -1,8 +1,12 @@
 #leaf-image-viewer {
   
-  #viewer-toolbar {
-    height: 40px;
-    background: #EAEAEA;
+  .viewer-toolbar {
+    position: relative;
+    z-index: 1;
+    margin-right: 10px;
+    top: 10px;
+    margin-bottom: -60px;
+    float: right;
   }
   
 }

@@ -48,11 +48,10 @@ TextLab.LeafImageViewer = Backbone.View.extend({
 		this.viewer = OpenSeadragon({
 			id : "openseadragon",
 			prefixUrl : "/openseadragon/",
-      debugMode:  false,
-      visibilityRatio: 1.0,
-      constrainDuringPan: true,
-      zoomPerScroll: 1.8,
-      toolbar: 'viewer-toolbar'
+      showFullPageControl: false,
+      zoomInButton: 'zoom-in-button',
+      zoomOutButton: 'zoom-out-button',
+      showHomeControl: false
 		});
     
     this.overlay = this.viewer.paperjsOverlay();
