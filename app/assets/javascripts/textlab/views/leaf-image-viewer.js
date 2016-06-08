@@ -40,9 +40,11 @@ TextLab.LeafImageViewer = Backbone.View.extend({
     // TODO toggle the visibility of the regions
   },
   
-  selectRegion: function() {
-    // TODO if in edit mode, selects a region
-    alert('click')
+  selectRegion: function(event) {
+    if( this.mode == 'nav' ) {
+      var hitResult = paper.project.hitTest(event.point);
+      hitResult.item.strokeColor = 'green'; 
+    }
   },
   
   onDragStart: function(event) {
@@ -52,7 +54,7 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   },
   
   onDrag: function(event) {
-    if ( this.mode == 'add' && this.dragStart) {
+    if ( this.mode == 'add' ) {
       var to = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
       
       if( this.draggingRectangle ) {
@@ -71,11 +73,12 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   },
   
   onDragEnd: function(event) {
-    if (this.dragStart) {
-      // TODO add this to the list of regions (check if in add mode)
-      this.dragStart = null;
-      this.draggingRectangle = null;
-    }
+    if ( this.mode == 'add' ) {
+      // TODO add this to the list of regions 
+    } 
+    
+    this.dragStart = null;
+    this.draggingRectangle = null;
   },
       
   render: function() {        
@@ -88,7 +91,7 @@ TextLab.LeafImageViewer = Backbone.View.extend({
     var rect = new paper.Path.Rectangle(from, to);
     rect.strokeColor = 'red';
     rect.strokeWidth = 8;
-    rect.onMouseDown = this.onSelectRegion;
+    rect.onMouseDown = this.selectRegion;
     return rect;
   },
   
