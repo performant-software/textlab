@@ -1,6 +1,6 @@
 TextLab.LeafImageViewer = Backbone.View.extend({
 
-	template: _.template("<div id='openseadragon'></div>"),
+	template: JST['textlab/templates/leaf-image-viewer'],
     
   id: 'leaf-image-viewer',
             	
@@ -51,7 +51,8 @@ TextLab.LeafImageViewer = Backbone.View.extend({
       debugMode:  false,
       visibilityRatio: 1.0,
       constrainDuringPan: true,
-      zoomPerScroll: 1.8
+      zoomPerScroll: 1.8,
+      toolbar: 'viewer-toolbar'
 		});
     
     this.overlay = this.viewer.paperjsOverlay();
