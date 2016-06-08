@@ -60,7 +60,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 
     $(".textlab-app").html(this.$el);                
   
-    this.leafImageViewer.renderImage();
+    // viewer must be initialized after el is in DOM
+    this.leafImageViewer.initViewer();
         
     // resize listeners
     $(window).resize(this.onWindowResize);
