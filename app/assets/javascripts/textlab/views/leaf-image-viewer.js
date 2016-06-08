@@ -5,14 +5,14 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   id: 'leaf-image-viewer',
   
   events: {
-    'click #edit-regions-button': 'onClickEditRegions',
-    'click #add-regions-button': 'onClickAddRegions',
-    'click #toggle-regions-button': 'onClickToggleRegions'
+    'click #add-mode-button': 'addMode',
+    'click #nav-mode-button': 'navMode',
+    'click #toggle-regions-button': 'toggleRegions'
   },
             	
 	initialize: function(options) {
     
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "addRectangularRegion", "onSelectRegion" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "addRectangularRegion", "selectRegion" );
 
     this.dragStart = null;
     
@@ -24,30 +24,37 @@ TextLab.LeafImageViewer = Backbone.View.extend({
     
   },
   
-  onClickAddRegions: function() {
-    // TODO put system in box drawing mode, ready to create boxes
-
+  addMode: function() {
+    this.mode = 'add';
+    this.viewer.setMouseNavEnabled(false);
+    $('#add-mode-button').addClass('active');
+    $('#nav-mode-button').removeClass('active');
+  },
+    
+  navMode: function() {
+    this.mode = 'nav';
+    this.viewer.setMouseNavEnabled(true);
+    $('#nav-mode-button').addClass('active');
+    $('#add-mode-button').removeClass('active');
   },
   
-  onClickEditRegions: function() {
-    // TODO put system in selection mode, accept clicks to select regions
-  },
-  
-  onClickToggleRegions: function() {
+  toggleRegions: function() {
     // TODO toggle the visibility of the regions
   },
   
-  onSelectRegion: function() {
-    // TODO if in select region mode, selects a region
+  selectRegion: function() {
+    // TODO if in edit mode, selects a region
+    alert('click')
   },
   
   onDragStart: function(event) {
-    this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
-    this.viewer.setMouseNavEnabled(false);
+    if( this.mode == 'add' ) {
+      this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+    }
   },
   
   onDrag: function(event) {
-    if (this.dragStart) {
+    if ( this.mode == 'add' && this.dragStart) {
       var to = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
       
       if( this.draggingRectangle ) {
@@ -67,10 +74,9 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if (this.dragStart) {
-      // TODO add this to the list of regions
+      // TODO add this to the list of regions (check if in add mode)
       this.dragStart = null;
       this.draggingRectangle = null;
-      this.viewer.setMouseNavEnabled(true);
     }
   },
       
@@ -126,6 +132,8 @@ TextLab.LeafImageViewer = Backbone.View.extend({
         y: 0,
         success: renderRegions
     });
+    
+    this.navMode();
   }
   
 });
