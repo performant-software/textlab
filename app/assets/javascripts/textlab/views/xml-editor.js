@@ -1,6 +1,4 @@
 TextLab.XMLEditor = Backbone.View.extend({
-
-	template: _.template("<textarea class='xml-editor'></textarea>"),
     
   id: 'xml-editor',
             	
@@ -9,9 +7,8 @@ TextLab.XMLEditor = Backbone.View.extend({
       
   render: function() {      
     
-    this.$el.html(this.template({}));  
-
-	
+		this.editor = CodeMirror( this.el, {
+		});
   }
   
   
