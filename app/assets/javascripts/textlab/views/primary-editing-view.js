@@ -32,7 +32,10 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     var leafImageViewerPanel = this.$("#leaf-image-viewer-panel");
     var seaDragonViewport = this.$("#openseadragon");
 		seaDragonViewport.height(leafImageViewerPanel.height());				
-    seaDragonViewport.width(leafImageViewerPanel.width());	      
+    seaDragonViewport.width(leafImageViewerPanel.width());	
+    
+    var xmlEditorPanel = this.$("#xml-editor-panel");
+    this.xmlEditor.editor.setSize( xmlEditorPanel.width(), xmlEditorPanel.height() );
     
     // tell open sea dragon overlay to resize
     var overlay = this.leafImageViewer.overlay;     
@@ -60,8 +63,9 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 
     $(".textlab-app").html(this.$el);                
   
-    // viewer must be initialized after el is in DOM
+    // viewer and editor must be initialized after they are in the DOM
     this.leafImageViewer.initViewer();
+    this.xmlEditor.initEditor();
         
     // resize listeners
     $(window).resize(this.onWindowResize);

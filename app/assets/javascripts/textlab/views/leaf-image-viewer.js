@@ -90,7 +90,7 @@ TextLab.LeafImageViewer = Backbone.View.extend({
     var to = new paper.Point(region.right,region.bottom);
     var rect = new paper.Path.Rectangle(from, to);
     rect.strokeColor = 'red';
-    rect.strokeWidth = 8;
+    rect.strokeWidth = 12;
     rect.onMouseDown = this.selectRegion;
     return rect;
   },
@@ -99,7 +99,6 @@ TextLab.LeafImageViewer = Backbone.View.extend({
         
 		this.viewer = OpenSeadragon({
 			id : "openseadragon",
-			prefixUrl : "/openseadragon/",
       showFullPageControl: false,
       zoomInButton: 'zoom-in-button',
       zoomOutButton: 'zoom-out-button',
@@ -129,8 +128,6 @@ TextLab.LeafImageViewer = Backbone.View.extend({
         
     this.viewer.addTiledImage({
         tileSource: this.tileSource,
-        x: 0,
-        y: 0,
         success: renderRegions
     });
     

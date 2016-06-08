@@ -6,10 +6,15 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
       
   render: function() {      
-    
-		this.editor = CodeMirror( this.el, {
-		});
-  }
+    this.$el.html("<textarea id='codemirror'></textarea>");        
+  },
   
+  initEditor: function() {
+    var editorEl = this.$("#codemirror").get(0);
+		this.editor = CodeMirror.fromTextArea( editorEl, {
+        mode: "xml",
+        lineNumbers: true
+		});    
+  }  
   
 });
