@@ -1,0 +1,22 @@
+<div class='btn-toolbar xml-editor-toolbar'>
+    
+  <div class="dropdown">
+    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+      Tags
+      <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+      <% _.each( tags, function(tag) { %>
+        <li><a href="#"><%= tag.label %></a></li>
+      <% })%>
+    </ul>
+  </div>
+  
+  <a class='tag-menu-item btn btn-sm btn-default' data-tag-id='p' href='#'>p</a>
+  <a class='btn btn-sm btn-default' href='#'>pb</a>
+  <a class='btn btn-sm btn-default' href='#' >ab</a>
+  <a class='btn btn-sm btn-default' href='#'>div</a>
+  <a class='btn btn-sm btn-default' href='#' >milestone</a>
+  
+</div>
+<textarea id='codemirror'></textarea>
