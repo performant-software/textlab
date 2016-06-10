@@ -1,11 +1,13 @@
 TextLab.XMLEditor = Backbone.View.extend({
     
 	template: JST['textlab/templates/xml-editor'],
-    
+  facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
+  
   id: 'xml-editor',
   
   events: {
-    'click .tag-menu-item': 'onClickTagMenuItem'
+    'click .tag-menu-item': 'onClickTagMenuItem',
+    'click .facs-ref': 'onClickFacsRef'
   },
             	
 	initialize: function(options) {
@@ -42,8 +44,18 @@ TextLab.XMLEditor = Backbone.View.extend({
       // insert tag at caret
       var doc =  this.editor.getDoc();
       var caretPosition = doc.getCursor();
-      doc.replaceRange("<p></p>", caretPosition );      
+      var facsID = "image5";
+      doc.replaceRange("image5", caretPosition );
+      var endIndex = doc.indexFromPos(caretPosition) + facsID.length;
+      var endPos = doc.posFromIndex(endIndex);
+      doc.markText( caretPosition, endPos, { className: "facs-ref", atomic: true } );
+          
     }
+  },
+  
+  onClickFacsRef: function() {
+    // TODO
+
   },
       
   render: function() {      
