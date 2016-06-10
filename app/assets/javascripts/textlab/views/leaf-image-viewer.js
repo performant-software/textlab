@@ -43,7 +43,9 @@ TextLab.LeafImageViewer = Backbone.View.extend({
   selectRegion: function(event) {
     if( this.mode == 'nav' ) {
       var hitResult = paper.project.hitTest(event.point);
-      hitResult.item.strokeColor = 'green'; 
+      var rect = hitResult.item;
+      rect.opacity = 1;
+      rect.dashArray = [];
     }
   },
   
@@ -89,8 +91,10 @@ TextLab.LeafImageViewer = Backbone.View.extend({
     var from = new paper.Point(region.left,region.top);
     var to = new paper.Point(region.right,region.bottom);
     var rect = new paper.Path.Rectangle(from, to);
-    rect.strokeColor = 'red';
+    rect.strokeColor = 'blue';
+    rect.opacity = 0.5;
     rect.strokeWidth = 12;
+    rect.dashArray = [50, 10];
     rect.onMouseDown = this.selectRegion;
     return rect;
   },

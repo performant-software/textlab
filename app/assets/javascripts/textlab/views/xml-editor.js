@@ -6,7 +6,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   events: {
     'click .tag-menu-item': 'onClickTagMenuItem'
-  }
+  },
             	
 	initialize: function(options) {
     
@@ -42,7 +42,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       // insert tag at caret
       
     }
-  }
+  },
       
   render: function() {      
     this.$el.html(this.template({ tags: this.tags })); 
