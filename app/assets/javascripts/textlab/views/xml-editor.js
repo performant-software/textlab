@@ -40,7 +40,9 @@ TextLab.XMLEditor = Backbone.View.extend({
     if( this.editor ) {
       
       // insert tag at caret
-      
+      var doc =  this.editor.getDoc();
+      var caretPosition = doc.getCursor();
+      doc.replaceRange("<p></p>", caretPosition );      
     }
   },
       
