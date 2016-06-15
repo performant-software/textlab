@@ -14,10 +14,6 @@ gem 'jbuilder', '~> 2.0'
 gem 'exception_notification'
 gem 'devise'
 gem 'devise-encryptable'
-gem 'neo4j'
-gem 'delayed_job_active_record'
-gem 'will_paginate', '~> 3.0.5'
-gem 'summernote-rails'
 
 # Asset Pipeline
 gem 'sass-rails', '~> 5.0'
