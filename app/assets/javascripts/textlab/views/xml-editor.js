@@ -19,13 +19,22 @@ TextLab.XMLEditor = Backbone.View.extend({
   onClickTagMenuItem: function(event) {
     var tagID = $(event.currentTarget).attr("data-tag-id");		
     var tag = TextLab.Tags[tagID];
+
+    var doc =  this.editor.getDoc();
     var openTag = this.openTagTemplate(tag);
     var closeTag = this.closeTagTemplate(tag);
-  
-    var doc =  this.editor.getDoc();
-    var caretPosition = doc.getCursor();
-    doc.replaceRange(closeTag, caretPosition );
-    doc.replaceRange(openTag, caretPosition );
+    
+    if( doc.somethingSelected() ) {
+      var body = doc.getSelection();
+      var insertion = openTag + body + closeTag;
+      doc.replaceSelection(insertion);
+    } else {
+      var caretPosition = doc.getCursor();
+      var insertion = openTag + closeTag;
+      doc.replaceRange(insertion, caretPosition );
+    }
+    
+    this.editor.focus();
   },
   
   insertImageLink: function() {
@@ -41,7 +50,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   onClickImageLink: function() {
     // TODO
-
+    
   },
       
   render: function() {      
