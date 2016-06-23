@@ -2,9 +2,9 @@ TextLab.XMLEditor = Backbone.View.extend({
     
 	template: JST['textlab/templates/xml-editor'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
-  openTagTemplate: _.template("<<%= tag %>>"),
+  openTagTemplate: _.template("<<%= tag %> <%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),
-  emptyTagTemplate: _.template("<<%= tag %>/>"),
+  emptyTagTemplate: _.template("<<%= tag %> <%= attributes %>/>"),
   
   id: 'xml-editor',
   
@@ -16,25 +16,53 @@ TextLab.XMLEditor = Backbone.View.extend({
 	initialize: function(options) {
   },
   
+  // milestone: {
+  //   tag: 'milestone',
+  //   empty: true,
+  //   attributes: {
+  //     unit: { displayName: 'Unit', fieldType: 'vocab', vocab: ['Clip', 'Mount', 'Leaf'] },
+  //     number: { displayName: 'Number', fieldType: 'number' }
+  //   }
+  // }
+  
   onClickTagMenuItem: function(event) {
     var tagID = $(event.currentTarget).attr("data-tag-id");		
     var tag = TextLab.Tags[tagID];
 
     var doc =  this.editor.getDoc();
-    var openTag = this.openTagTemplate(tag);
-    var closeTag = this.closeTagTemplate(tag);
     
-    if( doc.somethingSelected() ) {
+    // the string to insert into the editor
+    var insertion;
+    var attributeString = "";
+    
+    if( tag.attributes ) {
+      // TODO dialog to ask user for attributes
+      attributeString = this.generateAttributes( tag );
+    }
+    
+    if( tag.empty ) {
+      insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attributeString });
+    } else {
+      var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attributeString });
       var body = doc.getSelection();
-      var insertion = openTag + body + closeTag;
+      var closeTag = this.closeTagTemplate(tag);
+      insertion = openTag + body + closeTag;
+    }
+    
+    // if a range is selected, replace it. Otherwise, insert at caret.
+    if( doc.somethingSelected() && !tag.empty ) {
       doc.replaceSelection(insertion);
     } else {
       var caretPosition = doc.getCursor();
-      var insertion = openTag + closeTag;
       doc.replaceRange(insertion, caretPosition );
     }
     
     this.editor.focus();
+  },
+  
+  generateAttributes: function( tag ) {    
+    var attributeString = 'id="foo"';    
+    return attributeString;
   },
   
   insertImageLink: function() {

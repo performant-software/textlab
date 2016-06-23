@@ -3,7 +3,7 @@ TextLab.Tags = {
   ab: {
     tag: 'ab',
     empty: false
-  }
+  },
   
   // add: {
     // attributes: [
@@ -78,9 +78,14 @@ TextLab.Tags = {
   //
   // },
   //
-  // milestone: {
-  //
-  // },
+  milestone: {
+    tag: 'milestone',
+    empty: true,
+    attributes: {
+      unit: { displayName: 'Unit', fieldType: 'vocab', vocab: ['Clip', 'Mount', 'Leaf'] },      
+      number: { displayName: 'Number', fieldType: 'number' }
+    }
+  }
   //
   // pb: {
   //
