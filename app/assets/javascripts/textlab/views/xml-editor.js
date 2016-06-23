@@ -2,64 +2,50 @@ TextLab.XMLEditor = Backbone.View.extend({
     
 	template: JST['textlab/templates/xml-editor'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
+  openTagTemplate: _.template("<<%= tag %>>"),
+  closeTagTemplate: _.template("</<%= tag %>>"),
+  emptyTagTemplate: _.template("<<%= tag %>/>"),
   
   id: 'xml-editor',
   
   events: {
     'click .tag-menu-item': 'onClickTagMenuItem',
-    'click .facs-ref': 'onClickFacsRef'
+    'click .facs-ref': 'onClickImageLink'
   },
             	
 	initialize: function(options) {
-    
-    this.tags = [ 
-      { label: 'add' },   
-      { label: 'addSpan' },   
-      { label: 'anchor' },   
-      { label: 'choice' },   
-      { label: 'corr' },   
-      { label: 'delSpan' },   
-      { label: 'ex' },   
-      { label: 'expan' },   
-      { label: 'handShift' },   
-      { label: 'hi' },   
-      { label: 'l' },   
-      { label: 'lb' },   
-      { label: 'metamark' },   
-      { label: 'rdg' },   
-      { label: 'restore' },   
-      { label: 'sic' },   
-      { label: 'restore' },   
-      { label: 'subst' },   
-      { label: 'restore' },   
-      { label: 'supplied' },   
-      { label: 'unclear' },   
-    ];
-    
   },
   
-  onClickTagMenuItem: function(e) {
-    if( this.editor ) {
-      
-      // insert tag at caret
-      var doc =  this.editor.getDoc();
-      var caretPosition = doc.getCursor();
-      var facsID = "image5";
-      doc.replaceRange("image5", caretPosition );
-      var endIndex = doc.indexFromPos(caretPosition) + facsID.length;
-      var endPos = doc.posFromIndex(endIndex);
-      doc.markText( caretPosition, endPos, { className: "facs-ref", atomic: true } );
-          
-    }
+  onClickTagMenuItem: function(event) {
+    var tagID = $(event.currentTarget).attr("data-tag-id");		
+    var tag = TextLab.Tags[tagID];
+    var openTag = this.openTagTemplate(tag);
+    var closeTag = this.closeTagTemplate(tag);
+  
+    var doc =  this.editor.getDoc();
+    var caretPosition = doc.getCursor();
+    doc.replaceRange(closeTag, caretPosition );
+    doc.replaceRange(openTag, caretPosition );
   },
   
-  onClickFacsRef: function() {
+  insertImageLink: function() {
+    // insert tag at caret
+    var doc =  this.editor.getDoc();
+    var caretPosition = doc.getCursor();
+    var facsID = "image5";
+    doc.replaceRange("image5", caretPosition );
+    var endIndex = doc.indexFromPos(caretPosition) + facsID.length;
+    var endPos = doc.posFromIndex(endIndex);
+    doc.markText( caretPosition, endPos, { className: "facs-ref", atomic: true } );        
+  },
+  
+  onClickImageLink: function() {
     // TODO
 
   },
       
   render: function() {      
-    this.$el.html(this.template({ tags: this.tags })); 
+    this.$el.html(this.template({ tags: _.keys( TextLab.Tags ) })); 
   },
   
   initEditor: function() {

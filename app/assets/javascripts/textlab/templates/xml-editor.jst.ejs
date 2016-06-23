@@ -7,16 +7,14 @@
     </button>
     <ul class="dropdown-menu">
       <% _.each( tags, function(tag) { %>
-        <li><a href="#"><%= tag.label %></a></li>
-      <% })%>
+        <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
+      <% }) %>
     </ul>
   </div>
   
-  <a class='tag-menu-item btn btn-sm btn-default' data-tag-id='p' href='#'>p</a>
-  <a class='btn btn-sm btn-default' href='#'>pb</a>
-  <a class='btn btn-sm btn-default' href='#' >ab</a>
-  <a class='btn btn-sm btn-default' href='#'>div</a>
-  <a class='btn btn-sm btn-default' href='#' >milestone</a>
+  <a class='tag-menu-item btn btn-sm btn-default' disabled data-tag-id='milestone' href='#' >milestone</a>
+  <a class='tag-menu-item btn btn-sm btn-default' disabled data-tag-id='pb' href='#'>pb</a>
+  <a class='tag-menu-item btn btn-sm btn-default' data-tag-id='ab' href='#' >ab</a>
   
 </div>
 <textarea id='codemirror'></textarea>
