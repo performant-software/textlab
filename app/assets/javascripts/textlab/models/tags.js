@@ -82,8 +82,21 @@ TextLab.Tags = {
     tag: 'milestone',
     empty: true,
     attributes: {
-      unit: { displayName: 'Unit', fieldType: 'vocab', vocab: ['Clip', 'Mount', 'Leaf'] },      
-      number: { displayName: 'Number', fieldType: 'number' }
+      number: { 
+        displayName: 'Number', 
+        fieldType: 'number', 
+        instructions: "Please enter a cardinal number for this milestone." 
+      },
+      unit: { 
+        displayName: 'Unit', 
+        fieldType: 'dropdown', 
+        vocab: [
+          { value: 'Clip', text: 'Clip' },
+          { value: 'Mount', text: 'Mount' },
+          { value: 'Leaf', text: 'Leaf' }
+        ], 
+        instructions: "Please select the type of the cardinal value." 
+      }
     }
   }
   //

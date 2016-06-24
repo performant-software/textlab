@@ -1,12 +1,19 @@
 TextLab.XMLEditor = Backbone.View.extend({
     
 	template: JST['textlab/templates/xml-editor'],
+  attributesModalTemplate: JST['textlab/templates/attributes-modal'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
   openTagTemplate: _.template("<<%= tag %> <%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),
   emptyTagTemplate: _.template("<<%= tag %> <%= attributes %>/>"),
   
   id: 'xml-editor',
+  
+	partials: {
+		stringInput: JST['textlab/templates/common/string-input'],
+		dropdownInput: JST['textlab/templates/common/dropdown-input'],
+    numberInput: JST['textlab/templates/common/number-input']
+	},
   
   events: {
     'click .tag-menu-item': 'onClickTagMenuItem',
@@ -15,15 +22,6 @@ TextLab.XMLEditor = Backbone.View.extend({
             	
 	initialize: function(options) {
   },
-  
-  // milestone: {
-  //   tag: 'milestone',
-  //   empty: true,
-  //   attributes: {
-  //     unit: { displayName: 'Unit', fieldType: 'vocab', vocab: ['Clip', 'Mount', 'Leaf'] },
-  //     number: { displayName: 'Number', fieldType: 'number' }
-  //   }
-  // }
   
   onClickTagMenuItem: function(event) {
     var tagID = $(event.currentTarget).attr("data-tag-id");		
@@ -37,6 +35,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     
     if( tag.attributes ) {
       // TODO dialog to ask user for attributes
+      $('#modal-container').html(this.attributesModalTemplate({ tag: tag, partials: this.partials }));
+      $('#attributes-modal').modal('show');
       attributeString = this.generateAttributes( tag );
     }
     
