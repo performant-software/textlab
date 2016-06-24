@@ -24,21 +24,43 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickTagMenuItem: function(event) {
+    
     var tagID = $(event.currentTarget).attr("data-tag-id");		
     var tag = TextLab.Tags[tagID];
-
-    var doc =  this.editor.getDoc();
-    
-    // the string to insert into the editor
-    var insertion;
-    var attributeString = "";
-    
-    if( tag.attributes ) {
-      // TODO dialog to ask user for attributes
-      $('#modal-container').html(this.attributesModalTemplate({ tag: tag, partials: this.partials }));
-      $('#attributes-modal').modal('show');
-      attributeString = this.generateAttributes( tag );
+        
+    if( tag.attributes ) {    
+      var onCreate = function() {
+        // TODO retrieve the attributes from the dialog
+        var attributes = [];
+        this.generateTag(tag,attributes);
+      };
+      
+      var onCancel = function() {
+        this.generateTag(tag);
+      };
+      
+      this.showAttributeDialog( tag, onCreate, onCancel );
+    } else {
+      this.generateTag(tag);
     }
+     
+  },
+  
+  showAttributeDialog: function( tag, onCreate, onCancel ) {
+    $('#modal-container').html(this.attributesModalTemplate({ tag: tag, partials: this.partials }));
+
+    // TODO add event handles for save and cancel 
+    $('#attributes-modal.save-button').click( function() {
+      alert('click');
+    });
+        
+    $('#attributes-modal').modal('show');
+  },
+  
+  generateTag: function(tag, attributes) {
+    var insertion;
+    var attributeString = this.generateAttributes( tag, attributes );
+    var doc =  this.editor.getDoc();
     
     if( tag.empty ) {
       insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attributeString });
@@ -60,7 +82,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.editor.focus();
   },
   
-  generateAttributes: function( tag ) {    
+  generateAttributes: function( attributes ) {    
     var attributeString = 'id="foo"';    
     return attributeString;
   },
