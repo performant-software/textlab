@@ -6,6 +6,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
             	
 	initialize: function(options) {
     _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );
+    this.selectedLeaf = new TextLab.Leaf();
   },
   
   onWindowResize: function() {
@@ -53,11 +54,11 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
     
-    this.surfaceView = new TextLab.SurfaceView();
+    this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf });
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);
    
-    this.xmlEditor = new TextLab.XMLEditor();
+    this.xmlEditor = new TextLab.XMLEditor({ model: this.selectedLeaf });
     this.xmlEditor.render();
     this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
 

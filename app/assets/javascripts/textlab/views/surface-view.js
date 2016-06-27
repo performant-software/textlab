@@ -7,19 +7,12 @@ TextLab.SurfaceView = Backbone.View.extend({
   events: {
     'click #add-mode-button': 'addMode',
     'click #nav-mode-button': 'navMode',
-    'click #toggle-regions-button': 'toggleRegions'
+    'click #toggle-zones-button': 'toggleZones'
   },
             	
 	initialize: function(options) {
-    
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "addRectangularRegion", "selectRegion" );
-
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "addZone", "selectZone" );
     this.dragStart = null;
-    
-    this.regions = [  ];
-    
-    this.tileSource = '{"type":"legacy-image-pyramid","levels":[{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-3.jpg","width":336,"height":530},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-2.jpg","width":671,"height":1059},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2-1.jpg","width":1342,"height":2117},{"url":"https://staging-uploads-juxtaeditions.s3.amazonaws.com/uploads/1422303907274-3mlxforsfydjkyb9-35ecdf6c89905871192303efb67f3d16/Page2.jpg","width":2683,"height":4234}]}';
-    
   },
   
   addMode: function() {
@@ -36,11 +29,11 @@ TextLab.SurfaceView = Backbone.View.extend({
     $('#add-mode-button').removeClass('active');
   },
   
-  toggleRegions: function() {
+  toggleZones: function() {
     // TODO toggle the visibility of the regions
   },
   
-  selectRegion: function(event) {
+  selectZone: function(event) {
     if( this.mode == 'nav' ) {
       var hitResult = paper.project.hitTest(event.point);
       var rect = hitResult.item;
@@ -63,7 +56,7 @@ TextLab.SurfaceView = Backbone.View.extend({
         this.draggingRectangle.remove();  
       }
       
-      this.draggingRectangle = this.addRectangularRegion({ 
+      this.draggingRectangle = this.addZone({ 
         top: this.dragStart.y, 
         left: this.dragStart.x, 
         bottom: to.y, 
@@ -76,7 +69,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
-      // TODO add this to the list of regions 
+      // TODO add this to the list of zones 
     } 
     
     this.dragStart = null;
@@ -87,15 +80,15 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.$el.html(this.template()); 
   },
   
-  addRectangularRegion: function( region ) {
-    var from = new paper.Point(region.left,region.top);
-    var to = new paper.Point(region.right,region.bottom);
+  addZone: function( zone ) {
+    var from = new paper.Point(zone.left,zone.top);
+    var to = new paper.Point(zone.right,zone.bottom);
     var rect = new paper.Path.Rectangle(from, to);
     rect.strokeColor = 'blue';
     rect.opacity = 0.5;
     rect.strokeWidth = 12;
     rect.dashArray = [50, 10];
-    rect.onMouseDown = this.selectRegion;
+    rect.onMouseDown = this.selectZone;
     return rect;
   },
   
@@ -125,13 +118,13 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     var self = this;
     var renderRegions = function(overlay, event) {      
-      _.each( self.regions, self.addRectangularRegion );
+      _.each( self.model.zones.toJSON(), self.addZone );
       overlay.resize();
       overlay.resizecanvas();
     }.bind(null, this.overlay);
         
     this.viewer.addTiledImage({
-        tileSource: this.tileSource,
+        tileSource: this.model.tileSource,
         success: renderRegions
     });
     
