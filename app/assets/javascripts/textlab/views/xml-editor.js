@@ -96,7 +96,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
       
   render: function() {      
-    this.$el.html(this.template({ tags: TextLab.Tags })); 
+    this.$el.html(this.template({ tags: _.keys( TextLab.Tags ) })); 
   },
   
   initEditor: function() {

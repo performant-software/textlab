@@ -114,8 +114,7 @@ TextLab.Tags = {
 
   lb: {
     tag: 'lb',
-    empty: true,
-    notOnDropDown: true
+    empty: true
   },
 
   // metamark: {

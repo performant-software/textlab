@@ -8,9 +8,7 @@
     </button>
     <ul class="dropdown-menu">
       <% _.each( tags, function(tag) { %>
-        <% if( !tag.notOnDropDown ) { %>
-          <li><a class='tag-menu-item' data-tag-id='<%= tag.tag %>' href="#"><%= tag.tag %></a></li>
-        <% } %>
+        <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
       <% }) %>
     </ul>
   </div>
@@ -18,7 +16,7 @@
   <a class='tag-menu-item btn btn-sm btn-default' data-tag-id='milestone' href='#' >milestone</a>
   <a class='tag-menu-item btn btn-sm btn-default' disabled data-tag-id='pb' href='#'>pb</a>
   <a class='tag-menu-item btn btn-sm btn-default' data-tag-id='ab' href='#' >ab</a>
-  <a class='lb-mode-button btn btn-sm btn-default' href='#' >lb</a>
+  <a class='lb-mode-button btn btn-sm btn-default' data-tag-id='lb' href='#' >lb</a>
   
 </div>
 <textarea id='codemirror'></textarea>
