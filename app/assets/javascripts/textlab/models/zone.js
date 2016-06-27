@@ -1,18 +1,25 @@
 TextLab.Zone = Backbone.Model.extend({
-  urlRoot: "zones"
+  urlRoot: "zones",
   
-  // TODO has coordinate info and id
+  initialize: function( attributes, options ) {  
+      // TODO record rect and id    
+  },
   
 });
 
 TextLab.ZoneCollection = Backbone.Collection.extend({
   model: TextLab.Zone,
   url: "zones",
-  
-  // TODO makes sure no two zones have the same id
-  
+    
   initialize: function( models, options ) {
     
-  }      
+  },
+  
+  addZone: function( rect ) {
+    // TODO makes sure no two zones have the same id
+    
+    var zone = new TextLab.Zone( rect );
+        
+  }     
   
 }); 

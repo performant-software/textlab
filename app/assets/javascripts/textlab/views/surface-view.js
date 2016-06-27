@@ -11,7 +11,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
             	
 	initialize: function(options) {
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "addZone", "selectZone" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "selectZone" );
     this.dragStart = null;
   },
   
@@ -52,11 +52,11 @@ TextLab.SurfaceView = Backbone.View.extend({
     if ( this.mode == 'add' ) {
       var to = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
       
-      if( this.draggingRectangle ) {
-        this.draggingRectangle.remove();  
+      if( this.draggingZone ) {
+        this.draggingZone.remove();  
       }
       
-      this.draggingRectangle = this.addZone({ 
+      this.draggingZone = this.renderZone({ 
         top: this.dragStart.y, 
         left: this.dragStart.x, 
         bottom: to.y, 
@@ -69,18 +69,18 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
-      // TODO add this to the list of zones 
+      this.model.zones.addZone(this.draggingZone);
     } 
     
     this.dragStart = null;
-    this.draggingRectangle = null;
+    this.draggingZone = null;
   },
       
   render: function() {        
     this.$el.html(this.template()); 
   },
   
-  addZone: function( zone ) {
+  renderZone: function( zone ) {
     var from = new paper.Point(zone.left,zone.top);
     var to = new paper.Point(zone.right,zone.bottom);
     var rect = new paper.Path.Rectangle(from, to);
@@ -118,7 +118,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     var self = this;
     var renderRegions = function(overlay, event) {      
-      _.each( self.model.zones.toJSON(), self.addZone );
+      _.each( self.model.zones.toJSON(), self.renderZone );
       overlay.resize();
       overlay.resizecanvas();
     }.bind(null, this.overlay);
