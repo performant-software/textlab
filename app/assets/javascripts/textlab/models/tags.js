@@ -82,7 +82,7 @@ TextLab.Tags = {
     tag: 'milestone',
     empty: true,
     attributes: {
-      number: { 
+      n: { 
         displayName: 'Number', 
         fieldType: 'number', 
         instructions: "Please enter a cardinal number for this milestone." 

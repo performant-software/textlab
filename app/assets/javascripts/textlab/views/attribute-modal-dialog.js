@@ -1,6 +1,7 @@
 TextLab.AttributeModalDialog = Backbone.View.extend({
     
 	template: JST['textlab/templates/attribute-modal-dialog'],
+  attributeTemplate: _.template('<%= key %>="<%= value %>" '),
   
   id: 'attribute-modal-container',
   
@@ -23,9 +24,15 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
   onCreate: function() {    
     var attributesModal = $('#attributes-modal');
     
-    // TODO generate attributes
-    var attributes = "id='foo'";
-
+    var attributes = "";
+    
+    _.each( this.tag.attributes, _.bind( function( attribute, key ) {
+      var fieldID = 'att-'+key;
+      var value = $('#'+fieldID).val();      
+      var pair = { key: key, value: value };
+      attributes = attributes + this.attributeTemplate(pair);      
+    }, this));
+    
     this.close( _.bind( function() {
       this.callback(attributes);
     }, this));
