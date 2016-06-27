@@ -32,10 +32,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
   },
   
   onCancel: function() {    
-    this.close( _.bind( function() {
-      // return no attributes
-      this.callback(null);
-    }, this));
+    this.close();
   },
   
   close: function( closeCallback ) {
@@ -43,7 +40,9 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     
     attributesModal.on('hidden.bs.modal', _.bind( function () {
       this.$el.detach();
-      closeCallback();
+      if( closeCallback ) {
+        closeCallback();
+      }
     }, this));
     
     attributesModal.modal('hide');
