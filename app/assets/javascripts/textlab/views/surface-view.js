@@ -1,8 +1,8 @@
-TextLab.LeafImageViewer = Backbone.View.extend({
+TextLab.SurfaceView = Backbone.View.extend({
 
-	template: JST['textlab/templates/leaf-image-viewer'],
+	template: JST['textlab/templates/surface-view'],
     
-  id: 'leaf-image-viewer',
+  id: 'surface-view',
   
   events: {
     'click #add-mode-button': 'addMode',

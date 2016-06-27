@@ -29,16 +29,16 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   onSplitPaneResize: function() {    
     
     // resize the leaf image viewport
-    var leafImageViewerPanel = this.$("#leaf-image-viewer-panel");
+    var surfaceViewPanel = this.$("#surface-view-panel");
     var seaDragonViewport = this.$("#openseadragon");
-		seaDragonViewport.height(leafImageViewerPanel.height());				
-    seaDragonViewport.width(leafImageViewerPanel.width());	
+		seaDragonViewport.height(surfaceViewPanel.height());				
+    seaDragonViewport.width(surfaceViewPanel.width());	
     
     var xmlEditorPanel = this.$("#xml-editor-panel");
     this.xmlEditor.editor.setSize( xmlEditorPanel.width(), xmlEditorPanel.height() );
     
     // tell open sea dragon overlay to resize
-    var overlay = this.leafImageViewer.overlay;     
+    var overlay = this.surfaceView.overlay;     
     overlay.resize();
     overlay.resizecanvas();     
   },
@@ -53,9 +53,9 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
     
-    this.leafImageViewer = new TextLab.LeafImageViewer();
-    this.leafImageViewer.render();    
-    this.$("#"+this.leafImageViewer.id).replaceWith(this.leafImageViewer.$el);
+    this.surfaceView = new TextLab.SurfaceView();
+    this.surfaceView.render();    
+    this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);
    
     this.xmlEditor = new TextLab.XMLEditor();
     this.xmlEditor.render();
@@ -64,7 +64,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     $(".textlab-app").html(this.$el);                
   
     // viewer and editor must be initialized after they are in the DOM
-    this.leafImageViewer.initViewer();
+    this.surfaceView.initViewer();
     this.xmlEditor.initEditor();
         
     // resize listeners
