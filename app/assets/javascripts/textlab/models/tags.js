@@ -91,9 +91,10 @@ TextLab.Tags = {
         displayName: 'Unit', 
         fieldType: 'dropdown', 
         vocab: [
-          { value: 'Clip', text: 'Clip' },
-          { value: 'Mount', text: 'Mount' },
-          { value: 'Leaf', text: 'Leaf' }
+          { value: 'chapter', text: 'Chapter' },
+          { value: 'clip', text: 'Clip' },
+          { value: 'mount', text: 'Mount' },
+          { value: 'leaf', text: 'Leaf' }
         ], 
         instructions: "Please select the type of the cardinal value." 
       }

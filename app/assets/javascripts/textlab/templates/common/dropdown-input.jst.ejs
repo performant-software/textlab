@@ -1,6 +1,6 @@
 <div class="row <%= (error) ? 'has-error' : '' %>">
-  <label for="<%= field_name %>" class="control-label col-sm-3"><%= field_title %>:</label>
-  <div class="col-sm-8 field-wrapper">
+  <label for="<%= field_name %>" class="control-label col-sm-2"><%= field_title %>:</label>
+  <div class="col-sm-9 field-wrapper">
   	<select type="text" class="form-control" id="<%= field_name %>">
   		<option></option>
   		<% for (var i = 0; i < options.length; i++) { %>
