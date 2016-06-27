@@ -24,7 +24,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
   onCreate: function() {    
     var attributesModal = $('#attributes-modal');
     
-    var attributes = "";
+    var attributes = " ";
     
     _.each( this.tag.attributes, _.bind( function( attribute, key ) {
       var fieldID = 'att-'+key;

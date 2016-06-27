@@ -17,43 +17,50 @@ TextLab.Tags = {
     // ],
     // template: _.template('place="<%= place %>"> facs="<%= facs %>"')
   // },
-  //
-  // addSpan: {
-  //
-  // },
-  //
-  // anchor: {
-  //
-  // },
-  //
-  // app: {
-  //
-  // },
-  //
-  // choice: {
-  //
-  // },
-  //
-  // corr: {
-  //
-  // },
-  //
+
+  addSpan: {
+    tag: 'addSpan',
+    empty: false
+  },
+
+  anchor: {
+    tag: 'anchor',
+    empty: false
+  },
+
+  app: {
+    tag: 'app',
+    empty: false
+  },
+
+  choice: {
+    tag: 'choice',
+    empty: false
+  },
+
+  corr: {
+    tag: 'corr',
+    empty: false
+  },
+
   // del: {
   //
   // },
-  //
-  // delSpan: {
-  //
-  // },
-  //
+ 
+  delSpan: {
+    tag: 'delSpan',
+    empty: false
+  },
+
   // ex: {
   //
   // },
-  //
-  // expan: {
-  //
-  // },
-  //
+  
+  expan: {
+    tag: 'expan',
+    empty: false
+  },
+
   // gap: {
   //
   // },
@@ -65,11 +72,12 @@ TextLab.Tags = {
   // hi: {
   //
   // },
-  //
-  // l: {
-  //
-  // },
-  //
+
+  l: {
+    tag: 'l',
+    empty: false
+  },
+
   // lb: {
   //
   // },
@@ -77,7 +85,7 @@ TextLab.Tags = {
   // metamark: {
   //
   // },
-  //
+ 
   milestone: {
     tag: 'milestone',
     empty: true,
@@ -99,8 +107,8 @@ TextLab.Tags = {
         instructions: "Please select the type of the cardinal value." 
       }
     }
-  }
-  //
+  },
+
   // pb: {
   //
   // },
@@ -112,19 +120,21 @@ TextLab.Tags = {
   // restore: {
   //
   // },
-  //
-  // sic: {
-  //
-  // },
-  //
+
+  sic: {
+    tag: 'sic',
+    empty: false
+  },
+
   // subst: {
   //
   // },
-  //
-  // supplied: {
-  //
-  // },
-  //
+
+  supplied: {
+    tag: 'supplied',
+    empty: false
+  }
+
   // unclear: {
   //
   // }
