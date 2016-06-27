@@ -8,8 +8,8 @@
     </button>
     <ul class="dropdown-menu">
       <% _.each( tags, function(tag) { %>
-        <% if( !tag.modal ) { %>
-          <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
+        <% if( !tag.notOnDropDown ) { %>
+          <li><a class='tag-menu-item' data-tag-id='<%= tag.tag %>' href="#"><%= tag.tag %></a></li>
         <% } %>
       <% }) %>
     </ul>
