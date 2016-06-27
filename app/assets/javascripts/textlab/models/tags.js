@@ -112,10 +112,12 @@ TextLab.Tags = {
     empty: false
   },
 
-  // lb: {
-  //
-  // },
-  //
+  lb: {
+    tag: 'lb',
+    empty: true,
+    modal: true
+  },
+
   // metamark: {
   //
   // },

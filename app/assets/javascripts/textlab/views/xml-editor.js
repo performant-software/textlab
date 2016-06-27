@@ -9,15 +9,18 @@ TextLab.XMLEditor = Backbone.View.extend({
   id: 'xml-editor',
   
   events: {
+    'click .lb-mode-button': 'onClicklbMode',
     'click .tag-menu-item': 'onClickTagMenuItem',
     'click .facs-ref': 'onClickImageLink'
   },
             	
 	initialize: function(options) {
+    _.bindAll( this, "onEnter");
+    this.lbTag = TextLab.Tags['lb'];
+    this.lbEnabled = false;
   },
   
-  onClickTagMenuItem: function(event) {
-    
+  onClickTagMenuItem: function(event) {    
     var tagID = $(event.currentTarget).attr("data-tag-id");		
     var tag = TextLab.Tags[tagID];
         
@@ -31,6 +34,25 @@ TextLab.XMLEditor = Backbone.View.extend({
     } else {
       this.generateTag(tag);
     }     
+  },
+  
+  onClicklbMode: function() { 
+    var lbModeButton = this.$('.lb-mode-button');
+
+    if( this.lbEnabled ) {
+      lbModeButton.removeClass('active');
+      this.lbEnabled = false;      
+    } else {
+      lbModeButton.addClass('active');
+      this.lbEnabled = true
+    }    
+    this.editor.focus();
+  },
+  
+  onEnter: function() {
+    if( this.lbEnabled ) {
+      this.generateTag(this.lbTag);
+    }    
   },
     
   generateTag: function(tag, attributes) {
@@ -83,6 +105,13 @@ TextLab.XMLEditor = Backbone.View.extend({
         mode: "xml",
         lineNumbers: true
 		});    
+    
+    this.$el.keydown( _.bind( function (e){
+        if(e.keyCode == 13) { 
+          this.onEnter();
+        }
+    }, this));
+    
   }  
   
 });
