@@ -57,10 +57,10 @@ TextLab.SurfaceView = Backbone.View.extend({
       }
       
       this.draggingZone = this.renderZone({ 
-        top: this.dragStart.y, 
-        left: this.dragStart.x, 
-        bottom: to.y, 
-        right: to.x 
+        uly: this.dragStart.y, 
+        ulx: this.dragStart.x, 
+        lry: to.y, 
+        lrx: to.x 
       });
       
       paper.view.draw();
@@ -69,7 +69,10 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
-      this.model.zones.addZone(this.draggingZone);
+      var zoneBounds = this.draggingZone.bounds;
+      var zone = this.model.zones.addZone(zoneBounds);
+      this.renderZoneID(zoneBounds, zone);
+      paper.view.draw();
     } 
     
     this.dragStart = null;
@@ -80,9 +83,24 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.$el.html(this.template()); 
   },
   
+  renderZoneID: function( zoneBounds, zone ) {
+    var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
+    
+    var text = new paper.PointText(labelPosition);
+    text.fontSize = 48;
+    text.fillColor = 'white';
+    text.content = zone.zoneIDLabel;
+
+    var backdrop = new paper.Path.Rectangle(text.bounds);
+    backdrop.fillColor = 'blue';
+    backdrop.sendToBack();
+    backdrop.opacity = 0.5;
+
+  },
+
   renderZone: function( zone ) {
-    var from = new paper.Point(zone.left,zone.top);
-    var to = new paper.Point(zone.right,zone.bottom);
+    var from = new paper.Point(zone.ulx,zone.uly);
+    var to = new paper.Point(zone.lrx,zone.lry);
     var rect = new paper.Path.Rectangle(from, to);
     rect.strokeColor = 'blue';
     rect.opacity = 0.5;

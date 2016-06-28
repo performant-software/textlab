@@ -1,9 +1,27 @@
 TextLab.Zone = Backbone.Model.extend({
   urlRoot: "zones",
   
-  initialize: function( attributes, options ) {  
-      // TODO record rect and id    
+  initialize: function( attributes ) {
+    this.generateZoneIDLabel( attributes.zone_id );
   },
+  
+  generateZoneIDLabel: function( zoneID ) {    
+    var zeros = "";
+
+    if( zoneID < 10 ) {
+      zeros = zeros + "0";
+    }
+    
+    if( zoneID < 100 ) {
+      zeros = zeros + "0";
+    }
+    
+    if( zoneID < 1000 ) {
+      zeros = zeros + "0";
+    }
+    
+    this.zoneIDLabel = zeros + zoneID;
+  }
   
 });
 
@@ -12,14 +30,20 @@ TextLab.ZoneCollection = Backbone.Collection.extend({
   url: "zones",
     
   initialize: function( models, options ) {
-    
+    this.lastZoneID = 0;
   },
   
   addZone: function( rect ) {
-    // TODO makes sure no two zones have the same id
-    
-    var zone = new TextLab.Zone( rect );
+    var zone = new TextLab.Zone({ 
+      zone_id: this.lastZoneID++,
+      ulx: rect.left,
+      uly: rect.top,
+      lrx: rect.right,
+      lry: rect.bottom 
+    });
+    this.add( zone );
         
+    return zone;
   }     
   
 }); 
