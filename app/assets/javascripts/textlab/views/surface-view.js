@@ -9,9 +9,11 @@ TextLab.SurfaceView = Backbone.View.extend({
     'click #nav-mode-button': 'navMode',
     'click #toggle-zones-button': 'toggleZones'
   },
+  
+  dashPattern: [50, 10],
             	
 	initialize: function(options) {
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "selectZone" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "selectZone", "onClick" );
     this.dragStart = null;
   },
   
@@ -35,17 +37,27 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   selectZone: function(event) {
     if( this.mode == 'nav' ) {
-      var hitResult = paper.project.hitTest(event.point);
-      var rect = hitResult.item;
-      rect.opacity = 1;
-      rect.dashArray = [];
+      
+      if( this.selectedZoneGroup ) {
+        this.toggleHighlight( this.selectedZoneGroup, false );
+      } 
+      
+      this.selectedZoneGroup = event.target.parent;
+      this.toggleHighlight( this.selectedZoneGroup, true );
     }
+  },
+  
+  toggleHighlight: function( zoneGroup, state ) {
+    _.each( zoneGroup.children, function(child) {
+      child.opacity = state ? 1 : 0.5;
+    });
+    zoneGroup.children[1].dashArray = state ? null: this.dashPattern;
   },
   
   onDragStart: function(event) {
     if( this.mode == 'add' ) {
       this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
-    }
+    }    
   },
   
   onDrag: function(event) {
@@ -69,33 +81,46 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
-      var zoneBounds = this.draggingZone.bounds;
-      var zone = this.model.zones.addZone(zoneBounds);
-      this.renderZoneID(zoneBounds, zone);
+      var zone = this.model.zones.addZone(this.draggingZone.bounds);
+      this.renderZoneID(this.draggingZone, zone);
       paper.view.draw();
     } 
     
     this.dragStart = null;
     this.draggingZone = null;
   },
+  
+  onClick: function(event) {
+    
+    // if nothing is selected, deselect the selected group
+    if( this.selectedZoneGroup ) {
+      var hitAt = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+      if( !paper.project.hitTest(hitAt) ) this.toggleHighlight( this.selectedZoneGroup, false );
+    }
+    
+  },
       
   render: function() {        
     this.$el.html(this.template()); 
   },
   
-  renderZoneID: function( zoneBounds, zone ) {
+  renderZoneID: function( zoneItem, zone ) {
+    var zoneBounds = zoneItem.bounds;
     var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
     
     var text = new paper.PointText(labelPosition);
     text.fontSize = 48;
     text.fillColor = 'white';
     text.content = zone.zoneIDLabel;
+    text.opacity = 0.5;
 
     var backdrop = new paper.Path.Rectangle(text.bounds);
     backdrop.fillColor = 'blue';
     backdrop.sendToBack();
     backdrop.opacity = 0.5;
-
+    
+    var zoneGroup = new paper.Group([backdrop,zoneItem,text]);
+    zoneGroup.onMouseDown = this.selectZone;
   },
 
   renderZone: function( zone ) {
@@ -105,8 +130,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     rect.strokeColor = 'blue';
     rect.opacity = 0.5;
     rect.strokeWidth = 12;
-    rect.dashArray = [50, 10];
-    rect.onMouseDown = this.selectZone;
+    rect.dashArray = this.dashPattern;
     return rect;
   },
   
@@ -124,12 +148,13 @@ TextLab.SurfaceView = Backbone.View.extend({
         flickEnabled: false
       }
 		});
-            
+                
     new OpenSeadragon.MouseTracker({
       element: this.viewer.canvas,
       pressHandler: this.onDragStart,
       dragHandler: this.onDrag,
-      dragEndHandler: this.onDragEnd
+      dragEndHandler: this.onDragEnd,
+      clickHandler: this.onClick
     }).setTracking(true);
     
     this.overlay = this.viewer.paperjsOverlay();
@@ -145,7 +170,7 @@ TextLab.SurfaceView = Backbone.View.extend({
         tileSource: this.model.tileSource,
         success: renderRegions
     });
-    
+        
     this.navMode();
   }
   

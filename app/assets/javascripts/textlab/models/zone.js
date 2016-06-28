@@ -30,12 +30,12 @@ TextLab.ZoneCollection = Backbone.Collection.extend({
   url: "zones",
     
   initialize: function( models, options ) {
-    this.lastZoneID = 0;
+    this.nextZoneID = 1;
   },
   
   addZone: function( rect ) {
     var zone = new TextLab.Zone({ 
-      zone_id: this.lastZoneID++,
+      zone_id: this.nextZoneID++,
       ulx: rect.left,
       uly: rect.top,
       lrx: rect.right,
