@@ -20,6 +20,12 @@ TextLab.SurfaceView = Backbone.View.extend({
   addMode: function() {
     this.mode = 'add';
     this.viewer.setMouseNavEnabled(false);
+    
+    // if there's a selected zone, make handles visible
+    if( this.selectedZoneGroup ) {
+      this.toggleHighlight( this.selectedZoneGroup, true );
+    } 
+    
     $('#add-mode-button').addClass('active');
     $('#nav-mode-button').removeClass('active');
   },
@@ -27,6 +33,12 @@ TextLab.SurfaceView = Backbone.View.extend({
   navMode: function() {
     this.mode = 'nav';
     this.viewer.setMouseNavEnabled(true);
+    
+    // if there's a selected zone, make handles hide
+    if( this.selectedZoneGroup ) {
+      this.toggleHighlight( this.selectedZoneGroup, false );
+    } 
+    
     $('#nav-mode-button').addClass('active');
     $('#add-mode-button').removeClass('active');
   },
@@ -36,22 +48,29 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   selectZone: function(event) {
-    if( this.mode == 'nav' ) {
-      
-      if( this.selectedZoneGroup ) {
-        this.toggleHighlight( this.selectedZoneGroup, false );
-      } 
-      
-      this.selectedZoneGroup = event.target.parent;
-      this.toggleHighlight( this.selectedZoneGroup, true );
-    }
+    if( this.selectedZoneGroup ) {
+      this.toggleHighlight( this.selectedZoneGroup, false );
+    } 
+    
+    this.selectedZoneGroup = event.target.parent;
+    this.toggleHighlight( this.selectedZoneGroup, true );
   },
   
   toggleHighlight: function( zoneGroup, state ) {
+    
+    // dim or highlight zone
     _.each( zoneGroup.children, function(child) {
       child.opacity = state ? 1 : 0.5;
     });
-    zoneGroup.children[1].dashArray = state ? null: this.dashPattern;
+
+    zoneGroup.children['zoneRect'].dashArray = state ? null: this.dashPattern;
+
+    if( this.mode == 'add' ) {
+      zoneGroup.children['resizeHandles'].visible = state;
+    } else {
+      zoneGroup.children['resizeHandles'].visible = false;      
+    }
+      
   },
   
   onDragStart: function(event) {
@@ -119,7 +138,21 @@ TextLab.SurfaceView = Backbone.View.extend({
     backdrop.sendToBack();
     backdrop.opacity = 0.5;
     
-    var zoneGroup = new paper.Group([backdrop,zoneItem,text]);
+    // render resize handle
+    var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
+    topHandle.fillColor = 'blue';
+    var leftHandle = new paper.Path.Circle(zoneBounds.leftCenter, 30);
+    leftHandle.fillColor = 'blue';
+    var rightHandle = new paper.Path.Circle(zoneBounds.rightCenter, 30);
+    rightHandle.fillColor = 'blue';
+    var bottomHandle = new paper.Path.Circle(zoneBounds.bottomCenter, 30);
+    bottomHandle.fillColor = 'blue';
+    var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
+    resizeHandles.name = 'resizeHandles';    
+    resizeHandles.visible = false;
+
+    zoneItem.name = 'zoneRect';    
+    var zoneGroup = new paper.Group([backdrop,zoneItem,resizeHandles,text]);
     zoneGroup.onMouseDown = this.selectZone;
   },
 
