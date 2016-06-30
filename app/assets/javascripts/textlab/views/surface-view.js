@@ -87,12 +87,12 @@ TextLab.SurfaceView = Backbone.View.extend({
         this.draggingZone.remove();  
       }
       
-      this.draggingZone = this.renderZone({ 
+      this.draggingZone = this.renderZone( new TextLab.Zone({ 
         uly: this.dragStart.y, 
         ulx: this.dragStart.x, 
         lry: to.y, 
         lrx: to.x 
-      });
+      }));
       
       paper.view.draw();
     }
@@ -100,8 +100,10 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
-      var zone = this.model.zones.addZone(this.draggingZone.bounds);
-      this.renderZoneID(this.draggingZone, zone);
+      var zone = this.draggingZone.data.zone;
+      this.model.zones.addZone(zone);
+      this.draggingZone.remove();  
+      this.renderZone(zone);
       paper.view.draw();
     } 
     
@@ -123,20 +125,36 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.$el.html(this.template()); 
   },
   
-  renderZoneID: function( zoneItem, zone ) {
+  renderZone: function( zone ) {   
+    var from = new paper.Point(zone.get("ulx"),zone.get("uly"));
+    var to = new paper.Point(zone.get("lrx"),zone.get("lry"));
+    var zoneItem = new paper.Path.Rectangle(from, to);
     var zoneBounds = zoneItem.bounds;
-    var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
+    var zoneGroup = new paper.Group([zoneItem]);
+    zoneItem.strokeColor = 'blue';
+    zoneItem.opacity = 0.5;
+    zoneItem.strokeWidth = 12;
+    zoneItem.dashArray = this.dashPattern;
+    zoneItem.name = 'zoneRect';    
     
-    var text = new paper.PointText(labelPosition);
-    text.fontSize = 48;
-    text.fillColor = 'white';
-    text.content = zone.zoneIDLabel;
-    text.opacity = 0.5;
 
-    var backdrop = new paper.Path.Rectangle(text.bounds);
-    backdrop.fillColor = 'blue';
-    backdrop.sendToBack();
-    backdrop.opacity = 0.5;
+    if( zone.zoneIDLabel ) {
+      var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
+    
+      var text = new paper.PointText(labelPosition);
+      text.fontSize = 48;
+      text.fillColor = 'white';
+      text.content = zone.zoneIDLabel;
+      text.opacity = 0.5;
+      zoneGroup.addChild(text);
+
+      var backdrop = new paper.Path.Rectangle(text.bounds);
+      backdrop.fillColor = 'blue';
+      backdrop.sendToBack();
+      backdrop.opacity = 0.5;
+      zoneGroup.addChild(backdrop);
+      backdrop.sendToBack();
+    }
     
     // render resize handle
     var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
@@ -150,21 +168,13 @@ TextLab.SurfaceView = Backbone.View.extend({
     var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
     resizeHandles.name = 'resizeHandles';    
     resizeHandles.visible = false;
+    zoneGroup.addChild(resizeHandles);
 
-    zoneItem.name = 'zoneRect';    
-    var zoneGroup = new paper.Group([backdrop,zoneItem,resizeHandles,text]);
     zoneGroup.onMouseDown = this.selectZone;
-  },
-
-  renderZone: function( zone ) {
-    var from = new paper.Point(zone.ulx,zone.uly);
-    var to = new paper.Point(zone.lrx,zone.lry);
-    var rect = new paper.Path.Rectangle(from, to);
-    rect.strokeColor = 'blue';
-    rect.opacity = 0.5;
-    rect.strokeWidth = 12;
-    rect.dashArray = this.dashPattern;
-    return rect;
+    zoneGroup.name = zone.zoneIDLabel;
+    zoneGroup.data.zone = zone;
+    
+    return zoneGroup;
   },
   
   initViewer: function() {      
@@ -194,7 +204,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     var self = this;
     var renderRegions = function(overlay, event) {      
-      _.each( self.model.zones.toJSON(), self.renderZone );
+      _.each( self.model.zones, self.renderZone );
       overlay.resize();
       overlay.resizecanvas();
     }.bind(null, this.overlay);
