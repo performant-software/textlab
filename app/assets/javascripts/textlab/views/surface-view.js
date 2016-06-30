@@ -76,27 +76,54 @@ TextLab.SurfaceView = Backbone.View.extend({
   onDragStart: function(event) {
     if( this.mode == 'add' ) {
       this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+
+      // TODO determine drag mode
+      
+
+      this.dragMode = "new-zone";
+      // this.draggingZone = this.selectedZoneGroup;
     }    
   },
   
   onDrag: function(event) {
-    if ( this.mode == 'add' ) {
-      var to = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
-      
-      if( this.draggingZone ) {
-        this.draggingZone.remove();  
-      }
-      
-      this.draggingZone = this.renderZone( new TextLab.Zone({ 
-        uly: this.dragStart.y, 
-        ulx: this.dragStart.x, 
-        lry: to.y, 
-        lrx: to.x 
-      }));
-      
-      paper.view.draw();
-    }
+    if ( this.mode != 'add' ) return;
+
+    var dragAt = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+    
+    if( this.dragMode == 'new-zone' ) {
+      this.dragNewZone(dragAt);
+    } else {
+      this.dragResize(dragAt);
+    }    
+
+    paper.view.draw();    
   },
+  
+  dragNewZone: function(dragAt) {
+    var zoneRect = { 
+        ulx: this.dragStart.x, 
+        uly: this.dragStart.y, 
+        lrx: dragAt.x, 
+        lry: dragAt.y 
+    };
+    
+    var zone;
+    if( !this.draggingZone ) {
+      zone = new TextLab.Zone(zoneRect);
+    } else {
+      zone = this.draggingZone.data.zone;
+      zone.set(zoneRect);
+      this.draggingZone.remove();  
+    }
+    this.draggingZone = this.renderZone(zone);      
+  },  
+    
+  dragResize: function(dragAt) {    
+    var zone = this.draggingZone.data.zone;    
+    zone.set({ uly: dragAt.y });    
+    this.draggingZone.remove();  
+    this.draggingZone = this.renderZone(zone);      
+  },  
   
   onDragEnd: function(event) {
     if ( this.mode == 'add' ) {
@@ -126,6 +153,8 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   renderZone: function( zone ) {   
+    
+    // render zone rectangle
     var from = new paper.Point(zone.get("ulx"),zone.get("uly"));
     var to = new paper.Point(zone.get("lrx"),zone.get("lry"));
     var zoneItem = new paper.Path.Rectangle(from, to);
@@ -138,6 +167,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     zoneItem.name = 'zoneRect';    
     
 
+    // render label if it has one
     if( zone.zoneIDLabel ) {
       var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
     
