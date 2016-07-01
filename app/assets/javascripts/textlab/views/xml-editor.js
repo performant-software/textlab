@@ -13,9 +13,12 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .tag-menu-item': 'onClickTagMenuItem',
     'click .facs-ref': 'onClickImageLink'
   },
+  
+	autoSaveDelay: 1000,
+  
             	
 	initialize: function(options) {
-    _.bindAll( this, "onEnter");
+    _.bindAll( this, "onEnter", "requestAutosave", "save");
     this.lbTag = TextLab.Tags['lb'];
     this.lbEnabled = false;
   },
@@ -54,6 +57,25 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.generateTag(this.lbTag);
     }    
   },
+  
+  save: function() {
+    // TODO this.model.save();
+  },
+  
+	startAutosaveTimer: function() {
+		// start a timer
+		this.autoSaveTimerID = window.setTimeout( this.save, this.autoSaveDelay );
+	},
+	
+	requestAutosave: function() {
+		this.stopAutosaveTimer();
+		this.startAutosaveTimer();	
+	},
+	
+	stopAutosaveTimer: function() {
+		// clear the current timer 		
+		window.clearTimeout( this.autoSaveTimerID );	
+	},
     
   generateTag: function(tag, attributes) {
     var insertion;
@@ -106,12 +128,18 @@ TextLab.XMLEditor = Backbone.View.extend({
         lineNumbers: true
 		});    
     
+		// Undo (ctrl-z) history starts now 
+		this.editor.getDoc().clearHistory();
+    
     this.$el.keydown( _.bind( function (e){
         if(e.keyCode == 13) { 
           this.onEnter();
         }
     }, this));
     
+    // save as we go
+    this.editor.on( "change", this.requestAutosave );
+        
   }  
   
 });
