@@ -89,7 +89,7 @@ TextLab.SurfaceView = Backbone.View.extend({
       // if we clicked on a resize handle, then we are in resize mode
       if( selectedItem.data.handle ) {
         this.dragMode = "resize-zone";
-        // TODO record which drag handle we're using
+        this.activeDragHandle = selectedItem.data.handle;
       } else {
         this.dragMode = null;
       }
@@ -150,15 +150,30 @@ TextLab.SurfaceView = Backbone.View.extend({
     
   dragResize: function(dragAt) {    
     var zone = this.selectedZoneGroup.data.zone;    
-    zone.set({ uly: dragAt.y });    
+    var bounds = this.selectedZoneGroup.children['zoneRect'].bounds;
+    
+    if( this.activeDragHandle == 'top' && bounds.bottom > dragAt.y ) {
+      zone.set({ uly: dragAt.y });    
+    } else if( this.activeDragHandle == 'left' && bounds.right > dragAt.x ) {
+      zone.set({ ulx: dragAt.x });    
+    } else if( this.activeDragHandle == 'bottom' && bounds.top < dragAt.y ) {
+      zone.set({ lry: dragAt.y });    
+    } else if( this.activeDragHandle == 'right' && bounds.left < dragAt.x ) {
+      zone.set({ lrx: dragAt.x });    
+    }
+    
     this.selectedZoneGroup.remove();  
     this.selectedZoneGroup = this.renderZone(zone);   
     this.selectedZoneGroup.children['resizeHandles'].visible = true;
   },  
   
   onDragEnd: function(event) {
+    if( this.mode == 'add' ) {
+      this.selectedZoneGroup.children['resizeHandles'].visible = true;    
+    }
     this.dragStart = null;
     this.dragMode = null;
+    this.activeDragHandle = null;
   },
       
   render: function() {        
@@ -194,16 +209,16 @@ TextLab.SurfaceView = Backbone.View.extend({
     // resize handles
     var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
     topHandle.fillColor = 'blue';
-    topHandle.data.handle = ['uly'];
+    topHandle.data.handle = 'top';
     var leftHandle = new paper.Path.Circle(zoneBounds.leftCenter, 30);
     leftHandle.fillColor = 'blue';
-    leftHandle.data.handle = ['uly'];
+    leftHandle.data.handle = 'left';
     var rightHandle = new paper.Path.Circle(zoneBounds.rightCenter, 30);
     rightHandle.fillColor = 'blue';
-    rightHandle.data.handle = ['uly'];
+    rightHandle.data.handle = 'right';
     var bottomHandle = new paper.Path.Circle(zoneBounds.bottomCenter, 30);
     bottomHandle.fillColor = 'blue';
-    bottomHandle.data.handle = ['uly'];
+    bottomHandle.data.handle = 'bottom';
     var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
     resizeHandles.name = 'resizeHandles';    
     resizeHandles.visible = false;
