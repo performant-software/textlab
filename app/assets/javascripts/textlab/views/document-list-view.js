@@ -10,12 +10,15 @@ TextLab.DocumentListView = Backbone.View.extend({
   },
             	
 	initialize: function(options) {
-    
+    _.bindAll( this, "onNewDocument" );
   },
   
   onNewDocument: function() {    
-    var onCreateCallback = _.bind(function(attributes) {
-      // TODO
+    var onCreateCallback = _.bind(function(doc) {
+      this.collection.add(doc);
+      doc.save(null, { success: _.bind( function() {
+        this.render();
+      },this)});
     }, this);
           
     var doc = new TextLab.Document();
@@ -23,12 +26,14 @@ TextLab.DocumentListView = Backbone.View.extend({
     documentModalDialog.render();    
   },
   
-  onDeleteDocument: function() {
+  onDeleteDocument: function(e) {
     // TODO
+    
+    
   },
   
   render: function() {          
-    this.$el.html(this.template({ documents: this.collection }));
+    this.$el.html(this.template({ documents: this.collection.toJSON() }));
     $(".textlab-app").html(this.$el);      
   }
   
