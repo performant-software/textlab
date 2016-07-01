@@ -1,0 +1,10 @@
+
+<h1>Document List</h1>
+
+<ul>
+  <% _.each( documents, function(document) { %>
+    <li><%= document.name %> <button class="btn btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button></li>
+  <% })%>
+</ul>
+
+<button class="btn btn-primary new-document-button">New Document</button>

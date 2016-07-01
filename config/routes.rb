@@ -2,4 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
   
   root 'home#index'
+  
+  resources :documents, only: [ :index, :show, :update, :create, :destroy ]
+   
 end

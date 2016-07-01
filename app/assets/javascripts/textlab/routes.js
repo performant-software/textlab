@@ -2,7 +2,7 @@
 TextLab.Routes = Backbone.Router.extend({
 
   routes: {
-    "" : "primaryEditingView"
+    "" : "documentListView"
   },
     
   initialize: function(options) {
@@ -10,6 +10,13 @@ TextLab.Routes = Backbone.Router.extend({
     // global singleton
     TextLab.Routes.routes = this;
         
+  },
+  
+  documentListView: function() {
+    this.loadDocuments( _.bind( function(documents) {
+      var documentListView = new TextLab.DocumentListView( { collection: documents });
+      documentListView.render();
+    }, this));            
   },
   
   primaryEditingView: function() {
@@ -21,6 +28,13 @@ TextLab.Routes = Backbone.Router.extend({
     var testPage = new TextLab.TestPage();
     testPage.render();
   },
+  
+  /////////////////////////
+  
+  loadDocuments: function( initView ) {
+    var documents = new TextLab.DocumentCollection();
+    documents.fetch( { success: initView, error: this.onError } );
+  },  
   
    // TODO improve error handling
   onError: function( collection, response, options ) {
