@@ -63,14 +63,14 @@ TextLab.SurfaceView = Backbone.View.extend({
       child.opacity = state ? 1 : 0.5;
     });
 
-    zoneGroup.children['zoneRect'].dashArray = state ? null: this.dashPattern;
+    zoneGroup.children['zoneRect'].dashArray = state ? null : this.dashPattern;
 
     if( this.mode == 'add' ) {
       zoneGroup.children['resizeHandles'].visible = state;
     } else {
       zoneGroup.children['resizeHandles'].visible = false;      
     }
-      
+    
   },
   
   onDragStart: function(event) {
@@ -159,15 +159,15 @@ TextLab.SurfaceView = Backbone.View.extend({
     var to = new paper.Point(zone.get("lrx"),zone.get("lry"));
     var zoneItem = new paper.Path.Rectangle(from, to);
     var zoneBounds = zoneItem.bounds;
-    var zoneGroup = new paper.Group([zoneItem]);
+
     zoneItem.strokeColor = 'blue';
     zoneItem.opacity = 0.5;
     zoneItem.strokeWidth = 12;
     zoneItem.dashArray = this.dashPattern;
     zoneItem.name = 'zoneRect';    
     
-
     // render label if it has one
+    var zoneGroup;
     if( zone.zoneIDLabel ) {
       var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 ); 
     
@@ -176,33 +176,35 @@ TextLab.SurfaceView = Backbone.View.extend({
       text.fillColor = 'white';
       text.content = zone.zoneIDLabel;
       text.opacity = 0.5;
-      zoneGroup.addChild(text);
+      text.name = "zoneID";
 
       var backdrop = new paper.Path.Rectangle(text.bounds);
       backdrop.fillColor = 'blue';
-      backdrop.sendToBack();
       backdrop.opacity = 0.5;
-      zoneGroup.addChild(backdrop);
-      backdrop.sendToBack();
-    }
-    
-    // render resize handle
-    var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
-    topHandle.fillColor = 'blue';
-    var leftHandle = new paper.Path.Circle(zoneBounds.leftCenter, 30);
-    leftHandle.fillColor = 'blue';
-    var rightHandle = new paper.Path.Circle(zoneBounds.rightCenter, 30);
-    rightHandle.fillColor = 'blue';
-    var bottomHandle = new paper.Path.Circle(zoneBounds.bottomCenter, 30);
-    bottomHandle.fillColor = 'blue';
-    var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
-    resizeHandles.name = 'resizeHandles';    
-    resizeHandles.visible = false;
-    zoneGroup.addChild(resizeHandles);
+      
+      // render resize handle
+      var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
+      topHandle.fillColor = 'blue';
+      var leftHandle = new paper.Path.Circle(zoneBounds.leftCenter, 30);
+      leftHandle.fillColor = 'blue';
+      var rightHandle = new paper.Path.Circle(zoneBounds.rightCenter, 30);
+      rightHandle.fillColor = 'blue';
+      var bottomHandle = new paper.Path.Circle(zoneBounds.bottomCenter, 30);
+      bottomHandle.fillColor = 'blue';
+      var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
+      resizeHandles.name = 'resizeHandles';    
+      resizeHandles.visible = false;
 
-    zoneGroup.onMouseDown = this.selectZone;
-    zoneGroup.name = zone.zoneIDLabel;
-    zoneGroup.data.zone = zone;
+      // zone w/an ID
+      zoneGroup = new paper.Group([zoneItem, resizeHandles, backdrop, text ]);
+      zoneGroup.name = zone.zoneIDLabel;
+      zoneGroup.data.zone = zone;  
+      zoneGroup.onMouseDown = this.selectZone;    
+    } else {
+      // temporary dragging zone
+      zoneGroup = new paper.Group([zoneItem]);
+      zoneGroup.data.zone = zone;      
+    }
     
     return zoneGroup;
   },
