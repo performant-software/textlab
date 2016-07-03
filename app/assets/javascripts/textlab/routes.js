@@ -21,11 +21,14 @@ TextLab.Routes = Backbone.Router.extend({
     }, this));            
   },
   
-  documentEditView: function() {
-    var primaryEditingView = new TextLab.PrimaryEditingView();
-    primaryEditingView.render();    
-    $(".textlab-app").html(primaryEditingView.$el);      
-    primaryEditingView.postRender();
+  documentEditView: function( documentID ) {
+    var doc = new TextLab.Document({ id: documentID });
+    doc.fetch({ success: function(doc) {
+      var primaryEditingView = new TextLab.PrimaryEditingView({ model: doc });
+      primaryEditingView.render();    
+      $(".textlab-app").html(primaryEditingView.$el);      
+      primaryEditingView.postRender();
+    }, error: this.onError });    
   },
       
   /////////////////////////
