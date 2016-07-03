@@ -268,8 +268,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     }.bind(null, this.overlay);
         
     this.viewer.addTiledImage({
-        tileSource: this.model.tileSource,
-        success: renderRegions
+      tileSource: this.model.get("tile_source"),
+      success: renderRegions
     });
         
     this.navMode();

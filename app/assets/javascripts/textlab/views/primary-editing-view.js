@@ -5,8 +5,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   id: 'primary-editing-view',
             	
 	initialize: function(options) {
-    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );
-    this.selectedLeaf = new TextLab.Leaf();
+    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );    
   },
   
   onWindowResize: function() {
@@ -46,6 +45,10 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       
   render: function() {      
     
+    if( !this.selectedLeaf ) {
+      this.selectedLeaf = this.model.leafs.at(0);
+    }
+        
     this.$el.html(this.template());  
 
 		this.$('div.split-pane').splitPane();
