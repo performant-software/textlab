@@ -6,7 +6,13 @@
         <h4 class="modal-title" id="documentModal">New Document</h4>
       </div>
       <div class="modal-body">
-        <p>Modal</p>
+        <%= partials.stringInput( { 
+          field_name: 'name', 
+          field_title: "Document Name",
+          field_value: "", 
+          field_instructions: "Please enter a name for this document.",
+          error: false 
+        }) %>        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>

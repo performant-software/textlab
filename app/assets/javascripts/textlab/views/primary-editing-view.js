@@ -61,9 +61,9 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.xmlEditor = new TextLab.XMLEditor({ model: this.selectedLeaf });
     this.xmlEditor.render();
     this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
-
-    $(".textlab-app").html(this.$el);                
+  },
   
+  postRender: function() {
     // viewer and editor must be initialized after they are in the DOM
     this.surfaceView.initViewer();
     this.xmlEditor.initEditor();
@@ -71,7 +71,6 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     // resize listeners
     $(window).resize(this.onWindowResize);
     $('div.split-pane').on('dividerdragend', this.onSplitPaneResize );
-    
   }
   
 });

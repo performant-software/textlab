@@ -18,11 +18,10 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
   },
   
   onCreate: function() {    
-    var documentModal = $('#new-document-modal');
-    
     this.close( _.bind( function() {
-      // TODO save name to model
-      this.model.set({name: 'foo'});
+      this.model.set({
+        name: this.$('#name').val() 
+      });
       this.callback(this.model);
     }, this));
   },

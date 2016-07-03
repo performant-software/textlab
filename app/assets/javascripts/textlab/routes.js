@@ -17,19 +17,17 @@ TextLab.Routes = Backbone.Router.extend({
     this.loadDocuments( _.bind( function(documents) {
       var documentListView = new TextLab.DocumentListView( { collection: documents });
       documentListView.render();
+      $(".textlab-app").html(documentListView.$el);      
     }, this));            
   },
   
   documentEditView: function() {
     var primaryEditingView = new TextLab.PrimaryEditingView();
     primaryEditingView.render();    
+    $(".textlab-app").html(primaryEditingView.$el);      
+    primaryEditingView.postRender();
   },
-    
-  testPage: function() {
-    var testPage = new TextLab.TestPage();
-    testPage.render();
-  },
-  
+      
   /////////////////////////
   
   loadDocuments: function( initView ) {
