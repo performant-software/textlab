@@ -28,6 +28,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     $('#add-mode-button').addClass('active');
     $('#nav-mode-button').removeClass('active');
+    
+    return false;
   },
     
   navMode: function() {
@@ -41,6 +43,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     $('#nav-mode-button').addClass('active');
     $('#add-mode-button').removeClass('active');
+
+    return false;
   },
   
   toggleZones: function() {
@@ -60,6 +64,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     } else {
       zoneChildren['resizeHandles'].visible = false;      
     }
+
+    return false;
   },
   
   onDragStart: function(event) {

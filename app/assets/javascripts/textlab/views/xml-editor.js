@@ -37,6 +37,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     } else {
       this.generateTag(tag);
     }     
+    
+    return false;
   },
   
   onClicklbMode: function() { 
@@ -50,6 +52,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.lbEnabled = true
     }    
     this.editor.focus();
+    return false;
   },
   
   onEnter: function() {
@@ -114,7 +117,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   onClickImageLink: function() {
     // TODO
-    
+    return false;
   },
       
   render: function() {      
