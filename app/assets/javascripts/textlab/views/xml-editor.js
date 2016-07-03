@@ -62,7 +62,9 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   save: function() {
-    // TODO this.model.save();
+    var doc = this.editor.getDoc();    
+    this.model.set("content",doc.getValue());
+    this.model.save();
   },
   
 	startAutosaveTimer: function() {
@@ -131,8 +133,13 @@ TextLab.XMLEditor = Backbone.View.extend({
         lineNumbers: true
 		});    
     
+    var doc = this.editor.getDoc();    
+    if( this.model.get('content')  ) {
+      doc.setValue( this.model.get('content') );
+    }
+    
 		// Undo (ctrl-z) history starts now 
-		this.editor.getDoc().clearHistory();
+		doc.clearHistory();
     
     this.$el.keydown( _.bind( function (e){
         if(e.keyCode == 13) { 

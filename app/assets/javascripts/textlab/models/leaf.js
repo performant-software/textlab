@@ -1,5 +1,5 @@
 TextLab.Leaf = Backbone.Model.extend({
-  urlRoot: "leaves",
+  urlRoot: "leafs",
   
   // TODO has a tile source url, a collection of zones, xml, sequences, parent, order #
   
@@ -11,7 +11,7 @@ TextLab.Leaf = Backbone.Model.extend({
 
 TextLab.LeafCollection = Backbone.Collection.extend({
   model: TextLab.Leaf,
-  url: "leaves",
+  url: "leafs",
   
   initialize: function( models, options ) {
   

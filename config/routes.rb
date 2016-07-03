@@ -4,5 +4,6 @@ Rails.application.routes.draw do
   root 'home#index'
   
   resources :documents, only: [ :index, :show, :update, :create, :destroy ]
+  resources :leafs, only: [ :show, :update, :create, :destroy ]
    
 end
