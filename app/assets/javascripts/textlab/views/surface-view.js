@@ -13,7 +13,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   dashPattern: [50, 10],
             	
 	initialize: function(options) {
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved" );
     this.dragStart = null;
   },
   
@@ -175,11 +175,17 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onDragEnd: function(event) {
     if( this.mode == 'add' ) {
-      this.selectedZoneGroup.children['resizeHandles'].visible = true;    
+      this.selectedZoneGroup.children['resizeHandles'].visible = true;
+      var zone = this.selectedZoneGroup.data.zone;
+      zone.save(null,{ success: this.zoneSaved, error: TextLab.Routes.onError });    
     }
     this.dragStart = null;
     this.dragMode = null;
     this.activeDragHandle = null;
+  },
+  
+  zoneSaved: function(zone) {
+    console.log("zone "+zone.get("zone_label")+" is saved.");
   },
       
   render: function() {        
@@ -262,7 +268,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     var self = this;
     var renderRegions = function(overlay, event) {      
-      _.each( self.model.zones, self.renderZone );
+      _.each( self.model.zones.models, self.renderZone );
       overlay.resize();
       overlay.resizecanvas();
     }.bind(null, this.overlay);

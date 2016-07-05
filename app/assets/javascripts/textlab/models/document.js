@@ -2,7 +2,7 @@ TextLab.Document = Backbone.Model.extend({
   urlRoot: "documents",
       
   afterLoad: function( model ) {
-    this.leafs = new TextLab.LeafCollection( model["leafs"] );
+    this.leafs = new TextLab.LeafCollection( model["leafs"], { documentID: model["id"] } );
   },
   
   sync: function(method, model, options) {
@@ -21,7 +21,7 @@ TextLab.Document = Backbone.Model.extend({
     }
     
     Backbone.sync(method, model, options);
-  },
+  }
   
 });
 

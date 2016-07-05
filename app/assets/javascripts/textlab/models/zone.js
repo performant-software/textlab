@@ -7,7 +7,7 @@ TextLab.Zone = Backbone.Model.extend({
     }
   },
   
-  generateZoneIDLabel: function( zoneID ) {    
+  generateZoneLabel: function( zoneID ) {    
         
     var zeros = "";
 
@@ -23,7 +23,8 @@ TextLab.Zone = Backbone.Model.extend({
       zeros = zeros + "0";
     }
     
-    this.zoneIDLabel = zeros + zoneID;
+    var zoneLabel = zeros + zoneID;
+    this.set("zone_label", zoneLabel);
   }
   
 });
@@ -34,12 +35,13 @@ TextLab.ZoneCollection = Backbone.Collection.extend({
     
   initialize: function( models, options ) {
     this.nextZoneID = 1;
+    this.leafID = options.leafID;
   },
   
   addZone: function( zone ) {
     var zoneID = this.nextZoneID++;
-    zone.set("zone_id", zoneID);
-    zone.generateZoneIDLabel(zoneID);
+    zone.set("leaf_id", this.leafID );
+    zone.generateZoneLabel(zoneID);
     this.add( zone );
   }     
   

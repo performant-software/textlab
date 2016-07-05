@@ -1,5 +1,6 @@
 class Leaf < ActiveRecord::Base
   
+  has_many :zones, dependent: :destroy
   belongs_to :document
   
   def self.test_source
@@ -7,11 +8,15 @@ class Leaf < ActiveRecord::Base
   end
   
   def obj
+    
+    zonesJSON = self.zones.map { |zone| zone.obj }
+    
     { 
       id: self.id,
       name: self.name,
       tile_source: self.tile_source,
-      content: self.content
+      content: self.content,
+      zones: zonesJSON
     }
   end
   
