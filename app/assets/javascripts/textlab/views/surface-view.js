@@ -62,8 +62,10 @@ TextLab.SurfaceView = Backbone.View.extend({
 
     if( this.mode == 'add' ) {
       zoneChildren['resizeHandles'].visible = state;
+      zoneChildren['deleteButton'].visible = state;      
     } else {
       zoneChildren['resizeHandles'].visible = false;      
+      zoneChildren['deleteButton'].visible = state;
     }
 
     return false;
@@ -91,7 +93,14 @@ TextLab.SurfaceView = Backbone.View.extend({
           }
           this.toggleHighlight( zoneGroup, true );
           this.selectedZoneGroup = zoneGroup;
+                    
           paper.view.draw();    
+        } else {
+          // if we clicked on delete button, delete this zone
+          if( selectedItem.data.deleteButton ) {
+            this.deleteZone(zoneGroup);
+            return; 
+          }          
         }
       }
       
@@ -136,6 +145,13 @@ TextLab.SurfaceView = Backbone.View.extend({
 
     paper.view.draw();    
   },
+  
+  deleteZone: function( zoneGroup ) {
+    var zone = this.selectedZoneGroup.data.zone;
+    zone.destroy({ success: function() {
+      zoneGroup.remove();
+    }, error: TextLab.Routes.onError });       
+  },  
   
   dragNewZone: function(dragAt) {
     var zoneRect = { 
@@ -252,9 +268,16 @@ TextLab.SurfaceView = Backbone.View.extend({
     var resizeHandles = new paper.Group([topHandle,leftHandle,rightHandle,bottomHandle]);
     resizeHandles.name = 'resizeHandles';    
     resizeHandles.visible = false;
-
+    
+    // delete button
+    var deleteButton = new paper.Path.Circle(zoneBounds.topRight, 30);
+    deleteButton.fillColor = 'red';
+    deleteButton.name = 'deleteButton';    
+    deleteButton.visible = false;
+    deleteButton.data.deleteButton = true;
+    
     // zone group
-    var zoneGroup = new paper.Group([zoneItem, resizeHandles, backdrop, text ]);
+    var zoneGroup = new paper.Group([zoneItem, resizeHandles, deleteButton, backdrop, text ]);
     zoneGroup.data.zone = zone;  
     
     return zoneGroup;
