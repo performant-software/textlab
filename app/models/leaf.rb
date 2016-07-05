@@ -16,6 +16,7 @@ class Leaf < ActiveRecord::Base
       name: self.name,
       tile_source: self.tile_source,
       content: self.content,
+      next_zone_label: self.next_zone_label,
       zones: zonesJSON
     }
   end

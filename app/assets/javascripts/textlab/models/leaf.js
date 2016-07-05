@@ -8,7 +8,7 @@ TextLab.Leaf = Backbone.Model.extend({
   },
   
   afterLoad: function( attributes ) {
-    this.zones = new TextLab.ZoneCollection( attributes["zones"], { leafID: attributes["id"] } );
+    this.zones = new TextLab.ZoneCollection(attributes["zones"]);
   },
   
   sync: function(method, model, options) {
@@ -27,7 +27,15 @@ TextLab.Leaf = Backbone.Model.extend({
     }
     
     Backbone.sync(method, model, options);
-  }
+  },
+  
+  addZone: function( zone ) {
+    var zoneID = this.get("next_zone_label")
+    this.set("next_zone_label", zoneID+1);
+    zone.set("leaf_id", this.id );
+    zone.generateZoneLabel(zoneID);
+    this.zones.add( zone );
+  }     
     
 });
 

@@ -11,9 +11,10 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   dashPattern: [50, 10],
+  unSelectedOpacity: 0.25,
             	
 	initialize: function(options) {
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved", "leafSaved" );
     this.dragStart = null;
   },
   
@@ -54,10 +55,10 @@ TextLab.SurfaceView = Backbone.View.extend({
   toggleHighlight: function( zoneGroup, state ) {    
     var zoneChildren = zoneGroup.children;
     
-    zoneChildren['zoneRect'].opacity = state ? 1.0 : 0.5;
+    zoneChildren['zoneRect'].opacity = state ? 1.0 : this.unSelectedOpacity;
     // zoneChildren['zoneRect'].dashArray = state ? null : this.dashPattern;
 
-    zoneChildren['backdrop'].opacity = state ? 1.0 : 0.5;
+    zoneChildren['backdrop'].opacity = state ? 1.0 : this.unSelectedOpacity;
 
     if( this.mode == 'add' ) {
       zoneChildren['resizeHandles'].visible = state;
@@ -75,6 +76,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     if( !hitResult && this.selectedZoneGroup ) {
        this.toggleHighlight( this.selectedZoneGroup, false );
        this.selectedZoneGroup = null;
+       paper.view.draw();    
     }
     
     if( hitResult ) {
@@ -89,6 +91,7 @@ TextLab.SurfaceView = Backbone.View.extend({
           }
           this.toggleHighlight( zoneGroup, true );
           this.selectedZoneGroup = zoneGroup;
+          paper.view.draw();    
         }
       }
       
@@ -145,13 +148,14 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone;
     if( !this.selectedZoneGroup ) {
       zone = new TextLab.Zone(zoneRect);
-      this.model.zones.addZone(zone);      
+      this.model.addZone(zone);      
     } else {
       zone = this.selectedZoneGroup.data.zone;
       zone.set(zoneRect);
       this.selectedZoneGroup.remove();  
     }
-    this.selectedZoneGroup = this.renderZone(zone);      
+    this.selectedZoneGroup = this.renderZone(zone);   
+    this.toggleHighlight(this.selectedZoneGroup, true); 
   },  
     
   dragResize: function(dragAt) {    
@@ -186,6 +190,17 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   zoneSaved: function(zone) {
     console.log("zone "+zone.get("zone_label")+" is saved.");
+    this.model.save( { 
+      next_zone_label: this.model.get('next_zone_label') },
+      { 
+        patch: true,
+        success: this.leafSaved, 
+        error: TextLab.Routes.onError 
+      });
+  },
+  
+  leafSaved: function(leaf) {
+    console.log("leaf has been updated.");    
   },
       
   render: function() {        
@@ -203,6 +218,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     zoneItem.strokeColor = 'blue';
     zoneItem.strokeWidth = 12;
     zoneItem.dashArray = this.dashPattern;
+    zoneItem.opacity = this.unSelectedOpacity;
     zoneItem.name = 'zoneRect';    
     
     // zone id label
@@ -210,12 +226,14 @@ TextLab.SurfaceView = Backbone.View.extend({
     var text = new paper.PointText(labelPosition);
     text.fontSize = 48;
     text.fillColor = 'white';
-    text.content = zone.zoneIDLabel ? zone.zoneIDLabel : '';
+    var zoneLabel = zone.get("zone_label");
+    text.content = zoneLabel ? zoneLabel : '';
     text.name = "zoneID";
 
     // backdrop behind label
     var backdrop = new paper.Path.Rectangle(text.bounds);
     backdrop.fillColor = 'blue';
+    backdrop.opacity = this.unSelectedOpacity;
     backdrop.name = 'backdrop';
     
     // resize handles

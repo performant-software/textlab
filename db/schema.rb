@@ -26,9 +26,10 @@ ActiveRecord::Schema.define(version: 20160703180027) do
     t.string   "name"
     t.text     "tile_source"
     t.text     "content"
+    t.integer  "next_zone_label", default: 1, null: false
     t.integer  "document_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   create_table "users", force: :cascade do |t|
