@@ -32,7 +32,7 @@ TextLab.XMLEditor = Backbone.View.extend({
         this.generateTag(tag,attributes);
       }, this);
             
-      var attributeModalDialog = new TextLab.AttributeModalDialog( { tag: tag, callback: onCreateCallback } );
+      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.model, tag: tag, callback: onCreateCallback } );
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
@@ -83,38 +83,44 @@ TextLab.XMLEditor = Backbone.View.extend({
 	},
     
   generateTag: function(tag, attributes) {
-    var insertion;
+    var insertion, startPos;
     var doc =  this.editor.getDoc();
     
     if( tag.empty ) {
-      insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attributes });
+      insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attributes.attrString });
     } else {
-      var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attributes });
+      var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attributes.attrString });
       var body = doc.getSelection();
       var closeTag = this.closeTagTemplate(tag);
       insertion = openTag + body + closeTag;
     }
+
+    // note the start position of the insertion
+    startPos = doc.getCursor("from");
     
     // if a range is selected, replace it. Otherwise, insert at caret.
     if( doc.somethingSelected() && !tag.empty ) {
       doc.replaceSelection(insertion);
     } else {
-      var caretPosition = doc.getCursor();
-      doc.replaceRange(insertion, caretPosition );
+      doc.replaceRange(insertion, startPos );
+    }
+    
+    // need to know insertion point + offset into insertion where link appears. need to know which zone.
+    if( attributes.zone ) {
+      var elementStart = "<"+tag.tag;
+      var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;
+      this.insertImageLink(attributes.zone,offset);
     }
     
     this.editor.focus();
   },
   
-  insertImageLink: function() {
-    // insert tag at caret
+  insertImageLink: function( zone, offset ) {
+    var endIndex = offset + 4; // format is always four chars long
     var doc =  this.editor.getDoc();
-    var caretPosition = doc.getCursor();
-    var facsID = "image5";
-    doc.replaceRange("image5", caretPosition );
-    var endIndex = doc.indexFromPos(caretPosition) + facsID.length;
+    var position = doc.posFromIndex(offset);
     var endPos = doc.posFromIndex(endIndex);
-    doc.markText( caretPosition, endPos, { className: "facs-ref", atomic: true } );        
+    doc.markText( position, endPos, { className: "zone-link", atomic: true } );        
   },
   
   onClickImageLink: function() {

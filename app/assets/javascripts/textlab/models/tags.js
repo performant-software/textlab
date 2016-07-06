@@ -97,12 +97,12 @@ TextLab.Tags = {
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
+      },
+      zone: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
       }
-      // zone: {
-    //     displayName: 'Zone',
-        // instructions: '',
-    //     fieldType: 'region'
-    //   }
     }    
   },
 

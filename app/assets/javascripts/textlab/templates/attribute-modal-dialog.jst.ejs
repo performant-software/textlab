@@ -8,14 +8,25 @@
       <div class="modal-body">
         <ul>
         <% _.each( tag.attributes, function( attribute, key ) { %>
-          <%= partials[ attribute.fieldType + 'Input' ]( { 
-            field_name: 'att-'+key, 
-            field_title: attribute.displayName, 
-            field_value: attribute.defaultValue ? attribute.defaultValue : '', 
-            field_instructions: attribute.instructions, 
-            options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
-            error: false 
-          }) %>
+          <% if( attribute.fieldType == 'zone' ) { %>
+            <%= partials.dropdownInput( { 
+              field_name: 'att-'+key, 
+              field_title: attribute.displayName, 
+              field_value: attribute.defaultValue ? attribute.defaultValue : '', 
+              field_instructions: attribute.instructions, 
+              options: zones,
+              error: false 
+            }) %>
+          <% } else { %>
+            <%= partials[ attribute.fieldType + 'Input' ]( { 
+              field_name: 'att-'+key, 
+              field_title: attribute.displayName, 
+              field_value: attribute.defaultValue ? attribute.defaultValue : '', 
+              field_instructions: attribute.instructions, 
+              options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
+              error: false 
+            }) %>
+          <% } %>
         <% }); %>
       </ul>
       </div>
