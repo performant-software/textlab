@@ -7,7 +7,8 @@ TextLab.SurfaceView = Backbone.View.extend({
   events: {
     'click #add-mode-button': 'addMode',
     'click #nav-mode-button': 'navMode',
-    'click #toggle-zones-button': 'toggleZones'
+    'click #toggle-zones-button': 'toggleZones',
+    'click .popover-button': 'onPopoverButton'
   },
   
   dashPattern: [50, 10],
@@ -15,6 +16,7 @@ TextLab.SurfaceView = Backbone.View.extend({
             	
 	initialize: function(options) {
     _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved", "leafSaved" );
+    this.xmlEditor = options.xmlEditor;
     this.dragStart = null;
   },
   
@@ -50,6 +52,11 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   toggleZones: function() {
     // TODO toggle the visibility of the regions
+  },
+  
+  onPopoverButton: function(e) {
+    this.hidePopOverMenu();
+    this.xmlEditor.onClickTagMenuItem(e);
   },
   
   toggleHighlight: function( zoneGroup, state ) {    
@@ -139,7 +146,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone = zoneGroup.data.zone;
     
     // popover content
-    var popOverHTML = '<a href="#" class="btn btn-sm btn-default">add</a><a href="#" class="btn btn-sm btn-default">del</a>';
+    var popOverHTML = '<button class="popover-button btn btn-sm btn-default" data-tag-id="add" href="#">add</button>';
     
     // anchor popoover at that point
     this.popOver = this.$('.popover-anchor');

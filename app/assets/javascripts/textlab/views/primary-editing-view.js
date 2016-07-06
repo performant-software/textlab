@@ -56,14 +56,14 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView = new TextLab.DocumentTreeView();
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
-    
-    this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf });
-    this.surfaceView.render();    
-    this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);
-   
+
     this.xmlEditor = new TextLab.XMLEditor({ model: this.selectedLeaf });
     this.xmlEditor.render();
     this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
+    
+    this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf, xmlEditor: this.xmlEditor });
+    this.surfaceView.render();    
+    this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
   },
   
   postRender: function() {
