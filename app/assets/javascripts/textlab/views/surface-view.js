@@ -1,7 +1,8 @@
 TextLab.SurfaceView = Backbone.View.extend({
 
 	template: JST['textlab/templates/surface-view'],
-    
+  zonePopoverTemplate: JST['textlab/templates/zone-popover'],
+   
   id: 'surface-view',
   
   events: {
@@ -146,7 +147,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone = zoneGroup.data.zone;
     
     // popover content
-    var popOverHTML = '<button class="popover-button btn btn-sm btn-default" data-tag-id="add" href="#">add</button>';
+    var popOverHTML = this.zonePopoverTemplate();
     
     // anchor popoover at that point
     this.popOver = this.$('.popover-anchor');

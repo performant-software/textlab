@@ -13,7 +13,7 @@
             field_title: attribute.displayName, 
             field_value: attribute.defaultValue ? attribute.defaultValue : '', 
             field_instructions: attribute.instructions, 
-            options: attribute.vocab,
+            options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
             error: false 
           }) %>
         <% }); %>
