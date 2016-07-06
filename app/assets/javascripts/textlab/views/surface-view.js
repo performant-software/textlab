@@ -78,6 +78,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     if( !hitResult && this.selectedZoneGroup ) {
        this.toggleHighlight( this.selectedZoneGroup, false );
        this.selectedZoneGroup = null;
+       this.hidePopOverMenu();
        paper.view.draw();    
     }
     
@@ -94,28 +95,64 @@ TextLab.SurfaceView = Backbone.View.extend({
           this.toggleHighlight( zoneGroup, true );
           this.selectedZoneGroup = zoneGroup;
                     
+          this.hidePopOverMenu();
           paper.view.draw();    
-        } else {
+        }
+        // click on already selected zone 
+        else {
           // if we clicked on delete button, delete this zone
           if( selectedItem.data.deleteButton ) {
             this.deleteZone(zoneGroup);
             return; 
-          }          
+          // if we clicked on a resize handle, then we are in resize mode
+          } else if( selectedItem.data.handle ){
+            this.dragMode = "resize-zone";
+            this.activeDragHandle = selectedItem.data.handle;
+            return; 
+          } else {
+            this.dragMode = null;
+            this.showPopOverMenu(zoneGroup);
+          }
         }
       }
-      
-      // if we clicked on a resize handle, then we are in resize mode
-      if( selectedItem.data.handle ) {
-        this.dragMode = "resize-zone";
-        this.activeDragHandle = selectedItem.data.handle;
-      } else {
-        this.dragMode = null;
-      }
+
     } else {
       if( this.mode == 'add' ) {
         this.dragMode = "new-zone";
       }    
     }
+  },
+  
+  hidePopOverMenu: function() {
+    if( this.popOver ) {
+      this.popOver.popover('destroy');
+      this.popOver = null;
+      this.viewer.setMouseNavEnabled(true);
+    }
+  },
+  
+  showPopOverMenu: function( zoneGroup ) {
+    // obtain bottom center of the zone label
+    var backdrop = zoneGroup.children['backdrop'];
+    var backdropBottomCenter = backdrop.bounds.bottomCenter;
+    var position = paper.view.projectToView(backdropBottomCenter);
+    var zone = zoneGroup.data.zone;
+    
+    // popover content
+    var popOverHTML = '<a href="#" class="btn btn-sm btn-default">add</a><a href="#" class="btn btn-sm btn-default">del</a>';
+    
+    // anchor popoover at that point
+    this.popOver = this.$('.popover-anchor');
+    this.popOver.offset({ left: position.x+215, top: position.y+55 });
+    this.popOver.popover( {
+      title: 'Zone '+zone.get("zone_label"),
+      placement: 'bottom',
+      html: true,
+      content: popOverHTML     
+    });
+    
+    this.viewer.setMouseNavEnabled(false);
+    this.popOver.popover('show');
   },
   
   whichZone: function(item) {
@@ -150,6 +187,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone = this.selectedZoneGroup.data.zone;
     zone.destroy({ success: function() {
       zoneGroup.remove();
+      paper.view.draw();  
     }, error: TextLab.Routes.onError });       
   },  
   
@@ -190,7 +228,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     this.selectedZoneGroup.remove();  
     this.selectedZoneGroup = this.renderZone(zone);   
-    this.selectedZoneGroup.children['resizeHandles'].visible = true;
+    this.toggleHighlight(this.selectedZoneGroup, true); 
   },  
   
   onDragEnd: function(event) {
