@@ -9,6 +9,12 @@ TextLab.Leaf = Backbone.Model.extend({
   
   afterLoad: function( attributes ) {
     this.zones = new TextLab.ZoneCollection(attributes["zones"]);
+    this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);
+  },
+  
+  beforeSave: function() {
+    var zoneLinksObj = this.zoneLinks.toJSON();
+    this.set( 'zone_links_json', zoneLinksObj );
   },
   
   sync: function(method, model, options) {
@@ -26,6 +32,10 @@ TextLab.Leaf = Backbone.Model.extend({
       }      
     }
     
+    if( this.beforeSave && method == 'update' ) {    
+      this.beforeSave();
+    }
+    
     Backbone.sync(method, model, options);
   },
   
@@ -35,7 +45,14 @@ TextLab.Leaf = Backbone.Model.extend({
     zone.set("leaf_id", this.id );
     zone.generateZoneLabel(zoneID);
     this.zones.add( zone );
+  },
+  
+  addZoneLink: function( zoneLink ) {
+    zoneLink.set("leaf_id", this.id );
+    this.zoneLinks.add( zoneLink );
+    // TODO let zone know it is referenced
   }     
+  
     
 });
 

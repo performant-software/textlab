@@ -26,7 +26,6 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     
     var attributes = " ";
     var zoneOffset = null;
-    var zone = null;
     
     _.each( this.tag.attributes, _.bind( function( attribute, key ) {
       var fieldID = 'att-'+key;
@@ -39,14 +38,13 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
       if( attribute.fieldType == 'zone' ) {
         var match = /="/.exec(attrString);
         zoneOffset = match.index + attributes.length + 2;
-        zone = true; // TODO obtain zone
       } 
       
       attributes = attributes + attrString;      
     }, this));
     
     this.close( _.bind( function() {
-      this.callback({ attrString: attributes, zoneOffset: zoneOffset, zone: zone });
+      this.callback({ attrString: attributes, zoneOffset: zoneOffset });
     }, this));
   },
   

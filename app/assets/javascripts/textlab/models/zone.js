@@ -25,5 +25,12 @@ TextLab.Zone = Backbone.Model.extend({
 
 TextLab.ZoneCollection = Backbone.Collection.extend({
   model: TextLab.Zone,
-  url: "zones"  
+  url: "zones",
+  
+  getZoneByLabel: function( label ) {
+    return _.find( this.models, function(zone) {
+      return zone.get("zone_label") == label;      
+    });  
+  }
+  
 }); 

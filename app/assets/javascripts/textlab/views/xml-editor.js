@@ -11,7 +11,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   events: {
     'click .lb-mode-button': 'onClicklbMode',
     'click .tag-menu-item': 'onClickTagMenuItem',
-    'click .facs-ref': 'onClickImageLink'
+    'click .zone-link': 'onClickZoneLink'
   },
   
 	autoSaveDelay: 1000,
@@ -63,6 +63,19 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   save: function() {
     var doc = this.editor.getDoc();    
+    var marks = doc.getAllMarks();
+
+    // convert marks into zone links
+    var zoneLinks = _.map( marks, _.bind(function(mark) {
+      var markRange = mark.find();
+      var zoneLabel = doc.getRange(markRange.from, markRange.to);
+      var offset = doc.indexFromPos( markRange.from );
+      var zoneLink = new TextLab.ZoneLink({ offset: offset, zone_label: zoneLabel, leaf_id: this.model.id });
+      return zoneLink;
+    }, this));
+
+    // reset to latest zone links
+    this.model.zoneLinks.reset(zoneLinks);
     this.model.set("content",doc.getValue());
     this.model.save();
   },
@@ -105,17 +118,17 @@ TextLab.XMLEditor = Backbone.View.extend({
       doc.replaceRange(insertion, startPos );
     }
     
-    // need to know insertion point + offset into insertion where link appears. need to know which zone.
-    if( attributes.zone ) {
+    // need to know insertion point + offset into insertion where link appears. 
+    if( attributes.zoneOffset ) {
       var elementStart = "<"+tag.tag;
       var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;
-      this.insertImageLink(attributes.zone,offset);
+      this.markZoneLink(offset);
     }
     
     this.editor.focus();
   },
   
-  insertImageLink: function( zone, offset ) {
+  markZoneLink: function( offset ) {
     var endIndex = offset + 4; // format is always four chars long
     var doc =  this.editor.getDoc();
     var position = doc.posFromIndex(offset);
@@ -123,7 +136,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     doc.markText( position, endPos, { className: "zone-link", atomic: true } );        
   },
   
-  onClickImageLink: function() {
+  onClickZoneLink: function() {
     // TODO
     return false;
   },
