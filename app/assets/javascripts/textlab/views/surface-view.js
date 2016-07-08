@@ -96,8 +96,9 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   onDragStart: function(event) {
-    this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
-    var hitResult = paper.project.hitTest(this.dragStart);
+    this.resetDrag();
+    var clickAt = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
+    var hitResult = paper.project.hitTest(clickAt);
     
     if( !hitResult && this.selectedZoneGroup ) {
        this.toggleHighlight( this.selectedZoneGroup, false );
@@ -131,10 +132,11 @@ TextLab.SurfaceView = Backbone.View.extend({
           // if we clicked on a resize handle, then we are in resize mode
           } else if( selectedItem.data.handle ){
             this.dragMode = "resize-zone";
+            this.dragStart = clickAt;
+            this.viewer.setMouseNavEnabled(false);
             this.activeDragHandle = selectedItem.data.handle;
             return; 
           } else {
-            this.dragMode = null;
             this.showPopOverMenu(zoneGroup);
           }
         }
@@ -143,6 +145,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     } else {
       if( this.mode == 'add' ) {
         this.dragMode = "new-zone";
+        this.viewer.setMouseNavEnabled(false);
+        this.dragStart = clickAt;
       }    
     }
   },
@@ -194,7 +198,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   onDrag: function(event) {
-    if ( this.mode != 'add' || !this.dragMode ) return;
+    if ( this.mode != 'add' || !this.dragMode || !this.dragStart ) return;
 
     var dragAt = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
     
@@ -255,15 +259,25 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.toggleHighlight(this.selectedZoneGroup, true); 
   },  
   
+  resetDrag: function() {
+    this.dragStart = null;
+    this.dragMode = null;
+    this.activeDragHandle = null;
+  },
+  
   onDragEnd: function(event) {
+    if ( this.mode != 'add' || !this.dragMode || !this.dragStart ) {
+      this.resetDrag();
+      return;
+    }
+     
     if( this.mode == 'add' ) {
       this.selectedZoneGroup.children['resizeHandles'].visible = true;
       var zone = this.selectedZoneGroup.data.zone;
       zone.save(null,{ success: this.zoneSaved, error: TextLab.Routes.onError });    
     }
-    this.dragStart = null;
-    this.dragMode = null;
-    this.activeDragHandle = null;
+    
+    this.resetDrag();    
   },
   
   zoneSaved: function(zone) {
