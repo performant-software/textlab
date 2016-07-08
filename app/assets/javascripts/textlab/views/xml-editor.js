@@ -157,6 +157,10 @@ TextLab.XMLEditor = Backbone.View.extend({
       doc.setValue( this.model.get('content') );
     }
     
+    _.each( this.model.zoneLinks.models, function( zoneLink ) {
+      this.markZoneLink(zoneLink.get('offset'));
+    }, this);
+    
 		// Undo (ctrl-z) history starts now 
 		doc.clearHistory();
     
