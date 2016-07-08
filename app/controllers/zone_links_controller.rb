@@ -44,7 +44,7 @@ class ZonesLinksController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def :set_zone_link
+    def set_zone_link
       @zone_link = ZoneLink.find(params[:id])
     end
 
