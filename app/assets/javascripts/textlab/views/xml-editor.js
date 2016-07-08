@@ -98,11 +98,12 @@ TextLab.XMLEditor = Backbone.View.extend({
   generateTag: function(tag, attributes) {
     var insertion, startPos;
     var doc =  this.editor.getDoc();
+    var attrString = attributes ? attributes.attrString : "";
     
     if( tag.empty ) {
-      insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attributes.attrString });
+      insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attrString });
     } else {
-      var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attributes.attrString });
+      var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attrString });
       var body = doc.getSelection();
       var closeTag = this.closeTagTemplate(tag);
       insertion = openTag + body + closeTag;
@@ -119,7 +120,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     }
     
     // need to know insertion point + offset into insertion where link appears. 
-    if( attributes.zoneOffset ) {
+    if( attributes && attributes.zoneOffset ) {
       var elementStart = "<"+tag.tag;
       var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;
       this.markZoneLink(offset);
