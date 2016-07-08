@@ -136,8 +136,10 @@ TextLab.XMLEditor = Backbone.View.extend({
     doc.markText( position, endPos, { className: "zone-link", atomic: true } );        
   },
   
-  onClickZoneLink: function() {
-    // TODO
+  onClickZoneLink: function(e) {
+    var zoneLabel = $(e.currentTarget).html();
+    var zone = this.model.zones.getZoneByLabel(zoneLabel);
+    this.surfaceView.selectZone( zone );
     return false;
   },
       

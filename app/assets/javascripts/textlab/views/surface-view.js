@@ -79,6 +79,19 @@ TextLab.SurfaceView = Backbone.View.extend({
     return false;
   },
   
+  selectZone: function( zone ) {
+    // go through the items until we find the zone group for this zone
+    var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
+      return (item.data.zone && item.data.zone.id == zone.id );
+    });
+    if( this.selectedZoneGroup ) {
+      this.toggleHighlight( this.selectedZoneGroup, false );
+    }
+    this.selectedZoneGroup = zoneGroup;
+    this.toggleHighlight( zoneGroup, true );
+    paper.view.draw(); 
+  },
+  
   onDragStart: function(event) {
     this.dragStart = paper.view.viewToProject(new paper.Point(event.position.x, event.position.y));
     var hitResult = paper.project.hitTest(this.dragStart);
