@@ -53,6 +53,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   toggleZones: function() {
     // TODO toggle the visibility of the regions
+    return false;
   },
   
   onPopoverButton: function(e) {
