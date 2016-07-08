@@ -80,6 +80,8 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   selectZone: function( zone ) {
+    if( !zone ) return;
+    
     // go through the items until we find the zone group for this zone
     var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
       return (item.data.zone && item.data.zone.id == zone.id );
