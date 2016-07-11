@@ -1,21 +1,21 @@
 
 <div class='btn-toolbar xml-editor-toolbar'>
-    
+  
   <div class="dropdown">
-    <button class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+    <button id="xml-tag-dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
       Tags
       <span class="caret"></span>
     </button>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu scrollable-menu">
       <% _.each( tags, function(tag) { %>
         <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
       <% }) %>
     </ul>
   </div>
   
-  <button class='tag-menu-item btn btn-sm btn-default' data-tag-id='milestone' href='#' >milestone</button>
-  <button class='tag-menu-item btn btn-sm btn-default' disabled data-tag-id='pb' href='#'>pb</button>
-  <button class='tag-menu-item btn btn-sm btn-default' data-tag-id='ab' href='#' >ab</button>
+  <button class='tag-menu-item toolbar-button btn btn-sm btn-default' data-tag-id='milestone' href='#' >milestone</button>
+  <button class='tag-menu-item toolbar-button btn btn-sm btn-default' disabled data-tag-id='pb' href='#'>pb</button>
+  <button class='tag-menu-item toolbar-button btn btn-sm btn-default' data-tag-id='ab' href='#' >ab</button>
   <button class='lb-mode-button btn btn-sm btn-default' data-tag-id='lb' href='#' >lb</button>
   
   <div class="error-message"></div>

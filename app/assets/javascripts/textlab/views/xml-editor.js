@@ -23,9 +23,15 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.lbEnabled = false;
   },
   
-  onClickTagMenuItem: function(event) {    
-    var tagID = $(event.currentTarget).attr("data-tag-id");		
+  onClickTagMenuItem: function(event) {
+    var target = $(event.currentTarget); 
+    var tagID = target.attr("data-tag-id");		
     var tag = TextLab.Tags[tagID];
+      
+    // are we coming from drop down? if so, hide it
+    if( !target.hasClass('toolbar-button')) {
+      this.$('#xml-tag-dropdown').dropdown('toggle');
+    }
         
     if( tag.attributes ) {    
       var onCreateCallback = _.bind(function(attributes) {

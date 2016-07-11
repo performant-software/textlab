@@ -20,5 +20,10 @@
     margin-top: 5px;
     float: right;
   }
-    
+  
+  .scrollable-menu {
+      height: auto;
+      max-height: 250px;
+      overflow-x: hidden;
+  }    
 }

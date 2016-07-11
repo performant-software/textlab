@@ -328,7 +328,7 @@ TextLab.Tags = {
       n: { 
         displayName: 'Number', 
         fieldType: 'number', 
-        instructions: "Please enter a cardinal number for this milestone." 
+        instructions: "Please enter a number for this milestone." 
       },
       unit: { 
         displayName: 'Unit', 
@@ -339,7 +339,7 @@ TextLab.Tags = {
           { value: 'mount', text: 'Mount' },
           { value: 'leaf', text: 'Leaf' }
         ], 
-        instructions: "Please select the type of the cardinal value." 
+        instructions: "Please select the type of item being numbered." 
       }
     }
   },
