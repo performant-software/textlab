@@ -1,37 +1,36 @@
 TextLab.Vocabs = {
   place: [  
-    { value: '#HM', text: "Inline" }, 
-    { value: '#HM', text: "Superlinear (above)" }, 
-    { value: '#HM', text: "Superlinear (below)" }, 
-    { value: '#HM', text: "Right Margin" }, 
-    { value: '#HM', text: "Left Margin" }, 
-    { value: '#HM', text: "Top Margin" }, 
-    { value: '#HM', text: "Bottom Margin" } 
+    { value: 'inline', text: "Inline" }, 
+    { value: 'above', text: "Superlinear (above)" }, 
+    { value: 'below', text: "Superlinear (below)" }, 
+    { value: 'margin(right)', text: "Right Margin" }, 
+    { value: 'margin(left)', text: "Left Margin" }, 
+    { value: 'margin(top)', text: "Top Margin" }, 
+    { value: 'margin(bottom)', text: "Bottom Margin" } 
   ],
   rendered: [  
-    { value: '#HM', text: "Caret" }, 
-    { value: '#HM', text: "No Caret" }, 
-    { value: '#HM', text: "Bubble" }, 
-    { value: '#HM', text: "Half Caret" }, 
-    { value: '#HM', text: "Insertion Device" }, 
-    { value: '#HM', text: "Clip" }, 
-    { value: '#HM', text: "Mount" }, 
-    { value: '#HM', text: "Patch" }
+    { value: 'caret', text: "Caret" }, 
+    { value: 'no-caret', text: "No Caret" }, 
+    { value: 'bubble', text: "Bubble" }, 
+    { value: 'half-caret', text: "Half Caret" }, 
+    { value: 'insertion-device', text: "Insertion Device" }, 
+    { value: 'clip', text: "Clip" }, 
+    { value: 'mount', text: "Mount" }, 
+    { value: 'patch', text: "Patch" }
    ],
   renderType: [ 
-    { value: '#HM', text: "Indeterminate ink color" }, 
-    { value: '#HM', text: "Black ink" }, 
-    { value: '#HM', text: "Blue ink" }, 
-    { value: '#HM', text: "Brown ink" }, 
-    { value: '#HM', text: "Blue-gray ink" }, 
-    { value: '#HM', text: "Charcoal-gray ink" }, 
-    { value: '#HM', text: "Pencil" }, 
-    { value: '#HM', text: "Green crayon folio" }, 
-    { value: '#HM', text: "Red crayon folio" }, 
-    { value: '#HM', text: "Orange crayon folio" }, 
-    { value: '#HM', text: "Green crayon folio" }, 
-    { value: '#HM', text: "Blue crayon folio" }, 
-    { value: '#HM', text: "Brown crayon folio" }
+    { value: 'inkG', text: "Indeterminate ink color" }, 
+    { value: 'ink1', text: "Black ink" }, 
+    { value: 'ink2', text: "Blue ink" }, 
+    { value: 'ink3', text: "Brown ink" }, 
+    { value: 'ink4', text: "Blue-gray ink" }, 
+    { value: 'ink5', text: "Charcoal-gray ink" }, 
+    { value: 'HMp', text: "Pencil" }, 
+    { value: 'Cg', text: "Green crayon folio" }, 
+    { value: 'Cr', text: "Red crayon folio" }, 
+    { value: 'Co', text: "Orange crayon folio" }, 
+    { value: 'Cbl', text: "Blue crayon folio" }, 
+    { value: 'Cbr', text: "Brown crayon folio" }
   ],
   hand: [
     { value: '#HM', text: 'Herman Melville' },
@@ -83,17 +82,17 @@ TextLab.Vocabs = {
     { value: 'Stp', text:'Late stage pencil revisions appearing on all leaves, sometimes preceding ink inscription, sometimes following' }
   ],
   deletionRendered: [
-    { value: '#HM', text: "Single Stroke" },
-    { value: '#HM', text: "Multi-stroke" },
-    { value: '#HM', text: "Hashmark" },
-    { value: '#HM', text: "Erasure" }
+    { value: 'single-stroke', text: "Single Stroke" },
+    { value: 'multi-stroke', text: "Multi-stroke" },
+    { value: 'hashmark', text: "Hashmark" },
+    { value: 'erasure', text: "Erasure" }
   ],
   metamark: [
-    { value: '#HM', text: "Folio" },
-    { value: '#HM', text: "Caret" },
-    { value: '#HM', text: "Section Divider" },
-    { value: '#HM', text: "Insertion Device" },
-    { value: '#HM', text: "Composition Information" }      
+    { value: 'folio', text: "Folio" },
+    { value: 'caret', text: "Caret" },
+    { value: 'section-divider', text: "Section Divider" },
+    { value: 'insertion-device', text: "Insertion Device" },
+    { value: 'composition-information', text: "Composition Information" }      
   ]
 }
 
@@ -187,9 +186,14 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'renderType' 
       },
-      // delType: {
-      //
-      // },
+      delType: { 
+        displayName: 'Deletion Type', 
+        fieldType: 'dropdown', 
+        vocab: [
+          { value: 'false-start', text: 'False Start' }
+        ], 
+        instructions: "" 
+      },
       hand: { 
         displayName: 'Hand', 
         fieldType: 'dropdown', 
@@ -393,11 +397,26 @@ TextLab.Tags = {
   supplied: {
     tag: 'supplied',
     empty: false
-  }
+  },
 
-  // unclear: {
-  //
-  // }
+  // also encloses <app><rdg>lorem</rdg></app>
+  unclear: {
+    tag: 'unclear',
+    empty: false,
+    attributes: {
+      resp: { 
+        displayName: 'Responsible persons', 
+        fieldType: 'string', 
+        defaultValue: '#MEL',
+        instructions: "Please enter the responsible person." 
+      },
+      zone: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
+      }
+    }
+  }
 
 };
   
