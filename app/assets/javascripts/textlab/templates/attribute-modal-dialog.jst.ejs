@@ -12,8 +12,9 @@
             <%= partials.dropdownInput( { 
               field_name: 'att-'+key, 
               field_title: attribute.displayName, 
-              field_value: attribute.defaultValue ? attribute.defaultValue : '', 
+              field_value: defaultZone, 
               field_instructions: attribute.instructions, 
+              no_blank: true,
               options: zones,
               error: false 
             }) %>

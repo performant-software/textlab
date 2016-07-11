@@ -2,7 +2,9 @@
   <label for="<%= field_name %>" class="control-label col-sm-2"><%= field_title %>:</label>
   <div class="col-sm-9 field-wrapper">
   	<select type="text" class="form-control" id="<%= field_name %>">
-  		<option></option>
+  		<% if( typeof(no_blank) == 'undefined' || !no_blank ) { %>
+        <option></option>
+      <% } %>
   		<% for (var i = 0; i < options.length; i++) { %>
   		<option value="<%= options[i].value %>" <%= (options[i].value === field_value) ? 'selected="selected"' : ""  %>><%= options[i].text %></option>
   		<% } %>

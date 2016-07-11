@@ -18,6 +18,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.tag = options.tag;
+    this.currentZone = options.zone;
     this.callback = options.callback;
   },
   
@@ -35,7 +36,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
       var attrString = this.attributeTemplate(pair);    
       
       // use regex to find start offset within attrString and add length of attributes so far
-      if( attribute.fieldType == 'zone' ) {
+      if( attribute.fieldType == 'zone' && value != null ) {
         var match = /="/.exec(attrString);
         zoneOffset = match.index + attributes.length + 2;
       } 
@@ -73,7 +74,13 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
       return { value: zoneLabel, text: zoneLabel };
     });
     
-    this.$el.html(this.template({ tag: this.tag, zones: zoneOptions, partials: this.partials }));    
+    var sortedOptions = _.sortBy(zoneOptions, function(opt) {
+      return opt.text;
+    }, this ); 
+    
+    var currentZoneLabel = this.currentZone ? this.currentZone.get('zone_label') : '';
+    
+    this.$el.html(this.template({ tag: this.tag, defaultZone: currentZoneLabel, zones: sortedOptions, partials: this.partials }));    
     $('#modal-container').html(this.$el);
     $('#attributes-modal').modal('show');
   } 

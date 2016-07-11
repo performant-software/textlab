@@ -58,6 +58,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onPopoverButton: function(e) {
     this.hidePopOverMenu();
+    e.zone = this.selectedZoneGroup.data.zone;
     this.xmlEditor.onClickTagMenuItem(e);
   },
   
