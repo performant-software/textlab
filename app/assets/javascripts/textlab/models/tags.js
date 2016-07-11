@@ -40,7 +40,47 @@ TextLab.Vocabs = {
     { value: '#HT', text: ' Houghton Library' } 
   ],
   stage: [ 
-    // TODO
+    { value: 'StA', text:'Earliest draftings before stage B, with only four pencil leaves extant' },
+    { value: 'StB', text:'Fair-copy leaves designated by the MG (top margin green crayon) number set' },
+    { value: 'StBa', text:'Sub-stage of B designated by inscription with heavy black ink' },
+    { value: 'StBb', text:'Sub-stage of B designated by inscription with fine nib and black ink ' },
+    { value: 'StBba', text:'Sub-stage of sub-stage Bb, with further local distinctions' },
+    { value: 'StBbb', text:'Sub-stage of sub-stage Bb, with further local distinctions' },
+    { value: 'StBc', text:'Sub-stage of B designated by inscription with dark black ink; also indicated as Stage Bc[C] and Stage BcCa' },
+    { value: 'StBca', text:'Sub-stage of sub-stage Bc, with further local distinctions' },
+    { value: 'StBcb', text:'Sub-stage of sub-stage Bc, with further local distinctions' },
+    { value: 'StBcC', text:'Indicates that sub-stage Bc leaves share the same dark black ink as Stage Ca' },
+    { value: 'StC', text:'Fair-copy leaves designated by the LCP (left margin pencil) number set' },
+    { value: 'StCa', text:'Sub-stage of C designated by added numbers; basic inscription in dark black ink of Stage Bc; also indicated as Stage Bc[C] and Stage BcCa' },
+    { value: 'StBcCa', text:'Indicates that sub-stage Ca leaves share the same dark black ink as Stage Bc' },
+    { value: 'StCaa', text:'Sub-stage of sub-stage Ca designated by contextual features<' },
+    { value: 'StCab', text:'Sub-stage of sub-stage Ca designated by contextual features' },
+    { value: 'StCb', text:'Sub-stage of C designated by added numbers' },
+    { value: 'StCba', text:'Sub-stage of sub-stage Cb designated by contextual features' },
+    { value: 'StCbb', text:'Sub-stage of sub-stage Cb designated by contextual features' },
+    { value: 'StCc', text:'Sub-stage of C designated by added numbers' },
+    { value: 'StCca', text:'Sub-stage of sub-stage Cc designated by contextual features' },
+    { value: 'StD', text:'Fair-copy leaves, in pale black, almost gray ink, designated by the LG (top left corner) number set' },
+    { value: 'StDa', text:'Sub-stage of D designated by unmodified numbers' },
+    { value: 'StDaa', text:'Sub-stage of sub-stage Da designated by local features' },
+    { value: 'StDab', text:'Sub-stage of sub-stage Da designated by local features' },
+    { value: 'StDb', text:'Sub-stage of D designated by modified numbers and contextual features' },
+    { value: 'StX', text:'Pencil draft composition of material later developed in stages F and G; only several leaves survive' },
+    { value: 'StE', text:'Fair-copy leaves designated by the Red (top right corner, red crayon) number set, with sub-stages distinguishable by added numbers, crayon color variation, inks, pen nibs, and contextual features' },
+    { value: 'StEa', text:'Sub-stage of E in gray-black ink (chs. 1-2)' },
+    { value: 'StEab', text:' Sub-stage of sub-stage Ea, designated by added numbers and contextual features' },
+    { value: 'StEb', text:'Sub-stage of E in gray-black ink, fine nib (chs. 3-12)' },
+    { value: 'StEc', text:'Sub-stage of E with added numbers, brownish crayon for foliation, and coarse nib (ch. 9)' },
+    { value: 'StEd', text:'Sub-stage of E (ch. 11)' },
+    { value: 'StEeF', text:'Sub-stage of E revising parts of sub-stage Eb (chs. 11-12) in the brown ink of stage F' },
+    { value: 'StEG', text:'Sub-stage of E revising parts of sub-stage Eb (chs. 11-12) in the blue ink of stage G' },
+    { value: 'StF', text:'Fair-copy leaves, in brown ink, with coarse nib, designated by the MLP (left margin pencil) number set' },
+    { value: 'StFa', text:'Sub-stage of F in same ink, with unmodified numbers' },
+    { value: 'StFb', text:'Sub-stage of F in same ink, with modified numbers' },
+    { value: 'StG', text:' Fair-copy leaves, in blue ink, designated by the MRP (right margin pencil) number set ' },
+    { value: 'StGa', text:'Sub-stage of G in same ink, with unmodified numbers' },
+    { value: 'StGb', text:'Sub-stage of F in same ink, with modified numbers' },
+    { value: 'Stp', text:'Late stage pencil revisions appearing on all leaves, sometimes preceding ink inscription, sometimes following' }
   ],
   deletionRendered: [
     { value: '#HM', text: "Single Stroke" },
@@ -161,12 +201,12 @@ TextLab.Tags = {
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
+      },
+      zone: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
       }
-      // zone: {
-      //   displayName: 'Zone',
-        // instructions: '',
-      //   fieldType: 'region'
-      // }  
     }    
   },
  
@@ -268,12 +308,12 @@ TextLab.Tags = {
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
+      },
+      zone: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
       }
-      // zone: {
-    //     displayName: 'Zone',
-        // instructions: '',
-    //     fieldType: 'region'
-    //   }
     }    
   },
  
@@ -332,12 +372,12 @@ TextLab.Tags = {
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'hand' 
+      },
+      zone: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
       }
-      // zone: {
-      //   displayName: 'Zone',
-        // instructions: '',
-      //   fieldType: 'region'
-      // }  
     }    
   },
 
