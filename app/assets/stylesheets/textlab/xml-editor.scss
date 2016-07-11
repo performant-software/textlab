@@ -3,7 +3,6 @@
   .xml-editor-toolbar {
     padding: 5px;
     padding-left: 10px;
-    width: 110%;
     background: #e6e6e6;
     border-bottom: 1px solid gray;
   }
@@ -14,5 +13,12 @@
     border: 1px solid gray;
     cursor: pointer;
   }
-  
+       
+  .error-message {
+    color: red;
+    margin-left: 20px;
+    margin-top: 5px;
+    float: right;
+  }
+    
 }

@@ -7,6 +7,8 @@ TextLab.Routes = Backbone.Router.extend({
   },
     
   initialize: function(options) {
+    
+    _.bindAll( this, "onError" );
                       
     // global singleton
     TextLab.Routes.routes = this;
@@ -38,9 +40,8 @@ TextLab.Routes = Backbone.Router.extend({
     documents.fetch( { success: initView, error: this.onError } );
   },  
   
-   // TODO improve error handling
   onError: function( collection, response, options ) {
-     alert(response);    
+    console.log( "Server Error: \n"+response );
   }    
 
 });

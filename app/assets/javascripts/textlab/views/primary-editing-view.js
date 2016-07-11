@@ -35,7 +35,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     seaDragonViewport.width(surfaceViewPanel.width());	
     
     var xmlEditorPanel = this.$("#xml-editor-panel");
-    this.xmlEditor.editor.setSize( xmlEditorPanel.width(), xmlEditorPanel.height() );
+    var xmlEditorToolbar = this.$(".xml-editor-toolbar");
+    this.xmlEditor.editor.setSize( xmlEditorPanel.width(), xmlEditorPanel.height() - xmlEditorToolbar.height() - 15 );
     
     // tell open sea dragon overlay to resize
     var overlay = this.surfaceView.overlay;     

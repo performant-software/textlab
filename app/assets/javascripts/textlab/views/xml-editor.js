@@ -77,8 +77,19 @@ TextLab.XMLEditor = Backbone.View.extend({
     // reset to latest zone links
     this.model.zoneLinks.reset(zoneLinks);
     this.model.set("content",doc.getValue());
-    this.model.save();
-  },
+    
+    
+    var onError = function() {
+      $('.error-message').html('ERROR: Unable to save changes.');
+      TextLab.Routes.routes.onError();
+    };
+  
+    var onSuccess = function() {
+      $('.error-message').html('');
+    };
+    
+    this.model.save(null, { success: onSuccess, error: onError });
+  },  
   
 	startAutosaveTimer: function() {
 		// start a timer
