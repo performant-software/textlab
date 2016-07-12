@@ -300,6 +300,15 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.$el.html(this.template()); 
   },
   
+  toggleZoneLink: function( zoneLabel, state ) {
+    var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
+      return (item.data.zone && item.data.zone.get('zone_label') == zoneLabel );
+    });
+    var zoneRect = zoneGroup.children['zoneRect'];
+    zoneRect.dashArray = state ? '' : this.dashPattern;
+    paper.view.draw();       
+  },
+  
   renderZone: function( zone ) {   
     
     // render zone rectangle
@@ -307,10 +316,13 @@ TextLab.SurfaceView = Backbone.View.extend({
     var to = new paper.Point(zone.get("lrx"),zone.get("lry"));
     var zoneItem = new paper.Path.Rectangle(from, to);
     var zoneBounds = zoneItem.bounds;
-
+    var zoneLinks = this.model.getZoneLinks( zone );
+  
     zoneItem.strokeColor = 'blue';
     zoneItem.strokeWidth = 12;
-    zoneItem.dashArray = this.dashPattern;
+    if( zoneLinks.length == 0 ) {
+      zoneItem.dashArray = this.dashPattern;
+    }
     zoneItem.opacity = this.unSelectedOpacity;
     zoneItem.name = 'zoneRect';    
     

@@ -66,7 +66,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.generateTag(this.lbTag);
     }    
   },
-  
+    
   save: function() {
     var doc = this.editor.getDoc();    
     var marks = doc.getAllMarks();
@@ -139,11 +139,36 @@ TextLab.XMLEditor = Backbone.View.extend({
     // need to know insertion point + offset into insertion where link appears. 
     if( attributes && attributes.zoneOffset ) {
       var elementStart = "<"+tag.tag;
-      var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;
-      this.markZoneLink(offset);
+      var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;      
+      var zoneMark = this.markZoneLink(offset);
+      var markRange = zoneMark.find();
+      var zoneLabel = doc.getRange(markRange.from, markRange.to);
+      this.surfaceView.toggleZoneLink( zoneLabel, true );
     }
     
     this.editor.focus();
+  },
+  
+  setSurfaceView: function( surfaceView ) {
+    var doc = this.editor.getDoc();    
+    var marks = doc.getAllMarks();
+    
+    // convert marks into zone links
+    var zoneLinks = _.map( marks, _.bind(function(mark) {
+      var markRange = mark.find();
+      var zoneLabel = doc.getRange(markRange.from, markRange.to);
+
+      mark.on( 'hide', _.bind(function() {
+        this.surfaceView.toggleZoneLink( zoneLabel, false );
+      },this));
+
+      mark.on( 'unhide', _.bind(function() {
+        this.surfaceView.toggleZoneLink( zoneLabel, true );
+      },this));
+
+    }, this));
+    
+    this.surfaceView = surfaceView;          
   },
   
   markZoneLink: function( offset ) {
@@ -151,7 +176,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var doc =  this.editor.getDoc();
     var position = doc.posFromIndex(offset);
     var endPos = doc.posFromIndex(endIndex);
-    doc.markText( position, endPos, { className: "zone-link", atomic: true } );        
+    return doc.markText( position, endPos, { className: "zone-link", atomic: true } ); 
   },
   
   onClickZoneLink: function(e) {

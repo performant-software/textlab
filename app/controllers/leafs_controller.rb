@@ -26,6 +26,13 @@ class LeafsController < ApplicationController
 
   # PATCH/PUT /leafs/1.json
   def update
+    
+    # rails deep munge substitutes [] with nil, but we always want 
+    # to keep this list in sync with editor
+    if leaf_params[:zone_links_json].nil?
+      @leaf.zone_links.clear
+    end
+    
     if @leaf.update(leaf_params)
       render json: @leaf.obj
     else

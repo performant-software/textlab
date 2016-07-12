@@ -63,7 +63,6 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
     
     this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf, xmlEditor: this.xmlEditor });
-    this.xmlEditor.surfaceView = this.surfaceView;
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
   },
@@ -72,6 +71,9 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     // viewer and editor must be initialized after they are in the DOM
     this.surfaceView.initViewer();
     this.xmlEditor.initEditor();
+    
+    // for listening to events related to zones
+    this.xmlEditor.setSurfaceView(this.surfaceView);
         
     // resize listeners
     $(window).resize(this.onWindowResize);
