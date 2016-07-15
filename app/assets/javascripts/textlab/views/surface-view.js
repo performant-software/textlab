@@ -214,10 +214,12 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   deleteZone: function( zoneGroup ) {
     var zone = this.selectedZoneGroup.data.zone;
-    zone.destroy({ success: function() {
+    var zoneLabel = zone.get('zone_label');
+    zone.destroy({ success: _.bind( function() {
       zoneGroup.remove();
-      paper.view.draw();  
-    }, error: TextLab.Routes.onError });       
+      paper.view.draw();
+      this.xmlEditor.removeZoneLink( zoneLabel );  
+    }, this), error: TextLab.Routes.onError });       
   },  
   
   dragNewZone: function(dragAt) {
@@ -402,9 +404,15 @@ TextLab.SurfaceView = Backbone.View.extend({
       overlay.resize();
       overlay.resizecanvas();
     }.bind(null, this.overlay);
+    
+    // Billy Budd PNG TODO 
+    // var tileSource = this.model.getTileSource();
+    
+    // Higher Res Example
+    var tileSource = this.model.get("tile_source");
         
     this.viewer.addTiledImage({
-      tileSource: this.model.get("tile_source"),
+      tileSource: tileSource, 
       success: renderRegions
     });
         

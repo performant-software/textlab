@@ -61,6 +61,30 @@ TextLab.Leaf = Backbone.Model.extend({
     } );
     
     return links;    
+  },
+  
+  getTileSource: function() {
+
+    // TODO this.model.get("tile_source"),
+
+    var tileURLTemplate = _.template("<%= server %>/<%= path %>?Deepzoom=<%= image %>_files/<%= level %>/<%= x %>_<%= y %>.jpg");
+    
+    return {
+      width: 1278,
+      height: 1353,
+      tileSize: 128,
+      getTileUrl: function( level, x, y ) {
+        var tileURL = tileURLTemplate( { 
+          server: 'http://localhost:8888',
+          path: 'fcgi-bin/iipsrv.fcgi',
+          image: '6_D7301EE8-A37D-4EBF-9605-3D942267C0D2.tif',
+          level: level,
+          x: x,
+          y: y,
+        });
+        return tileURL;
+      }
+    };
   }
   
     

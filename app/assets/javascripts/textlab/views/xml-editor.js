@@ -149,6 +149,22 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.editor.focus();
   },
   
+  removeZoneLink: function( removedZone ) {
+    var doc = this.editor.getDoc();    
+    var marks = doc.getAllMarks();
+    
+    _.each( marks, _.bind(function(mark) {
+      var markRange = mark.find();
+      var zoneLabel = doc.getRange(markRange.from, markRange.to);
+      if( zoneLabel == removedZone ) {
+        // clear the old one and add a new one that's red.
+        var delOffset = doc.indexFromPos(markRange.from);
+        mark.clear();
+        this.markZoneLink( delOffset, true );
+      }
+    }, this));
+  },
+  
   setSurfaceView: function( surfaceView ) {
     var doc = this.editor.getDoc();    
     var marks = doc.getAllMarks();
@@ -171,12 +187,13 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.surfaceView = surfaceView;          
   },
   
-  markZoneLink: function( offset ) {
+  markZoneLink: function( offset, broken ) {
     var endIndex = offset + 4; // format is always four chars long
     var doc =  this.editor.getDoc();
     var position = doc.posFromIndex(offset);
     var endPos = doc.posFromIndex(endIndex);
-    return doc.markText( position, endPos, { className: "zone-link", atomic: true } ); 
+    var cssClass = broken ? 'broken-zone-link' : 'zone-link';
+    return doc.markText( position, endPos, { className: cssClass, atomic: true } ); 
   },
   
   onClickZoneLink: function(e) {
