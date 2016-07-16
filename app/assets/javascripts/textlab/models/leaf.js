@@ -52,6 +52,14 @@ TextLab.Leaf = Backbone.Model.extend({
     this.zoneLinks.add( zoneLink );
   },    
   
+  isZoneLinkBroken: function( zoneLink ) {
+    var zone = _.find( this.zones.models, function( zone ) {
+      return zone.get("zone_label") == zoneLink.get("zone_label");
+    });
+    
+    return zone == null;
+  },
+  
   getZoneLinks: function( zone ) {    
     var links = [];
     _.each( this.zoneLinks.models, function( zoneLink ) {

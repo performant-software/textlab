@@ -220,7 +220,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     }
     
     _.each( this.model.zoneLinks.models, function( zoneLink ) {
-      this.markZoneLink(zoneLink.get('offset'));
+      var broken = this.model.isZoneLinkBroken(zoneLink);
+      this.markZoneLink(zoneLink.get('offset'), broken);
     }, this);
     
 		// Undo (ctrl-z) history starts now 

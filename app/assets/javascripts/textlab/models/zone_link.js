@@ -1,8 +1,6 @@
 TextLab.ZoneLink = Backbone.Model.extend({
   urlRoot: "zone_links",
-  
-  
-  
+    
 });
 
 TextLab.ZoneLinkCollection = Backbone.Collection.extend({
