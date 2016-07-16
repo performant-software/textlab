@@ -306,9 +306,12 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
       return (item.data.zone && item.data.zone.get('zone_label') == zoneLabel );
     });
-    var zoneRect = zoneGroup.children['zoneRect'];
-    zoneRect.dashArray = state ? '' : this.dashPattern;
-    paper.view.draw();       
+    
+    if( zoneGroup ) {
+      var zoneRect = zoneGroup.children['zoneRect'];
+      zoneRect.dashArray = state ? '' : this.dashPattern;
+      paper.view.draw();       
+    }
   },
   
   renderZone: function( zone ) {   
