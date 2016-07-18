@@ -51,8 +51,29 @@ TextLab.SurfaceView = Backbone.View.extend({
     return false;
   },
   
-  toggleZones: function() {
-    // TODO toggle the visibility of the regions
+  toggleZones: function() {    
+    
+    var vizIcon = this.$('#viz-icon');
+    var state = !vizIcon.hasClass('glyphicon-eye-open');
+
+    if( state ) {
+      vizIcon.addClass('glyphicon-eye-open');
+      vizIcon.removeClass('glyphicon-eye-close');
+    } else {
+      vizIcon.addClass('glyphicon-eye-close');
+      vizIcon.removeClass('glyphicon-eye-open');
+    }
+    
+    var zoneGroups = paper.project.getItems({
+      zoneGroup: true
+    });
+    
+    _.each( zoneGroups, function( zoneGroup ) {
+      zoneGroup.visible = state;
+    }, this);
+    
+    paper.view.draw(); 
+    
     return false;
   },
   
@@ -64,6 +85,10 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   toggleHighlight: function( zoneGroup, state ) {    
     var zoneChildren = zoneGroup.children;
+    
+    if( !zoneGroup.visible && state ) {
+      zoneGroup.visible = true;
+    }
     
     zoneChildren['zoneRect'].opacity = state ? 1.0 : this.unSelectedOpacity;
     // zoneChildren['zoneRect'].dashArray = state ? null : this.dashPattern;
@@ -372,6 +397,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     // zone group
     var zoneGroup = new paper.Group([zoneItem, resizeHandles, deleteButton, backdrop, text ]);
+    zoneGroup.zoneGroup = true;
     zoneGroup.data.zone = zone;  
     
     return zoneGroup;
