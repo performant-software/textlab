@@ -435,10 +435,10 @@ TextLab.SurfaceView = Backbone.View.extend({
     }.bind(null, this.overlay);
     
     // Billy Budd PNG TODO 
-    // var tileSource = this.model.getTileSource();
+    var tileSource = this.model.getTileSource();
     
     // Higher Res Example
-    var tileSource = this.model.get("tile_source");
+    // var tileSource = this.model.get("tile_source");
         
     this.viewer.addTiledImage({
       tileSource: tileSource, 

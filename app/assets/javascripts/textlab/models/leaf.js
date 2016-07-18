@@ -78,14 +78,14 @@ TextLab.Leaf = Backbone.Model.extend({
     var tileURLTemplate = _.template("<%= server %>/<%= path %>?Deepzoom=<%= image %>_files/<%= level %>/<%= x %>_<%= y %>.jpg");
     
     return {
-      width: 1278,
-      height: 1353,
+      width: 3276,
+      height: 3414,
       tileSize: 128,
       getTileUrl: function( level, x, y ) {
         var tileURL = tileURLTemplate( { 
           server: 'http://localhost:8888',
           path: 'fcgi-bin/iipsrv.fcgi',
-          image: '6_D7301EE8-A37D-4EBF-9605-3D942267C0D2.tif',
+          image: 'modbm_ms_am_188_363_0056.tif',
           level: level,
           x: x,
           y: y,
