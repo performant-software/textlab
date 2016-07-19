@@ -6,11 +6,8 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
 	glyphConfig: {
       map: {
-        doc: "glyphicon glyphicon-book",
-        docOpen: "glyphicon glyphicon-book",
-        expanderClosed: "glyphicon glyphicon-plus-sign",
-        expanderLazy: "glyphicon glyphicon-expand",
-        expanderOpen: "glyphicon glyphicon-collapse-down",
+        expanderClosed: "fa fa-plus-square",
+        expanderOpen: "fa fa-plus",
         loading: "glyphicon glyphicon-refresh"
       }
 	},
@@ -24,14 +21,17 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
   
 	generateTreeModel: function() {
+
+    var leafNodes = _.map( this.model.leafs.models, function( leaf ) {
+      return { key: 'leaf-'+leaf.id, title: leaf.get('name'), expanded: false, children: [], icon: 'fa fa-file-o fa-lg' }
+    });
+
 		return [{ 
-      key: "key1", 
-		  title: "Billy Budd", 
+      key: "root", 
+		  title: this.model.get('name'), 
       expanded: true,
-      children: [
-        { key: "key2", title: "Chapter One", expanded: false, children: [] }, 
-        { key: "key3", title: "Chapter Two", expanded: false, children: [] }
-      ] 
+      children: leafNodes,
+      icon: 'fa fa-lg fa-folder'
     }];
 	},
       

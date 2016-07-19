@@ -7,10 +7,13 @@
 // Libraries
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "font-awesome-sprockets";
+@import "font-awesome";
 
 @import "./lib/codemirror.css";
 @import "./lib/split-pane.css";
 @import "jquery.fancytree/dist/skin-bootstrap/ui.fancytree.css";
+
 
 // Application Folder
 @import "textlab/*";

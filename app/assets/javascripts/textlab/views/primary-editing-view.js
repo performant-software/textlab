@@ -54,7 +54,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 
 		this.$('div.split-pane').splitPane();
     
-    this.documentTreeView = new TextLab.DocumentTreeView();
+    this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model });
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
 
