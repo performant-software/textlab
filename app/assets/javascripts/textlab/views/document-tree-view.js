@@ -11,9 +11,23 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         loading: "glyphicon glyphicon-refresh"
       }
 	},
+  
+  events: {
+    'click .add-leaf-button' : 'onAddLeaf',
+    'click .add-section-button' : 'onAddSection'    
+  },
               	
 	initialize: function(options) {
     _.bindAll( this, "onNodeSelected" );
+  },
+  
+  onAddLeaf: function() {
+    // TODO bring up the leaf dialog
+    
+  },
+  
+  onAddSection: function() {
+    // TODO bring up the section dialog    
   },
   
   onNodeSelected: function() {

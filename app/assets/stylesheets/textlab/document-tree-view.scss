@@ -1,6 +1,15 @@
 #document-tree-view {
-  margin-left: 5px;
-  margin-top: 5px;
+  
+  #document-toolbar {
+    padding: 5px;
+  	border-bottom: 1px solid gray;
+  	background: #e6e6e6;
+  }
+  
+  #tree-container {
+    padding: 5px;
+  }
+  
 }
 
 ul.fancytree-container {
