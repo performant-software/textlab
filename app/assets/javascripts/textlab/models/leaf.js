@@ -8,8 +8,17 @@ TextLab.Leaf = Backbone.Model.extend({
   },
   
   afterLoad: function( attributes ) {
-    this.zones = new TextLab.ZoneCollection(attributes["zones"]);
-    this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);
+    if( attributes && attributes["zones"] ) {
+      this.zones = new TextLab.ZoneCollection(attributes["zones"]);
+    } else {
+      this.zones = new TextLab.ZoneCollection();
+    }
+    
+    if( attributes && attributes["zone_links"] ) {
+      this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);
+    } else {
+      this.zoneLinks = new TextLab.ZoneLinkCollection();
+    }
   },
   
   beforeSave: function() {

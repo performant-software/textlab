@@ -22,8 +22,17 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
   
   onAddLeaf: function() {
-    // TODO bring up the leaf dialog
-    
+    var onCreateCallback = _.bind(function(leaf) {
+      this.model.addLeaf(leaf);
+      leaf.save(null, { success: _.bind( function() {
+        // TODO update tree
+        console.log('leaf save success')
+      },this)});
+    }, this);
+          
+    var leaf = new TextLab.Leaf();
+    var leafDialog = new TextLab.LeafDialog( { model: leaf, callback: onCreateCallback } );
+    leafDialog.render();    
   },
   
   onAddSection: function() {

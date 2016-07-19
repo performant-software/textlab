@@ -21,6 +21,11 @@ TextLab.Document = Backbone.Model.extend({
     }
     
     Backbone.sync(method, model, options);
+  },
+  
+  addLeaf: function( leaf ) {
+    leaf.set("document_id", this.id );
+    this.leafs.add( leaf );
   }
   
 });
