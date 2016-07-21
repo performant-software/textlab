@@ -19,6 +19,9 @@ TextLab.LeafDialog = Backbone.View.extend({
   
   onOK: function() {    
     this.close( _.bind( function() {
+      
+      // TODO need to validate the name and URL
+      
       this.model.set({
         name: this.$('#name').val() 
       });

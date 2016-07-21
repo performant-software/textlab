@@ -403,6 +403,13 @@ TextLab.SurfaceView = Backbone.View.extend({
     return zoneGroup;
   },
   
+  selectLeaf: function( leaf ) {
+    this.model = leaf;
+    this.viewer.destroy();
+    this.viewer = null;
+    this.initViewer();
+  },
+  
   initViewer: function() {      
         
 		this.viewer = OpenSeadragon({
@@ -427,23 +434,23 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     this.overlay = this.viewer.paperjsOverlay();
     
-    var self = this;
-    var renderRegions = function(overlay, event) {      
-      _.each( self.model.zones.models, self.renderZone );
-      overlay.resize();
-      overlay.resizecanvas();
-    }.bind(null, this.overlay);
     
     // Billy Budd PNG TODO 
     var tileSource = this.model.getTileSource();
     
     // Higher Res Example
     // var tileSource = this.model.get("tile_source");
+
+    var renderZones = _.bind( function() {
+      _.each( this.model.zones.models, this.renderZone, this );
+      this.overlay.resize();
+      this.overlay.resizecanvas();    
+    }, this );
         
     this.viewer.addTiledImage({
       tileSource: tileSource, 
-      success: renderRegions
-    });
+      success: renderZones
+    });   
         
     this.navMode();
   }

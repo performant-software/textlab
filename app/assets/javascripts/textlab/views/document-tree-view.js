@@ -18,6 +18,8 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
               	
 	initialize: function(options) {
+    this.mainViewport = options.mainViewport;
+    
     _.bindAll( this, "onNodeSelected" );
   },
   
@@ -39,15 +41,27 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     // TODO bring up the section dialog    
   },
   
-  onNodeSelected: function() {
-    // TODO    
+  onNodeSelected: function(e, data) {
+    
+    // if this is a leaf, activate it
+    if( data.node.data.leaf ) {
+      var leaf = data.node.data.leaf;
+      this.mainViewport.selectLeaf(leaf);
+    }
+    
+    // TODO if this is a section, display preview of section
+    
+  },
+  
+  generateLeafNode: function(leaf) {
+    return { key: 'leaf-'+leaf.cid, title: leaf.get('name'), leaf: leaf, expanded: false, children: [], icon: 'fa fa-file-o fa-lg' }    
   },
   
 	generateTreeModel: function() {
 
     var leafNodes = _.map( this.model.leafs.models, function( leaf ) {
-      return { key: 'leaf-'+leaf.id, title: leaf.get('name'), expanded: false, children: [], icon: 'fa fa-file-o fa-lg' }
-    });
+      return this.generateLeafNode(leaf);
+    }, this);
 
 		return [{ 
       key: "root", 

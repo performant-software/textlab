@@ -187,6 +187,14 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.surfaceView = surfaceView;          
   },
   
+  selectLeaf: function( leaf ) {
+    this.model = leaf;
+    var newDoc = CodeMirror.Doc( this.model.get('content'), "xml" );
+    this.editor.swapDoc( newDoc );
+    this.initZoneLinks();
+		newDoc.clearHistory();
+  },
+  
   markZoneLink: function( offset, broken ) {
     var endIndex = offset + 4; // format is always four chars long
     var doc =  this.editor.getDoc();
@@ -201,6 +209,13 @@ TextLab.XMLEditor = Backbone.View.extend({
     var zone = this.model.zones.getZoneByLabel(zoneLabel);
     this.surfaceView.selectZone( zone );
     return false;
+  },
+  
+  initZoneLinks: function() {
+    _.each( this.model.zoneLinks.models, function( zoneLink ) {
+      var broken = this.model.isZoneLinkBroken(zoneLink);
+      this.markZoneLink(zoneLink.get('offset'), broken);
+    }, this);  
   },
       
   render: function() {      
@@ -219,12 +234,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       doc.setValue( this.model.get('content') );
     }
     
-    _.each( this.model.zoneLinks.models, function( zoneLink ) {
-      var broken = this.model.isZoneLinkBroken(zoneLink);
-      this.markZoneLink(zoneLink.get('offset'), broken);
-    }, this);
-    
-		// Undo (ctrl-z) history starts now 
+    this.initZoneLinks();
 		doc.clearHistory();
     
     this.$el.keydown( _.bind( function (e){

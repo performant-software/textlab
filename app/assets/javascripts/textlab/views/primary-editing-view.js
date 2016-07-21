@@ -43,6 +43,12 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     overlay.resize();
     overlay.resizecanvas();     
   },
+  
+  selectLeaf: function(leaf) {
+    this.selectedLeaf = leaf;
+    this.xmlEditor.selectLeaf(leaf);
+    this.surfaceView.selectLeaf(leaf);
+  },
       
   render: function() {      
     
@@ -54,7 +60,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 
 		this.$('div.split-pane').splitPane();
     
-    this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model });
+    this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model, mainViewport: this });
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
 
@@ -66,7 +72,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
   },
-  
+    
   postRender: function() {
     // viewer and editor must be initialized after they are in the DOM
     this.surfaceView.initViewer();
