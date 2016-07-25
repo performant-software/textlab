@@ -3,25 +3,28 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="documentModal">Edit Leaf</h4>
+        <h4 class="modal-title" id="documentModal"><%= (mode=='edit'? 'Edit' : 'New') %> Leaf</h4>
       </div>
       <div class="modal-body">
         <%= partials.stringInput( { 
           field_name: 'name', 
           field_title: "Name",
-          field_value: "", 
+          field_value: leaf.get('name'), 
           field_instructions: "Please enter a unique name for this leaf.",
           error: false 
         }) %>
         <%= partials.stringInput( { 
           field_name: 'url', 
           field_title: "URL",
-          field_value: "", 
+          field_value: leaf.get('url'), 
           field_instructions: "Please enter a DZI URL to display.",
           error: false 
         }) %>        
       </div>
       <div class="modal-footer">
+        <% if( mode == 'edit') { %>
+          <button type="button" class="btn btn-danger delete-button">Delete</button>
+        <% }%>
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
         <button type="button" class="btn btn-primary ok-button">OK</button>
       </div>

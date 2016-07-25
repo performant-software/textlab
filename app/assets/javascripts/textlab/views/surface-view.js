@@ -9,7 +9,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     'click #add-mode-button': 'addMode',
     'click #nav-mode-button': 'navMode',
     'click #toggle-zones-button': 'toggleZones',
-    'click .popover-button': 'onPopoverButton'
+    'click .popover-button': 'onPopoverButton',
+    'click #edit-info-button': 'onEditInfo'
   },
   
   dashPattern: [50, 10],
@@ -74,6 +75,26 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     paper.view.draw(); 
     
+    return false;
+  },
+  
+  onEditInfo: function(e) {
+    var callback = _.bind(function(leaf) {
+      this.model.save(null, { success: this.leafSaved, error: TextLab.Routes.routes.onError });
+    }, this);
+    
+    var deleteCallback = _.bind(function(leaf) {
+      // TODO
+      // this.model.save(null, { success: this.leafSaved, error: TextLab.Routes.routes.onError });
+    }, this);
+          
+    var leafDialog = new TextLab.LeafDialog( { 
+      model: this.model, 
+      callback: callback, 
+      deleteCallback: deleteCallback, 
+      mode: 'edit' 
+    });
+    leafDialog.render();     
     return false;
   },
   

@@ -10,11 +10,14 @@ TextLab.LeafDialog = Backbone.View.extend({
   
   events: {
     'click .ok-button': 'onOK',
-    'click .cancel-button': 'onCancel'
+    'click .cancel-button': 'onCancel',
+    'click .delete-button': 'onDelete'
   },
             	
 	initialize: function(options) {
     this.callback = options.callback;
+    this.deleteCallback = options.deleteCallback;
+    this.mode = options.mode;
   },
   
   onOK: function() {    
@@ -33,6 +36,12 @@ TextLab.LeafDialog = Backbone.View.extend({
     this.close();
   },
   
+  onDelete: function() {
+    this.close( _.bind( function() {
+      this.deleteCallback(this.model);
+    },this) );
+  },
+  
   close: function( closeCallback ) {
     var documentModal = $('#leaf-modal');
     
@@ -47,7 +56,7 @@ TextLab.LeafDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ document: this.model, partials: this.partials }));    
+    this.$el.html(this.template({ leaf: this.model, partials: this.partials, mode: this.mode }));    
     $('#modal-container').html(this.$el);
     $('#leaf-modal').modal('show');
   } 

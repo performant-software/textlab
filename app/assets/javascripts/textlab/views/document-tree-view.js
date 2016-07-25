@@ -29,7 +29,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       leaf.save(null, { success: _.bind( function() {
         // TODO update tree
         console.log('leaf save success')
-      },this)});
+      },this), error: TextLab.Routes.routes.onError });
     }, this);
           
     var leaf = new TextLab.Leaf();
