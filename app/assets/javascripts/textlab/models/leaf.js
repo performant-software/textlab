@@ -94,7 +94,7 @@ TextLab.Leaf = Backbone.Model.extend({
         var tileURL = tileURLTemplate( { 
           server: 'http://localhost:8888',
           path: 'fcgi-bin/iipsrv.fcgi',
-          image: 'modbm_ms_am_188_363_0056.tif',
+          image: 'modbm_ms_am_188_363_0021.tif',
           level: level,
           x: x,
           y: y,

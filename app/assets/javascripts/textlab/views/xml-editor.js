@@ -189,7 +189,8 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   selectLeaf: function( leaf ) {
     this.model = leaf;
-    var newDoc = CodeMirror.Doc( this.model.get('content'), "xml" );
+    var content = this.model.get('content') ? this.model.get('content') : "";
+    var newDoc = CodeMirror.Doc( content, "xml" );
     this.editor.swapDoc( newDoc );
     this.initZoneLinks();
 		newDoc.clearHistory();
