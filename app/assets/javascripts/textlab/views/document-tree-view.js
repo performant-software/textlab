@@ -47,10 +47,10 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     if( data.node.data.leaf ) {
       var leaf = data.node.data.leaf;
       this.mainViewport.selectLeaf(leaf);
+    } else {
+      // TODO if this is a section, display preview of section
+      this.mainViewport.selectSection(null);
     }
-    
-    // TODO if this is a section, display preview of section
-    
   },
   
   generateLeafNode: function(leaf) {

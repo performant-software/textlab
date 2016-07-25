@@ -8,20 +8,24 @@
 		</div>
 		<div class="split-pane-divider" id="my-divider"></div>
 		<div class="split-pane-component" id="right-component">
-      <div class="split-pane horizontal-percent">
-				<div class="split-pane-component" id="surface-view-panel">
-					<div class="pretty-split-pane-component-inner">
-            <div id='surface-view'></div>
-					</div>
-				</div>
-				<div class="split-pane-divider" id="horizontal-divider2"></div>
-				<div class="split-pane-component" id="xml-editor-panel">
-					<div class="pretty-split-pane-component-inner">
-            <div id='xml-editor'></div>
-					</div>
-				</div>
-			</div>
-			</div>
+      <!-- Editor View -->
+        <div class="split-pane horizontal-percent editor-view">
+  				<div class="split-pane-component" id="surface-view-panel">
+  					<div class="pretty-split-pane-component-inner">
+              <div id='surface-view'></div>
+  					</div>
+  				</div>
+  				<div class="split-pane-divider editor-view" id="horizontal-divider2"></div>
+  				<div class="split-pane-component editor-view" id="xml-editor-panel">
+  					<div class="pretty-split-pane-component-inner">
+              <div id='xml-editor'></div>
+  					</div>
+  				</div>
+  			 </div>
+      <!--  Explorer View -->
+      <div class="pretty-split-pane-component-inner explorer-view">
+        <div id='document-explorer'></div>
+      </div>
 		</div>
 	</div>
 </div>

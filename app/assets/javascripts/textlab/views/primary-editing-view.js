@@ -44,7 +44,16 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     overlay.resizecanvas();     
   },
   
+  selectSection: function( section ) {
+    // need to hide split view and show the explorer view
+    this.$('.editor-view').hide();
+    this.documentExplorer.selectSection( section );
+    this.$('.explorer-view').show();
+  },
+  
   selectLeaf: function(leaf) {
+    this.$('.explorer-view').hide();
+    this.$('.editor-view').show();
     this.selectedLeaf = leaf;
     this.xmlEditor.selectLeaf(leaf);
     this.surfaceView.selectLeaf(leaf);
@@ -71,6 +80,11 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf, xmlEditor: this.xmlEditor });
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
+    
+    this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model, section: null });
+    this.documentExplorer.render();
+    this.$("#"+this.documentExplorer.id).replaceWith(this.documentExplorer.$el);   
+    
   },
     
   postRender: function() {
