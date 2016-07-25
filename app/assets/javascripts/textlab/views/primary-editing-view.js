@@ -77,7 +77,11 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.xmlEditor.render();
     this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
     
-    this.surfaceView = new TextLab.SurfaceView({ model: this.selectedLeaf, xmlEditor: this.xmlEditor });
+    this.surfaceView = new TextLab.SurfaceView({ 
+      model: this.selectedLeaf, 
+      xmlEditor: this.xmlEditor, 
+      documentTree: this.documentTreeView,
+      mainViewport: this });
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
     

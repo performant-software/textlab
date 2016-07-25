@@ -18,7 +18,9 @@ TextLab.SurfaceView = Backbone.View.extend({
             	
 	initialize: function(options) {
     _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved", "leafSaved" );
+    this.mainViewport = options.mainViewport;
     this.xmlEditor = options.xmlEditor;
+    this.documentTree = options.documentTree;
     this.dragStart = null;
   },
   
@@ -84,8 +86,10 @@ TextLab.SurfaceView = Backbone.View.extend({
     }, this);
     
     var deleteCallback = _.bind(function(leaf) {
-      // TODO
-      // this.model.save(null, { success: this.leafSaved, error: TextLab.Routes.routes.onError });
+      leaf.destroy({ success: _.bind( function() {
+        this.documentTree.render();
+        this.mainViewport.selectSection(null);
+      }, this), error: TextLab.Routes.onError });            
     }, this);
           
     var leafDialog = new TextLab.LeafDialog( { 

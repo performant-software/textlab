@@ -27,7 +27,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var onCreateCallback = _.bind(function(leaf) {
       this.model.addLeaf(leaf);
       leaf.save(null, { success: _.bind( function() {
-        // TODO update tree
+        this.render();
         console.log('leaf save success')
       },this), error: TextLab.Routes.routes.onError });
     }, this);
@@ -71,7 +71,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       icon: 'fa fa-lg fa-folder'
     }];
 	},
-      
+  
   render: function() {      
     
 		var documentTreeModel = this.generateTreeModel();
