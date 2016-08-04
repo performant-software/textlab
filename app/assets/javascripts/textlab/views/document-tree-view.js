@@ -38,7 +38,17 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
   
   onAddSection: function() {
-    // TODO bring up the section dialog    
+    
+    var callback = _.bind(function(section) {
+      this.model.addSection( section );
+      this.model.save(null, { success: _.bind( function() {
+        this.render();
+        console.log('section save success')
+      },this), error: TextLab.Routes.routes.onError });
+    }, this);
+    
+    var sectionDialog = new TextLab.SectionDialog( { model: this.model, callback: callback } );
+    sectionDialog.render();    
   },
   
   onNodeSelected: function(e, data) {
