@@ -22,6 +22,10 @@ class Document < ActiveRecord::Base
     root_node.save
   end
   
+  def documentNodesJSON=(nodes_json)
+    # TODO merge this list of nodes with server's list of nodes
+  end
+  
   def list_obj
     { 
       id: self.id,
@@ -39,7 +43,7 @@ class Document < ActiveRecord::Base
       name: self.name,
       leafs: leafsJSON,
       sections: sectionsJSON,
-      documentNodes: nodesJSON
+      document_nodes: nodesJSON
     }
   end
   

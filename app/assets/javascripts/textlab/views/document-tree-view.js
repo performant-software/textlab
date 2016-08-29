@@ -23,15 +23,35 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     _.bindAll( this, "onNodeSelected" );
   },
   
+  updateTree: function() {    
+    var callback = _.bind( function() {
+      this.render();
+      console.log('update treesuccess')      
+    }, this);
+    
+    this.model.saveTree(callback);
+  },
+  
   onAddLeaf: function() {
     var onCreateCallback = _.bind(function(leaf) {
       this.model.addLeaf(leaf);
-      leaf.save(null, { success: _.bind( function() {
-        this.render();
-        console.log('leaf save success')
-      },this), error: TextLab.Routes.routes.onError });
-    }, this);
-          
+      leaf.save(null, { 
+        success: _.bind( function( leaf ) {  
+          var rootNode = this.model.getRootNode();  
+          var nextPosition = rootNode.nextPosition();    
+          var leafNode = new TextLab.DocumentNode({ 
+            parent_id: rootNode.id, 
+            leaf_id: leaf.id, 
+            position: nextPosition, 
+            document_id: this.model.id  
+          });
+          this.model.documentNodes.add( leafNode );                  
+          this.updateTree();
+        },this),      
+        error: TextLab.Routes.routes.onError 
+      });
+    }, this);          
+
     var leaf = new TextLab.Leaf();
     var leafDialog = new TextLab.LeafDialog( { model: leaf, callback: onCreateCallback } );
     leafDialog.render();    
@@ -62,24 +82,59 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.mainViewport.selectSection(null);
     }
   },
+
+  generateTreeNode: function(node) {    
+    var children;
+    if( node.isRoot() ) {
+       children = _.map( node.getChildren(), function( childNode ) {
+        return this.generateTreeNode(childNode);
+      }, this);
+      return this.generateRootNode( node.getSection(), children );
+    } else {
+      if( node.isSection() ) {
+        children = _.map( node.getChildren(), function( childNode ) {
+          return this.generateTreeNode(childNode);
+        }, this);
+        return this.generateSectionNode( node.getSection(), children );
+      } else {
+        return this.generateLeafNode( node.getLeaf() );
+      }
+    }
+  },
   
   generateLeafNode: function(leaf) {
-    return { key: 'leaf-'+leaf.cid, title: leaf.get('name'), leaf: leaf, expanded: false, children: [], icon: 'fa fa-file-o fa-lg' }    
+    return { 
+      key: 'leaf-'+leaf.cid, 
+      title: leaf.get('name'), 
+      leaf: leaf, 
+      expanded: false, 
+      children: [], 
+      icon: 'fa fa-file-o fa-lg' 
+    };    
+  },  
+  
+  generateSectionNode: function(section, children) {
+    var sortedChildren = _.sortBy(children, function( child ) { return child.get('position') } );
+		return { 
+      key: 'section-'+section.cid, 
+		  title: section.get('name'),
+      expanded: false,
+      children: sortedChildren,
+      icon: 'fa fa-lg fa-folder'
+    };
+  },
+  
+  generateRootNode: function( section, children ) {
+    var rootNode = this.generateSectionNode(section, children);
+    rootNode.key = "root";
+    rootNode.expanded = true;
+    rootNode.icon = 'fa fa-lg fa-book';
+    return [ rootNode ];
   },
   
 	generateTreeModel: function() {
-
-    var leafNodes = _.map( this.model.leafs.models, function( leaf ) {
-      return this.generateLeafNode(leaf);
-    }, this);
-
-		return [{ 
-      key: "root", 
-		  title: this.model.get('name'), 
-      expanded: true,
-      children: leafNodes,
-      icon: 'fa fa-lg fa-folder'
-    }];
+    var rootNode = this.model.getRootNode();
+    return this.generateTreeNode(rootNode);
 	},
   
   render: function() {      
