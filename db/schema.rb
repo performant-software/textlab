@@ -11,10 +11,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160706183618) do
+ActiveRecord::Schema.define(version: 20160804152109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "document_nodes", force: :cascade do |t|
+    t.integer  "position"
+    t.integer  "document_node_id"
+    t.integer  "document_id"
+    t.integer  "leaf_id"
+    t.integer  "section_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  create_table "document_sections", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "document_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "documents", force: :cascade do |t|
     t.string   "name"

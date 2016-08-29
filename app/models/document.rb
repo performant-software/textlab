@@ -1,6 +1,8 @@
 class Document < ActiveRecord::Base
       	
   has_many :leafs, dependent: :destroy
+  has_many :document_sections, dependent: :destroy
+  has_many :document_nodes, dependent: :destroy
         
   def self.get_all()
 		documents = Document.all
@@ -24,11 +26,15 @@ class Document < ActiveRecord::Base
   
   def obj
     leafsJSON = self.leafs.map { |leaf| leaf.obj }
+    sectionsJSON = self.document_sections.map { |section| section.obj }
+    nodesJSON = self.document_nodes.map { |node| node.obj }
     
     { 
       id: self.id,
       name: self.name,
-      leafs: leafsJSON
+      leafs: leafsJSON,
+      sections: sectionsJSON,
+      documentNodes: nodesJSON
     }
   end
   
