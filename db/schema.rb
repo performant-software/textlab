@@ -21,9 +21,9 @@ ActiveRecord::Schema.define(version: 20160804152109) do
     t.integer  "document_node_id"
     t.integer  "document_id"
     t.integer  "leaf_id"
-    t.integer  "section_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "document_section_id"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
   end
 
   create_table "document_sections", force: :cascade do |t|

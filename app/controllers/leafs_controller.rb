@@ -2,12 +2,6 @@ class LeafsController < ApplicationController
   before_action :set_leaf, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /leafs.json
-  def index
-    @leafs = Leaf.get_all
-    render json: @leafs.to_json
-  end
-
   # GET /leafs/1.json
   def show
     render json: @leaf.obj.to_json

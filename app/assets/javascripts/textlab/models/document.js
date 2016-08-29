@@ -3,6 +3,8 @@ TextLab.Document = Backbone.Model.extend({
       
   afterLoad: function( model ) {
     this.leafs = new TextLab.LeafCollection( model["leafs"], { documentID: model["id"] } );
+    this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"], { documentID: model["id"] } );
+    this.documentSections = new TextLab.DocumentSectionCollection( model["document_sections"], { documentID: model["id"] } );
   },
   
   sync: function(method, model, options) {

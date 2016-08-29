@@ -10,11 +10,16 @@ class Document < ActiveRecord::Base
 	end  
   
   after_create do |document|
-    # create starting leaf.
-    first_leaf = Leaf.new
-    first_leaf.tile_source = Leaf.test_source
-    first_leaf.document = self
-    first_leaf.save
+    root_section = DocumentSection.new
+    root_section.document = self
+    root_section.name = self.name
+    root_section.save
+
+    root_node = DocumentNode.new
+    root_node.document = self
+    root_node.position = 0
+    root_node.document_section = root_section
+    root_node.save
   end
   
   def list_obj

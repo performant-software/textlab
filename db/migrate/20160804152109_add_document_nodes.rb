@@ -5,7 +5,7 @@ class AddDocumentNodes < ActiveRecord::Migration
       t.integer :document_node_id
       t.integer :document_id
       t.integer :leaf_id
-      t.integer :section_id
+      t.integer :document_section_id
       t.timestamps null: false
     end
   end

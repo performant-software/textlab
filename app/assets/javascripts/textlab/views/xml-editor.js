@@ -231,11 +231,13 @@ TextLab.XMLEditor = Backbone.View.extend({
 		});    
     
     var doc = this.editor.getDoc();    
-    if( this.model.get('content')  ) {
+    if( this.model && this.model.get('content')  ) {
       doc.setValue( this.model.get('content') );
     }
     
-    this.initZoneLinks();
+    if( this.model ) {
+      this.initZoneLinks();
+    }
 		doc.clearHistory();
     
     this.$el.keydown( _.bind( function (e){

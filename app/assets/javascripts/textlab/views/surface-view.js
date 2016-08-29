@@ -436,6 +436,8 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
   
   initViewer: function() {      
+    
+    if( !this.model ) return;
         
 		this.viewer = OpenSeadragon({
 			id : "openseadragon",

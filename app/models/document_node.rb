@@ -1,7 +1,7 @@
 class DocumentNode < ActiveRecord::Base
   
   belongs_to :document
-  belongs_to :parent_node, foreign_key: 'document_section', class_name: 'DocumentSection'
+  belongs_to :parent_node, foreign_key: 'document_node_id', class_name: 'DocumentNode'
   belongs_to :leaf
   belongs_to :document_section
         
