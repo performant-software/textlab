@@ -21,11 +21,7 @@ class Document < ActiveRecord::Base
     root_node.document_section = root_section
     root_node.save
   end
-  
-  def documentNodesJSON=(nodes_json)
-    # TODO merge this list of nodes with server's list of nodes
-  end
-  
+    
   def list_obj
     { 
       id: self.id,

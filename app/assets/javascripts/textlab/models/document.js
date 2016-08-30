@@ -41,14 +41,8 @@ TextLab.Document = Backbone.Model.extend({
   addLeaf: function( leaf, parentNode ) {
     leaf.set("document_id", this.id );
     this.leafs.add( leaf );
-  },
-  
-  saveTree: function( callback ) {
-    // TODO reset the document node list with this list from the server
-    this.model.set("documentNodesJSON", documentNodes.toJSON() );
-    this.model.save( null, { success: callback, error: TextLab.Routes.routes.onError });
   }
-    
+      
 });
 
 TextLab.DocumentCollection = Backbone.Collection.extend({

@@ -7,8 +7,9 @@ TextLab.DocumentNode = Backbone.Model.extend({
   
   getChildren: function() {
     var nodeID = this.id;
-    var documentNodes = this.collection.document.documentNodes.models;
-    return _.where( documentNodes, { parent_id: nodeID });
+    var documentNodes = this.collection.document.documentNodes;
+    var children = documentNodes.where({ parent_id: nodeID });
+    return children;
   },
   
   nextPosition: function() {
@@ -27,7 +28,7 @@ TextLab.DocumentNode = Backbone.Model.extend({
   
   getLeaf: function() {
     var leafID = this.get('leaf_id');
-    if( leadID == null ) return null;
+    if( leafID == null ) return null;
     var leafs = this.collection.document.leafs.models;
     return _.find( leafs, function( leaf ) {
       return leaf.id == leafID;

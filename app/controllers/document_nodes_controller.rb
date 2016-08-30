@@ -1,4 +1,4 @@
-class DocumentNodeController < ApplicationController
+class DocumentNodesController < ApplicationController
   before_action :set_document_node, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
@@ -9,7 +9,7 @@ class DocumentNodeController < ApplicationController
 
   # POST /document_nodes.json
   def create
-    @document_node = DocumentNode.new(document_section_params)
+    @document_node = DocumentNode.new(document_node_params)
 
     if @document_node.save
       render json: @document_node.obj
@@ -20,7 +20,7 @@ class DocumentNodeController < ApplicationController
 
   # PATCH/PUT /document_nodes/1.json
   def update
-    if @document_node.update(document_section_params)
+    if @document_node.update(document_node_params)
       render json: @document_node.obj
     else
       render json: @document_node.errors, status: :unprocessable_entity
@@ -44,6 +44,6 @@ class DocumentNodeController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_node_params
-      params.permit( :name, :section_id, :leaf_id, :position, :parent_node_id, :document_id )
+      params.permit( :name, :section_id, :leaf_id, :position, :document_node_id, :document_id )
     end
 end

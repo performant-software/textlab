@@ -1,4 +1,4 @@
-class DocumentSectionController < ApplicationController
+class DocumentSectionsController < ApplicationController
   before_action :set_document_section, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 

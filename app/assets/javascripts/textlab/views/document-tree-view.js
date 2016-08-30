@@ -23,13 +23,14 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     _.bindAll( this, "onNodeSelected" );
   },
   
-  updateTree: function() {    
+  addDocumentNode: function( documentNode ) {    
     var callback = _.bind( function() {
       this.render();
-      console.log('update treesuccess')      
+      console.log('update tree success')      
     }, this);
     
-    this.model.saveTree(callback);
+    this.model.documentNodes.add( documentNode );                  
+    documentNode.save( null, { success: callback, error: TextLab.Routes.routes.onError });
   },
   
   onAddLeaf: function() {
@@ -40,13 +41,12 @@ TextLab.DocumentTreeView = Backbone.View.extend({
           var rootNode = this.model.getRootNode();  
           var nextPosition = rootNode.nextPosition();    
           var leafNode = new TextLab.DocumentNode({ 
-            parent_id: rootNode.id, 
+            document_node_id: rootNode.id, 
             leaf_id: leaf.id, 
             position: nextPosition, 
             document_id: this.model.id  
           });
-          this.model.documentNodes.add( leafNode );                  
-          this.updateTree();
+          this.addDocumentNode(leafNode);
         },this),      
         error: TextLab.Routes.routes.onError 
       });
@@ -95,37 +95,39 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         children = _.map( node.getChildren(), function( childNode ) {
           return this.generateTreeNode(childNode);
         }, this);
-        return this.generateSectionNode( node.getSection(), children );
+        return this.generateSectionNode( node.getSection(), children, node.get('position') );
       } else {
-        return this.generateLeafNode( node.getLeaf() );
+        return this.generateLeafNode( node.getLeaf(), node.get('position') );
       }
     }
   },
   
-  generateLeafNode: function(leaf) {
+  generateLeafNode: function(leaf, position ) {
     return { 
       key: 'leaf-'+leaf.cid, 
       title: leaf.get('name'), 
       leaf: leaf, 
+      position: position,
       expanded: false, 
       children: [], 
       icon: 'fa fa-file-o fa-lg' 
     };    
   },  
   
-  generateSectionNode: function(section, children) {
-    var sortedChildren = _.sortBy(children, function( child ) { return child.get('position') } );
+  generateSectionNode: function(section, children, position ) {
+    var sortedChildren = _.sortBy(children, function( child ) { return child.position } );
 		return { 
       key: 'section-'+section.cid, 
 		  title: section.get('name'),
       expanded: false,
+      position: position,
       children: sortedChildren,
       icon: 'fa fa-lg fa-folder'
     };
   },
   
   generateRootNode: function( section, children ) {
-    var rootNode = this.generateSectionNode(section, children);
+    var rootNode = this.generateSectionNode(section, children, 0);
     rootNode.key = "root";
     rootNode.expanded = true;
     rootNode.icon = 'fa fa-lg fa-book';
