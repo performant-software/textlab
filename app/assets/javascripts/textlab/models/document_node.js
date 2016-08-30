@@ -13,8 +13,12 @@ TextLab.DocumentNode = Backbone.Model.extend({
   },
   
   nextPosition: function() {
-    var children = this.getChildren();
-    return children.length;
+    if( this.isSection() ) {
+      var children = this.getChildren();
+      return children.length;
+    } else {
+      return this.get('position') + 1;
+    }
   },
   
   getSection: function() {

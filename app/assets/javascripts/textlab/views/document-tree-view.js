@@ -19,7 +19,6 @@ TextLab.DocumentTreeView = Backbone.View.extend({
               	
 	initialize: function(options) {
     this.mainViewport = options.mainViewport;
-    
     _.bindAll( this, "onNodeSelected" );
   },
   
@@ -64,8 +63,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     leafDialog.render();    
   },
   
-  onAddSection: function() {
-    
+  onAddSection: function() {    
     var onCreateCallback = _.bind(function(section) {
       this.model.addSection(section);
       section.save(null, { 
@@ -89,21 +87,21 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     sectionDialog.render();    
   },
   
-  onNodeSelected: function(e, data) {
+  onNodeSelected: function(e, data) {    
+    var docNode = data.node.data.docNode;
     
-    // if this is a leaf, activate it
-    if( data.node.data.leaf ) {
-      var leaf = data.node.data.leaf;
+    if( docNode.isLeaf() ) {
+      var leaf = docNode.getLeaf();
       this.mainViewport.selectLeaf(leaf);
     } else {
-      // TODO if this is a section, display preview of section
-      this.mainViewport.selectSection(null);
+      var section = docNode.getSection();
+      this.mainViewport.selectSection(section);
     }
   },
   
   getSelectedNode: function() {
-    
-    return this.model.getRootNode(); 
+    var treeNode = this.fancyTree.getActiveNode();
+    return ( treeNode ) ? treeNode.data.docNode : this.model.getRootNode(); 
   },
 
   generateTreeNode: function(node) {    
@@ -112,45 +110,45 @@ TextLab.DocumentTreeView = Backbone.View.extend({
        children = _.map( node.getChildren(), function( childNode ) {
         return this.generateTreeNode(childNode);
       }, this);
-      return this.generateRootNode( node.getSection(), children );
+      return this.generateRootNode( node, children );
     } else {
       if( node.isSection() ) {
         children = _.map( node.getChildren(), function( childNode ) {
           return this.generateTreeNode(childNode);
         }, this);
-        return this.generateSectionNode( node.getSection(), children, node.get('position') );
+        return this.generateSectionNode( node, children );
       } else {
-        return this.generateLeafNode( node.getLeaf(), node.get('position') );
+        return this.generateLeafNode( node );
       }
     }
   },
   
-  generateLeafNode: function(leaf, position ) {
+  generateLeafNode: function(documentNode) {
+    var leaf = documentNode.getLeaf();
     return { 
-      key: 'leaf-'+leaf.cid, 
+      key: documentNode.id, 
       title: leaf.get('name'), 
-      leaf: leaf, 
-      position: position,
-      expanded: false, 
+      docNode: documentNode, 
       children: [], 
       icon: 'fa fa-file-o fa-lg' 
     };    
   },  
   
-  generateSectionNode: function(section, children, position ) {
-    var sortedChildren = _.sortBy(children, function( child ) { return child.position } );
+  generateSectionNode: function( documentNode, children ) {
+    var section = documentNode.getSection();
+    var sortedChildren = _.sortBy(children, function( child ) { return child.docNode.get('position') } );
 		return { 
-      key: 'section-'+section.cid, 
+      key: documentNode.id, 
 		  title: section.get('name'),
-      expanded: false,
-      position: position,
+      docNode: documentNode, 
+      expanded: true,
       children: sortedChildren,
       icon: 'fa fa-lg fa-folder'
     };
   },
   
-  generateRootNode: function( section, children ) {
-    var rootNode = this.generateSectionNode(section, children, 0);
+  generateRootNode: function( documentNode, children ) {
+    var rootNode = this.generateSectionNode(documentNode, children);
     rootNode.key = "root";
     rootNode.expanded = true;
     rootNode.icon = 'fa fa-lg fa-book';
@@ -181,28 +179,6 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 		} else {
 			this.fancyTree.reload(documentTreeModel);
 		}
-													
-		// TODO select the current node
-    // var treeNode = this.getFancyNode(selectedNode.id);
-    // treeNode.setActive(true);
-	
   }
   
-  
 });
-
-// TextLab.DocumentTreeView.elementNames = { front: "Front Matter", body: "Document Body", back: "Back Matter" };
-// TextLab.DocumentTreeView.elementIcons = { front: "book", body: "book", back: "book", div: "stop" };
-// TextLab.DocumentTreeView.divWithoutHeadingMessage = "<i>untitled div</i>";
-//
-// TextLab.DocumentTreeView.getDisplayName = function( annotation ) {
-//   var name = HumEdit.DocumentStructurePanel.elementNames[ annotation.tag ];
-//   var head = annotation.data.head;
-//   var heading = ( head && head.length > 0) ? head : HumEdit.DocumentStructurePanel.divWithoutHeadingMessage;
-//   return name ? name : heading;
-// };
-//
-// TextLab.DocumentTreeView.getIcon = function( annotation ) {
-//   var icon = HumEdit.DocumentStructurePanel.elementIcons[ annotation.tag ];
-//   return icon ? "glyphicon glyphicon-"+icon : "";
-// };
