@@ -87,8 +87,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     }, this);
     
     var deleteCallback = _.bind(function(leaf) {
+      this.documentTree.deleteLeafNode(leaf);
       leaf.destroy({ success: _.bind( function() {
-        this.documentTree.render();
         this.mainViewport.selectSection(null);
       }, this), error: TextLab.Routes.onError });            
     }, this);

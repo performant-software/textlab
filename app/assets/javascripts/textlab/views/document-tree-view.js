@@ -33,6 +33,13 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     documentNode.save( null, { success: callback, error: TextLab.Routes.routes.onError });
   },
   
+  deleteLeafNode: function( leaf ) {
+    var documentNodes = this.model.documentNodes;
+    var leafNode = documentNodes.findWhere({ leaf_id: leaf.id });
+    documentNodes.remove( leafNode );
+    this.render();
+  },
+  
   onAddLeaf: function() {
     var onCreateCallback = _.bind(function(leaf) {
       this.model.addLeaf(leaf);
