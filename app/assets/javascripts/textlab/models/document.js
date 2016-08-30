@@ -35,7 +35,8 @@ TextLab.Document = Backbone.Model.extend({
   },
   
   addSection: function( section ) {
-    // TODO
+    section.set("document_id", this.id );
+    this.documentSections.add( section );
   },
   
   addLeaf: function( leaf, parentNode ) {

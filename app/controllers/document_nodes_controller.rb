@@ -44,6 +44,6 @@ class DocumentNodesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def document_node_params
-      params.permit( :name, :section_id, :leaf_id, :position, :document_node_id, :document_id )
+      params.permit( :name, :document_section_id, :leaf_id, :position, :document_node_id, :document_id )
     end
 end

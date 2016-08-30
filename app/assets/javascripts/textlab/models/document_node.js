@@ -18,7 +18,7 @@ TextLab.DocumentNode = Backbone.Model.extend({
   },
   
   getSection: function() {
-    var sectionID = this.get('section_id');
+    var sectionID = this.get('document_section_id');
     if( sectionID == null ) return null;
     var documentSections = this.collection.document.documentSections.models;
     return _.find( documentSections, function( documentSection ) {
@@ -40,7 +40,7 @@ TextLab.DocumentNode = Backbone.Model.extend({
   },
   
   isSection: function() {
-    return this.get('section_id') != null;    
+    return this.get('document_section_id') != null;    
   },
   
   isRoot: function() {
