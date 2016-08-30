@@ -45,10 +45,10 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.model.addLeaf(leaf);
       leaf.save(null, { 
         success: _.bind( function( leaf ) {  
-          var rootNode = this.model.getRootNode();  
-          var nextPosition = rootNode.nextPosition();    
+          var selectedNode = this.getSelectedNode();
+          var nextPosition = selectedNode.nextPosition();    
           var leafNode = new TextLab.DocumentNode({ 
-            document_node_id: rootNode.id, 
+            document_node_id: selectedNode.id, 
             leaf_id: leaf.id, 
             position: nextPosition, 
             document_id: this.model.id  
@@ -70,10 +70,10 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.model.addSection(section);
       section.save(null, { 
         success: _.bind( function( section ) {  
-          var rootNode = this.model.getRootNode();  
-          var nextPosition = rootNode.nextPosition();    
+          var selectedNode = this.getSelectedNode();
+          var nextPosition = selectedNode.nextPosition();    
           var sectionNode = new TextLab.DocumentNode({ 
-            document_node_id: rootNode.id, 
+            document_node_id: selectedNode.id, 
             document_section_id: section.id, 
             position: nextPosition, 
             document_id: this.model.id  
@@ -99,6 +99,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       // TODO if this is a section, display preview of section
       this.mainViewport.selectSection(null);
     }
+  },
+  
+  getSelectedNode: function() {
+    
+    return this.model.getRootNode(); 
   },
 
   generateTreeNode: function(node) {    

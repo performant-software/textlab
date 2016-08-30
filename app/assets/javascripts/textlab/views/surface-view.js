@@ -431,7 +431,9 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   selectLeaf: function( leaf ) {
     this.model = leaf;
-    this.viewer.destroy();
+    if( this.viewer ) {
+      this.viewer.destroy();
+    }
     this.viewer = null;
     this.initViewer();
   },

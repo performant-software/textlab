@@ -63,9 +63,9 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       
   render: function() {      
     
-    if( !this.selectedLeaf ) {
-      this.selectedLeaf = this.model.leafs.at(0);
-    }
+    // if( !this.selectedLeaf ) {
+    //   this.selectedLeaf = this.model.leafs.at(0);
+    // }
         
     this.$el.html(this.template());  
 
