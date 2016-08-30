@@ -82,6 +82,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   
   onEditInfo: function(e) {
     var callback = _.bind(function(leaf) {
+      this.documentTree.render();
       this.model.save(null, { success: this.leafSaved, error: TextLab.Routes.routes.onError });
     }, this);
     
