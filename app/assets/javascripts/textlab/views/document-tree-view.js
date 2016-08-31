@@ -22,14 +22,29 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     _.bindAll( this, "onNodeSelected" );
   },
   
-  addDocumentNode: function( documentNode ) {    
-    var callback = _.bind( function() {
+  insertAt: function() {
+    var selectedNode = this.getSelectedNode();
+
+    if( selectedNode.isSection() ) {
+      // if adding to a section, add at end
+      var children = selectedNode.getChildren();
+      return { parent: selectedNode, position: children.length };
+    } else {
+      // otherwise, add before the selected node
+      return { parent: selectedNode.getParent(), position: selectedNode.get('position') };
+    }
+  },
+  
+  addDocumentNode: function( documentNode ) { 
+ 
+    var onSuccess = _.bind( function() {
+      // TODO re-order the sibliings as necessary
       this.render();
       console.log('update tree success')      
     }, this);
-    
-    this.model.documentNodes.add( documentNode );                  
-    documentNode.save( null, { success: callback, error: TextLab.Routes.routes.onError });
+
+    this.model.documentNodes.add( documentNode );
+    documentNode.save( null, { success: onSuccess, error: TextLab.Routes.routes.onError });
   },
   
   deleteLeafNode: function( leaf ) {
@@ -44,12 +59,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.model.addLeaf(leaf);
       leaf.save(null, { 
         success: _.bind( function( leaf ) {  
-          var selectedNode = this.getSelectedNode();
-          var nextPosition = selectedNode.nextPosition();    
+          var insertPoint = this.insertAt();
           var leafNode = new TextLab.DocumentNode({ 
-            document_node_id: selectedNode.id, 
+            document_node_id: insertPoint.parent.id, 
+            position: insertPoint.position,
             leaf_id: leaf.id, 
-            position: nextPosition, 
             document_id: this.model.id  
           });
           this.addDocumentNode(leafNode);
@@ -68,12 +82,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.model.addSection(section);
       section.save(null, { 
         success: _.bind( function( section ) {  
-          var selectedNode = this.getSelectedNode();
-          var nextPosition = selectedNode.nextPosition();    
+          var insertPoint = this.insertAt();
           var sectionNode = new TextLab.DocumentNode({ 
-            document_node_id: selectedNode.id, 
+            document_node_id: insertPoint.parent.id, 
+            position: insertPoint.position,
             document_section_id: section.id, 
-            position: nextPosition, 
             document_id: this.model.id  
           });
           this.addDocumentNode(sectionNode);

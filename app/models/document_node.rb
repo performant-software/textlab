@@ -2,8 +2,25 @@ class DocumentNode < ActiveRecord::Base
   
   belongs_to :document
   belongs_to :parent_node, foreign_key: 'document_node_id', class_name: 'DocumentNode'
+  has_many   :child_nodes, foreign_key: 'document_node_id', class_name: 'DocumentNode'
   belongs_to :leaf
   belongs_to :document_section
+  
+  # when nodes are added, update sibling positions
+  before_create do |document_node|
+    unless self.parent_node.nil?
+      insert_at = document_node.position
+      children = self.parent_node.child_nodes.order(:position)
+      step = insert_at
+      children.each do |child|
+        if child.position >= insert_at 
+          child.position = step
+          step = step + 1
+          child.save
+        end
+      end
+    end
+  end
         
   def obj    
     { 
