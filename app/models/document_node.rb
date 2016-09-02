@@ -11,7 +11,7 @@ class DocumentNode < ActiveRecord::Base
     unless self.parent_node.nil?
       insert_at = document_node.position
       children = self.parent_node.child_nodes.order(:position)
-      step = insert_at
+      step = insert_at + 1
       children.each do |child|
         if child.position >= insert_at 
           child.position = step

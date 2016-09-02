@@ -37,9 +37,34 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   
   addDocumentNode: function( documentNode ) { 
  
+    var insertAt = documentNode.get('position');
+    var parentNode = this.model.documentNodes.findWhere({id: documentNode.get('document_node_id') });
+    var children = _.sortBy( parentNode.getChildren(), function(child) { return child.get('position') } );
+    var step = insertAt + 1;
+    
+    // re-order the sibliings as necessary
+    _.each( children, function( child ) {
+      if( child.get('position') >= insertAt ) {
+        child.set('position', step );
+        step = step + 1;
+      }        
+    });
+    
+    // server version in DocumentNode.rb
+    //
+    //   insert_at = document_node.position
+    //   children = self.parent_node.child_nodes.order(:position)
+    //   step = insert_at + 1
+    //   children.each do |child|
+    //     if child.position >= insert_at
+    //       child.position = step
+    //       step = step + 1
+    //       child.save
+    //     end
+    //   end
+      
     var onSuccess = _.bind( function() {
-      // TODO re-order the sibliings as necessary
-      this.render();
+       this.render();
       console.log('update tree success')      
     }, this);
 

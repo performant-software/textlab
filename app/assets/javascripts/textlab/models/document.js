@@ -3,7 +3,7 @@ TextLab.Document = Backbone.Model.extend({
       
   afterLoad: function( model ) {
     this.leafs = new TextLab.LeafCollection( model["leafs"], { documentID: model["id"] } );
-    this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"] );
+    this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"], { document: this } );
     this.documentSections = new TextLab.DocumentSectionCollection( model["sections"] );
     this.leafs.document = this;
     this.documentNodes.document = this;
