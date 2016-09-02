@@ -463,24 +463,19 @@ TextLab.SurfaceView = Backbone.View.extend({
     }).setTracking(true);
     
     this.overlay = this.viewer.paperjsOverlay();
-    
-    
-    // Billy Budd PNG TODO 
-    var tileSource = this.model.getTileSource();
-    
-    // Higher Res Example
-    // var tileSource = this.model.get("tile_source");
-
+        
     var renderZones = _.bind( function() {
       _.each( this.model.zones.models, this.renderZone, this );
       this.overlay.resize();
       this.overlay.resizecanvas();    
     }, this );
         
-    this.viewer.addTiledImage({
-      tileSource: tileSource, 
-      success: renderZones
-    });   
+    this.model.getTileSource(_.bind( function(tileSource) {
+      this.viewer.addTiledImage({
+        tileSource: tileSource, 
+        success: renderZones
+      });   
+    }, this));
         
     this.navMode();
   }

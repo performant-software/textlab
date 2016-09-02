@@ -80,31 +80,18 @@ TextLab.Leaf = Backbone.Model.extend({
     return links;    
   },
   
-  getTileSource: function() {
-
-    // TODO this.model.get("tile_source"),
-
-    var tileURLTemplate = _.template("<%= server %>/<%= path %>?Deepzoom=<%= image %>_files/<%= level %>/<%= x %>_<%= y %>.jpg");
+  getTileSource: function( callback ) {
+    var infoURLTemplate = _.template("<%= tileSource %>/info.json");
     
-    return {
-      width: 3276,
-      height: 3414,
-      tileSize: 128,
-      getTileUrl: function( level, x, y ) {
-        var tileURL = tileURLTemplate( { 
-          server: 'http://localhost:8888',
-          path: 'fcgi-bin/iipsrv.fcgi',
-          image: 'modbm_ms_am_188_363_0021.tif',
-          level: level,
-          x: x,
-          y: y,
-        });
-        return tileURL;
+    $.ajax({
+      url: infoURLTemplate( { tileSource: this.get('tile_source') }),
+      dataType: 'json',
+      success: function( obj ) {
+        callback( new OpenSeadragon.IIIFTileSource(obj) );
       }
-    };
+    }); 
   }
   
-    
 });
 
 TextLab.LeafCollection = Backbone.Collection.extend({
