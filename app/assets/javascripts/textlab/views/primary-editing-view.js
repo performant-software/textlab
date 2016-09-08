@@ -33,6 +33,12 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     var seaDragonViewport = this.$("#openseadragon");
 		seaDragonViewport.height(surfaceViewPanel.height());				
     seaDragonViewport.width(surfaceViewPanel.width());	
+
+    var documentTreePanel = this.$("#document-tree-panel");
+    var documentTree = this.$("#document-tree");
+    var documentToolbar = this.$("#document-toolbar");
+		documentTree.height(documentTreePanel.height() - documentToolbar.height());				
+    documentTree.width(documentTreePanel.width());	
     
     var xmlEditorPanel = this.$("#xml-editor-panel");
     var xmlEditorToolbar = this.$(".xml-editor-toolbar");
@@ -62,11 +68,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   },
       
   render: function() {      
-    
-    // if( !this.selectedLeaf ) {
-    //   this.selectedLeaf = this.model.leafs.at(0);
-    // }
-        
+          
     this.$el.html(this.template());  
 
 		this.$('div.split-pane').splitPane();
