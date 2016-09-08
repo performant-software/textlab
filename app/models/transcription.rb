@@ -4,10 +4,16 @@ class Transcription < ActiveRecord::Base
   
   belongs_to :folder
   
+  
+  
   def import_leaf!( parent_node, document )
+
+    # clear old TL codes
+    content = self.transcriptiontext.gsub(/__\S+\s/,'')
+
     leaf = Leaf.new( { 
       name: self.name, 
-      content: self.transcriptiontext,
+      content: content,
       document_id: document.id
     })
     
