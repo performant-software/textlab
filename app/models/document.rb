@@ -47,7 +47,7 @@ class Document < ActiveRecord::Base
     }
   end
   
-  def import_document!( manuscript_guid )
+  def import_document!( manuscript_guid, username )
 
     # note: this fn assumes document is empty to start
     root_node = self.root_node
@@ -68,15 +68,15 @@ class Document < ActiveRecord::Base
       node.save!
       position = position + 1
       
-      folder.transcriptions.each { |transcription|
+      folder.transcriptions.where({ ownedby: username }).each { |transcription|
         transcription.import_leaf!( node, self )
       }
     }
 
     # import the transcriptions that aren't in folders
-    # Transcription.where({ folder_id: nil }).each { |transcription|
-    #   transcription.import_leaf!( root_node, self )
-    # }
+    Transcription.where({ folder_id: nil, manuscriptid: manuscript_guid, ownedby: username }).each { |transcription|
+      transcription.import_leaf!( root_node, self )
+    }
     
   end
   
