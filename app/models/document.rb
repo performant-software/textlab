@@ -54,7 +54,7 @@ class Document < ActiveRecord::Base
     position = 0
     
     # create all folders and their contents
-    Folder.where({ manuscript_id: manuscript_guid }).each { |folder|
+    Folder.where({ manuscript_id: manuscript_guid }).order(:name).each { |folder|
       section = DocumentSection.new
       section.document = self
       section.name = folder.name
@@ -67,15 +67,18 @@ class Document < ActiveRecord::Base
       node.document_section = section
       node.save!
       position = position + 1
-      
-      folder.transcriptions.where({ ownedby: username }).each { |transcription|
-        transcription.import_leaf!( node, self )
+
+      leaf_position = 0
+      folder.transcriptions.where({ ownedby: username }).order(:name).each { |transcription|
+        transcription.import_leaf!( node, self, leaf_position )
+        leaf_position = leaf_position + 1
       }
     }
 
     # import the transcriptions that aren't in folders
-    Transcription.where({ folder_id: nil, manuscriptid: manuscript_guid, ownedby: username }).each { |transcription|
-      transcription.import_leaf!( root_node, self )
+    Transcription.where({ folder_id: nil, manuscriptid: manuscript_guid, ownedby: username }).order(:name).each { |transcription|
+      transcription.import_leaf!( root_node, self, position )
+      position = position + 1
     }
     
   end
