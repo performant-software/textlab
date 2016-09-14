@@ -29,7 +29,8 @@ class Document < ActiveRecord::Base
   def list_obj
     { 
       id: self.id,
-      name: self.name
+      name: self.name,
+      description: self.description
     }
   end
   
@@ -41,6 +42,7 @@ class Document < ActiveRecord::Base
     { 
       id: self.id,
       name: self.name,
+      description: self.description,
       leafs: leafsJSON,
       sections: sectionsJSON,
       document_nodes: nodesJSON

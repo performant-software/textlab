@@ -34,7 +34,7 @@ TextLab.DocumentListView = Backbone.View.extend({
     }, this)});
   },
   
-  render: function() {          
+  render: function() {                  
     this.$el.html(this.template({ documents: this.collection.toJSON() }));
   }
   

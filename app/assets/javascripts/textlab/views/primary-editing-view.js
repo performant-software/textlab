@@ -1,11 +1,11 @@
 TextLab.PrimaryEditingView = Backbone.View.extend({
 
 	template: JST['textlab/templates/primary-editing-view'],
-    
+  
   id: 'primary-editing-view',
             	
 	initialize: function(options) {
-    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );    
+    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize', 'onEditProjectSettings' );    
   },
   
   onWindowResize: function() {
@@ -52,6 +52,21 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     } 
   },
   
+  onEditProjectSettings: function() {
+    var onUpdateCallback = _.bind(function(doc) {
+      doc.save(null, { 
+        success: _.bind( function( leaf ) {  
+          // TODO update section for root node if name changed
+        },this),      
+        error: TextLab.Routes.routes.onError 
+      });
+    }, this);          
+
+    var editSettingsDialog = new TextLab.EditSettingsDialog( { model: this.model, callback: onUpdateCallback } );
+    editSettingsDialog.render();    
+    return false;
+  },
+  
   selectSection: function( section ) {
     // need to hide split view and show the explorer view
     this.$('.editor-view').hide();
@@ -70,12 +85,15 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   render: function() {      
           
     this.$el.html(this.template());  
-
+    
 		this.$('div.split-pane').splitPane();
     
     this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model, mainViewport: this });
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
+
+    // this is displayed in the document tree but handled here.
+    this.$('.edit-project-button').click(this.onEditProjectSettings);
 
     this.xmlEditor = new TextLab.XMLEditor({ model: this.selectedLeaf });
     this.xmlEditor.render();

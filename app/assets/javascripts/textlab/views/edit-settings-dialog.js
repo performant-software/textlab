@@ -1,15 +1,15 @@
-TextLab.NewDocumentDialog = Backbone.View.extend({
+TextLab.EditSettingsDialog = Backbone.View.extend({
     
-	template: JST['textlab/templates/new-document-dialog'],
+	template: JST['textlab/templates/edit-settings-dialog'],
   
-  id: 'document-dialog-container',
+  id: 'settings-dialog-container',
   
 	partials: {
 		stringInput: JST['textlab/templates/common/string-input']
 	},
   
   events: {
-    'click .create-button': 'onCreate',
+    'click .update-button': 'onUpdate',
     'click .cancel-button': 'onCancel'
   },
             	
@@ -17,7 +17,7 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
     this.callback = options.callback;
   },
   
-  onCreate: function() {    
+  onUpdate: function() {    
     this.close( _.bind( function() {
       this.model.set({
         name: this.$('#name').val(),
@@ -32,22 +32,22 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
   },
   
   close: function( closeCallback ) {
-    var documentModal = $('#new-document-modal');
+    var editSettingsModal = $('#edit-settings-modal');
     
-    documentModal.on('hidden.bs.modal', _.bind( function () {
+    editSettingsModal.on('hidden.bs.modal', _.bind( function () {
       this.$el.detach();
       if( closeCallback ) {
         closeCallback();
       }
     }, this));
     
-    documentModal.modal('hide');
+    editSettingsModal.modal('hide');
   },
   
   render: function() {
-    this.$el.html(this.template({ document: this.model, partials: this.partials }));    
+    this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials }));    
     $('#modal-container').html(this.$el);
-    $('#new-document-modal').modal('show');
+    $('#edit-settings-modal').modal('show');
   } 
     
 });
