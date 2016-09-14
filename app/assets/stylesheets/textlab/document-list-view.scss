@@ -1,8 +1,14 @@
-#document-list-view {
+#document-list-view {  
+  
   h2 {
     margin-bottom: 50px;
   }
  margin: 20px; 
+ 
+ .icon {
+   float: left;
+   margin-right: 20px;
+ }
  
  .project {
    max-width: 500px;
