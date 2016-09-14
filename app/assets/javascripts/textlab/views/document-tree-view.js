@@ -14,7 +14,8 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   
   events: {
     'click .add-leaf-button' : 'onAddLeaf',
-    'click .add-section-button' : 'onAddSection'    
+    'click .add-section-button' : 'onAddSection',  
+    'click .edit-settings-button' : 'onEditProjectSettings'    
   },
               	
 	initialize: function(options) {
@@ -125,6 +126,32 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     sectionDialog.render();    
   },
   
+  onEditProjectSettings: function() {
+    var onUpdateCallback = _.bind(function(doc) {
+      doc.save(null, { 
+        success: _.bind( function() {  
+          var docName = doc.get('name');
+          var rootNode = doc.getRootNode();
+          var rootSection = rootNode.getSection();
+          var currentName = rootSection.get('name');
+          // update section for root node if name changed
+          if( currentName != docName ) {
+            rootSection.set('name', docName);
+            rootSection.save( null, { success: _.bind( function() {
+              this.render();
+            }, this), 
+            error: TextLab.Routes.routes.onError } );
+          }
+        },this),      
+        error: TextLab.Routes.routes.onError 
+      });
+    }, this);          
+
+    var editSettingsDialog = new TextLab.EditSettingsDialog( { model: this.model, callback: onUpdateCallback } );
+    editSettingsDialog.render();    
+    return false;
+  },
+    
   onNodeSelected: function(e, data) {    
     var docNode = data.node.data.docNode;
     
