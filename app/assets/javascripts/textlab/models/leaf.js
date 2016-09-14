@@ -81,6 +81,13 @@ TextLab.Leaf = Backbone.Model.extend({
   },
   
   getTileSource: function( callback ) {
+    
+    // if blank, don't try to GET it.
+    if( !this.get('tile_source') ) {
+      callback(null);
+      return;
+    }
+    
     var infoURLTemplate = _.template("<%= tileSource %>/info.json");
     
     $.ajax({

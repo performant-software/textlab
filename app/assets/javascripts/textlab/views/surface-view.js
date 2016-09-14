@@ -471,10 +471,12 @@ TextLab.SurfaceView = Backbone.View.extend({
     }, this );
         
     this.model.getTileSource(_.bind( function(tileSource) {
-      this.viewer.addTiledImage({
-        tileSource: tileSource, 
-        success: renderZones
-      });   
+      if( tileSource ) {
+        this.viewer.addTiledImage({
+          tileSource: tileSource, 
+          success: renderZones
+        });   
+      }
     }, this));
         
     this.navMode();
