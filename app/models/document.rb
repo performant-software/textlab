@@ -4,9 +4,9 @@ class Document < ActiveRecord::Base
   has_many :document_sections, dependent: :destroy
   has_many :document_nodes, dependent: :destroy
         
-  def self.get_all()
-		documents = Document.all
-		documents.map { |document| document.list_obj }
+  def self.get_all( current_user_id )
+		documents = Document.where( user_id: current_user_id )
+		documents.map { |document| document.list_obj(current_user_id) }
 	end  
   
   after_create do |document|
@@ -22,19 +22,24 @@ class Document < ActiveRecord::Base
     root_node.save
   end
   
+  def is_owner?(current_user_id)
+    ( !self.user_id.nil? && self.user_id == current_user_id )
+  end
+  
   def root_node
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end
       
-  def list_obj
+  def list_obj(current_user_id=nil)
     { 
       id: self.id,
       name: self.name,
-      description: self.description
+      description: self.description,
+      owner: self.is_owner?(current_user_id)
     }
   end
   
-  def obj
+  def obj(current_user_id=nil)
     leafsJSON = self.leafs.map { |leaf| leaf.obj }
     sectionsJSON = self.document_sections.map { |section| section.obj }
     nodesJSON = self.document_nodes.map { |node| node.obj }
@@ -45,7 +50,8 @@ class Document < ActiveRecord::Base
       description: self.description,
       leafs: leafsJSON,
       sections: sectionsJSON,
-      document_nodes: nodesJSON
+      document_nodes: nodesJSON,
+      owner: self.is_owner?(current_user_id)
     }
   end
   

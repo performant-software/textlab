@@ -1,11 +1,21 @@
 <div id="modal-container"></div>
 
-<h1>Project List</h1>
+<h2>My Projects</h2>
 
-<ul>
-  <% _.each( documents, function(document) { %>
-    <li><a href='#documents/<%= document.id %>'><%= document.name %></a><button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button></li>
-  <% })%>
-</ul>
+<% _.each( documents, function(document) { %>
+  <div class="panel panel-default project">
+    <div class="panel-body">
+      <div class='info'>
+        <h4><a href='#documents/<%= document.id %>'><%= document.name %></a></h4>
+        <p><%= document.description %></p>
+      </div>
+      <div class='actions'>
+        <% if( document.owner ) { %> 
+          <button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button>        
+        <% }%>
+      </div>
+    </div>
+  </div>
+<% })%>
 
 <button class="btn btn-primary new-document-button">New Project</button>

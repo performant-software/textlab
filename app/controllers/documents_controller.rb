@@ -4,13 +4,13 @@ class DocumentsController < ApplicationController
 
   # GET /documents.json
   def index
-    @documents = Document.get_all
+    @documents = Document.get_all(current_user.id)
     render json: @documents.to_json
   end
 
   # GET /documents/1.json
   def show
-    render json: @document.obj.to_json
+    render json: @document.obj(current_user.id).to_json
   end
 
   # POST /documents.json
@@ -18,7 +18,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save
-      render json: @document.obj
+      render json: @document.obj(current_user.id)
     else
       render json: @document.errors, status: :unprocessable_entity
     end
@@ -27,7 +27,7 @@ class DocumentsController < ApplicationController
   # PATCH/PUT /documents/1.json
   def update
     if @document.update(document_params)
-      render json: @document.obj
+      render json: @document.obj(current_user.id)
     else
       render json: @document.errors, status: :unprocessable_entity
     end
@@ -42,14 +42,13 @@ class DocumentsController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_document
-      @document = Document.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_document
+    @document = Document.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def document_params
-      params.permit( :name, :description )
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def document_params
+    params.permit( :name, :description )
+  end
 end

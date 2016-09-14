@@ -1,15 +1,14 @@
 #document-list-view {
-  h1 {
+  h2 {
     margin-bottom: 50px;
   }
  margin: 20px; 
  
- .delete-document-button {
-   margin-left: 20px;
- }
- 
- li {
-   margin-bottom: 5px;
+ .project {
+   max-width: 500px;
+   .delete-document-button {
+     float: right;
+   }
  }
  
  .new-document-button {
