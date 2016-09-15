@@ -230,7 +230,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 		var documentTreeModel = this.generateTreeModel();
 					
 		if( !this.fancyTree ) {
-			this.$el.html(this.template());
+			this.$el.html(this.template({ owner: this.model.get('owner') }));
 
 			var documentTree = this.$('#document-tree');		
 			documentTree.fancytree({ source: documentTreeModel, 
