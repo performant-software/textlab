@@ -56,6 +56,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params.permit( :email, :primary_editor, :secondary_editor, :document_id )
+      params.permit( :email, :primary_editor, :secondary_editor, :document_id, :accepted )
     end
 end

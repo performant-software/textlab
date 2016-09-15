@@ -6,6 +6,8 @@ TextLab.DocumentListView = Backbone.View.extend({
   
   events: {
     'click .new-document-button': "onNewDocument",
+    'click .yes-button': "onAcceptInvite",
+    'click .no-button': "onDeclineInvite",
     'click .delete-document-button': "onDeleteDocument"    
   },
             	
@@ -24,6 +26,40 @@ TextLab.DocumentListView = Backbone.View.extend({
     var documentModalDialog = new TextLab.NewDocumentDialog( { model: doc, callback: onCreateCallback } );
     documentModalDialog.render();    
   },
+  
+  onAcceptInvite: function(event) {
+    var yesButton = $(event.currentTarget);
+    var documentID = parseInt(yesButton.attr("data-doc-id"));    
+    var doc = this.collection.findWhere({ id: documentID });
+    var membershipID = doc.get("membership_id");
+    
+    // update the invite accepted = yes
+    var membership = new TextLab.Membership( { id: membershipID, accepted: true } );
+    membership.save( null, {
+      success: _.bind( function() {
+        doc.set('accepted', true);
+        this.render();
+      }, this ),
+      error: TextLab.Routes.routes.onError
+    });    
+  },
+  
+  onDeclineInvite: function(event) {
+    var noButton = $(event.currentTarget);
+    var documentID = parseInt(noButton.attr("data-doc-id"));
+    var doc = this.collection.findWhere({ id: documentID });
+    var membershipID = doc.get("membership_id");
+        
+    // remove the membership entry
+    var membership = new TextLab.Membership( { id: membershipID } );
+    membership.destroy( {
+      success: _.bind( function() {
+        this.collection.remove( doc );
+        this.render();
+      }, this ),
+      error: TextLab.Routes.routes.onError
+    });    
+  },  
   
   onDeleteDocument: function(event) {
     var deleteButton = $(event.currentTarget);

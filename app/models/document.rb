@@ -9,7 +9,7 @@ class Document < ActiveRecord::Base
   def self.get_all( current_user )
 		documents = Document.where( user_id: current_user.id )
 		owned_docs = documents.map { |document| document.list_obj() }
-    team_docs = current_user.memberships.map { |membership| membership.document.team_list_obj(membership.accepted) }
+    team_docs = current_user.memberships.map { |membership| membership.document.team_list_obj(membership) }
     (owned_docs + team_docs).sort_by { |doc| doc[:name] } 
 	end  
   
@@ -34,13 +34,14 @@ class Document < ActiveRecord::Base
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end
   
-  def team_list_obj( accepted )
+  def team_list_obj( membership )
     {
       id: self.id,
       name: self.name,
       description: self.description,
       owner_name: self.user.email,
-      accepted: accepted,
+      membership_id: membership.id,
+      accepted: membership.accepted,
       owner: false
     }
   end

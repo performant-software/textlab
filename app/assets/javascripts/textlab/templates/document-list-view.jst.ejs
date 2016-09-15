@@ -5,6 +5,7 @@
 <% _.each( documents, function(document) { %>
   <div class="panel panel-default project">
     <div class="panel-body">
+
       <div class='info'>
         <div class='icon'><span class='fa fa-4x fa-book'></span></div>
         <% if( !document.owner && !document.accepted ) { %>
@@ -12,19 +13,31 @@
         <% } else { %>
           <h4><a href='#documents/<%= document.id %>'><%= document.name %></a></h4>    
         <% } %>
-        <p><%= document.description %></p>
+        <p class="description"><%= document.description %></p>
       </div>
       <% if( document.owner ) { %> 
         <div class='actions'>
           <button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button>        
         </div>
-      <% } else if( !document.accepted ) { %>
-        <p class='invite-message'><b>You have been invited by <%= document.owner_name %> to join this project.</b></p>
+      <% } %>
+      
+      <% if( !document.owner && !document.accepted ) { %>
         <div class='actions'>
-          <button class="btn btn-sm btn-default yes-button" data-doc-id="<%= document.id %>">Join Project</button>        
+          <button class="btn btn-sm btn-success yes-button" data-doc-id="<%= document.id %>">Join Project</button>        
           <button class="btn btn-sm btn-default no-button" data-doc-id="<%= document.id %>">Decline</button>        
         </div>
       <% } %>
+      
+      <% if( !document.owner ) { %> 
+        <div class='owner-name'><i>
+        <% if( !document.accepted ) { %>
+          <%= document.owner_name %> has invited you to join this project.
+        <% } else { %>
+          shared by: <%= document.owner_name %>
+        <% } %>
+        </i></div>
+      <% } %>
+            
     </div>
   </div>
 <% })%>
