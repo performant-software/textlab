@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160914181521) do
+ActiveRecord::Schema.define(version: 20160915130931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 20160914181521) do
     t.boolean  "secondary_editor"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.boolean  "accepted"
   end
 
   create_table "transcriptions", id: false, force: :cascade do |t|

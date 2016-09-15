@@ -4,7 +4,7 @@ class DocumentsController < ApplicationController
 
   # GET /documents.json
   def index
-    @documents = Document.get_all(current_user.id)
+    @documents = Document.get_all(current_user)
     render json: @documents.to_json
   end
 

@@ -1,13 +1,16 @@
 class Document < ActiveRecord::Base
       	
+  belongs_to :user
   has_many :leafs, dependent: :destroy
   has_many :document_sections, dependent: :destroy
   has_many :document_nodes, dependent: :destroy
-  has_many :memberships
+  has_many :memberships, dependent: :destroy
         
-  def self.get_all( current_user_id )
-		documents = Document.where( user_id: current_user_id )
-		documents.map { |document| document.list_obj(current_user_id) }
+  def self.get_all( current_user )
+		documents = Document.where( user_id: current_user.id )
+		owned_docs = documents.map { |document| document.list_obj() }
+    team_docs = current_user.memberships.map { |membership| membership.document.team_list_obj(membership.accepted) }
+    (owned_docs + team_docs).sort_by { |doc| doc[:name] } 
 	end  
   
   after_create do |document|
@@ -30,13 +33,24 @@ class Document < ActiveRecord::Base
   def root_node
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end
+  
+  def team_list_obj( accepted )
+    {
+      id: self.id,
+      name: self.name,
+      description: self.description,
+      owner_name: self.user.email,
+      accepted: accepted,
+      owner: false
+    }
+  end
       
-  def list_obj(current_user_id=nil)
+  def list_obj()
     { 
       id: self.id,
       name: self.name,
       description: self.description,
-      owner: self.is_owner?(current_user_id)
+      owner: true
     }
   end
   

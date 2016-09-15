@@ -7,14 +7,24 @@
     <div class="panel-body">
       <div class='info'>
         <div class='icon'><span class='fa fa-4x fa-book'></span></div>
-        <h4><a href='#documents/<%= document.id %>'><%= document.name %></a></h4>
+        <% if( !document.owner && !document.accepted ) { %>
+          <h4><%= document.name %></h4>    
+        <% } else { %>
+          <h4><a href='#documents/<%= document.id %>'><%= document.name %></a></h4>    
+        <% } %>
         <p><%= document.description %></p>
       </div>
-      <div class='actions'>
-        <% if( document.owner ) { %> 
+      <% if( document.owner ) { %> 
+        <div class='actions'>
           <button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button>        
-        <% }%>
-      </div>
+        </div>
+      <% } else if( !document.accepted ) { %>
+        <p class='invite-message'><b>You have been invited by <%= document.owner_name %> to join this project.</b></p>
+        <div class='actions'>
+          <button class="btn btn-sm btn-default yes-button" data-doc-id="<%= document.id %>">Join Project</button>        
+          <button class="btn btn-sm btn-default no-button" data-doc-id="<%= document.id %>">Decline</button>        
+        </div>
+      <% } %>
     </div>
   </div>
 <% })%>
