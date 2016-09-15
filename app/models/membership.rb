@@ -11,7 +11,8 @@ class Membership < ActiveRecord::Base
       id: self.id,
       email: self.user.email,
       primary_editor: self.primary_editor,
-      secondary_editor: self.secondary_editor      
+      secondary_editor: self.secondary_editor,
+      accepted: self.accepted     
     }    
   end
   

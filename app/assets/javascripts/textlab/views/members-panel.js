@@ -6,7 +6,8 @@ TextLab.MembersPanel = Backbone.View.extend({
   
   events: {
     'click .invite-user-button': 'onInviteUser',
-    'click .remove-member-button': 'onRemoveMember'
+    'click .remove-member-button': 'onRemoveMember',
+    'click .cancel-invite-button': 'onRemoveMember'
   },
             	
 	initialize: function(options) {

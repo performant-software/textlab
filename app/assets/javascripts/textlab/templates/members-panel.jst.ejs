@@ -7,7 +7,11 @@
             <span class='email'><%= member.email %></span>
             <span class='permissions'> Primary Editor </span>
             <div class='row-actions'>
-              <button class="btn btn-sm btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
+              <% if( member.accepted ) { %> 
+                <button class="btn btn-sm btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
+              <% } else { %> 
+                <button class="btn btn-sm btn-danger cancel-invite-button" data-member-id="<%= member.id %>">Cancel Invite</button> 
+              <% } %>
             </div>
           </div>
       <% })%>      
