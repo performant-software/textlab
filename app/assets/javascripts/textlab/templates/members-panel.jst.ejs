@@ -3,7 +3,13 @@
   <div class="panel-body">
     <% if(members.length > 0) { %>
       <% _.each( members, function(member) { %>
-          <p><%= member.email %></p>
+          <div class='member-row'>
+            <span class='email'><%= member.email %></span>
+            <span class='permissions'> Primary Editor </span>
+            <div class='row-actions'>
+              <button class="btn btn-sm btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
+            </div>
+          </div>
       <% })%>      
     <% } else { %>
         <p><i>This project does not yet have any members.</i></p>      
@@ -13,6 +19,7 @@
 
 <!--input member -->
 <div class='invite-member'>
+  <p>Enter a user's email address below to invite them to this project:</p>
   <input type="text" class="form-control" id="invite-user-email" value="">
   <button class="btn btn-sm btn-primary invite-user-button">Invite User</button>
 </div>

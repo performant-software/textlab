@@ -8,6 +8,7 @@ class Membership < ActiveRecord::Base
   
   def obj
     {
+      id: self.id,
       email: self.user.email,
       primary_editor: self.primary_editor,
       secondary_editor: self.secondary_editor      

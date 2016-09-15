@@ -4,12 +4,16 @@
     color: red;
   }
   
+  .row-actions {
+    float: right;
+  }
+  
   .invite-member {
     #invite-user-email {
       float: left;
       width: 300px;
     }
-    .new-member-button {
+    .invite-user-button {
       margin-left: 10px;
     }
     

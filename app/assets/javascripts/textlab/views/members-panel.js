@@ -6,6 +6,7 @@ TextLab.MembersPanel = Backbone.View.extend({
   
   events: {
     'click .invite-user-button': 'onInviteUser',
+    'click .remove-member-button': 'onRemoveMember'
   },
             	
 	initialize: function(options) {
@@ -32,6 +33,21 @@ TextLab.MembersPanel = Backbone.View.extend({
         this.render();
       },this),      
       error: TextLab.Routes.routes.onError 
+    });    
+  },
+  
+  onRemoveMember: function(event) {
+    var removeMemberButton = $(event.currentTarget);
+    var membershipID = parseInt(removeMemberButton.attr("data-member-id"));    
+    var membership = this.collection.findWhere({ id: membershipID });
+    
+    // remove the membership entry
+    membership.destroy( {
+      success: _.bind( function() {
+        this.collection.remove( membership );
+        this.render();
+      }, this ),
+      error: TextLab.Routes.routes.onError
     });    
   },
   
