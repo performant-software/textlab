@@ -46,6 +46,11 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
   
   render: function() {
     this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials }));    
+    
+    this.membersPanel = new TextLab.MembersPanel( { collection: this.model.members } );    
+    this.membersPanel.render();
+    this.$("#"+this.membersPanel.id).replaceWith(this.membersPanel.$el);
+    
     $('#modal-container').html(this.$el);
     $('#edit-settings-modal').modal('show');
   } 

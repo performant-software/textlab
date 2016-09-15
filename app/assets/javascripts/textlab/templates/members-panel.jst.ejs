@@ -1,0 +1,18 @@
+<p class="validation-message"><%= validationMessage %></p>
+<div class="members-panel panel panel-default">
+  <div class="panel-body">
+    <% if(members.length > 0) { %>
+      <% _.each( members, function(member) { %>
+          <p><%= member.email %></p>
+      <% })%>      
+    <% } else { %>
+        <p><i>This project does not yet have any members.</i></p>      
+    <% } %>
+  </div>
+</div>
+
+<!--input member -->
+<div class='invite-member'>
+  <input type="text" class="form-control" id="invite-user-email" value="">
+  <button class="btn btn-sm btn-primary invite-user-button">Invite User</button>
+</div>

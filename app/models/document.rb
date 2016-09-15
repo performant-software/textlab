@@ -3,6 +3,7 @@ class Document < ActiveRecord::Base
   has_many :leafs, dependent: :destroy
   has_many :document_sections, dependent: :destroy
   has_many :document_nodes, dependent: :destroy
+  has_many :memberships
         
   def self.get_all( current_user_id )
 		documents = Document.where( user_id: current_user_id )
@@ -43,6 +44,7 @@ class Document < ActiveRecord::Base
     leafsJSON = self.leafs.map { |leaf| leaf.obj }
     sectionsJSON = self.document_sections.map { |section| section.obj }
     nodesJSON = self.document_nodes.map { |node| node.obj }
+    membersJSON = self.memberships.map { |membership| membership.obj }
     
     { 
       id: self.id,
@@ -51,6 +53,7 @@ class Document < ActiveRecord::Base
       leafs: leafsJSON,
       sections: sectionsJSON,
       document_nodes: nodesJSON,
+      members: membersJSON,
       owner: self.is_owner?(current_user_id)
     }
   end

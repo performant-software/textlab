@@ -5,9 +5,11 @@ TextLab.Document = Backbone.Model.extend({
     this.leafs = new TextLab.LeafCollection( model["leafs"], { documentID: model["id"] } );
     this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"], { document: this } );
     this.documentSections = new TextLab.DocumentSectionCollection( model["sections"] );
+    this.members = new TextLab.MembershipCollection( model["members"] );
     this.leafs.document = this;
     this.documentNodes.document = this;
     this.documentSections.document = this;
+    this.members.document = this;
   },
   
   sync: function(method, model, options) {

@@ -6,6 +6,7 @@
         <h4 class="modal-title" id="settingsModal">Edit Project Settings</h4>
       </div>
       <div class="modal-body">
+        <h4>General Settings</h4>
         <%= partials.stringInput( { 
           field_name: 'name', 
           field_title: "Project Name",
@@ -20,7 +21,9 @@
           field_instructions: "Please enter a brief description of this project.",
           error: false 
         }) %>        
-        
+      
+      <h4>Project Members</h4>  
+      <div id="members-panel"></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
