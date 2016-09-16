@@ -63,7 +63,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.$('.explorer-view').hide();
     this.$('.editor-view').show();
     this.selectedLeaf = leaf;
-    this.xmlEditor.selectLeaf(leaf);
+    this.tabbedEditor.selectLeaf(leaf);
     this.surfaceView.selectLeaf(leaf);
   },
       
@@ -77,13 +77,13 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
 
-    this.xmlEditor = new TextLab.XMLEditor({ model: this.selectedLeaf });
-    this.xmlEditor.render();
-    this.$("#"+this.xmlEditor.id).replaceWith(this.xmlEditor.$el);
+    this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf });
+    this.tabbedEditor.render();
+    this.$("#"+this.tabbedEditor.id).replaceWith(this.tabbedEditor.$el);
     
     this.surfaceView = new TextLab.SurfaceView({ 
       model: this.selectedLeaf, 
-      xmlEditor: this.xmlEditor, 
+      xmlEditor: this.tabbedEditor.xmlEditor, 
       documentTree: this.documentTreeView,
       mainViewport: this });
     this.surfaceView.render();    
@@ -98,10 +98,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   postRender: function() {
     // viewer and editor must be initialized after they are in the DOM
     this.surfaceView.initViewer();
-    this.xmlEditor.initEditor();
-    
-    // for listening to events related to zones
-    this.xmlEditor.setSurfaceView(this.surfaceView);
+    this.tabbedEditor.postRender(this.surfaceView);
         
     // resize listeners
     $(window).resize(this.onWindowResize);

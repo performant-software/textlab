@@ -1,0 +1,48 @@
+#tabbed-editor {
+  
+  margin-top: 5px;
+  
+  .add-tab-button {
+    margin-right: 5px;
+    float: right;
+  }
+    
+  ul.tabs {
+    background:  #e6e6e6;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  ul.tabs li {
+    min-width: 100px;
+    background:  white;
+    border: gray solid 1px;
+    border-bottom: none;
+    float: left;
+    margin-left: 5px;
+    padding: .25em .5em;
+  }
+  ul.tabs li a {
+    font-size: 10pt;
+    color: black;
+    text-decoration: none;
+  }
+  ul.tabs li.active {
+    color: black;
+    background: #e6e6e6;
+  }
+  ul.tabs li.active a {
+    color: black;
+    font-weight: bold;
+  }
+  .clr {
+    clear: both;
+  }
+  
+  .close-x {
+    margin-top: 2px;
+    margin-left: 10px;
+    float: right;
+  }
+    
+}
