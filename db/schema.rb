@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160915130931) do
+ActiveRecord::Schema.define(version: 20160915235559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,7 +67,7 @@ ActiveRecord::Schema.define(version: 20160915130931) do
     t.boolean  "accepted"
   end
 
-  create_table "transcriptions", id: false, force: :cascade do |t|
+  create_table "tl_transcriptions", id: false, force: :cascade do |t|
     t.text     "id",                           null: false
     t.text     "manuscriptid",                 null: false
     t.text     "ownedby"
@@ -79,6 +79,18 @@ ActiveRecord::Schema.define(version: 20160915130931) do
     t.text     "transcriptiontext"
     t.integer  "folder_id",          limit: 8
     t.text     "transcription_type"
+  end
+
+  create_table "transcriptions", force: :cascade do |t|
+    t.string   "name"
+    t.text     "content"
+    t.integer  "leaf_id"
+    t.integer  "document_id"
+    t.integer  "user_id"
+    t.boolean  "shared"
+    t.boolean  "submitted"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "users", force: :cascade do |t|
