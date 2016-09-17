@@ -69,6 +69,14 @@ TextLab.Leaf = Backbone.Model.extend({
     return zone == null;
   },
   
+  getTranscriptions: function() {
+    var leafID = this.id;
+    var transcriptions = _.where( this.document.transcriptions, function( transcription ) {
+      return (leafID == transcription.get('leaf_id'));
+    });
+    return _.sortBy( transcriptions, function( transcription ) { return transcription.get('name'); });
+  },
+  
   getZoneLinks: function( zone ) {    
     var links = [];
     _.each( this.zoneLinks.models, function( zoneLink ) {
