@@ -1,13 +1,13 @@
 class ZoneLink < ActiveRecord::Base
   
   belongs_to :leaf
+  belongs_to :transcription
     
   def obj
     { 
       id: self.id,
       zone_label: self.zone_label,
-      offset: self.offset,
-      leaf_id: self.leaf_id
+      offset: self.offset
     }
   end
   

@@ -60,10 +60,6 @@ class Document < ActiveRecord::Base
     sectionsJSON = self.document_sections.map { |section| section.obj }
     nodesJSON = self.document_nodes.map { |node| node.obj }
     membersJSON = self.memberships.map { |membership| membership.obj }
-
-    # just get the ones for this user for this document
-    transcriptions = Transcription.where( { document_id: self.id, user_id: current_user_id })
-    transcriptionsJSON = transcriptions.map { |transcription| transcription.obj }
     
     { 
       id: self.id,
@@ -73,7 +69,6 @@ class Document < ActiveRecord::Base
       sections: sectionsJSON,
       document_nodes: nodesJSON,
       members: membersJSON,
-      transcriptions: transcriptionsJSON,
       owner: self.is_owner?(current_user_id)
     }
   end

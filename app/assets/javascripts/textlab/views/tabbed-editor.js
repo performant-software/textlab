@@ -4,93 +4,104 @@ TextLab.TabbedEditor = Backbone.View.extend({
   
   id: 'tabbed-editor',
   
+	partials: {
+		tab: JST['textlab/templates/common/tab'],
+		tabPane: JST['textlab/templates/common/tab-pane']
+	},
+  
   events: {
     'click .doc-tab': 'onSelectTab',
     'click .close-x': 'onClose',
     'click .add-tab-button': 'onAddTab'
   },
-              	
+                	
 	initialize: function(options) {
-    this.openTranscriptions = [];
-    this.xmlEditors = [];
+    _.bindAll( this, "initTranscriptions" );
+    this.tabs = [];
   },
   
-  initTranscriptions: function() {
-    this.transcriptions = this.model.getTranscriptions();
+  initTranscriptions: function( callback ) {    
+    this.model.getTranscriptions( _.bind( function( transcriptions ) {
+      this.collection = transcriptions;
+      
+      // if there are no transcriptions, create a blank one
+      if(this.collection.models.length == 0) {
+        this.collection.add( new TextLab.Transcription() );
+      }
     
-    // if there are no transcriptions, create a blank one
-    if(!this.transcriptions.length == 0) {
-      var blankTranscription = new TextLab.Transcription();
-      this.transcriptions.push( blankTranscription );
-    }
-    
-    // for starters, open them all
-    this.openTranscriptions = this.transcriptions;   
+      callback();
+    },this) );
   },
   
   selectLeaf: function(leaf) {
     this.model = leaf;
-    
-    // close any open editor tabs
-    _.each( this.openTranscriptions, function(transcription) {
-      this.closeTab(transcription.cid);
-    },this)
-    
-    this.initTranscriptions();
+    this.render();
   },
     
   onSelectTab: function(event) {
     var selectedTab = $(event.currentTarget);
     var tabID = parseInt(selectedTab.attr("data-tab-id"));
-    this.selectTab(tabID);
+    var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
+    this.selectTab(tab);
   },
 
   onClose: function(event) {
     var selectedTab = $(event.currentTarget);
     var tabID = parseInt(selectedTab.attr("data-tab-id"));
-    this.closeTab(tabID);
+    var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
+    this.closeTab(tab);
   },
   
   onAddTab: function() {
     // TODO bring up the transcription dialog
   },
   
-  selectTab: function(tabID) {
+  selectTab: function(tab) {
     // TODO change the active tab and hide/show the content panes
+    
   },
   
-  closeTab: function(tabID) {
+  closeTab: function(tab) {
      // TODO remove the tab
   },
     
-  openXMLEditorTab: function(transcription) {
-    
-    // TODO add tab and content pane then add editor itself
-    
-    var xmlEditor = new TextLab.XMLEditor({ model: this.model });
+  openXMLEditorTab: function(transcription) {    
+    var xmlEditor = new TextLab.XMLEditor({ model: transcription });
     xmlEditor.render();
-    this.$("#"+xmlEditor.id).replaceWith(xmlEditor.$el);
+
+    var tab = { 
+      id: transcription.cid, 
+      name: transcription.get('name'),
+      xmlEditor: xmlEditor
+    };
     
-    this.xmlEditors.push(xmlEditor);
+    this.$("#tabs").append( this.partials.tab(tab) );
+    this.$("#tab-panes").append( this.partials.tabPane({ id: tab.id, content: tab.xmlEditor.$el.html() }) );
+    
+    this.tabs.push(tab);
   },
       
-  render: function() {      
+  render: function() {
+    
+    // start with loading spinner active
     this.$el.html(this.template()); 
-
-    _.each( this.openTranscriptions, function(transcription) {
-      this.openXMLEditorTab(transcription);
-    }, this);
-
-    // select the first tab initially
-    if( this.openTranscriptions.length > 0 ) {
-      this.selectTab(_.first(this.openTranscriptions).cid);
-    }
+    
+    this.initTranscriptions( _.bind( function() {
+      _.each( this.collection.models, function( transcription ) {
+        this.openXMLEditorTab(transcription);
+      }, this);
+      
+      // select the first tab initially
+      if( this.tabs.length > 0 ) {
+        this.selectTab(_.first(this.tabs));
+      }
+    }, this) );              
   },
   
   postRender: function(surfaceView) {
-    _.each( this.xmlEditors, function(xmlEditor) {
-      xmlEditor.initEditor();
-      xmlEditor.setSurfaceView(surfaceView);   
+    _.each( this.tabs, function(tab) {
+      tab.xmlEditor.initEditor();
+      tab.xmlEditor.setSurfaceView(surfaceView);   
     });    
   }
   

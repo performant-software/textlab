@@ -205,6 +205,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     return doc.markText( position, endPos, { className: cssClass, atomic: true } ); 
   },
   
+  // TODO refactor
   onClickZoneLink: function(e) {
     var zoneLabel = $(e.currentTarget).html();
     var zone = this.model.zones.getZoneByLabel(zoneLabel);

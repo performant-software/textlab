@@ -40,6 +40,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 		documentTree.height(documentTreePanel.height() - documentToolbar.height());				
     documentTree.width(documentTreePanel.width());	
     
+    // TODO refactor to tab panel
     var xmlEditorPanel = this.$("#xml-editor-panel");
     var xmlEditorToolbar = this.$(".xml-editor-toolbar");
     this.xmlEditor.editor.setSize( xmlEditorPanel.width(), xmlEditorPanel.height() - xmlEditorToolbar.height() - 15 );
@@ -76,6 +77,11 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model, mainViewport: this });
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
+
+    // TODO fix me
+    if( !this.selectedLeaf ) {
+      this.selectedLeaf = _.first( this.model.leafs.models );
+    }
 
     this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf });
     this.tabbedEditor.render();

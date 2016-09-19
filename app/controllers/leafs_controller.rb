@@ -19,14 +19,7 @@ class LeafsController < ApplicationController
   end
 
   # PATCH/PUT /leafs/1.json
-  def update
-    
-    # rails deep munge substitutes [] with nil, but we always want 
-    # to keep this list in sync with editor
-    if leaf_params[:zone_links_json].nil?
-      @leaf.zone_links.clear
-    end
-    
+  def update    
     if @leaf.update(leaf_params)
       render json: @leaf.obj
     else
@@ -51,6 +44,6 @@ class LeafsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def leaf_params
-      params.permit( :name, :tile_source, :document_id, :content, :next_zone_label, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      params.permit( :name, :tile_source, :document_id, :next_zone_label )
     end
 end

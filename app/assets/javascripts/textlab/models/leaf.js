@@ -1,8 +1,6 @@
 TextLab.Leaf = Backbone.Model.extend({
   urlRoot: "leafs",
-  
-  // TODO has a tile source url, a collection of zones, xml, sequences, parent, order #
-  
+    
   initialize: function( attributes, options ) {
     this.afterLoad( attributes );
   },
@@ -13,17 +11,10 @@ TextLab.Leaf = Backbone.Model.extend({
     } else {
       this.zones = new TextLab.ZoneCollection();
     }
-    
-    if( attributes && attributes["zone_links"] ) {
-      this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);
-    } else {
-      this.zoneLinks = new TextLab.ZoneLinkCollection();
-    }
   },
   
   beforeSave: function() {
-    var zoneLinksObj = this.zoneLinks.toJSON();
-    this.set( 'zone_links_json', zoneLinksObj );
+    
   },
   
   sync: function(method, model, options) {
@@ -69,23 +60,17 @@ TextLab.Leaf = Backbone.Model.extend({
     return zone == null;
   },
   
-  getTranscriptions: function() {
-    var leafID = this.id;
-    var transcriptions = _.where( this.document.transcriptions, function( transcription ) {
-      return (leafID == transcription.get('leaf_id'));
-    });
-    return _.sortBy( transcriptions, function( transcription ) { return transcription.get('name'); });
-  },
-  
-  getZoneLinks: function( zone ) {    
-    var links = [];
-    _.each( this.zoneLinks.models, function( zoneLink ) {
-      if( zoneLink.get('zone_label') == zone.get('zone_label') ) {
-        links.push( zoneLink );
-      }      
-    } );
+  getTranscriptions: function( callback ) {
+    var transcriptionsURL = _.template("/transcriptions?leaf_id='<%= leafID %>'");
     
-    return links;    
+    $.ajax({
+      url: transcriptionsURL( { leafID: this.id }),
+      dataType: 'json',
+      success: function( transcriptions ) {
+        var transcriptionCollection = new TextLab.TranscriptionCollection( transcriptions );        
+        callback( transcriptionCollection );
+      }
+    }); 
   },
   
   getTileSource: function( callback ) {
