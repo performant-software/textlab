@@ -107,7 +107,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.hidePopOverMenu();
     e.zone = this.selectedZoneGroup.data.zone;
     if( this.tabbedEditor.activeTab ) {
-      this.tabbedEditor.activeTab.onClickTagMenuItem(e);
+      this.tabbedEditor.activeTab.xmlEditor.onClickTagMenuItem(e);
     }
   },
   
@@ -272,7 +272,7 @@ TextLab.SurfaceView = Backbone.View.extend({
       zoneGroup.remove();
       paper.view.draw();
       if( this.tabbedEditor.activeTab ) {
-        this.tabbedEditor.activeTab.removeZoneLink( zoneLabel );  
+        this.tabbedEditor.activeTab.xmlEditor.removeZoneLink( zoneLabel );  
       }      
     }, this), error: TextLab.Routes.onError });       
   },  

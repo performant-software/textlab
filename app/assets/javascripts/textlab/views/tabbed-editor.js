@@ -17,7 +17,6 @@ TextLab.TabbedEditor = Backbone.View.extend({
                 	
 	initialize: function(options) {
     _.bindAll( this, "initTranscriptions" );
-    this.tabs = [];
   },
   
   initTranscriptions: function( callback ) {    
@@ -76,7 +75,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
     
   openXMLEditorTab: function(transcription) {    
-    var xmlEditor = new TextLab.XMLEditor({ model: transcription });
+    var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model });
     xmlEditor.render();
 
     var tab = { 
@@ -91,12 +90,15 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.$("#"+tab.id).append( xmlEditor.$el );
     
     tab.xmlEditor.initEditor();
+    tab.xmlEditor.setSurfaceView(this.surfaceView);
     this.tabs.push(tab);
   },
       
   render: function() {
     
-    // start with loading spinner active
+    this.tabs = [];
+    
+    // TODO start with loading spinner active
     this.$el.html(this.template()); 
     
     this.initTranscriptions( _.bind( function() {
@@ -112,9 +114,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   postRender: function(surfaceView) {
-    _.each( this.tabs, function(tab) {
-      tab.xmlEditor.setSurfaceView(surfaceView);   
-    });    
+    this.surfaceView = surfaceView;
   }
   
   

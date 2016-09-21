@@ -4,6 +4,11 @@ class Transcription < ActiveRecord::Base
   belongs_to :user
   belongs_to :leaf
   has_many :zone_links
+  
+  def self.get_all( leaf_id, user_id )
+    transcriptions = Transcription.where( { leaf_id: leaf_id, user_id: user_id } )
+    transcriptions.map { |transcription| transcription.obj }        
+  end
 
   def zone_links_json=( proposed_zone_links )    
     self.zone_links.clear

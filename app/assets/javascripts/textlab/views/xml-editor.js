@@ -21,6 +21,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     _.bindAll( this, "onEnter", "requestAutosave", "save");
     this.lbTag = TextLab.Tags['lb'];
     this.lbEnabled = false;
+    this.leaf = options.leaf;
   },
   
   onClickTagMenuItem: function(event) {
@@ -38,7 +39,7 @@ TextLab.XMLEditor = Backbone.View.extend({
         this.generateTag(tag,attributes);
       }, this);
             
-      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.model, zone: event.zone, tag: tag, callback: onCreateCallback } );
+      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, zone: event.zone, tag: tag, callback: onCreateCallback } );
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
@@ -76,7 +77,12 @@ TextLab.XMLEditor = Backbone.View.extend({
       var markRange = mark.find();
       var zoneLabel = doc.getRange(markRange.from, markRange.to);
       var offset = doc.indexFromPos( markRange.from );
-      var zoneLink = new TextLab.ZoneLink({ offset: offset, zone_label: zoneLabel, leaf_id: this.model.id });
+      var zoneLink = new TextLab.ZoneLink({ 
+        offset: offset, 
+        zone_label: zoneLabel, 
+        transcription_id: this.model.id, 
+        leaf_id: this.leaf.id 
+      });
       return zoneLink;
     }, this));
 
@@ -208,14 +214,14 @@ TextLab.XMLEditor = Backbone.View.extend({
   // TODO refactor
   onClickZoneLink: function(e) {
     var zoneLabel = $(e.currentTarget).html();
-    var zone = this.model.zones.getZoneByLabel(zoneLabel);
+    var zone = this.leaf.zones.getZoneByLabel(zoneLabel);
     this.surfaceView.selectZone( zone );
     return false;
   },
   
   initZoneLinks: function() {
     _.each( this.model.zoneLinks.models, function( zoneLink ) {
-      var broken = this.model.isZoneLinkBroken(zoneLink);
+      var broken = this.leaf.isZoneLinkBroken(zoneLink);
       this.markZoneLink(zoneLink.get('offset'), broken);
     }, this);  
   },
