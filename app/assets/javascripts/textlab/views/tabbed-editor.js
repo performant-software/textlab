@@ -56,9 +56,18 @@ TextLab.TabbedEditor = Backbone.View.extend({
     // TODO bring up the transcription dialog
   },
   
+  onSplitPaneResize: function( parentPanel ) {    
+    var xmlEditorToolbar = this.$(".xml-editor-toolbar");
+    _.each( this.tabs, function(tab) {
+      if( tab.xmlEditor.editor ) {
+        tab.xmlEditor.editor.setSize( parentPanel.width(), parentPanel.height() - xmlEditorToolbar.height() - 15 );
+      }
+    }, this);
+  },
+  
   selectTab: function(tab) {
     // TODO change the active tab and hide/show the content panes
-    
+    this.activeTab = tab;
   },
   
   closeTab: function(tab) {
