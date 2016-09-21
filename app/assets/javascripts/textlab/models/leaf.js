@@ -61,7 +61,7 @@ TextLab.Leaf = Backbone.Model.extend({
   },
   
   getTranscriptions: function( callback ) {
-    var transcriptionsURL = _.template("/transcriptions?leaf_id='<%= leafID %>'");
+    var transcriptionsURL = _.template("/transcriptions?leaf_id=<%= leafID %>");
     
     $.ajax({
       url: transcriptionsURL( { leafID: this.id }),

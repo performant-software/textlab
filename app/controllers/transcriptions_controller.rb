@@ -53,7 +53,7 @@ class TranscriptionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_membership
+    def set_transcription
       @transcription = Transcription.find(params[:id])
     end
 

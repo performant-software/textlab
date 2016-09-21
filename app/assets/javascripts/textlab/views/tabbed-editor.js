@@ -26,7 +26,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       
       // if there are no transcriptions, create a blank one
       if(this.collection.models.length == 0) {
-        this.collection.add( new TextLab.Transcription() );
+        var documentID = this.model.collection.document.id;
+        this.collection.add( new TextLab.Transcription({ leaf_id: this.model.id, document_id: documentID, shared: false, submitted: false }) );
       }
     
       callback();
@@ -79,14 +80,17 @@ TextLab.TabbedEditor = Backbone.View.extend({
     xmlEditor.render();
 
     var tab = { 
-      id: transcription.cid, 
+      id: 'tab-'+transcription.cid, 
       name: transcription.get('name'),
-      xmlEditor: xmlEditor
+      xmlEditor: xmlEditor,
+      transcription: transcription
     };
     
-    this.$("#tabs").append( this.partials.tab(tab) );
-    this.$("#tab-panes").append( this.partials.tabPane({ id: tab.id, content: tab.xmlEditor.$el.html() }) );
+    this.$(".tabs").append( this.partials.tab(tab) );
+    this.$(".tab-panes").append( this.partials.tabPane({ id: tab.id }) );
+    this.$("#"+tab.id).append( xmlEditor.$el );
     
+    tab.xmlEditor.initEditor();
     this.tabs.push(tab);
   },
       
@@ -109,7 +113,6 @@ TextLab.TabbedEditor = Backbone.View.extend({
   
   postRender: function(surfaceView) {
     _.each( this.tabs, function(tab) {
-      tab.xmlEditor.initEditor();
       tab.xmlEditor.setSurfaceView(surfaceView);   
     });    
   }

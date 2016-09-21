@@ -376,7 +376,13 @@ TextLab.SurfaceView = Backbone.View.extend({
     var to = new paper.Point(zone.get("lrx"),zone.get("lry"));
     var zoneItem = new paper.Path.Rectangle(from, to);
     var zoneBounds = zoneItem.bounds;
-    var zoneLinks = this.model.getZoneLinks( zone );
+    
+    var zoneLinks;
+    if( this.tabbedEditor.activeTab ) {
+      zoneLinks = this.tabbedEditor.activeTab.transcription.getZoneLinks( zone );
+    } else {
+      zoneLinks = [];
+    }
   
     zoneItem.strokeColor = 'blue';
     zoneItem.strokeWidth = 12;
