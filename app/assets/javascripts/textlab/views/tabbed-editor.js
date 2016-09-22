@@ -54,6 +54,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     var documentID = this.model.get('document_id');
     var transcription = new TextLab.Transcription({ 
       leaf_id: this.model.id, 
+      name: 'untitled',
       document_id: documentID, 
       shared: false, 
       submitted: false 
@@ -93,6 +94,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     
     tabEl.addClass('active');
     tabPaneEl.show();
+    
+    // update surface view
+    this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
     
     this.activeTab = tab;
   },

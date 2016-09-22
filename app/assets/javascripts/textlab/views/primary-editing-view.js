@@ -95,8 +95,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     
     this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model, section: null });
     this.documentExplorer.render();
-    this.$("#"+this.documentExplorer.id).replaceWith(this.documentExplorer.$el);   
-    
+    var documentExplorerEl = this.$("#"+this.documentExplorer.id);
+    documentExplorerEl.replaceWith(this.documentExplorer.$el);   
   },
     
   postRender: function() {

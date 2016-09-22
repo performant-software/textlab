@@ -369,6 +369,23 @@ TextLab.SurfaceView = Backbone.View.extend({
     }
   },
   
+  // sync the state of the zone rects with zoneLinks
+  syncZoneLinks: function( zoneLinks ) {    
+    _.each( paper.project.activeLayer.children, function(item) {
+        if(item.data.zone) {
+          var zoneLink = _.find( zoneLinks, function(zoneLink) { 
+            return (zoneLink.get('zone_label') == item.data.zone.get('zone_label'));
+          });
+
+          // if we found a zone link, solid otherwise dashed rectangle 
+          var zoneRect = item.children['zoneRect'];
+          zoneRect.dashArray = (zoneLink != null) ? '' : this.dashPattern;
+        } 
+    }, this);
+    
+    paper.view.draw();    
+  },
+  
   renderZone: function( zone ) {   
     
     // render zone rectangle
