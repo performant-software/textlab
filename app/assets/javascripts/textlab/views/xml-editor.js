@@ -237,7 +237,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     var editorEl = this.$("#codemirror").get(0);
 		this.editor = CodeMirror.fromTextArea( editorEl, {
         mode: "xml",
-        lineNumbers: true
+        lineNumbers: true,
+        lineWrapping: true
 		});    
     
     var doc = this.editor.getDoc();    
