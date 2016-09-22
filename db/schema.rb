@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919154624) do
+ActiveRecord::Schema.define(version: 20160922195517) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(version: 20160919154624) do
   create_table "leafs", force: :cascade do |t|
     t.string   "name"
     t.text     "tile_source"
-    t.text     "content"
     t.integer  "next_zone_label", default: 1, null: false
     t.integer  "document_id"
     t.datetime "created_at",                  null: false

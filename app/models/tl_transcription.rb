@@ -37,23 +37,38 @@ class TlTranscription < ActiveRecord::Base
       image_url = "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
     end
 
-    leaf = Leaf.new( { 
-      name: self.name, 
-      content: content,
-      tile_source: image_url,
-      document_id: document.id
-    })
+    # TODO iterate through the PB tags in this transcription and cut up the transcription by pb tags
     
+
+    # does a leaf exist already by this name? if so use it - otherwise add one
+    leaf = Leaf.find_or_create_by( name: image_source_id )
+    leaf.tile_source = image_url
+    leaf.document = document    
     leaf.save!
           
-    document_node = DocumentNode.new( {
-      document_node_id: parent_node.id,
+    document_node = DocumentNode.find_or_create_by( leaf_id: leaf.id )
+    document_node.document_node_id = parent_node.id
+    document_node.document = document
+    document_node.position = position
+    document_node.leaf = leaf
+    document_node.save!    
+    
+    # TODO does this user exist already? if not, create them and add them to this project
+    # user = User.find_or_create_by( )
+    user_id = document.user.id
+    
+    # add this transcription to the selected leaf
+    transcription = Transcription.new({ 
+      name: self.name, 
       document_id: document.id,
-      position: position,
-      leaf_id: leaf.id
+      user_id: user_id,
+      leaf_id: leaf.id,
+      content: content,
+      shared: false,
+      submitted: false      
     })
     
-    document_node.save!    
+    transcription.save!
   end
     
 end
