@@ -95,7 +95,7 @@ class Document < ActiveRecord::Base
       position = position + 1
 
       leaf_position = 0
-      folder.transcriptions.order(:name).each { |transcription|
+      folder.tl_transcriptions.order(:name).each { |transcription|
         transcription.import_leaf!( node, self, leaf_position )
         leaf_position = leaf_position + 1
       }

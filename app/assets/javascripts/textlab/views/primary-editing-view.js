@@ -76,7 +76,6 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
 
-    // TODO fix me
     if( !this.selectedLeaf ) {
       this.selectedLeaf = _.first( this.model.leafs.models );
     }

@@ -19,7 +19,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     _.bindAll( this, "initTranscriptions" );
   },
   
-  initTranscriptions: function( callback ) {    
+  initTranscriptions: function( callback ) {   
+    if( !this.model ) return;
+     
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
       this.collection = transcriptions;
       
