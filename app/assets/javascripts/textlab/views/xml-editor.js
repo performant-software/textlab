@@ -68,7 +68,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     }    
   },
     
-  save: function() {
+  save: function( callback ) {
     var doc = this.editor.getDoc();    
     var marks = doc.getAllMarks();
 
@@ -98,6 +98,9 @@ TextLab.XMLEditor = Backbone.View.extend({
   
     var onSuccess = function() {
       $('.error-message').html('');
+      if( callback ) {
+        callback();
+      }
     };
     
     this.model.save(null, { success: onSuccess, error: onError });

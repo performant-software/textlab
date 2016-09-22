@@ -44,8 +44,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
 
   onClose: function(event) {
-    var selectedTab = $(event.currentTarget);
-    var tabID = parseInt(selectedTab.attr("data-tab-id"));
+    var tabID = $(event.currentTarget).attr('data-tab-id');
     var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
     this.closeTab(tab);
   },
@@ -102,7 +101,23 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   closeTab: function(tab) {
-     // TODO remove the tab
+    tab.xmlEditor.save( _.bind( function() {
+
+      this.tabs = _.without(this.tabs, tab);      
+
+      // if we're on the closing tab, switch tabs 
+      if( this.activeTab == tab ) {
+        if( this.tabs.length > 0 ) {
+          this.selectTab(_.first(this.tabs));
+        } else {
+          this.activeTab = null;
+        }
+      }
+
+      this.$("#"+tab.id).detach();
+      this.$("#"+tab.id+'-pane').detach();
+
+    }, this));
   },
     
   openXMLEditorTab: function(transcription) {    
