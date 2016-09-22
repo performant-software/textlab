@@ -25,8 +25,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
       
       // if there are no transcriptions, create a blank one
       if(this.collection.models.length == 0) {
-        var documentID = this.model.collection.document.id;
-        this.collection.add( new TextLab.Transcription({ leaf_id: this.model.id, document_id: documentID, shared: false, submitted: false }) );
+        this.newTranscription();
       }
     
       callback();
@@ -39,8 +38,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
     
   onSelectTab: function(event) {
-    var selectedTab = $(event.currentTarget);
-    var tabID = parseInt(selectedTab.attr("data-tab-id"));
+    var tabID = event.currentTarget.id;
     var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
     this.selectTab(tab);
   },
@@ -52,10 +50,25 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.closeTab(tab);
   },
   
-  onAddTab: function() {
-    // TODO bring up the transcription dialog
+  newTranscription: function() {  
+    var documentID = this.model.get('document_id');
+    var transcription = new TextLab.Transcription({ 
+      leaf_id: this.model.id, 
+      document_id: documentID, 
+      shared: false, 
+      submitted: false 
+    });
+    this.collection.add( transcription );
+    return transcription;
   },
   
+  onAddTab: function() {
+    // TODO bring up the transcription dialog
+    var transcription = this.newTranscription();
+    var tab = this.openXMLEditorTab(transcription);
+    this.selectTab(tab);
+  },
+    
   onSplitPaneResize: function( parentPanel ) {    
     var xmlEditorToolbar = this.$(".xml-editor-toolbar");
     _.each( this.tabs, function(tab) {
@@ -66,7 +79,21 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   selectTab: function(tab) {
-    // TODO change the active tab and hide/show the content panes
+    
+    if( this.activeTab ) {
+      var prevTabEl = this.$("#"+this.activeTab.id);  
+      var prevTabPaneEl = this.$("#"+this.activeTab.id+'-pane');
+
+      prevTabEl.removeClass('active');
+      prevTabPaneEl.hide();
+    }
+    
+    var tabEl = this.$("#"+tab.id);  
+    var tabPaneEl = this.$("#"+tab.id+'-pane');
+    
+    tabEl.addClass('active');
+    tabPaneEl.show();
+    
     this.activeTab = tab;
   },
   
@@ -85,13 +112,22 @@ TextLab.TabbedEditor = Backbone.View.extend({
       transcription: transcription
     };
     
+    var tabPaneID = tab.id+'-pane';
     this.$(".tabs").append( this.partials.tab(tab) );
-    this.$(".tab-panes").append( this.partials.tabPane({ id: tab.id }) );
-    this.$("#"+tab.id).append( xmlEditor.$el );
+    this.$(".tab-panes").append( this.partials.tabPane({ id: tabPaneID }) );
+    
+    var tabPaneEl = this.$("#"+tabPaneID);
+    tabPaneEl.append( xmlEditor.$el );
     
     tab.xmlEditor.initEditor();
     tab.xmlEditor.setSurfaceView(this.surfaceView);
+
+    // it isn't visible by default
+    tabPaneEl.hide();
+
     this.tabs.push(tab);
+    
+    return tab;
   },
       
   render: function() {

@@ -38,7 +38,7 @@ TextLab.Leaf = Backbone.Model.extend({
     
     Backbone.sync(method, model, options);
   },
-  
+
   addZone: function( zone ) {
     var zoneID = this.get("next_zone_label")
     this.set("next_zone_label", zoneID+1);
