@@ -24,7 +24,7 @@ class TlTranscription < ActiveRecord::Base
     zeros + image_id;
   end
   
-  def import_leaf!( parent_node, document, position )
+  def import_leaf!( parent_node, document, position, manuscript_guid )
 
     # clear old TL codes
     content = self.transcriptiontext.gsub(/__\S+\s/,'')
@@ -42,19 +42,40 @@ class TlTranscription < ActiveRecord::Base
     
 
     # does a leaf exist already by this name? if so use it - otherwise add one
-    leaf = Leaf.find_or_create_by( name: image_source_id )
-    leaf.tile_source = image_url
-    leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
-    leaf.document = document    
-    leaf.save!
-          
-    document_node = DocumentNode.find_or_create_by( leaf_id: leaf.id )
-    document_node.document_node_id = parent_node.id
-    document_node.document = document
-    document_node.position = position
-    document_node.leaf = leaf
-    document_node.save!    
+    leaf = Leaf.find_by( name: image_xml_id, document_id: document.id )
+
+    if leaf.nil? 
+      leaf = Leaf.new
+      leaf.document = document    
+      unless image_url.nil?
+        leaf.name = image_xml_id
+        leaf.tile_source = image_url
+        leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
+      else
+        leaf.name = self.name
+      end
+      leaf.save!
+      
+      document_node = DocumentNode.new
+      document_node.document_node_id = parent_node.id
+      document_node.document = document
+      document_node.position = position
+      document_node.leaf = leaf
+      document_node.save!    
+      position = position + 1    
+    end
     
+    # load the zone data for this leaf
+    if image_xml_id
+      tl_leaf = TlLeaf.where({ name: image_xml_id, manuscriptid: manuscript_guid }).first
+      if tl_leaf
+        revision_sites = TlRevisionSite.where( { leafid: tl_leaf.id })
+        revision_sites.each { |revision_site|
+          revision_site.import_zone!( leaf, 1.0 )
+        }
+      end
+    end
+            
     # TODO does this user exist already? if not, create them and add them to this project
     # user = User.find_or_create_by( )
     user_id = document.user.id
@@ -71,6 +92,7 @@ class TlTranscription < ActiveRecord::Base
     })
     
     transcription.save!
+    position 
   end
     
 end

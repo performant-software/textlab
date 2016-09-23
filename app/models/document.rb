@@ -96,15 +96,14 @@ class Document < ActiveRecord::Base
 
       leaf_position = 0
       folder.tl_transcriptions.order(:name).each { |transcription|
-        transcription.import_leaf!( node, self, leaf_position )
+        transcription.import_leaf!( node, self, leaf_position, manuscript_guid )
         leaf_position = leaf_position + 1
       }
     }
 
     # import the transcriptions that aren't in folders
     TlTranscription.where({ folder_id: nil, manuscriptid: manuscript_guid }).order(:name).each { |transcription|
-      transcription.import_leaf!( root_node, self, position )
-      position = position + 1
+      position = transcription.import_leaf!( root_node, self, position, manuscript_guid )
     }
     
   end
