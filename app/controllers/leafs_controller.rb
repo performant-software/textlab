@@ -44,6 +44,6 @@ class LeafsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def leaf_params
-      params.permit( :name, :tile_source, :document_id, :next_zone_label )
+      params.permit( :name, :xml_id, :tile_source, :document_id, :next_zone_label )
     end
 end

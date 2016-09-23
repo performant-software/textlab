@@ -14,6 +14,13 @@
           error: false 
         }) %>
         <%= partials.stringInput( { 
+          field_name: 'xml_id', 
+          field_title: "XML ID",
+          field_value: leaf.get('xml_id'), 
+          field_instructions: "Valid XML ID for identifying this leaf.",
+          error: false 
+        }) %>        
+        <%= partials.stringInput( { 
           field_name: 'tile_source', 
           field_title: "URL",
           field_value: leaf.get('tile_source'), 

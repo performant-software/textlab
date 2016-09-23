@@ -27,6 +27,7 @@ TextLab.LeafDialog = Backbone.View.extend({
       
       this.model.set({
         name: this.$('#name').val(),
+        xml_id: this.$('#xml_id').val(),
         tile_source: this.$('#tile_source').val() 
       });
       this.callback(this.model);
