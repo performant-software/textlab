@@ -16,7 +16,7 @@ class TlRevisionSite < ActiveRecord::Base
     
     zone = Zone.new( { 
       leaf_id: leaf.id, 
-      zone_label: self.sitenum,
+      zone_label: self.zone_label,
       ulx: ulx,
       uly: uly,
       lrx: lrx,
@@ -26,5 +26,12 @@ class TlRevisionSite < ActiveRecord::Base
     zone.save!
   end
   
-
+  def zone_label
+    zeros = "";
+    zeros = zeros + "0" if self.sitenum < 10 
+    zeros = zeros + "0" if self.sitenum < 100 
+    zeros = zeros + "0" if self.sitenum < 1000
+    "#{zeros}#{self.sitenum}"
+  end
+  
 end

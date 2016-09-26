@@ -51,6 +51,23 @@ class TlTranscription < ActiveRecord::Base
         leaf.name = image_xml_id
         leaf.tile_source = image_url
         leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
+        leaf.save!
+        
+        # TL1 img_25 PNG file is 1319×1369 while source TIFF is 3262x3430 
+        x_scale = 2.473085671	
+        y_scale = 2.505478451
+    
+        # load the zone data for this leaf
+        tl_leaf = TlLeaf.where({ name: leaf.xml_id, manuscriptid: manuscript_guid }).first
+        if tl_leaf
+          revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
+          highest_num = 0
+          revision_sites.each { |revision_site|
+            revision_site.import_zone!( leaf, x_scale, y_scale )
+            highest_num = revision_site.sitenum if revision_site.sitenum > highest_num
+          }
+          leaf.next_zone_label = highest_num + 1
+        end            
       else
         # no leaf 
         leaf.name = self.name
@@ -65,20 +82,7 @@ class TlTranscription < ActiveRecord::Base
       document_node.save!    
       position = position + 1    
     end
-        
-    # TL1 img_25 PNG files are 1319 × 1369 while source TIFFs are 3262x3430 
-    x_scale = 2.473085671	
-    y_scale = 2.505478451
-    
-    # load the zone data for this leaf
-    tl_leaf = TlLeaf.where({ name: leaf.xml_id, manuscriptid: manuscript_guid }).first
-    if tl_leaf
-      revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
-      revision_sites.each { |revision_site|
-        revision_site.import_zone!( leaf, x_scale, y_scale )
-      }
-    end
-            
+                    
     # TODO does this user exist already? if not, create them and add them to this project
     # user = User.find_or_create_by( )
     user_id = document.user.id
