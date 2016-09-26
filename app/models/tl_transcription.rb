@@ -2,7 +2,7 @@
 
 class TlTranscription < ActiveRecord::Base
   
-  belongs_to :folder
+  belongs_to :tl_folder
   
   def padded_image_id( image_id )     
         
@@ -65,16 +65,18 @@ class TlTranscription < ActiveRecord::Base
       document_node.save!    
       position = position + 1    
     end
+        
+    # TL1 img_25 PNG files are 1319 × 1369 while source TIFFs are 3262x3430 
+    x_scale = 2.473085671	
+    y_scale = 2.505478451
     
     # load the zone data for this leaf
-    if image_xml_id
-      tl_leaf = TlLeaf.where({ name: image_xml_id, manuscriptid: manuscript_guid }).first
-      if tl_leaf
-        revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
-        revision_sites.each { |revision_site|
-          revision_site.import_zone!( leaf, 1.0 )
-        }
-      end
+    tl_leaf = TlLeaf.where({ name: leaf.xml_id, manuscriptid: manuscript_guid }).first
+    if tl_leaf
+      revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
+      revision_sites.each { |revision_site|
+        revision_site.import_zone!( leaf, x_scale, y_scale )
+      }
     end
             
     # TODO does this user exist already? if not, create them and add them to this project

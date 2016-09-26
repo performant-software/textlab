@@ -2,17 +2,17 @@
 
 class TlRevisionSite < ActiveRecord::Base
   
-  def import_zone!( leaf, scale_factor )    
+  def import_zone!( leaf, x_scale, y_scale )    
     
     # format: 465,589,465,589,465,589,465,589,465,589
     datum = self.polygon.split(',')
     
     # group into ul and lr
     # scale based on scaling factor for this image
-    ulx = datum[0] * scale_factor
-    uly = datum[1] * scale_factor
-    lrx = datum[8] * scale_factor
-    lry = datum[9] * scale_factor
+    ulx = (datum[0].to_f * x_scale).to_i
+    uly = (datum[1].to_f * y_scale).to_i
+    lrx = (datum[4].to_f * x_scale).to_i
+    lry = (datum[5].to_f * y_scale).to_i
     
     zone = Zone.new( { 
       leaf_id: leaf.id, 

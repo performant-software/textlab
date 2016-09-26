@@ -80,7 +80,7 @@ class Document < ActiveRecord::Base
     position = 0
     
     # create all folders and their contents
-    Folder.where({ manuscript_id: manuscript_guid }).order(:name).each { |folder|
+    TlFolder.where({ manuscript_id: manuscript_guid }).order(:name).each { |folder|
       section = DocumentSection.new
       section.document = self
       section.name = folder.name
@@ -101,7 +101,7 @@ class Document < ActiveRecord::Base
     }
 
     # import the transcriptions that aren't in folders
-    TlTranscription.where({ folder_id: nil, manuscriptid: manuscript_guid }).order(:name).each { |transcription|
+    TlTranscription.where({ tl_folder_id: nil, manuscriptid: manuscript_guid }).order(:name).each { |transcription|
       position = transcription.import_leaf!( root_node, self, position, manuscript_guid )
     }
     
