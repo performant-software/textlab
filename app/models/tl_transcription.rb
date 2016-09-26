@@ -41,9 +41,9 @@ class TlTranscription < ActiveRecord::Base
     # TODO iterate through the PB tags in this transcription and cut up the transcription by pb tags
     
 
-    # does a leaf exist already by this name? if so use it - otherwise add one
     leaf = Leaf.find_by( name: image_xml_id, document_id: document.id )
 
+    # does a leaf exist already by this name? if so use it - otherwise add one
     if leaf.nil? 
       leaf = Leaf.new
       leaf.document = document    
@@ -52,6 +52,7 @@ class TlTranscription < ActiveRecord::Base
         leaf.tile_source = image_url
         leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
       else
+        # no leaf 
         leaf.name = self.name
       end
       leaf.save!
@@ -69,7 +70,7 @@ class TlTranscription < ActiveRecord::Base
     if image_xml_id
       tl_leaf = TlLeaf.where({ name: image_xml_id, manuscriptid: manuscript_guid }).first
       if tl_leaf
-        revision_sites = TlRevisionSite.where( { leafid: tl_leaf.id })
+        revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
         revision_sites.each { |revision_site|
           revision_site.import_zone!( leaf, 1.0 )
         }
