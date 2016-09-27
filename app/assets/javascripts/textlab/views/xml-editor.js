@@ -75,11 +75,11 @@ TextLab.XMLEditor = Backbone.View.extend({
     // convert marks into zone links
     var zoneLinks = _.map( marks, _.bind(function(mark) {
       var markRange = mark.find();
-      var zoneLabel = doc.getRange(markRange.from, markRange.to);
+      var xmlZoneLabel = doc.getRange(markRange.from, markRange.to);
       var offset = doc.indexFromPos( markRange.from );
       var zoneLink = new TextLab.ZoneLink({ 
         offset: offset, 
-        zone_label: zoneLabel, 
+        zone_label: this.leaf.removeZoneLabelPrefix(xmlZoneLabel), 
         transcription_id: this.model.id, 
         leaf_id: this.leaf.id 
       });
@@ -196,17 +196,9 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.surfaceView = surfaceView;          
   },
   
-  selectLeaf: function( leaf ) {
-    this.model = leaf;
-    var content = this.model.get('content') ? this.model.get('content') : "";
-    var newDoc = CodeMirror.Doc( content, "xml" );
-    this.editor.swapDoc( newDoc );
-    this.initZoneLinks();
-		newDoc.clearHistory();
-  },
-  
   markZoneLink: function( offset, broken ) {
-    var endIndex = offset + 4; // format is always four chars long
+    var labelPrefix = this.leaf.getZoneLabelPrefix();
+    var endIndex = offset + labelPrefix.length + 4; // format is always four chars long
     var doc =  this.editor.getDoc();
     var position = doc.posFromIndex(offset);
     var endPos = doc.posFromIndex(endIndex);
@@ -214,9 +206,9 @@ TextLab.XMLEditor = Backbone.View.extend({
     return doc.markText( position, endPos, { className: cssClass, atomic: true } ); 
   },
   
-  // TODO refactor
   onClickZoneLink: function(e) {
-    var zoneLabel = $(e.currentTarget).html();
+    var xmlZoneLabel = $(e.currentTarget).html();
+    var zoneLabel = this.leaf.removeZoneLabelPrefix(xmlZoneLabel);
     var zone = this.leaf.zones.getZoneByLabel(zoneLabel);
     this.surfaceView.selectZone( zone );
     return false;

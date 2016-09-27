@@ -16,7 +16,26 @@ class Transcription < ActiveRecord::Base
       self.zone_links << ZoneLink.new(zone_link_obj)
     } unless proposed_zone_links.nil?  
   end
-      
+  
+  # go through the content detecting zone links, associate them with leaf and transcription
+  def generate_zone_links!
+    return if self.content.blank?
+    
+    match_data = self.content.match(/(#img_\d+-\d+)/ )        
+
+    while match_data != nil
+      position =  match_data.end(1)
+      zone_link = ZoneLink.new({
+        zone_label: match_data[1].match(/#img_\d+-(\d+)/)[1],
+        offset: match_data.begin(1),
+        leaf_id: self.leaf_id,
+        transcription_id: self.id
+      })
+      zone_link.save!    
+      match_data = self.content.match(/(#img_\d+-\d+)/, position )        
+    end
+  end
+  
   def obj
     
     zoneLinksJSON = self.zone_links.map { |zone_link| zone_link.obj }

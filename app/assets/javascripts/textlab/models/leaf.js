@@ -73,6 +73,15 @@ TextLab.Leaf = Backbone.Model.extend({
     }); 
   },
   
+  getZoneLabelPrefix: function() {
+    return '#' + this.get('xml_id') + '-';
+  },
+  
+  removeZoneLabelPrefix: function(xmlZoneLabel) {
+    var labelPrefix = this.getZoneLabelPrefix();
+    return xmlZoneLabel.slice(labelPrefix.length);    
+  },
+  
   getTileSource: function( callback ) {
     
     // if blank, don't try to GET it.

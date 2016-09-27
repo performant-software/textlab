@@ -63,7 +63,7 @@ class TlTranscription < ActiveRecord::Base
           revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
           highest_num = 0
           revision_sites.each { |revision_site|
-            revision_site.import_zone!( leaf, x_scale, y_scale )
+            zone = revision_site.import_zone!( leaf, x_scale, y_scale )
             highest_num = revision_site.sitenum if revision_site.sitenum > highest_num
           }
           leaf.next_zone_label = highest_num + 1
@@ -99,6 +99,8 @@ class TlTranscription < ActiveRecord::Base
     })
     
     transcription.save!
+    transcription.generate_zone_links!
+    
     position 
   end
     

@@ -69,8 +69,9 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
   render: function() {
     
     // prepare list of options for zone drop down
+    var zoneLabelPrefix = this.model.getZoneLabelPrefix();
     var zoneOptions = _.map( this.model.zones.models, function( zone ) {
-      var zoneLabel = zone.get('zone_label');
+      var zoneLabel = zoneLabelPrefix + zone.get('zone_label');
       return { value: zoneLabel, text: zoneLabel };
     });
     
