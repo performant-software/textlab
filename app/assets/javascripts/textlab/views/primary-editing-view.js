@@ -40,8 +40,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 		documentTree.height(documentTreePanel.height() - documentToolbar.height());				
     documentTree.width(documentTreePanel.width());	
     
-    var xmlEditorPanel = this.$("#xml-editor-panel");
-    this.tabbedEditor.onSplitPaneResize( xmlEditorPanel );
+    this.tabbedEditor.resizeActivePanel();
     
     // tell open sea dragon overlay to resize
     if( this.surfaceView.viewReady ) {
@@ -80,7 +79,8 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       this.selectedLeaf = _.first( this.model.leafs.models );
     }
 
-    this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf });
+    var xmlEditorPanel = this.$("#xml-editor-panel");
+    this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf, parentPanel: xmlEditorPanel });
     this.tabbedEditor.render();
     this.$("#"+this.tabbedEditor.id).replaceWith(this.tabbedEditor.$el);
     

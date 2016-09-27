@@ -16,6 +16,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
                 	
 	initialize: function(options) {
+    this.parentPanel = options.parentPanel;
     _.bindAll( this, "initTranscriptions" );
   },
   
@@ -70,14 +71,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
     var tab = this.openXMLEditorTab(transcription);
     this.selectTab(tab);
   },
-    
-  onSplitPaneResize: function( parentPanel ) {    
-    var xmlEditorToolbar = this.$(".xml-editor-toolbar");
-    _.each( this.tabs, function(tab) {
-      if( tab.xmlEditor.editor ) {
-        tab.xmlEditor.editor.setSize( parentPanel.width(), parentPanel.height() - xmlEditorToolbar.height() - 15 );
-      }
-    }, this);
+  
+  resizeActivePanel: function() {    
+    if( this.activeTab && this.parentPanel ) {
+      var xmlEditorToolbar = this.$(".xml-editor-toolbar");
+      this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 30 );
+      this.activeTab.xmlEditor.editor.refresh();
+    }
   },
   
   selectTab: function(tab) {
@@ -100,6 +100,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
     
     this.activeTab = tab;
+    this.resizeActivePanel();
   },
   
   closeTab: function(tab) {
