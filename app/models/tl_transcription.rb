@@ -24,10 +24,35 @@ class TlTranscription < ActiveRecord::Base
     zeros + image_id;
   end
   
-  def import_leaf!( parent_node, document, position, manuscript_guid )
-
+  
+  # iterate through the PB tags in this transcription and cut up the transcription by pb tags
+  def import_leaves!( parent_node, document, position, manuscript_guid )    
     # clear old TL codes
     content = self.transcriptiontext.gsub(/__\S+\s/,'')
+    
+    # find first pb
+    match_data = content.match(/(<pb facs="#img_\d+")\/>/)
+    
+    # grab any content from before the first pb
+    if match_data != nil
+      pre_content = content.slice(0,match_data.begin(0))
+      position = self.import_leaf!( pre_content, parent_node, document, position, manuscript_guid )
+    end
+    
+    # now march through the pbs
+    while match_data != nil
+      start_pos = match_data.begin(0)
+      match_data = content.match(/(<pb facs="#img_\d+")\/>/, match_data.end(0))    
+      end_pos = (match_data != nil) ? match_data.begin(0) : content.length
+      page_content = content.slice(start_pos,end_pos)
+      position = self.import_leaf!( page_content, parent_node, document, position, manuscript_guid )
+    end
+    
+    position
+  end
+  
+  # import a single leaf
+  def import_leaf!( content, parent_node, document, position, manuscript_guid )
 
     # see if we can discern which leaf image was used by looking at the pb tag.
     match_image_id = content.match(/<pb facs="#img_(\d+)"\/>/)
@@ -37,9 +62,6 @@ class TlTranscription < ActiveRecord::Base
       image_source_id = self.padded_image_id( image_xml_id )      
       image_url = "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
     end
-
-    # TODO iterate through the PB tags in this transcription and cut up the transcription by pb tags
-    
 
     leaf = Leaf.find_by( name: image_xml_id, document_id: document.id )
 
@@ -52,14 +74,14 @@ class TlTranscription < ActiveRecord::Base
         leaf.tile_source = image_url
         leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
         leaf.save!
-        
-        # TL1 img_25 PNG file is 1319×1369 while source TIFF is 3262x3430 
-        x_scale = 2.473085671	
-        y_scale = 2.505478451
-    
+            
         # load the zone data for this leaf
         tl_leaf = TlLeaf.where({ name: leaf.xml_id, manuscriptid: manuscript_guid }).first
         if tl_leaf
+          # TL1 img_25 PNG file is 1319×1369 while source TIFF is 3262x3430 
+          x_scale = 2.473085671	
+          y_scale = 2.505478451
+        
           revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
           highest_num = 0
           revision_sites.each { |revision_site|
