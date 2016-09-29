@@ -206,7 +206,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       key: documentNode.id, 
 		  title: section.get('name'),
       docNode: documentNode, 
-      expanded: true,
+      expanded: false,
       children: sortedChildren,
       icon: 'fa fa-lg fa-folder'
     };

@@ -58,19 +58,20 @@ class TlTranscription < ActiveRecord::Base
     match_image_id = content.match(/<pb facs="#img_(\d+)"\/>/)
     image_url = nil
     unless match_image_id.nil?
-      image_xml_id =  match_image_id[1]
+      image_xml_id = match_image_id[1]
+      leaf_name = "leaf #{image_xml_id}"
       image_source_id = self.padded_image_id( image_xml_id )      
       image_url = "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
     end
 
-    leaf = Leaf.find_by( name: image_xml_id, document_id: document.id )
+    leaf = Leaf.find_by( name: leaf_name, document_id: document.id )
 
     # does a leaf exist already by this name? if so use it - otherwise add one
     if leaf.nil? 
       leaf = Leaf.new
       leaf.document = document    
       unless image_url.nil?
-        leaf.name = "leaf #{image_xml_id}"
+        leaf.name = leaf_name
         leaf.tile_source = image_url
         leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
         leaf.save!
