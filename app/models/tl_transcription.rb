@@ -43,8 +43,8 @@ class TlTranscription < ActiveRecord::Base
     while match_data != nil
       start_pos = match_data.begin(0)
       match_data = content.match(/(<pb facs="#img_\d+")\/>/, match_data.end(0))    
-      end_pos = (match_data != nil) ? match_data.begin(0) : content.length
-      page_content = content.slice(start_pos,end_pos)
+      page_length = (match_data != nil) ? (match_data.begin(0)-start_pos) : (content.length-start_pos)
+      page_content = content.slice(start_pos,page_length)
       position = self.import_leaf!( page_content, parent_node, document, position, manuscript_guid )
     end
     
@@ -70,7 +70,7 @@ class TlTranscription < ActiveRecord::Base
       leaf = Leaf.new
       leaf.document = document    
       unless image_url.nil?
-        leaf.name = image_xml_id
+        leaf.name = "leaf #{image_xml_id}"
         leaf.tile_source = image_url
         leaf.xml_id = "img_#{image_xml_id}" if image_xml_id
         leaf.save!
