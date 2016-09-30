@@ -213,6 +213,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery-ui-sass-rails
   less-rails
+  nokogiri
   pg
   puma
   rails (= 4.2.4)
