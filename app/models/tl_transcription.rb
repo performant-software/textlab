@@ -37,8 +37,11 @@ class TlTranscription < ActiveRecord::Base
     if match_data != nil
       pre_content = content.slice(0,match_data.begin(0))
       position = self.import_leaf!( pre_content, parent_node, document, position, manuscript_guid )
+    else
+      # if there are no pb tags in this doc
+      position = self.import_leaf!( content, parent_node, document, position, manuscript_guid )
     end
-    
+      
     # now march through the pbs
     while match_data != nil
       start_pos = match_data.begin(0)

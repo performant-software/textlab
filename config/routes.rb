@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   resources :document_nodes, only: [ :show, :update, :create, :destroy ]
   resources :zones, only: [ :show, :update, :create, :destroy ]
   resources :zone_links, only: [ :show, :update, :create, :destroy ]
+  resources :diplos, only: [ :show, :update, :create, :destroy ]
    
 end

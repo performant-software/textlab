@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922235404) do
+ActiveRecord::Schema.define(version: 20160930125819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "diplos", force: :cascade do |t|
+    t.integer "transcription_id"
+    t.text    "html_content"
+  end
 
   create_table "document_nodes", force: :cascade do |t|
     t.integer  "position"
@@ -41,12 +46,6 @@ ActiveRecord::Schema.define(version: 20160922235404) do
     t.integer  "user_id"
   end
 
-  create_table "folders", id: :bigserial, force: :cascade do |t|
-    t.text "name",          null: false
-    t.text "manuscript_id", null: false
-    t.text "folder_type"
-  end
-
   create_table "leafs", force: :cascade do |t|
     t.string   "name"
     t.text     "tile_source"
@@ -67,6 +66,33 @@ ActiveRecord::Schema.define(version: 20160922235404) do
     t.boolean  "accepted"
   end
 
+  create_table "tl_folders", id: :bigserial, force: :cascade do |t|
+    t.text "name",          null: false
+    t.text "manuscript_id", null: false
+    t.text "folder_type"
+  end
+
+  create_table "tl_leafs", id: false, force: :cascade do |t|
+    t.text     "leaf_guid",                   default: "0", null: false
+    t.text     "name",                                      null: false
+    t.text     "manuscriptid",                default: "0", null: false
+    t.integer  "orderno",           limit: 8
+    t.text     "createdby"
+    t.datetime "createdon",                                 null: false
+    t.text     "lastupdatedby"
+    t.datetime "lastupdatedon"
+    t.text     "imageid"
+    t.integer  "chapterid",         limit: 8
+    t.text     "publishedbasetext"
+  end
+
+  create_table "tl_revision_sites", id: false, force: :cascade do |t|
+    t.text    "id",                null: false
+    t.text    "polygon"
+    t.text    "leafid"
+    t.integer "sitenum", limit: 8
+  end
+
   create_table "tl_transcriptions", id: false, force: :cascade do |t|
     t.text     "id",                           null: false
     t.text     "manuscriptid",                 null: false
@@ -77,7 +103,7 @@ ActiveRecord::Schema.define(version: 20160922235404) do
     t.datetime "publishedon"
     t.datetime "sharedon"
     t.text     "transcriptiontext"
-    t.integer  "folder_id",          limit: 8
+    t.integer  "tl_folder_id",       limit: 8
     t.text     "transcription_type"
   end
 

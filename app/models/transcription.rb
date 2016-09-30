@@ -4,6 +4,7 @@ class Transcription < ActiveRecord::Base
   belongs_to :user
   belongs_to :leaf
   has_many :zone_links, dependent: :destroy
+  has_many :diplos, dependent: :destroy
   
   def self.get_all( leaf_id, user_id )
     transcriptions = Transcription.where( { leaf_id: leaf_id, user_id: user_id } )
