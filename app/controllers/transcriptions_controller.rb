@@ -10,7 +10,10 @@ class TranscriptionsController < ApplicationController
 
   # GET /transcriptions/1.json
   def show
-    render json: @transcription.obj
+    respond_to do |format|
+      format.html
+      format.json { render json: @transcription.obj }
+    end
   end
 
   # POST /transcriptions.json

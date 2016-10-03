@@ -4,8 +4,6 @@ class Diplo < ActiveRecord::Base
   
   belongs_to :transcription
   
-
-  # TODO make this a delayed job
   def self.create_diplo!( transcription )
     
     diplo = Diplo.new()    
