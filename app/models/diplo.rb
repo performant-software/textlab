@@ -19,13 +19,16 @@ class Diplo < ActiveRecord::Base
     # publisher.validateTeiDocument(tei, xsdUrl);
     #
 
-    # URL XslUrl = getServletContext().getResource("/tei-xsl/xml/tei/stylesheet/html5/tei.xsl");
-    # String xhtml = publisher.transformTeiDocument(tei, XslUrl);  
     doc   = Saxon.XML(tei_document)
     xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
-    diplo.html_content = xslt.transform(doc)
-      
-    # diplo.extract_leaf( html_document )
+    xhtml = xslt.transform(doc).to_s    
+    
+    # extract this div: <div class="pb" facs="#img_25">
+    start_match = xhtml.match(/<div class=\"pb\" facs="#img_\d+">/)
+    end_match = xhtml.match(/<div class="stdfooter">/)
+    start_pos = start_match.begin(0)
+    length = end_match.begin(0) - start_pos    
+    diplo.html_content = xhtml.slice(start_pos,length)
     diplo.save!
     diplo
   end
@@ -196,32 +199,11 @@ class Diplo < ActiveRecord::Base
 
 
   def extract_leaf( tei_document )
-    #
-    #
-    # public HashMap<String, String> getLeafText(String xhtml) {
-    #       HashMap<String, String> leafs = new HashMap<String, String>();
-    #
-    #       Pattern pattern = Pattern.compile(
-    #           "(<div\\s+class=\"pb\".*?)(?=(<div\\s+class=\"((pb)|(stdfooter)|(notes)))|(</section>))", Pattern.MULTILINE
-    #               | Pattern.DOTALL);
-    #       Matcher matcher = pattern.matcher(xhtml);
-    #       while (matcher.find()) {
-    #           int start = matcher.start();
-    #           int end = matcher.end();
-    #           String leafText = xhtml.substring(start, end);
-    #           String leafName = getLeafNameFromHtml(leafText);
-    #
-    #           leafText = cleanupHtml(leafText);
-    #
-    #           // Remove the link to the big images to reduce loading time
-    #           leafText = leafText.replaceAll("<img id=\"leaf[^>]*>", "");
-    #
-    #           leafs.put(leafName, leafText);
-    #
-    #       }
-    #
-    #       return leafs;
-    #   }
+    
+    
+    self.transcription.leaf.xml_id
+    
+
       
   end
 
