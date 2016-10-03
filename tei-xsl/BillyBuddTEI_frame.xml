@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?xml-stylesheet type="text/xsl" href="xml/tei/stylesheet/html5/tei.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+	<teiHeader>
+		<fileDesc>
+			<titleStmt>
+				<title>Versions of Billy Budd</title>
+					<author>
+						<persName>Herman Melville</persName>
+					</author>
+					<respStmt>
+						<resp>Project Director and General Editor</resp>
+						<persName>John Bryant</persName>
+					</respStmt>
+					<respStmt>
+						<resp>Editor</resp>
+						<persName>John Bryant</persName>
+					</respStmt>
+					<respStmt>
+						<resp>Editor</resp>
+						<persName>Gerard McGowan</persName>
+					</respStmt>
+					<respStmt>
+						<resp>Editor</resp>
+						<persName>Robert Sandberg</persName>
+					</respStmt>
+					<respStmt>
+						<resp>Editor</resp>
+						<persName>John Wenke</persName>
+					</respStmt>
+					<respStmt>
+						<resp>Editor</resp>
+						<persName>Les Harrison</persName>
+					</respStmt>
+					<sponsor><name>Hofstra University</name></sponsor>
+					<sponsor><name>Melville Electronic Library</name></sponsor>
+					<funder><name>National Endowment for the Humanities</name></funder>
+				</titleStmt>
+				<editionStmt>
+					<edition>MEL Fluid Text Edition</edition>
+				</editionStmt>
+				<extent>TEI formatted filesize uncompressed: approx. nnn kbytes</extent>
+				<!-- the extent element is optional but recommended; "nnn" must be filled in after the file is completed -->
+				<publicationStmt>
+					<publisher>Melville Electronic Library</publisher>
+					<pubPlace>Hempstead, NY</pubPlace>
+					<date>2012</date>
+				</publicationStmt>
+				<seriesStmt>
+					<title>MEL Fluid Text Editions</title>
+					<respStmt>
+						<resp>Project Director and General Editor</resp>
+						<persName>John Bryant</persName>
+					</respStmt>
+				</seriesStmt>
+				<sourceDesc>
+					<bibl>Herman Melville Papers (MS Am 188-188.6). Houghton Library, Harvard University.</bibl>
+				</sourceDesc>
+			</fileDesc>
+			<encodingDesc>
+				<charDecl>
+					<glyph xml:id="halfcaret">
+						<glyphName>CARET INSERTION POINT</glyphName>
+					</glyph>
+					<glyph xml:id="comma">
+						<glyphName>COMMA</glyphName>
+					</glyph>
+					<glyph xml:id="period">
+						<glyphName>PERIOD</glyphName>
+					</glyph>
+					<glyph xml:id="caret">
+						<glyphName>CARET</glyphName>
+					</glyph>
+					<glyph xml:id="slash">
+						<glyphName>FRACTION SLASH</glyphName>
+					</glyph>
+					<glyph xml:id="underscore">
+						<glyphName>?????</glyphName>
+					</glyph>
+				</charDecl>
+				<!-- these specifics would need to be filled in by John -->
+				<projectDesc><p>(project description) describes in detail the aim or purpose for which an electronic file was encoded, together with any other relevant information concerning the process by which it was assembled or collected.</p></projectDesc>
+				<editorialDecl><p>(editorial practice declaration) provides details of editorial principles and practices applied during the encoding of a text.</p></editorialDecl>
+				<tagsDecl></tagsDecl>
+			</encodingDesc>
+		</teiHeader>
+		<text>
+		<body>
+			<!-- paste TEI output from TextLab here -->
+			<div>
+				<p>
+					
+<pb facs="#345r"/>
+<lb/><fw place="upper middle"><add facs="#345r-0010" resp="HM" rend="green crayon">79</add></fw>
+<lb/><fw place="upper right"><add facs="#345r-0011" resp="RW?" rend="pencil">335</add></fw>
+<lb/><fw place="lower left"><add facs="#345r-0018" resp="HT?" rend="pencil">345</add></fw>
+<lb/><fw place="upper middle"><add facs="#345r-0024" resp="HM" rend="pencil">— | .—</add></fw>
+<lb/>Everything is for a term venerated in
+<lb/>navies.
+    <del facs="#345r-0034" rend="strikethrough">Sailors</del>
+    Any tangible object associated
+<lb/>with <del facs="#345r-0039" rend="strikethrough"><unclear facs="#345r-0039" reason="illegible" cert="high"><app><rdg resp="HS">any s</rdg><rdg resp="JB">any n</rdg></app></unclear></del>
+    some <unclear facs="#345r-0040" reason="illegible" cert="medium"><app><rdg resp="HS">striking</rdg></app></unclear> incident<add facs="#345r-0041"><app><rdg resp="HS" cert="high"><g ref="#comma">,</g></rdg><rdg><g ref="#halfcaret">/</g></rdg></app></add>
+    <add facs="#345r-0038" place="above" rend="halfcaret">of <del facs="#345r-0035" rend="strikethrough"><app><rdg resp="HS" cert="high">some</rdg><rdg resp="JB" cert="high">nav</rdg></app></del> the service</add> is
+<lb/>converted into a monument.  The spar
+<lb/>from which the Foretopman was suspended <add facs="#345r-0042"><g ref="#halfcaret">/</g></add>
+<lb/>was for some years was for some few
+<lb/><del facs="#345r-0009">followed</del> years kept trace of by the
+<lb/>bluejackets.  Their <unclear facs="#345r-0026" reason="illegible"><app><rdg resp="HS" cert="medium">knowledges</rdg></app></unclear> <del facs="#345r-0012" rend="strikethrough">pursued</del> <add facs="#345r-0044"><g ref="#caret">^</g></add> <add facs="#345r-0043" place="above" rend="caret">followed</add> it
+<lb/>from ship to dock-yard and again
+<lb/>from dock-yard to ship, <del facs="#345r-0015" rend="strikethrough">following</del> <add facs="#345r-0047" place="above"><add facs="#345r-0048" place="above">still</add> pursuing</add> it
+<lb/>even when <add facs="#345r-0017"><g ref="#caret">^</g></add> <add facs="#345r-0016" rend="above">at last</add> reduced to a meer
+<lb/>dock-yard boom.  To them a chip of it
+<lb/>was as a piece of the Cross.  Ignorant tho'
+<lb/>they were of the secret facts of the tragedy,
+<lb/>and not thinking but that the penalty was
+<lb/>somehow <del facs="#345r-0023" rend="strikethrough">justly</del> <add facs="#345r-0027"><g ref="#caret">^</g></add> <del facs="#345r-0019" rend="strikethrough"><add facs="#345r-0019" rend="above">necessarily</add></del> <add facs="#345r-0028" place="below" rend="bubble">unavoidably</add> inflicted from the naval point of view,
+ 
+ <pb facs="#346r"/>
+<add facs="#346r-0001" resp="HM" rend="green crayon"><fw place="upper middle">80</fw></add>
+ <lb/><add facs="#346r-0002" resp="RW?" rend="pencil"><fw place="upper right">336</fw></add>
+ <lb/> <add facs="#346r-0003"><g ref="#caret">^</g></add> <add facs="#346r-0005" place="above"><del facs="#346r-0005" rend="strikethrough">view</del></add> <add facs="#346r-0006" place="above">for all that they</add> <restore facs="#346r-0007" rend="3dash" place="below"><del facs="#346r-0007" rend="strikethrough">instinctively</del></restore> <add facs="#346r-0004" place="below">— — —</add> <del facs="#346r-0008" rend="strikethrough">they</del> <del facs="#346r-0009" rend="strikethrough">knew</del> felt that Billy was
+					<lb/><del facs="#346r-0025"><del facs="#346r-0011" rend="strikethrough">a bully boy</del><add facs="#346r-0012"><g ref="#comma">,</g></add> <del facs="#346r-0013" rend="strikethrough">was a</del></del> a <add facs="#346r-0014"><g ref="#caret">^</g></add> <add facs="#346r-0015" place="above">sort of</add> <del facs="#346r-0016" rend="strikethrough">true</del> man <add facs="#346r-0018"><g ref="#caret">^</g></add> <add facs="#346r-0017" place="above">as</add> incapable
+ <lb/><del facs="#346r-0019" rend="strikethrough">of wilful murder</del><add facs="#346r-0024"><g ref="#comma">,</g></add> <del facs="#346r-0020" rend="strikethrough">alike</del> of <add facs="#346r-0021"><g ref="#caret">^</g></add><del facs="#346r-0022" rend="strikethrough"><add facs="#346r-0022" place="above">causeless</add></del> <unclear facs="#346r-0026" reason="illegible" cert="medium"><app><rdg resp="HS">mutiny</rdg></app></unclear> <del facs="#346r-0023" rend="strikethrough">as</del> as of
+ <lb/>wilful murder.  <del facs="#346r-0027" rend="strikethrough">The</del> They recalled <del facs="#346r-0028">his</del>
+ <lb/><add facs="#346r-0029" place="leftmargin">fresh</add> the <add facs="#346r-0030"><g ref="#caret">^</g></add> <add facs="#346r-0031" place="above">young</add> image of the <subst><del facs="#346r-0032">han</del><add facs="#346r-0032">Hand</add></subst>some Sailor, <del facs="#346r-0033" rend="strikethrough">its beauty</del>
+ <lb/><del facs="#346r-0036" rend="strikethrough">and those features</del> that face <del facs="#346r-0037" rend="strikethrough">upon which they</del>
+ <lb/><del facs="#346r-0038" rend="strikethrough">had never seen a <unclear facs="#346r-0047" reason="illegible"><app><rdg resp="HS">sc</rdg><rdg resp="JB">se</rdg><rdg resp="JB">sn</rdg></app></unclear></del> never deformed by <del facs="#346r-0039" rend="strikethrough">any</del> a
+ <lb/><add facs="#346r-0042" place="above leftmargin">sneer or</add> <add facs="#346r-0040" place="above">subtler</add> <add facs="#346r-0041" place="above">vile</add> <del facs="#346r-0043" rend="strikethrough">vile</del> <add facs="#346r-0044"><g ref="#caret">^</g></add> freak <del facs="#346r-0045" rend="strikethrough">within</del><add facs="#346r-0046"><g ref="#period">.</g></add> of the heart within.
+ <lb/>Th<subst><del facs="#346r-0048">eir</del><add facs="#346r-0048">is</add></subst> <unclear facs="#346r-0049" reason="illegible" cert="medium"><app><rdg resp="HS">impression</rdg></app></unclear> of him <del facs="#346r-0050">took</del> was doubtless
+ <lb/>deepened by <del facs="#346r-0051">his end</del> the fact that he was
+					<lb/>g<subst><del facs="#346r-0052">oe</del><add facs="#346r-0052">one</add></subst> and <add facs="#346r-0054"><g ref="#caret">^</g></add> <add facs="#346r-0053">in a measure</add> mysteriously gone.  The general <add facs="#346r-0060"><g ref="#caret">^</g></add><add facs="#346r-0061" place="above">estimate</add> <add facs="#346r-0062" place="rightmargin" rend="bubble">of his nature</add> <add facs="#346r-0063"><g ref="#slash">/</g><g ref="#slash">/</g><g ref="#slash">/</g><g ref="#slash">/</g></add> <add facs="#346r-0069" place="rightmargin" rend="bubble">and its <add facs="#346r-0065"><g ref="#caret">^</g></add><del facs="#346r-0066">bravery of</del></add> <add facs="#346r-0064" place="rightmargin" rend="bubble">unconscious</add> <add facs="#346r-0070" place="rightmargin" rend="bubble">simplicity</add>
+ <lb/><del facs="#346r-0055" rend="strikethrough">feeling</del> <add facs="#346r-0056" place="above"><del facs="#346r-0056" rend="strikethrough">at the time</del></add> <subst><del facs="#346r-0057">o</del><add facs="#346r-0057">O</add></subst>n the gun decks of the Indomitable" <add facs="#346r-0059"><g ref="#caret">^</g></add> <del facs="#346r-0058" rend="strikethrough">found</del>
+ <lb/>eventually found rude utterance from <del facs="#346r-0071" rend="strikethrough">one</del>
+ <lb/><add facs="#346r-0075" place="leftmargin" rend="bubble">another</add> <add facs="#346r-0074" place="leftmargin"><del facs="#346r-0074" rend="strikethrough">a</del></add> <del facs="#346r-0072" rend="strikethrough">of the</del> <add facs="#346r-0073"><g ref="#caret">^</g></add> <add facs="#346r-0077" place="above">one of his <del facs="#346r-0076" rend="strikethrough">mates</del>,</add> <add facs="#346r-0078" place="above">own watch</add> foretopmen gifted<add facs="#346r-0080"><g ref="#comma">,</g></add> <del facs="#346r-0079" rend="strikethrough">with</del> as <del facs="#346r-0081" rend="strikethrough"><unclear facs="#346r-0081" reason="illegible"><app><rdg resp="HS"  cert="medium">frequent</rdg></app></unclear></del> some
+ <lb/>sailors are, with <add facs="#346r-0083" place="above">an artless</add> <subst><del facs="#346r-0082">the</del><add facs="#346r-0082">a</add></subst> <unclear facs="#346r-0097" reason="illegible"><app><rdg resp="HS" cert="medium">poetic</rdg></app></unclear> <add facs="#346r-0096"><g ref="#underscore" rend="green ink">___</g></add>temperament <unclear facs="#346r-0068" reason="illegible"><app><rdg resp="HS" cert="high"><subst><del facs="#346r-0068">;</del><add facs="#346r-0068">.</add></subst></rdg><rdg resp="JB" cert="high"><subst><del facs="#346r-0068">,</del><add facs="#346r-0068">.</add></subst></rdg></app></unclear>
+ <lb/><del facs="#346r-0085" rend="strikethrough">written</del> <del facs="#346r-0086" rend="strikethrough">but his wholly</del>  He <del facs="#346r-0087" rend="strikethrough">composed</del> <add facs="#346r-0088" place="below">tarry hand made</add> <add facs="#346r-0067" place="above">some lines</add> <add facs="#346r-0098"><g ref="#halfcaret">^</g></add>
+ <lb/>
+ <lb/><del facs="#346r-0091" rend="strikethrough"><add facs="#346r-0091" place="leftmargin">These</add></del> <del facs="#346r-0093" rend="strikethrough"><add facs="#346r-0092" place="above">The</add> <del facs="#346r-0090" rend="strikethrough">some</del> lines that follow whereof the title</del>
+ <lb/><del facs="#346r-0094" rend="strikethrough">is his own</del>. <del facs="#346r-0095" rend="strikethrough">a ballad</del> which after circulating
+ <lb/><fw place="lower left"><add facs="#346r-0010" resp="HT?" rend="pencil">346</add></fw>
+
+<pb facs="#347r"/>
+<fw place="upper right"><add facs="#347r-0002" resp="RW?" rend="pencil">337</add></fw>
+ <lb/><fw place="lower left"><add facs="#347r-0003" resp="HT?" rend="pencil">347</add></fw>
+ <lb/><fw place="upper middle"><add facs="#347r-0001" resp="HM" rend="green-crayon">81</add></fw>
+ <lb/>among the <add facs="#347r-0004" place="above">shipboard</add> <add facs="#347r-0005"><g ref="#caret">^</g></add> crew for a while, finally got <add facs="#347r-0006" place="rightmargin">rudely</add>
+ <lb/>printed <restore facs="#347r-0007" rend="2dash" place="below"><del facs="#347r-0007">at Portsmouth</del></restore> <add facs="#347r-0008" place="below">— —</add> as a <del facs="#347r-0009" rend="strikethrough"><add facs="#347r-0009" place="above">rude</add></del> ballad. <del facs="#347r-0010" rend="strikethrough">at</del>
+ <lb/><del facs="#347r-0011" rend="strikethrough">Portsmouth</del>  The title given to it was <del facs="#347r-0014" rend="strikethrough">his own</del><add facs="#347r-0015">.</add> <add facs="#347r-0016" place="above">the sailor's</add><add facs="#347r-0013">.</add>
+					<lb/></p><p>
+						<add facs="#347r-0017"><hi rend="underline"><hi rend="center">Billy in the Darbies</hi></hi></add>
+						<lb/>
+		</p>	</div>
+	</body>
+	</text>
+</TEI>

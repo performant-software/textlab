@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XSL stylesheets for TEI XML</title><meta name="author" content="Sebastian Rahtz" /><meta name="generator" content="Text Encoding Initiative Consortium XSLT stylesheets" /><meta name="DC.Title" content="XSL stylesheets for TEI XML" /><meta name="DC.Type" content="Text" /><meta name="DC.Format" content="text/html" /><link href="http://www.tei-c.org/release/xml/tei/stylesheet/tei.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" media="print" type="text/css" href="http://www.tei-c.org/release/xml/tei/stylesheet/tei-print.css" /></head><body class="simple" id="TOP"><div class="stdheader"><h2 class="institution">A TEI Project</h2><h1 class="maintitle">XSL stylesheets for TEI XML</h1></div><h2>Table of contents</h2><ul class="toc toc_body"><li class="toc"><span class="headingNumber">1. </span><a href="#index.xml-body.1_div.1" class="toc toc_0">Introduction</a></li><li class="toc"><span class="headingNumber">2. </span><a href="#index.xml-body.1_div.2" class="toc toc_0">File organisation</a></li><li class="toc"><span class="headingNumber">3. </span><a href="#start" class="toc toc_0" title="Documentation of generic start points">Documentation of generic start points</a></li><li class="toc"><span class="headingNumber">4. </span><a href="#start-enrich" class="toc toc_0" title="Documentation of start points for ENRICH manuscript description customization">Documentation of start points for ENRICH manuscript
+  description customization</a></li><li class="toc"><span class="headingNumber">5. </span><a href="#start-iso" class="toc toc_0" title="Documentation of start points for ISO customization">Documentation of start points for ISO customization</a></li><li class="toc"><span class="headingNumber">6. </span><a href="#index.xml-body.1_div.6" class="toc toc_0">Customization</a></li><li class="toc"><span class="headingNumber">7. </span><a href="#index.xml-body.1_div.7" class="toc toc_0">XSLT processors</a></li></ul><div class="teidiv0" id="index.xml-body.1_div.1"><h2><span class="headingNumber">1. </span><span class="head">Introduction</span></h2><p>This is a set of XSLT 2.0 specifications to transform TEI XML documents
+to XHTML, to LaTeX, to XSL Formatting Objects, to/from OOXML (docx), to/from OpenOfice (odt) and to ePub
+format.  The files can be downloaded from the Releases area of <a class="link_ptr" href="http://tei.sf.net"><span>http://tei.sf.net</span></a>.  They concentrate on the simpler TEI
+modules, but adding support for other modules is fairly easy. In the
+main, the setup has been used on ‘new’ documents, ie reports and
+web pages that have been authored from scratch, rather than
+traditional TEI-encoded existing material.
+</p><p>There is a <a class="link_ref" href="ChangeLog">change log</a> file
+available.</p><p>The XSL FO style sheets were developed for use with PassiveTeX (<a class="link_ptr" href="http://projects.oucs.ox.ac.uk/passivetex/"><span>http://projects.oucs.ox.ac.uk/passivetex/</span></a>),
+a system using XSL formatting objects to render XML to PDF via
+LaTeX. They have not  been extensively tested with the
+other XSL FO implementations.</p></div><div class="teidiv0" id="index.xml-body.1_div.2"><h2><span class="headingNumber">2. </span><span class="head">File organisation</span></h2><div class="p">The main stylesheets are divided into four directories:
+<dl><dt id="index.xml-item-d27e91"><span id="index.xml-label-d27e89">common2</span></dt><dd>templates which are independent of output type</dd><dt id="index.xml-item-d27e95"><span id="index.xml-label-d27e93">fo2</span></dt><dd>templates for making XSL FO output</dd><dt id="index.xml-item-d27e99"><span id="index.xml-label-d27e97">xhtml2</span></dt><dd>templates for making HTML output</dd><dt id="index.xml-item-d27e103"><span id="index.xml-label-d27e101">latex2</span></dt><dd>templates for making LaTeX output</dd></dl>
+Within each directory there is a separate file for the templates
+which implement each of the TEI modules (eg
+<span class="ident">textstructure.xsl</span>,
+<span class="ident">linking.xsl</span>, or <span class="ident">drama.xsl</span>); these
+are included by a master file <span class="ident">tei.xsl</span>. This also
+includes a parameterization layer in the file
+<span class="ident">tei-param.xsl</span>, and the parameterization file from
+the <span class="ident">common</span> directory. The <span class="ident">tei.xsl</span> does
+any necessary declaration of constants and XSL keys.</div><div class="p">There are further directories  for special-purposes
+conversions:
+<dl><dt id="index.xml-item-d27e133"><span id="index.xml-label-d27e131">epub</span></dt><dd>conversion to ePub</dd><dt id="index.xml-item-d27e137"><span id="index.xml-label-d27e135">odt</span></dt><dd>conversion to and from OpenOffice Writer format</dd><dt id="index.xml-item-d27e141"><span id="index.xml-label-d27e139">docx</span></dt><dd>conversion to and from Word OOXML format</dd><dt id="index.xml-item-d27e145"><span id="index.xml-label-d27e143">odds2</span></dt><dd>processing of TEI ODD files</dd><dt id="index.xml-item-d27e149"><span id="index.xml-label-d27e147">rdf</span></dt><dd>conversion to RDF</dd><dt id="index.xml-item-d27e154"><span id="index.xml-label-d27e151">txt</span></dt><dd>conversion to plain text</dd></dl>
+</div><p>The final important directory is <span class="ident">profiles</span>, which has
+a set of predefined project starting points, each of which may have a file
+<span class="ident">to.xsl</span> for one or more of the supported output formats
+(<span class="ident">csv</span>, <span class="ident">dtd</span>, <span class="ident">html</span>,
+<span class="ident">odt</span>, <span class="ident">docbook</span>, <span class="ident">epub</span>,
+<span class="ident">latex</span>, <span class="ident">p4</span>, <span class="ident">docx</span>,
+<span class="ident">fo</span>, <span class="ident">lite</span>, and
+<span class="ident">relaxng</span>). There may also be a <span class="ident">from.xsl</span>
+to go <em>from</em> the selected format to TEI XML.</p><p>For example, to convert TEI to HTML in the default mannner, the user may run
+<span class="ident">profiles/default/html/to.xsl</span> on the selected input file. Other starting points are
+listed below.</p><p>For the brave, there are Linux/OSX command-line shell scripts
+<span class="ident">docxtotei</span>, <span class="ident">odttotei</span>,
+<span class="ident">teitodocx</span>, <span class="ident">teitodtd</span>,
+<span class="ident">teitoepub</span>, <span class="ident">teitoepub3</span>,
+<span class="ident">teitohtml</span>, <span class="ident">teitoodt</span>,
+<span class="ident">teitordf</span>, <span class="ident">teitorelaxng</span>,
+<span class="ident">teitornc</span>, <span class="ident">teitotxt</span>, and
+<span class="ident">teitoxsd</span> for converting to/from Word, to/from OpenOffice, and to DTD, ePub,
+HTML, RDF, Relax NG, plain text, W3C schema etc.  These are
+implemented using Ant tasks, which are also available within the
+oXygen XML editor as part of the TEI framework.</p><p>Any other use of the stylesheets, eg by referencing individual
+modules, is not supported and requires good understanding of XSL.</p></div><div class="teidiv0" id="start"><h2><span class="headingNumber">3. </span><span class="head">Documentation of generic start points</span></h2><ul><li class="item"><a class="link_ref" href="profiles/default/csv/from.html">Default conversion from CSV</a></li><li class="item"><a class="link_ref" href="profiles/default/csv/to.html">Default conversion to CSV</a></li><li class="item"><a class="link_ref" href="profiles/default/docbook/from.html">Default conversion to Docbook</a></li><li class="item"><a class="link_ref" href="profiles/default/docx/from.html">Default conversion from docx (OOXML)</a></li><li class="item"><a class="link_ref" href="profiles/default/docx/to.html">Default conversion to docx (OOXML)</a></li><li class="item"><a class="link_ref" href="profiles/default/epub/to.html">Default conversion to ePub</a></li><li class="item"><a class="link_ref" href="profiles/default/fo/to.html">Default conversion to XSL FO</a></li><li class="item"><a class="link_ref" href="profiles/default/html/to.html">Default conversion to XHTML</a></li><li class="item"><a class="link_ref" href="profiles/default/latex/to.html">Default conversion to LaTeX</a></li><li class="item"><a class="link_ref" href="profiles/default/oo/from.html">Default conversion from OpenOffice (odt) </a></li><li class="item"><a class="link_ref" href="profiles/default/oo/to.html">Default conversion to OpenOffice (odt) </a></li><li class="item"><a class="link_ref" href="profiles/default/p4/from.html">Default conversion to TEI P4</a></li><li class="item"><a class="link_ref" href="odds2/odd2odd.html">Conversion of ODD file to expanded ODD</a></li><li class="item"><a class="link_ref" href="odds2/odd2relax.html">Conversion of ODD to RELAX NG schema</a></li><li class="item"><a class="link_ref" href="odds2/odd2dtd.html">Conversion of ODD to DTD</a></li><li class="item"><a class="link_ref" href="slides/teihtml-slides.html">Default conversion to HTML slides</a></li><li class="item"><a class="link_ref" href="slides/teilatex-slides.html">Default conversion to LaTeX slides (using beamer)</a></li></ul></div><div class="teidiv0" id="start-enrich"><h2><span class="headingNumber">4. </span><span class="head">Documentation of start points for ENRICH manuscript
+  description customization</span></h2><ul><li class="item"><a class="link_ref" href="profiles/enrich/docx/to.html">ENRICH conversion to docx (OOXML)</a></li><li class="item"><a class="link_ref" href="profiles/enrich/fo/to.html">ENRICH conversion to XSL FO</a></li><li class="item"><a class="link_ref" href="profiles/enrich/html/to.html">ENRICH conversion to XHTML</a></li><li class="item"><a class="link_ref" href="profiles/enrich/latex/to.html">ENRICH conversion to LaTeX</a></li><li class="item"><a class="link_ref" href="profiles/enrich/docx/from.html">ENRICH conversion from docx (OOXML)</a></li></ul></div><div class="teidiv0" id="start-iso"><h2><span class="headingNumber">5. </span><span class="head">Documentation of start points for ISO customization</span></h2><ul><li class="item"><a class="link_ref" href="profiles/iso/docx/to.html">ISO conversion to docx (OOXML)</a></li><li class="item"><a class="link_ref" href="profiles/iso/fo/to.html">ISO conversion to XSL FO</a></li><li class="item"><a class="link_ref" href="profiles/iso/html/to.html">ISO conversion to XHTML</a></li><li class="item"><a class="link_ref" href="profiles/iso/latex/to.html">ISO conversion to LaTeX</a></li><li class="item"><a class="link_ref" href="profiles/iso/docx/from.html">ISO conversion from docx (OOXML)</a></li></ul></div><div class="teidiv0" id="index.xml-body.1_div.6"><h2><span class="headingNumber">6. </span><span class="head">Customization</span></h2><p>
+  The TEI stylesheets are designed to be customized, and I will
+  gladly add more parameterization in future. There are currently
+  several hundred things you can set to change the output, described
+  in the <a class="link_ref" href="customize.html">Customization Handbook</a>.
+  They are either XSLT variables, or named templates, so
+  you need to understand a little of XSL syntax. If you know
+  a  bit more, you can override any of the templates in the style files, 
+  but then you are on your own.</p><p>The <a class="link_ref" href="style.html">Stylebear</a> web form
+  will construct a XSL file for you, with all the variables configured. 
+  </p></div><div class="teidiv0" id="index.xml-body.1_div.7"><h2><span class="headingNumber">7. </span><span class="head">XSLT processors</span></h2><p>
+These stylesheets use XSLT 2.0, and have only been testd
+Saxon (from <a class="link_ptr" href="http://saxon.sourceforge.net"><span>http://saxon.sourceforge.net</span></a>). XSLT 1.0
+stylesheets are also available, but will not be further maintained. It
+is up to the user to find out how to run the XSLT processor! This may
+be from within a Java program, from your editor, on the command-line,
+or inside a web server.</p></div><div class="stdfooter"><div class="footer"><a class="plain" href="http://www.tei-c.org/">Parent Institution</a> | <a class="plain" href="http://www.tei-c.org/">TEI</a>| <a class="plain" href="http://www.google.com">Search</a> | <a class="plain" href="mailto:feedback">Feedback</a></div><address> Sebastian Rahtz.
+      Date: 2010-02-12<br />This page is copyrighted<!--
+	  Generated from index.xml using an XSLT version 2.0 stylesheet
+	  based on http://www.tei-c.org/Stylesheets/
+	  processed using SAXON 9.3.0.4 from Saxonica
+	  on 2012-04-15T13:47:07Z--></address></div></body></html>

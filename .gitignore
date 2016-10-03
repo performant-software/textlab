@@ -13,3 +13,6 @@
 /tmp
 
 /config/secrets_dev.yml
+
+# just for my local
+jruby-bundle.sh 

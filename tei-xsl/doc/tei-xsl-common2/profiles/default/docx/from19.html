@@ -1,0 +1,2515 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <title>Stylesheet documentation for: </title>
+      <link rel="stylesheet" href="docHtml.css" type="text/css" /><script type="text/javascript">
+         <!--
+        
+        
+        
+        var usedByBoxes= new Array('uB_T_processTextrunS_......docxfromtextrunstextruns.xsl', 
+				'uB_T_basicStylesS_......docxfromtextrunstextruns.xsl');
+
+        var docBoxes= new Array('dS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl', 
+				'dS_T_basicStylesS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wtS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wsymS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wrwtabS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wrwptabS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wbrS_......docxfromtextrunstextruns.xsl', 
+				'dS_M_wdelS_......docxfromtextrunstextruns.xsl');
+
+        var sourceBoxes= new Array('src_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wrS_......docxfromtextrunstextruns.xsl', 
+				'src_T_processTextrunS_......docxfromtextrunstextruns.xsl', 
+				'src_T_basicStylesS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wtS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wsymS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wrwtabS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wrwptabS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wbrS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wdelS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wrPrwdelS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wdelTextS_......docxfromtextrunstextruns.xsl', 
+				'src_M_winsS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wrPrwinsS_......docxfromtextrunstextruns.xsl', 
+				'src_M_wnoBreakHyphenS_......docxfromtextrunstextruns.xsl');
+
+        
+        
+        var referencesBoxes= new Array('refs_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl', 
+				'refs_M_wrS_......docxfromtextrunstextruns.xsl', 
+				'refs_T_processTextrunS_......docxfromtextrunstextruns.xsl', 
+				'refs_T_basicStylesS_......docxfromtextrunstextruns.xsl', 
+				'refs_M_wdelS_......docxfromtextrunstextruns.xsl', 
+				'refs_M_winsS_......docxfromtextrunstextruns.xsl');
+
+        
+        
+        
+        var includedFromBoxes= new Array('icF_......docxfromtextrunstextruns.xsl');
+
+        var button_prefix = 'bt_';
+        
+        /**
+        * Get all DIV elements with a specified class name.
+        *
+        * @param className The class name. 
+        */
+        function getElementsByClassName(className) {
+            var results = [];
+    
+             if (document.getElementsByClassName == undefined) {
+                var allElements = document.getElementsByTagName("div");
+                var element;
+                for (var i = 0; i < allElements.length; i++) {
+                    var element = allElements[i];
+                	var elementClass = element.className;
+                	if (elementClass == className) { 
+                		results.push(element);
+                	}
+                }
+             } else {
+                results = document.getElementsByClassName(className);
+             }
+    
+            return results;
+        }
+            
+        /**
+        * Returns an element in the current HTML document.
+        *
+        * @param elementID Identifier of HTML element
+        * @return               HTML element object
+        */
+        function getElementObject(elementID) {
+            var elemObj = null;
+            if (document.getElementById) {
+                elemObj = document.getElementById(elementID);
+            }
+            return elemObj;
+        }
+        
+        /**
+        * Switches the state of a collapseable box, e.g.
+        * if it's opened, it'll be closed, and vice versa.
+        *
+        * @param boxID Identifier of box
+        */
+        function switchState(boxID) {
+            var boxObj = getElementObject(boxID);
+            var buttonObj = getElementObject(button_prefix + boxID);
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else if (boxObj.style.display == "none") {
+                // Box is closed, so open it
+                openBox(boxObj, buttonObj);
+            } else if (boxObj.style.display == "block") {
+                // Box is opened, so close it
+                closeBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+        * Opens a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function openBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "block";
+                
+                // Change text of button
+                if (boxObj.style.display == "block") {
+                    buttonObj.src = "img/btM.gif";
+                }
+            }
+        }
+        
+        /**
+        * Closes a collapseable box.
+        *
+        * @param boxObj       Collapseable box
+        * @param buttonObj Button controlling box
+        */
+        function closeBox(boxObj, buttonObj) {
+            if (boxObj == null || buttonObj == null) {
+                // Box or button not found
+            } else {
+                // Change 'display' CSS property of box
+                boxObj.style.display = "none";
+                
+                // Change text of button
+                if (boxObj.style.display == "none") {
+                    buttonObj.src = "img/btP.gif";
+                }
+            }
+        }
+
+       /**
+        * Switch between the compact list representation and the clasic list representation.
+        */
+       function switchMode(checkBox) {
+            if (checkBox == null) {
+                // Checkbox not found
+            } else if (checkBox.checked == 1) {
+                // Compact mode
+                var divs = getElementsByClassName('refItemBlock');
+                for (var i = 0; i < divs.length; i ++) {
+                    divs[i].style.display = "inline";
+                    var children = divs[i].children;
+                    var refItemSep = children[children.length - 1];
+                    if (refItemSep.className == "refItemSep") {
+                        children[children.length - 1].style.display = "inline";
+                    }
+                }
+            } else {
+                // Expanded mode
+                var divs = getElementsByClassName('refItemBlock');
+                for (var i = 0; i < divs.length; i ++) {
+                    divs[i].style.display = "block";
+                    var children = divs[i].children;
+                    var refItemSep = children[children.length - 1];
+                    if (refItemSep.className == "refItemSep") {
+                        children[children.length - 1].style.display = "none";
+                    }
+                }
+            }
+        }
+
+       function switchStateForAll(buttonObj, boxList) {
+            if (buttonObj == null) {
+                // button not found
+            } else if (buttonObj.value == "+") {
+                // Expand all
+                expandAll(boxList);
+                buttonObj.value = "-";
+            } else if (buttonObj.value == "-") {
+                // Collapse all
+                collapseAll(boxList);
+                buttonObj.value = "+";
+            }
+        }
+        
+        /**
+        * Closes all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function collapseAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                closeBox(boxObj, buttonObj);
+            }
+        }
+            
+        /**
+        * Open all boxes in a given list.
+        *
+        * @param boxList Array of box IDs
+        */
+        function expandAll(boxList) {
+            var idx;
+            for (idx = 0; idx < boxList.length; idx++) {
+                var boxObj = getElementObject(boxList[idx]);
+                var buttonObj = getElementObject(button_prefix + boxList[idx]);
+                openBox(boxObj, buttonObj);
+            }
+        }
+        
+        /**
+         * Update the message presented in the title of the html page.
+         * - If the documentation was splited by namespace we present something like: "Documentation for namespace 'ns'"
+         * - If the documentation was splited by location we present somehing like: "Documentation for 'Schema.xsd'"
+         * - If no split we always present: "Documentation for 'MainSchema.xsd'"
+         */
+        function updPT(message) {
+            top.document.title = "Stylesheet documentation for: " + message;
+        }
+        
+          
+                    
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function findAndFloat(id, x_displacement, y_displacement){
+
+            var element = getElementObject(id);            
+            
+            window[id + "_obj"] = element;
+            
+            if(document.layers) {
+               element.style = element;
+            }
+            
+            element.current_y = y_displacement;      
+            element.first_time = true;
+         
+            element.floatElement = function(){
+               // It may be closed by an user action.
+                
+               // Target X and Y coordinates.
+               var x, y;
+               
+               var myWidth = 0, myHeight = 0;
+               if( typeof( window.innerWidth ) == 'number' ) {
+                  //Non-IE
+                  myWidth = window.innerWidth;
+                  myHeight = window.innerHeight;
+               } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+                  //IE 6+ in 'standards compliant mode'
+                  myWidth = document.documentElement.clientWidth;
+                  myHeight = document.documentElement.clientHeight;
+               } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+                  //IE 4 compatible
+                  myWidth = document.body.clientWidth;
+                  myHeight = document.body.clientHeight;
+               }
+               
+               
+               x = myWidth - x_displacement;
+               
+               var ns = (navigator.appName.indexOf("Netscape") != -1);               
+               y = ns ? pageYOffset : document.documentElement && document.documentElement.scrollTop ? 
+                  document.documentElement.scrollTop : document.body.scrollTop;               
+               y = y + y_displacement;               
+               
+               // The current y is the current coordinate of the floating element.
+               // This should be at the limit the y target coordinate.
+               this.current_y += (y - this.current_y)/1.25;
+               
+               // Add the pixels constant after the values
+               // and move the element.
+               var px = document.layers ? "" : "px";
+               this.style.left =  x + px;
+               this.style.top =  this.current_y + px;
+                              
+               setTimeout(this.id + "_obj.floatElement()", 100);
+            }
+            
+            element.floatElement();
+            return element;
+          }
+
+         /**
+          * Finds an HTML element by its ID and makes it floatable over the normal content.
+          *
+          * @param x_displacement The difference in pixels to the right side of the window from 
+          *           the left side of the element.
+          * @param y_displacement The difference in pixels to the right side of the window from 
+          *           the top of the element.          
+          */
+         function selectTOCGroupBy(id){
+         var selectIds = new Array('toc_group_by_location', 'toc_group_by_component_type', 'toc_group_by_namespace', 'toc_group_by_mode');
+            // Make all the tabs invisible.
+            for (i = 0; i < 4; i++){
+               var tab = getElementObject(selectIds[i]);
+               tab.style.display = 'none';
+            }
+            var selTab = getElementObject(id);
+            selTab.style.display = 'block';            
+         }
+          
+
+    --></script></head>
+   <body>
+      <div id="global_controls" class="globalControls" style="position:absolute;right:0;">
+         <table class="rt">
+            <tr>
+               <td class="rt_cTL"></td>
+               <td class="rt_lT"></td>
+               <td class="rt_cTR"></td>
+            </tr>
+            <tr>
+               <td class="rt_lL"></td>
+               <td class="rt_cnt">
+                  <h3>Mode:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked" onclick="switchMode(this);"
+                                     class="control" /></span><span class="globalControlName">Compact lists</span></td>
+                     </tr>
+                  </table>
+                  <h3>Showing:</h3>
+                  <table>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, docBoxes);"
+                                     class="control" /></span><span class="globalControlName">Documentation
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, usedByBoxes);"
+                                     class="control" /></span><span class="globalControlName">Used by </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, referencesBoxes);"
+                                     class="control" /></span><span class="globalControlName">References </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, includedFromBoxes);"
+                                     class="control" /></span><span class="globalControlName">Included from
+                              </span></td>
+                     </tr>
+                     <tr>
+                        <td><span><input type="checkbox" value="-" checked="checked"
+                                     onclick="switchStateForAll(this, sourceBoxes);"
+                                     class="control" /></span><span class="globalControlName">Source </span></td>
+                     </tr>
+                  </table>
+                  <div align="right"><span><input type="button"
+                               onclick="getElementObject('global_controls').style.display = 'none';"
+                               value="Close" /></span></div>
+               </td>
+               <td class="rt_lR"></td>
+            </tr>
+            <tr>
+               <td class="rt_cBL"></td>
+               <td class="rt_lB"></td>
+               <td class="rt_cBR"></td>
+            </tr>
+         </table>
+      </div><a id="......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Stylesheet
+         <span class="qname">textruns.xsl</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_......docxfromtextrunstextruns.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 
+                                 <p> TEI stylesheet for converting Word docx files to TEI </p>
+                                 
+                                 <p>This software is dual-licensed:
+                                    
+                                    1. Distributed under a Creative Commons Attribution-ShareAlike 3.0
+                                    Unported License http://creativecommons.org/licenses/by-sa/3.0/ 
+                                    
+                                    2. http://www.opensource.org/licenses/BSD-2-Clause
+                                    		
+                                    All rights reserved.
+                                    
+                                    Redistribution and use in source and binary forms, with or without
+                                    modification, are permitted provided that the following conditions are
+                                    met:
+                                    
+                                    * Redistributions of source code must retain the above copyright
+                                    notice, this list of conditions and the following disclaimer.
+                                    
+                                    * Redistributions in binary form must reproduce the above copyright
+                                    notice, this list of conditions and the following disclaimer in the
+                                    documentation and/or other materials provided with the distribution.
+                                    
+                                    This software is provided by the copyright holders and contributors
+                                    "as is" and any express or implied warranties, including, but not
+                                    limited to, the implied warranties of merchantability and fitness for
+                                    a particular purpose are disclaimed. In no event shall the copyright
+                                    holder or contributors be liable for any direct, indirect, incidental,
+                                    special, exemplary, or consequential damages (including, but not
+                                    limited to, procurement of substitute goods or services; loss of use,
+                                    data, or profits; or business interruption) however caused and on any
+                                    theory of liability, whether in contract, strict liability, or tort
+                                    (including negligence or otherwise) arising in any way out of the use
+                                    of this software, even if advised of the possibility of such damage.
+                                    
+                                 </p>
+                                 
+                                 <p>Author: See AUTHORS</p>
+                                 
+                                 <p>Id: $Id: textruns.xsl 9646 2011-11-05 23:39:08Z rahtz $</p>
+                                 
+                                 <p>Copyright: 2008, TEI Consortium</p>
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Included from</div>
+                           <div class="flR"><input id="bt_icF_......docxfromtextrunstextruns.xsl" type="image" src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('icF_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="icF_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from1.html#......docxfromdocxtotei.xsl" target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/docxtotei.xsl')">../../../docx/from/docxtotei.xsl</a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet version</td>
+                        <td>2.0</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:commentReference</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <div>
+                                 <h3>Description</h3>Processing an inline run of text with its styling
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:commentReference</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"
+                                     type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Variable</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from1.html#V_wordDirectoryS_......docxfromdocxtotei.xsl" target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/docxtotei.xsl')">wordDirectory</a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"
+                                     type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wcommentReferenceS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:commentReference"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"commentN"</span><span class="tAN"> select=</span><span class="tAV">"@w:id"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:for-each</span><span class="tAN"> select=</span><span class="tAV">"document(concat($wordDirectory,'/word/comments.xml'))/w:comments/w:comment[@w:id=$commentN]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;note</span><span class="tAN"> place=</span><span class="tAV">"comment"</span><span class="tAN"> resp=</span><span class="tAV">"{translate(@w:author,' ','_')}"</span><span class="tEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;date</span><span class="tAN"> when=</span><span class="tAV">"{@w:date}"</span><span class="tEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tEl">&lt;/note&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:for-each&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wrS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:r</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:r</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_wrS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_M_wrS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_wrS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from19.html#T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="nRf">processTextrun</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wrS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wrS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wrS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:r"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"processTextrun"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="T_processTextrunS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateName">processTextrun</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_T_processTextrunS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('uB_T_processTextrunS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Templates</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from19.html#M_winsS_......docxfromtextrunstextruns.xsl" target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="mRf">w:ins</span></a><span class="refItemSep">;</span></div>
+                                          <div class="refItemBlock"><a href="from19.html#M_wrS_......docxfromtextrunstextruns.xsl" target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="mRf">w:r</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_T_processTextrunS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_T_processTextrunS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from19.html#T_basicStylesS_......docxfromtextrunstextruns.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="nRf">basicStyles</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_T_processTextrunS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_T_processTextrunS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> name=</span><span class="tAV">"processTextrun"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"style"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:rStyle/@w:val"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='CommentReference'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='mentioned'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;mentioned</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/mentioned&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='Hyperlink' and ancestor::w:hyperlink"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"basicStyles"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='Hyperlink' and ancestor::w:fldSimple"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"basicStyles"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='Hyperlink' and preceding-sibling::w:r[w:instrText][1]/w:instrText"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;ref</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"target"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:for-each</span><span class="tAN"> select=</span><span class="tAV">"preceding-sibling::w:r[w:instrText][1]/w:instrText"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"substring-before(substring-after(.,'"'),'"')"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:for-each&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"basicStyles"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/ref&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='ref'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;ref</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/ref&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='date'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;date</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/date&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$style='orgName'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;orgName</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/orgName&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"not($style='')"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;hi</span><span class="tAN"> rend=</span><span class="tAV">"{replace($style,' ','_')}"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/hi&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"basicStyles"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="T_basicStylesS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateName">basicStyles</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_T_basicStylesS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_T_basicStylesS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_T_basicStylesS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>If there is no special style defined, look at the Word
+                                 underlying basic formatting. We can ignore the run's font change if 
+                                 a) it's not a special para AND the font is the ISO default, OR 
+                                 b) the font for the run is the same as its parent paragraph.
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Used by</div>
+                           <div class="flR"><input id="bt_uB_T_basicStylesS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('uB_T_basicStylesS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="uB_T_basicStylesS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from19.html#T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="nRf">processTextrun</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_T_basicStylesS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_T_basicStylesS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_T_basicStylesS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Parameter</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from7.html#P_preserveEffectsS_......docxfromparameters.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/parameters.xsl')">preserveEffects</a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_T_basicStylesS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_T_basicStylesS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_T_basicStylesS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> name=</span><span class="tAV">"basicStyles"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"styles"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:rFonts//@w:ascii"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"(not(matches(parent::w:p/w:pPr/w:pStyle/@w:val,'Special')) and not(matches(w:rPr/w:rFonts/@w:ascii,'Calibri'))) or    not(w:rPr/w:rFonts/@w:ascii = parent::w:p/w:pPr/w:rPr/w:rFonts/@w:ascii)"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"$preserveEffects='true'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;s</span><span class="tAN"> n=</span><span class="tAV">"font-family"</span><span class="tEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:rFonts/@w:ascii"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;/s&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!-- w:ascii="Courier New" w:hAnsi="Courier New" w:cs="Courier New" --&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!-- what do we want to do about cs (Complex Scripts), hAnsi (high ANSI), eastAsia etc? --&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:sz"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;s</span><span class="tAN"> n=</span><span class="tAV">"font-size"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"number(w:rPr/w:sz/@w:val) div 2"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">pt</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/s&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:position/@w:val and not(w:rPr/w:position/@w:val='0')"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;s</span><span class="tAN"> n=</span><span class="tAV">"position"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:position/@w:val"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/s&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"dir"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- right-to-left text --&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:rtl or parent::w:p/w:pPr/w:rPr/w:rtl"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">rtl</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"effects"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:position[number(@w:val)&lt;-2]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">subscript</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:i"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">italic</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:b/@w:val='0'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">normalweight</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:b"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">bold</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:position[number(@w:val)&gt;2]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">superscript</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:vertAlign"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:vertAlign/@w:val"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:strike"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">strikethrough</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:dstrike"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">strikedoublethrough</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:u[@w:val='single']"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">underline</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:u[@w:val='wave']"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">underwavyline</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:u[@w:val='double']"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">underdoubleline</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:smallCaps"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">smallcaps</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:caps"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tT">capsall</span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:color and         not(w:rPr/w:color/@w:val='000000' or w:rPr/w:color/@w:val='auto')"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">color(</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:color/@w:val"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">)</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"w:rPr/w:highlight"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;n</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">background(</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"w:rPr/w:highlight/@w:val"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">)</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/n&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$effects/* or ($styles/* and $preserveEffects='true')"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;hi</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"$dir!='' and $preserveEffects='true'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"dir"</span><span class="tAN"> xmlns=</span><span class="tAV">"http://www.w3.org/2005/11/its"</span><span class="tAN"> select=</span><span class="tAV">"$dir"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$effects/*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"rend"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:for-each</span><span class="tAN"> select=</span><span class="tAV">"$effects/*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"following-sibling::*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+                  </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT"> </span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+                </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;/xsl:for-each&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"$preserveEffects='true'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"rend"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">isoStyle</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:if</span><span class="tAN"> test=</span><span class="tAV">"$styles/* and $preserveEffects='true'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:attribute</span><span class="tAN"> name=</span><span class="tAV">"html:style"</span><span class="tXSLEl">&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;xsl:for-each</span><span class="tAN"> select=</span><span class="tAV">"$styles/*"</span><span class="tXSLEl">&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"@n"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">:</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+              </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">;</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+            </span><span class="tXSLEl">&lt;/xsl:for-each&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;/xsl:attribute&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:if&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/hi&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wtS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:t</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wtS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wtS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wtS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 Handle Text, Comments, Tabs, Symbols etc. 
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:t</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wtS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wtS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wtS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:t"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:variable</span><span class="tAN"> name=</span><span class="tAV">"t"</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@xml:space='preserve' and string-length(normalize-space(.))=0"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;seg</span><span class="tEl">&gt;</span><span class="tI">
+          </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT"> </span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+        </span><span class="tEl">&lt;/seg&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@xml:space='preserve'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"."</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"normalize-space(.)"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:variable&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"parent::w:r/w:rPr/w:rFonts[starts-with(@w:ascii,'ISO')]"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;seg</span><span class="tAN"> html:style=</span><span class="tAV">"font-family:{parent::w:r/w:rPr/w:rFonts/@w:ascii};"</span><span class="tEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:value-of</span><span class="tAN"> select=</span><span class="tAV">"$t"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;/seg&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:copy-of</span><span class="tAN"> select=</span><span class="tAV">"$t"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wsymS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:sym</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wsymS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wsymS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wsymS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 Convert special characters (w:syms) into Unicode characters or
+                                 	g elements. Symbol to Unicode mapping from http://unicode.org/Public/MAPPINGS/VENDORS/ADOBE/symbol.txt
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:sym</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wsymS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wsymS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wsymS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:sym"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:font='Symbol' or @w:font='MT Symbol'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F022'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∀</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# FOR ALL # universal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F024'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∃</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# THERE EXISTS # existential --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F025'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">%</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PERCENT SIGN # percent --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F026'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">&amp;</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# AMPERSAND # ampersand --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F027'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∋</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# CONTAINS AS MEMBER	# suchthat --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F028'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">(</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT PARENTHESIS	# parenleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F029'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">)</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT PARENTHESIS	# parenright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∗</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# ASTERISK OPERATOR	# asteriskmath --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">+</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PLUS SIGN # plus --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">,</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# COMMA	# comma --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">−</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# MINUS SIGN # minus --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">.</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# FULL STOP # period --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F02F'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">/</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SOLIDUS # slash --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F030'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">0</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F031'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">1</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT ONE # one --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F032'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">2</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT TWO # two --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F033'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">3</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT THREE # three --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F034'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">4</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT FOUR # four --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F035'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">5</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT FIVE # five --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F036'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">6</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT SIX # six --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F037'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">7</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT SEVEN # seven --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F038'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">8</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F039'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">9</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIGIT NINE # nine --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">:</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# COLON	# colon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">;</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SEMICOLON # semicolon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">&lt;</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LESS-THAN SIGN	# less --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">=</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# EQUALS SIGN # equal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">&gt;</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREATER-THAN SIGN	# greater --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F03F'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">?</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# QUESTION MARK	# question --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F040'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≅</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# APPROXIMATELY EQUAL TO	# congruent --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F041'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Α</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER ALPHA	# Alpha --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F042'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Β</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER BETA	# Beta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F043'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Χ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER CHI	# Chi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F044'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Δ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER DELTA	# Delta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F044'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∆</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# INCREMENT # Delta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F045'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ε</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER EPSILON	# Epsilon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F046'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Φ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER PHI	# Phi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F047'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Γ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER GAMMA	# Gamma --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F048'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Η</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER ETA	# Eta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F049'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ι</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER IOTA	# Iota --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ϑ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK THETA SYMBOL	# theta1 --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Κ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER KAPPA	# Kappa --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Λ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER LAMDA	# Lambda --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Μ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER MU	# Mu --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ν</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER NU	# Nu --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F04F'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ο</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER OMICRON	# Omicron --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F050'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Π</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER PI	# Pi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F051'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Θ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER THETA	# Theta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F052'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ρ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER RHO	# Rho --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F053'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Σ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER SIGMA	# Sigma --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F054'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Τ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER TAU	# Tau --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F055'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Υ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER UPSILON	# Upsilon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F056'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ς</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F057'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ω</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER OMEGA	# Omega --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F057'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ω</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# OHM SIGN # Omega --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F058'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ξ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER XI	# Xi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F059'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ψ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER PSI	# Psi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">Ζ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK CAPITAL LETTER ZETA	# Zeta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">[</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT SQUARE BRACKET	# bracketleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∴</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# THEREFORE # therefore --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">]</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT SQUARE BRACKET	# bracketright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊥</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# UP TACK # perpendicular --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F05F'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">_</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LOW LINE # underscore --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F060'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RADICAL EXTENDER	# radicalex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F061'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">α</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER ALPHA	# alpha --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F062'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">β</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER BETA	# beta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F063'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">χ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER CHI	# chi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F064'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">δ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER DELTA	# delta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F065'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ε</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER EPSILON	# epsilon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F066'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">φ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER PHI	# phi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F067'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">γ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER GAMMA	# gamma --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F068'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">η</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER ETA	# eta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F069'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ι</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER IOTA	# iota --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ϕ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK PHI SYMBOL	# phi1 --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">κ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER KAPPA	# kappa --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">λ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER LAMDA	# lambda --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">µ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# MICRO SIGN # mu --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">μ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER MU	# mu --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ν</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER NU	# nu --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F06F'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ο</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER OMICRON	# omicron --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F070'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">π</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER PI	# pi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F071'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">θ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F072'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ρ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER RHO	# rho --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F073'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">σ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER SIGMA	# sigma --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F074'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">τ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER TAU	# tau --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F075'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">υ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER UPSILON	# upsilon --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F076'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ϖ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK PI SYMBOL	# omega1 --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F077'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ω</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER OMEGA	# omega --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F078'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ξ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER XI	# xi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F079'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ψ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER PSI	# psi --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F07A'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ζ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK SMALL LETTER ZETA	# zeta --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F07B'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">{</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT CURLY BRACKET	# braceleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F07C'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">|</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# VERTICAL LINE	# bar --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F07D'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">}</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT CURLY BRACKET	# braceright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F07E'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∼</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# TILDE OPERATOR	# similar --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A0'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">€</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# EURO SIGN # Euro --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ϒ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREEK UPSILON WITH HOOK SYMBOL	# Upsilon1 --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">′</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PRIME	# minute --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≤</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LESS-THAN OR EQUAL TO	# lessequal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⁄</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# FRACTION SLASH	# fraction --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∕</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIVISION SLASH	# fraction --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∞</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# INFINITY # infinity --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ƒ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LATIN SMALL LETTER F WITH HOOK	# florin --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">♣</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK CLUB SUIT	# club --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">♦</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK DIAMOND SUIT	# diamond --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0A9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">♥</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK HEART SUIT	# heart --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">♠</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK SPADE SUIT	# spade --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">↔</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT RIGHT ARROW	# arrowboth --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">←</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFTWARDS ARROW	# arrowleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AD'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">↑</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# UPWARDS ARROW	# arrowup --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">→</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHTWARDS ARROW	# arrowright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0AF'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">↓</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DOWNWARDS ARROW	# arrowdown --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B0'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">°</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DEGREE SIGN # degree --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">±</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PLUS-MINUS SIGN	# plusminus --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">″</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DOUBLE PRIME # second --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≥</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# GREATER-THAN OR EQUAL TO	# greaterequal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">×</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# MULTIPLICATION SIGN	# multiply --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∝</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PROPORTIONAL TO	# proportional --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∂</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# PARTIAL DIFFERENTIAL	# partialdiff --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">•</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BULLET # bullet --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">÷</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DIVISION SIGN	# divide --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0B9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≠</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# NOT EQUAL TO # notequal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≡</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# IDENTICAL TO # equivalence --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">≈</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# ALMOST EQUAL TO	# approxequal --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">…</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# HORIZONTAL ELLIPSIS	# ellipsis --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BD'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# VERTICAL ARROW EXTENDER	# arrowvertex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# HORIZONTAL ARROW EXTENDER	# arrowhorizex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0BF'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">↵</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DOWNWARDS ARROW WITH CORNER LEFTWARDS	# carriagereturn --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C0'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ℵ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# ALEF SYMBOL # aleph --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ℑ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK-LETTER CAPITAL I	# Ifraktur --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">ℜ</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BLACK-LETTER CAPITAL R	# Rfraktur --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">℘</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SCRIPT CAPITAL P	# weierstrass --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊗</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# CIRCLED TIMES	# circlemultiply --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊕</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# CIRCLED PLUS # circleplus --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∅</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# EMPTY SET # emptyset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∩</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# INTERSECTION # intersection --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∪</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# UNION	# union --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0C9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊃</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SUPERSET OF # propersuperset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊇</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SUPERSET OF OR EQUAL TO	# reflexsuperset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊄</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# NOT A SUBSET OF	# notsubset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊂</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SUBSET OF # propersubset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CD'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⊆</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SUBSET OF OR EQUAL TO	# reflexsubset --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∈</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# ELEMENT OF # element --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0CF'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∉</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# NOT AN ELEMENT OF	# notelement --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D0'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∠</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# ANGLE	# angle --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∇</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# NABLA	# gradient --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# REGISTERED SIGN SERIF	# registerserif (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# COPYRIGHT SIGN SERIF	# copyrightserif (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# TRADE MARK SIGN SERIF	# trademarkserif (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∏</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# N-ARY PRODUCT	# product --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">√</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# SQUARE ROOT # radical --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⋅</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DOT OPERATOR # dotmath --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">¬</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# NOT SIGN # logicalnot --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0D9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∧</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LOGICAL AND # logicaland --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∨</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LOGICAL OR # logicalor --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⇔</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT RIGHT DOUBLE ARROW	# arrowdblboth --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⇐</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFTWARDS DOUBLE ARROW	# arrowdblleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DD'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⇑</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# UPWARDS DOUBLE ARROW	# arrowdblup --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⇒</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHTWARDS DOUBLE ARROW	# arrowdblright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0DF'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⇓</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# DOWNWARDS DOUBLE ARROW	# arrowdbldown --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E0'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">◊</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LOZENGE # lozenge --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">〈</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT-POINTING ANGLE BRACKET	# angleleft --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# REGISTERED SIGN SANS SERIF	# registersans (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# COPYRIGHT SIGN SANS SERIF	# copyrightsans (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# TRADE MARK SIGN SANS SERIF	# trademarksans (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∑</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# N-ARY SUMMATION	# summation --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT PAREN TOP	# parenlefttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT PAREN EXTENDER	# parenleftex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT PAREN BOTTOM	# parenleftbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0E9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT SQUARE BRACKET TOP	# bracketlefttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0EA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT SQUARE BRACKET EXTENDER	# bracketleftex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0EB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT SQUARE BRACKET BOTTOM	# bracketleftbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0EC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT CURLY BRACKET TOP	# bracelefttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0ED'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT CURLY BRACKET MID	# braceleftmid (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0EE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# LEFT CURLY BRACKET BOTTOM	# braceleftbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0EF'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# CURLY BRACKET EXTENDER	# braceex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F1'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">〉</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT-POINTING ANGLE BRACKET	# angleright --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F2'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">∫</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# INTEGRAL # integral --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F3'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⌠</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# TOP HALF INTEGRAL	# integraltp --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F4'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# INTEGRAL EXTENDER	# integralex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F5'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">⌡</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# BOTTOM HALF INTEGRAL	# integralbt --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F6'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT PAREN TOP	# parenrighttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F7'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT PAREN EXTENDER	# parenrightex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F8'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT PAREN BOTTOM	# parenrightbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0F9'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT SQUAREBRACKET TOP	# bracketrighttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0FA'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT SQUARE BRACKET EXTENDER	# bracketrightex (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0FB'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT SQUARE BRACKET BOTTOM	# bracketrightbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0FC'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT CURLY BRACKET TOP	# bracerighttp (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0FD'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT CURLY BRACKET MID	# bracerightmid (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:char='F0FE'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal"></span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+        </span><span class="tC">&lt;!--	# RIGHT CURLY BRACKET BOTTOM	# bracerightbt (CUS) --&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+          </span><span class="tEl">&lt;g</span><span class="tAN"> html:style=</span><span class="tAV">"font-family:{@w:font};"</span><span class="tAN"> n=</span><span class="tAV">"{@w:char}"</span><span class="tEl">/&gt;</span><span class="tI">
+        </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:font='Wingdings 2' and @w:char='F050'"</span><span class="tXSLEl">&gt;</span><span class="tT" style="white-space:normal">✓</span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tC">&lt;!-- tick mark--&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;g</span><span class="tAN"> html:style=</span><span class="tAV">"font-family:{@w:font};"</span><span class="tAN"> n=</span><span class="tAV">"{@w:char}"</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wrwtabS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:r/w:tab</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wrwtabS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wrwtabS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wrwtabS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 handle tabs
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:r/w:tab</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wrwtabS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wrwtabS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wrwtabS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:r/w:tab"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">	</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wrwptabS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:r/w:ptab</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wrwptabS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wrwptabS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wrwptabS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 handle ptabs (absolute position tab character)
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:r/w:ptab</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wrwptabS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wrwptabS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wrwptabS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:r/w:ptab"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;c</span><span class="tAN"> rend=</span><span class="tAV">"ptab"</span><span class="tAN"> type=</span><span class="tAV">"{@w:alignment}"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">	</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/c&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wbrS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:br</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wbrS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wbrS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wbrS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 capture line breaks
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:br</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wbrS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wbrS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wbrS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:br"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:choose</span><span class="tXSLEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:when</span><span class="tAN"> test=</span><span class="tAV">"@w:type='page'"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;pb</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:when&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:otherwise</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tEl">&lt;lb</span><span class="tEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:otherwise&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;/xsl:choose&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wdelS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:del</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Documentation</div>
+                           <div class="flR"><input id="bt_dS_M_wdelS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('dS_M_wdelS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="dS_M_wdelS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <div>
+                                 <h3>Description</h3>
+                                 Contains text that has been tracked as a revision. 
+                                 
+                              </div>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:del</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_wdelS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_M_wdelS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_wdelS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Template</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from20.html#T_identifyChangeS_......docxfromutilsutility-templates.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/utils/utility-templates.xsl')"><span class="nRf">identifyChange</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wdelS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wdelS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wdelS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:del"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;del</span><span class="tAN"> when=</span><span class="tAV">"{@w:date}"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"identifyChange"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:with-param</span><span class="tAN"> name=</span><span class="tAV">"who"</span><span class="tAN"> select=</span><span class="tAV">"@w:author"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:call-template&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/del&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wrPrwdelS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:rPr/w:del</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:rPr/w:del</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wrPrwdelS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wrPrwdelS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wrPrwdelS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:rPr/w:del"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wdelTextS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:delText</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:delText</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wdelTextS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wdelTextS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wdelTextS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:delText"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:apply-templates</span><span class="tXSLEl">/&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_winsS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:ins</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:ins</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">References</div>
+                           <div class="flR"><input id="bt_refs_M_winsS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('refs_M_winsS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="refs_M_winsS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="uBT">
+                                 <tr>
+                                    <td class="fCol">Templates</td>
+                                    <td>
+                                       <div class="listGrouping">
+                                          <div class="refItemBlock"><a href="from20.html#T_identifyChangeS_......docxfromutilsutility-templates.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/utils/utility-templates.xsl')"><span class="nRf">identifyChange</span></a><span class="refItemSep">;</span></div>
+                                          <div class="refItemBlock"><a href="from19.html#T_processTextrunS_......docxfromtextrunstextruns.xsl"
+                                                target="_self"
+                                                title="No namespace"
+                                                onclick="updPT('../../../docx/from/textruns/textruns.xsl')"><span class="nRf">processTextrun</span></a></div>
+                                       </div>
+                                    </td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_winsS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_winsS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_winsS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:ins"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;add</span><span class="tAN"> when=</span><span class="tAV">"{@w:date}"</span><span class="tEl">&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"identifyChange"</span><span class="tXSLEl">&gt;</span><span class="tI">
+      </span><span class="tXSLEl">&lt;xsl:with-param</span><span class="tAN"> name=</span><span class="tAV">"who"</span><span class="tAN"> select=</span><span class="tAV">"@w:author"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;/xsl:call-template&gt;</span><span class="tI">
+    </span><span class="tXSLEl">&lt;xsl:call-template</span><span class="tAN"> name=</span><span class="tAV">"processTextrun"</span><span class="tXSLEl">/&gt;</span><span class="tI">
+  </span><span class="tEl">&lt;/add&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wrPrwinsS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:rPr/w:ins</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:rPr/w:ins</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wrPrwinsS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wrPrwinsS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wrPrwinsS_......docxfromtextrunstextruns.xsl" style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:rPr/w:ins"</span><span class="tXSLEl">/&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table><a id="M_wnoBreakHyphenS_......docxfromtextrunstextruns.xsl"></a><div class="cmpT">Template
+         <span class="titleTemplateMatch">w:noBreakHyphen</span></div>
+      <table class="rt">
+         <tr>
+            <td class="rt_cTL"></td>
+            <td class="rt_lT"></td>
+            <td class="rt_cTR"></td>
+         </tr>
+         <tr>
+            <td class="rt_lL"></td>
+            <td class="rt_cnt">
+               <table class="component">
+                  <tbody>
+                     <tr>
+                        <td class="fCol">Namespace</td>
+                        <td>No namespace</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Match</td>
+                        <td>w:noBreakHyphen</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Mode</td>
+                        <td>#default</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Import precedence</td>
+                        <td>6</td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">
+                           <div class="flL">Source</div>
+                           <div class="flR"><input id="bt_src_M_wnoBreakHyphenS_......docxfromtextrunstextruns.xsl" type="image"
+                                     src="img/btM.gif"
+                                     value="-"
+                                     onclick="switchState('src_M_wnoBreakHyphenS_......docxfromtextrunstextruns.xsl');"
+                                     class="control" /></div>
+                        </td>
+                        <td>
+                           <div id="src_M_wnoBreakHyphenS_......docxfromtextrunstextruns.xsl"
+                                style="display:block">
+                              <table class="pWCont">
+                                 <tr>
+                                    <td width="100%"><pre><span class="tXSLEl">&lt;xsl:template</span><span class="tAN"> match=</span><span class="tAV">"w:noBreakHyphen"</span><span class="tXSLEl">&gt;</span><span class="tI">
+  </span><span class="tXSLEl">&lt;xsl:text</span><span class="tXSLEl">&gt;</span><span class="tT">‑</span><span class="tXSLEl">&lt;/xsl:text&gt;</span><span class="tI">
+</span><span class="tXSLEl">&lt;/xsl:template&gt;</span></pre></td>
+                                 </tr>
+                              </table>
+                           </div>
+                        </td>
+                     </tr>
+                     <tr>
+                        <td class="fCol">Stylesheet location</td>
+                        <td><a href="from19.html#......docxfromtextrunstextruns.xsl" target="_self"
+                              title="No namespace"
+                              onclick="updPT('../../../docx/from/textruns/textruns.xsl')">../../../docx/from/textruns/textruns.xsl</a></td>
+                     </tr>
+                  </tbody>
+               </table>
+            </td>
+            <td class="rt_lR"></td>
+         </tr>
+         <tr>
+            <td class="rt_cBL"></td>
+            <td class="rt_lB"></td>
+            <td class="rt_cBR"></td>
+         </tr>
+      </table>
+      <div class="footer">
+         <hr />
+         <div align="center">Stylesheet documentation generated by <a href="http://www.oxygenxml.com" target="_parent"><span class="oXygenLogo"><span class="redX">&lt;</span>o<span class="redX">X</span>ygen<span class="redX">/&gt;</span></span></a><sup>®</sup> XML Editor.
+         </div>
+      </div><script type="text/javascript">
+         <!--                     
+                    // The namespace is the selected option in the TOC combo.
+                    
+                    // The corresponding div is already visible conf. to its style attr.                     
+                    
+                            var selectToc = getElementObject('selectTOC');
+                            if(selectToc != null){
+                            // It can be null when having chunking, the combo of the TOC is in another frame.
+                            selectToc.selectedIndex = 0;
+                            }
+                        
+                    
+                    // Floats the toolbar.
+                    var globalControls = getElementObject("global_controls"); 
+                    
+                    if(globalControls != null){
+                    var browser=navigator.appName;
+                    var version = parseFloat(navigator.appVersion.split('MSIE')[1]);
+                    
+                    var IE6 = false;
+                    if ((browser=="Microsoft Internet Explorer") && (version < 7)){
+                    IE6 = true;
+                    }
+                    
+                    //alert (IE6 + " |V| " + version);
+                    
+                    if(IE6){
+                    // On IE 6 the 'fixed' property is not supported. We must use javascript. 
+                    globalControls.style.position='absolute';                         
+                    // The global controls will do not exist in the TOC frame, when chunking.
+                    findAndFloat("global_controls", 225, 30);    
+                    } else {
+                    globalControls.style.position='fixed';                     	
+                    }
+                    
+                    globalControls.style.right='0';                       
+                    }
+                --></script></body>
+</html>

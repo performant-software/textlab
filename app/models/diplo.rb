@@ -1,3 +1,5 @@
+require 'saxon-xslt'
+
 class Diplo < ActiveRecord::Base
   
   belongs_to :transcription
@@ -19,8 +21,8 @@ class Diplo < ActiveRecord::Base
 
     # URL XslUrl = getServletContext().getResource("/tei-xsl/xml/tei/stylesheet/html5/tei.xsl");
     # String xhtml = publisher.transformTeiDocument(tei, XslUrl);  
-    doc   = Nokogiri::XML(tei_document)
-    xslt  = Nokogiri::XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
+    doc   = Saxon.XML(tei_document)
+    xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
     self.html_content = xslt.transform(doc)
       
     # diplo.extract_leaf( html_document )

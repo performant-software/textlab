@@ -1,0 +1,1835 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>TEI XSL Customization Handbook</title><meta name="author" content="Sebastian Rahtz" /><meta name="generator" content="Text Encoding Initiative Consortium XSLT stylesheets" /><meta name="DC.Title" content="TEI XSL Customization Handbook" /><meta name="DC.Type" content="Text" /><meta name="DC.Format" content="text/html" /><link href="tei.css" rel="stylesheet" type="text/css" /><link rel="stylesheet" media="print" type="text/css" href="http://www.tei-c.org/release/xml/tei/stylesheet/tei-print.css" /></head><body class="simple" id="TOP"><div class="stdheader"><h2 class="institution">A TEI Project</h2><h1 class="maintitle">TEI XSL Customization Handbook</h1></div><h2>Table of contents</h2><ul class="toc toc_body"><li class="toc"><span class="headingNumber">1. </span><a href="#index.xml-body.1_div.1" class="toc toc_0">Introduction</a></li><li class="toc"><span class="headingNumber">2. </span><a href="#index.xml-body.1_div.2" class="toc toc_0">Making HTML: example</a></li><li class="toc"><span class="headingNumber">3. </span><a href="#links" class="toc toc_0" title="Standard page features">Standard page features</a><ul class="toc"><li class="toc"><span class="headingNumber">3.1. </span><a href="#index.xml-body.1_div.3_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">3.2. </span><a href="#index.xml-body.1_div.3_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">4. </span><a href="#layout" class="toc toc_0" title="Layout">Layout</a><ul class="toc"><li class="toc"><span class="headingNumber">4.1. </span><a href="#index.xml-body.1_div.4_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">4.2. </span><a href="#index.xml-body.1_div.4_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">5. </span><a href="#headings" class="toc toc_0" title="Headings">Headings</a><ul class="toc"><li class="toc"><span class="headingNumber">5.1. </span><a href="#index.xml-body.1_div.5_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">5.2. </span><a href="#index.xml-body.1_div.5_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">6. </span><a href="#numbering" class="toc toc_0" title="Numbering">Numbering</a><ul class="toc"><li class="toc"><span class="headingNumber">6.1. </span><a href="#index.xml-body.1_div.6_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">6.2. </span><a href="#index.xml-body.1_div.6_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">7. </span><a href="#output" class="toc toc_0" title="Output">Output</a><ul class="toc"><li class="toc"><span class="headingNumber">7.1. </span><a href="#index.xml-body.1_div.7_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">7.2. </span><a href="#index.xml-body.1_div.7_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">8. </span><a href="#toc" class="toc toc_0" title="Table of contents generation">Table of contents generation</a><ul class="toc"><li class="toc"><span class="headingNumber">8.1. </span><a href="#index.xml-body.1_div.8_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">8.2. </span><a href="#index.xml-body.1_div.8_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">9. </span><a href="#i18n" class="toc toc_0" title="Internationalization">Internationalization</a><ul class="toc"><li class="toc"><span class="headingNumber">9.1. </span><a href="#index.xml-body.1_div.9_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">9.2. </span><a href="#index.xml-body.1_div.9_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">10. </span><a href="#CSS" class="toc toc_0" title="CSS">CSS</a><ul class="toc"><li class="toc"><span class="headingNumber">10.1. </span><a href="#index.xml-body.1_div.10_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">10.2. </span><a href="#index.xml-body.1_div.10_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">11. </span><a href="#tables" class="toc toc_0" title="Tables">Tables</a><ul class="toc"><li class="toc"><span class="headingNumber">11.1. </span><a href="#index.xml-body.1_div.11_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">11.2. </span><a href="#index.xml-body.1_div.11_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">12. </span><a href="#figures" class="toc toc_0" title="Figures and graphics">Figures and graphics</a><ul class="toc"><li class="toc"><span class="headingNumber">12.1. </span><a href="#index.xml-body.1_div.12_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">12.2. </span><a href="#index.xml-body.1_div.12_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">13. </span><a href="#style" class="toc toc_0" title="Style">Style</a><ul class="toc"><li class="toc"><span class="headingNumber">13.1. </span><a href="#index.xml-body.1_div.13_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">13.2. </span><a href="#index.xml-body.1_div.13_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">14. </span><a href="#hook" class="toc toc_0" title="Hooks">Hooks</a><ul class="toc"><li class="toc"><span class="headingNumber">14.1. </span><a href="#index.xml-body.1_div.14_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">14.2. </span><a href="#index.xml-body.1_div.14_div.2" class="toc toc_1">Templates</a></li></ul></li><li class="toc"><span class="headingNumber">15. </span><a href="#misc" class="toc toc_0" title="Miscellaneous and advanced">Miscellaneous and advanced</a><ul class="toc"><li class="toc"><span class="headingNumber">15.1. </span><a href="#index.xml-body.1_div.15_div.1" class="toc toc_1">Variables</a></li><li class="toc"><span class="headingNumber">15.2. </span><a href="#index.xml-body.1_div.15_div.2" class="toc toc_1">Templates</a></li></ul></li></ul><div class="teidiv0" id="index.xml-body.1_div.1"><h2><span class="headingNumber">1. </span><span class="head">Introduction</span></h2><p>This section describes how to produce a customization of the TEI
+stylesheets. It describes all the parameters which you can set, the
+templates which are designed to be changed, and the empty templates
+provided into which you can add your own code.</p><p> There are 13 areas for customization. In most cases there are
+parameters and templates which are specific to one of the three
+output methods (HTML, FO and LaTeX), and those which are common to all
+three.</p></div><div class="teidiv0" id="index.xml-body.1_div.2"><h2><span class="headingNumber">2. </span><span class="head">Making HTML: example</span></h2><div class="p">
+You can simply refer to the specification <code class="code">xhtml2/tei.xsl</code>
+directly with your XSL processor, or install it locally on your own
+server.  For more flexibility, you may prefer to reference the
+specifications from an XSL wrapper of your own. The minimal
+specification would look like this:
+<div class="pre_eg cdata">
+
+&lt;xsl:stylesheet 
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0"&gt;
+  &lt;xsl:import href="xhtml2/tei.xsl"/&gt;
+&lt;/xsl:stylesheet&gt;
+
+</div>
+You can customize the result by adding to this wrapper file.  The normal result will be a single stream of HTML
+which you can save in a file. You can also configure it to produce
+multiple output files, one per top-level <span class="gi">&lt;div&gt;</span> or <span class="gi">&lt;div1&gt;</span>.
+</div></div><div class="teidiv0" id="links"><h2><span class="headingNumber">3. </span><span class="head">Standard page features</span></h2><p>The default behaviour of the system is to construct each HTML page
+with per-page navigation bars top and bottom, and a standard set of
+navigation links underneath. </p><div class="teidiv1" id="index.xml-body.1_div.3_div.1"><h3><span class="headingNumber">3.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">department</span>
+                     </td><td> Name of department within institution [<code class="code">string</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">homeLabel</span>
+                     </td><td> Name of link to home page of application [<code class="code">string</code>]</td><td>Home</td></tr><tr><td></td><td>
+                        <span class="hi">homeURL</span>
+                     </td><td>Project Home [<code class="code">anyURI</code>]</td><td>http://www.tei-c.org/</td></tr><tr><td></td><td>
+                        <span class="hi">homeWords</span>
+                     </td><td>Project [<code class="code">string</code>]</td><td>TEI</td></tr><tr><td></td><td>
+                        <span class="hi">institution</span>
+                     </td><td> Institution [<code class="code">string</code>]</td><td>A TEI Project</td></tr><tr><td></td><td>
+                        <span class="hi">parentURL</span>
+                     </td><td> Institution link [<code class="code">anyURI</code>]</td><td>http://www.tei-c.org/</td></tr><tr><td></td><td>
+                        <span class="hi">parentWords</span>
+                     </td><td> Name of overall institution [<code class="code">string</code>]</td><td>Parent Institution</td></tr><tr><td></td><td>
+                        <span class="hi">searchURL</span>
+                     </td><td> Link to search application [<code class="code">anyURI</code>]</td><td>http://www.google.com</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">alignNavigationPanel</span>
+                     </td><td>How to align the navigation panel at the bottom of the page [<code class="code">string</code>]</td><td>right</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">bottomNavigationPanel</span>
+                     </td><td>Display navigation panel at bottom of pages [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">feedbackURL</span>
+                     </td><td>Link for feedback [<code class="code">anyURI</code>]</td><td>mailto:feedback</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">htmlTitlePrefix</span>
+                     </td><td>Fixed string to insert before normal page title in HTML meta
+&lt;title&gt; element [<code class="code">string</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">linkPanel</span>
+                     </td><td>Make a panel with next page/previous page links. [<code class="code">boolean</code>]</td><td>true</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.3_div.2"><h3><span class="headingNumber">3.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl></div></div><div class="teidiv0" id="layout"><h2><span class="headingNumber">4. </span><span class="head">Layout</span></h2><p>There are three ways to provide a constant navigation aid. You can
+either make the whole page into a table, where the first column has a table
+of contents, or you can make an HTML frameset, or you can just have 
+a table of links on the left or right</p><div class="p">Hypertext links present special problems, as we have to choose
+whether they should start a new window, occupy all of the current
+window, or stay within the frame. These stylesheets implement the
+following rules:
+<ol><li class="item">Any <span class="gi">&lt;ref&gt;</span> or <span class="gi">&lt;ptr&gt;</span> link stays within the frame</li><li class="item">Any link containing ‘://’ uses the whole browser window</li><li class="item">Any link starting ‘.’ uses the whole browser window</li><li class="item">If the stylesheet sets no splitting of the document,
+any <span class="gi">&lt;ref&gt;</span> or <span class="gi">&lt;ptr&gt;</span> link  uses the whole browser
+window</li><li class="item">If a <span class="gi">&lt;ref&gt;</span> or <span class="gi">&lt;ptr&gt;</span> link has a
+<span class="ident">rend</span> attribute value of ‘noframe’, the whole browser
+window is used</li><li class="item">If a <span class="gi">&lt;ref&gt;</span> or <span class="gi">&lt;ptr&gt;</span> link has a
+<span class="ident">rend</span> attribute value of ‘new’, a new browser window
+is started</li></ol>
+            </div><div class="teidiv1" id="index.xml-body.1_div.4_div.1"><h3><span class="headingNumber">4.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">oddWeaveLite</span>
+                     </td><td>
+Whether to make simplified display of ODD
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">parIndent</span>
+                     </td><td>
+Paragraph indentation
+ [<code class="code">string</code>]</td><td>1em</td></tr><tr><td></td><td>
+                        <span class="hi">biblioStyle</span>
+                     </td><td>
+      Style for formatted bibliography
+     [<code class="code">string</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">parSkip</span>
+                     </td><td>
+Default spacing between paragraphs
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">filePerPage</span>
+                     </td><td>Whether we should construct a separate file for each page
+      (based on page breaks) [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">viewPortWidth</span>
+                     </td><td>When making fixed format epub, width of viewport [<code class="code">number</code>]</td><td>1200</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">viewPortHeight</span>
+                     </td><td>When making fixed format epub, height of viewport [<code class="code">number</code>]</td><td>1700</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">consecutiveFNs</span>
+                     </td><td>Number footnotes consecutively [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">footnoteBackLink</span>
+                     </td><td>Link back from footnotes to reference [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">contentStructure</span>
+                     </td><td>     How to use the front/body/back matter in creating
+columns.
+         
+	   The choice is between
+	   all: use &lt;front&gt; for left-hand column,
+	       use &lt;body&gt; for centre column, and use &lt;back&gt; for
+	     right-hand columnbody: use &lt;body&gt; for right-hand column,
+	     generate left-hand with a TOC or whatever
+         
+       [<code class="code">string</code>]</td><td>body</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">divOffset</span>
+                     </td><td>     The difference between TEI div levels and HTML.
+headings.
+         TEI &lt;div&gt;s are implicitly or explicitly numbered from 0
+upwards; this offset is added to that number to produce an HTML
+&lt;Hn&gt; element. So a value of 2 here means that a &lt;div1&gt;
+will generate an &lt;h2&gt;
+       [<code class="code">integer</code>]</td><td>2</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">footnoteFile</span>
+                     </td><td>Make a separate file for footnotes [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">linksWidth</span>
+                     </td><td>Width of left-hand column when $pageLayout is "Table" [<code class="code">string</code>]</td><td>15%</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">navbarFile</span>
+                     </td><td>     XML resource defining a navigation bar.
+         The XML should provide a &lt;list&gt; containing a series
+of &lt;item&gt; elements, each containing an &lt;xref&gt; link.
+       [<code class="code">anyURI</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">autoEndNotes</span>
+                     </td><td>Make all notes into endnotes
+   [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">backMulticolumns</span>
+                     </td><td>
+Put back matter in multiple columns
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodyMarginBottom</span>
+                     </td><td>
+Margin at bottom of text body
+ [<code class="code">string</code>]</td><td>24pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodyMarginTop</span>
+                     </td><td>
+Margin at top of text body
+ [<code class="code">string</code>]</td><td>24pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodyMulticolumns</span>
+                     </td><td>
+Put body matter in multiple columns
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bulletFour</span>
+                     </td><td>
+Symbol for 4th level itemized list
+ [<code class="code">string</code>]</td><td>+</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bulletOne</span>
+                     </td><td>
+Symbol for top-level itemized list
+ [<code class="code">string</code>]</td><td>•</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bulletThree</span>
+                     </td><td>
+Symbol for 3rd level itemized list
+ [<code class="code">string</code>]</td><td>*</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bulletTwo</span>
+                     </td><td>
+Symbol for 2nd level itemized list
+ [<code class="code">string</code>]</td><td>–</td></tr><tr><td>fo</td><td>
+                        <span class="hi">columnCount</span>
+                     </td><td>
+Number of columns, when multiple-column work is requested
+ [<code class="code">integer</code>]</td><td>1</td></tr><tr><td>fo</td><td>
+                        <span class="hi">betweenStarts</span>
+                     </td><td>
+XSL FO "provisional-distance-between starts"
+ [<code class="code">string</code>]</td><td>18pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">betweenGlossStarts</span>
+                     </td><td>
+XSL FO "provisional-distance-between starts" for gloss lists
+ [<code class="code">string</code>]</td><td>42pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">betweenBiblStarts</span>
+                     </td><td>
+XSL FO "provisional-distance-between starts" for bibliographies
+ [<code class="code">string</code>]</td><td>14pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">divRunningheads</span>
+                     </td><td>
+Display section headings in running heads
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleAfter</span>
+                     </td><td>
+Space below examples
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleBefore</span>
+                     </td><td>
+Space above examples
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleMargin</span>
+                     </td><td>
+Left margin for examples
+ [<code class="code">string</code>]</td><td>12pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">flowMarginLeft</span>
+                     </td><td>
+Left margin of flow
+ [<code class="code">string</code>]</td><td></td></tr><tr><td>fo</td><td>
+                        <span class="hi">forcePageMaster</span>
+                     </td><td>
+Which named page master name to use
+ [<code class="code">string</code>]</td><td></td></tr><tr><td>fo</td><td>
+                        <span class="hi">formatBackpage</span>
+                     </td><td>
+How to format page numbers in back matter (use XSLT number format)
+ [<code class="code">string</code>]</td><td>1</td></tr><tr><td>fo</td><td>
+                        <span class="hi">formatBodypage</span>
+                     </td><td>
+How to format page numbers in main matter (use XSLT number format)
+ [<code class="code">string</code>]</td><td>1</td></tr><tr><td>fo</td><td>
+                        <span class="hi">formatFrontpage</span>
+                     </td><td>
+How to format page numbers in front matter (use XSLT number format)
+ [<code class="code">string</code>]</td><td>i</td></tr><tr><td>fo</td><td>
+                        <span class="hi">frontMulticolumns</span>
+                     </td><td>
+Put front matter in multiple columns
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">labelSeparation</span>
+                     </td><td>
+XSL FO "provisional-label-separation"
+ [<code class="code">string</code>]</td><td>6pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listAbove-1</span>
+                     </td><td>
+Space above lists at top level
+ [<code class="code">string</code>]</td><td>6pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listAbove-2</span>
+                     </td><td>
+Space above lists at 2nd level
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listAbove-3</span>
+                     </td><td>
+Space above lists at 3rd level
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listAbove-4</span>
+                     </td><td>
+Space above lists at 4th level
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listBelow-1</span>
+                     </td><td>
+Space below lists at top level
+ [<code class="code">string</code>]</td><td>6pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listBelow-2</span>
+                     </td><td>
+Space below lists at 2nd level
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listBelow-3</span>
+                     </td><td>
+Space below lists at 3rd level
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listBelow-4</span>
+                     </td><td>
+Space below lists at 4th level
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listItemsep</span>
+                     </td><td>
+Spacing between list items
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listLeftGlossIndent</span>
+                     </td><td>
+Left margin for gloss lists
+ [<code class="code">string</code>]</td><td>0.5in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listLeftGlossInnerIndent</span>
+                     </td><td>
+Left margin for nested gloss lists
+ [<code class="code">string</code>]</td><td>0.25in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listLeftIndent</span>
+                     </td><td>
+Indentation for lists
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">listRightMargin</span>
+                     </td><td>
+Right margin for lists
+ [<code class="code">string</code>]</td><td>10pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageHeight</span>
+                     </td><td>
+Paper height
+ [<code class="code">string</code>]</td><td>297mm</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageMarginBottom</span>
+                     </td><td>
+Margin at bottom of text area
+ [<code class="code">string</code>]</td><td>100pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageMarginLeft</span>
+                     </td><td>
+Left margin
+ [<code class="code">string</code>]</td><td>80pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageMarginRight</span>
+                     </td><td>
+Right margin
+ [<code class="code">string</code>]</td><td>150pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageMarginTop</span>
+                     </td><td>
+Margin at top of text area
+ [<code class="code">string</code>]</td><td>75pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">pageWidth</span>
+                     </td><td>
+Paper width
+ [<code class="code">string</code>]</td><td>211mm</td></tr><tr><td>fo</td><td>
+                        <span class="hi">parSkipmax</span>
+                     </td><td>
+Maximum space allowed between paragraphs
+ [<code class="code">string</code>]</td><td>12pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">readColSpecFile</span>
+                     </td><td>
+External XML file containing specifications for column sizes for
+tables in document
+ [<code class="code">anyURI</code>]</td><td></td></tr><tr><td>fo</td><td>
+                        <span class="hi">regionAfterExtent</span>
+                     </td><td>
+Region after
+ [<code class="code">string</code>]</td><td>14pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">regionBeforeExtent</span>
+                     </td><td>
+Region before
+ [<code class="code">string</code>]</td><td>14pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">sectionHeaders</span>
+                     </td><td>
+Construct running headers from page number and section headings
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">spaceAfterBibl</span>
+                     </td><td>
+Space after bibliography
+ [<code class="code">string</code>]</td><td>0pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">spaceAroundTable</span>
+                     </td><td>
+Space above and below a table
+ [<code class="code">string</code>]</td><td>8pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">spaceBeforeBibl</span>
+                     </td><td>
+Space above bibliography
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">spaceBelowCaption</span>
+                     </td><td>
+Space below caption of figure or table
+ [<code class="code">string</code>]</td><td>4pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">titlePage</span>
+                     </td><td>
+Make title page
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">twoSided</span>
+                     </td><td>
+Make 2-page spreads
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>latex</td><td>
+                        <span class="hi">classParameters</span>
+                     </td><td>
+Optional parameters for documentclass
+ [<code class="code">string</code>]</td><td>11pt,twoside</td></tr><tr><td>latex</td><td>
+                        <span class="hi">latexLogo</span>
+                     </td><td>
+Logo graphics file
+ [<code class="code">string</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">pagebreakStyle</span>
+                     </td><td>
+When processing a "pb" element, decide what to generate: "active" generates a page break; "visible" genrates a bracketed number (with scissors), and "bracketsonly" generates a bracketed number (without scissors).
+ [<code class="code">float</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">tableMaxWidth</span>
+                     </td><td>
+When making a table, what width must be constrained to fit,
+as a proportion of the page width.
+ [<code class="code">float</code>]</td><td>0.85</td></tr><tr><td>latex</td><td>
+                        <span class="hi">verseNumbering</span>
+                     </td><td>
+Whether to number lines of poetry
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>latex</td><td>
+                        <span class="hi">everyHowManyLines</span>
+                     </td><td>
+When numbering poetry, how often to put in a line number
+ [<code class="code">integer</code>]</td><td>5</td></tr><tr><td>latex</td><td>
+                        <span class="hi">resetVerseLineNumbering</span>
+                     </td><td>
+When numbering poetry, when to restart the sequence;
+this must be the name of a TEI element
+ [<code class="code">string</code>]</td><td>div1</td></tr><tr><td>latex</td><td>
+                        <span class="hi">latexPaperSize</span>
+                     </td><td>
+    LaTeX paper size
+   [<code class="code"></code>]</td><td>a4paper</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.4_div.2"><h3><span class="headingNumber">4.2. </span><span class="head">Templates</span></h3><dl></dl><dl><dt id="index.xml-item-d27e1472"><span id="index.xml-label-d27e1467">
+                     <span class="hi">columnHeader</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Banner for top of column</dd><dt id="index.xml-item-d27e1479"><span id="index.xml-label-d27e1474">
+                     <span class="hi">hdr</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Header section across top of page <div id="index.xml-egXML-d27e1481" class="pre egXML_valid"><span class="element">&lt;xsl:call-template name="<span class="attributevalue">pageHeader</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:with-param name="<span class="attributevalue">mode</span>"/&gt;</span>
+<span class="element">&lt;/xsl:call-template&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1490"><span id="index.xml-label-d27e1485">
+                     <span class="hi">hdr2</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Navigation bar <div id="index.xml-egXML-d27e1492" class="pre egXML_valid"><span class="element">&lt;xsl:call-template name="<span class="attributevalue">navbar</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1500"><span id="index.xml-label-d27e1495">
+                     <span class="hi">preBreadCrumbPath</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Text or action to take at the start of the
+    breadcrumb trail </dd><dt id="index.xml-item-d27e1507"><span id="index.xml-label-d27e1502">
+                     <span class="hi">hdr3</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Breadcrumb trail <div id="index.xml-egXML-d27e1509" class="pre egXML_valid"><span class="element">&lt;html:a href="<span class="attributevalue">#rh-col</span>" title="<span class="attributevalue">Go to main page content</span>" class="<span class="attributevalue">skiplinks</span>"
+   xmlns:html="http://www.w3.org/1999/xhtml"&gt;</span>Skip links<span class="element">&lt;/html:a&gt;</span>
+<span class="element">&lt;html:a class="<span class="attributevalue">hide</span>"&gt;</span>|<span class="element">&lt;/html:a&gt;</span>
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">crumbPath</span>"/&gt;</span>
+<span class="element">&lt;html:a class="<span class="attributevalue">hide</span>"&gt;</span>|<span class="element">&lt;/html:a&gt;</span>
+<span class="element">&lt;html:a class="<span class="attributevalue">bannerright</span>" href="<span class="attributevalue">{$parentURL}</span>" title="<span class="attributevalue">Go to home page</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$parentWords</span>"/&gt;</span>
+<span class="element">&lt;/html:a&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1526"><span id="index.xml-label-d27e1520">
+                     <span class="hi">lh-col-bottom</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html]Bottom of left-hand columnID of selected section
+      <div id="index.xml-egXML-d27e1528" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">currentID</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">leftHandFrame</span>"&gt;</span>
+ <span class="element">&lt;xsl:with-param name="<span class="attributevalue">currentID</span>" select="<span class="attributevalue">$currentID</span>"/&gt;</span>
+<span class="element">&lt;/xsl:call-template&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1538"><span id="index.xml-label-d27e1533">
+                     <span class="hi">lh-col-top</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html]Top of left-hand column <div id="index.xml-egXML-d27e1540" class="pre egXML_valid"><span class="element">&lt;xsl:call-template name="<span class="attributevalue">searchbox</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">printLink</span>"/&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1549"><span id="index.xml-label-d27e1544">
+                     <span class="hi">logoPicture</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Logo<div id="index.xml-egXML-d27e1551" class="pre egXML_valid"><span class="element">&lt;html:a
+  class="<span class="attributevalue">framelogo</span>"
+  href="<span class="attributevalue">http://www.tei-c.org/Stylesheets/</span>"
+   xmlns:html="http://www.w3.org/1999/xhtml"&gt;</span>
+ <span class="element">&lt;html:img
+   src="<span class="attributevalue">http://www.tei-c.org/release/common2/doc/tei-xsl-common/teixsl.png</span>"
+   vspace="<span class="attributevalue">5</span>"
+   width="<span class="attributevalue">124</span>"
+   height="<span class="attributevalue">161</span>"
+   border="<span class="attributevalue">0</span>"
+   alt="<span class="attributevalue">created by TEI XSL Stylesheets</span>"/&gt;</span>
+<span class="element">&lt;/html:a&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1560"><span id="index.xml-label-d27e1555">
+                     <span class="hi">metaHTML</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Making elements in HTML &lt;head&gt;The text used to create the DC.Title field
+    in the HTML header
+      <div id="index.xml-egXML-d27e1562" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">title</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;html:meta name="<span class="attributevalue">author</span>"&gt;</span>
+ <span class="element">&lt;xsl:attribute name="<span class="attributevalue">content</span>"&gt;</span>
+  <span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateAuthor</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;/html:meta&gt;</span>
+<span class="element">&lt;xsl:if test="<span class="attributevalue">$filePerPage='true'</span>"&gt;</span>
+ <span class="element">&lt;html:meta
+   name="<span class="attributevalue">viewport</span>"
+   content="<span class="attributevalue">width={$viewPortWidth}, height={$viewPortHeight}</span>"/&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span>
+<span class="element">&lt;html:meta
+  name="<span class="attributevalue">generator</span>"
+  content="<span class="attributevalue">Text Encoding Initiative Consortium XSLT stylesheets</span>"/&gt;</span>
+<span class="element">&lt;xsl:choose&gt;</span>
+ <span class="element">&lt;xsl:when
+   test="<span class="attributevalue">$outputTarget='html5' or $outputTarget='epub3'</span>"&gt;</span>
+  <span class="element">&lt;html:meta charset="<span class="attributevalue">utf-8</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>
+  <span class="element">&lt;html:meta
+    http-equiv="<span class="attributevalue">Content-Type</span>"
+    content="<span class="attributevalue">text/html; charset={$outputEncoding}</span>"/&gt;</span>
+  <span class="element">&lt;html:meta name="<span class="attributevalue">DC.Title</span>"&gt;</span>
+   <span class="element">&lt;xsl:attribute name="<span class="attributevalue">content</span>"&gt;</span>
+    <span class="element">&lt;xsl:value-of
+      select="<span class="attributevalue">normalize-space(translate($title,'&lt;&gt;','〈〉'))</span>"/&gt;</span>
+   <span class="element">&lt;/xsl:attribute&gt;</span>
+  <span class="element">&lt;/html:meta&gt;</span>
+  <span class="element">&lt;html:meta name="<span class="attributevalue">DC.Type</span>" content="<span class="attributevalue">Text</span>"/&gt;</span>
+  <span class="element">&lt;html:meta name="<span class="attributevalue">DC.Format</span>" content="<span class="attributevalue">text/html</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1586"><span id="index.xml-label-d27e1581">
+                     <span class="hi">navbar</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	          [html] Construction of navigation bar 
+         A file is looked for relative to the stylesheet (the
+    second parameter of the document function), which is expected to
+    contain a TEI &lt;list&gt; where each &lt;item&gt; has an embedded
+    &lt;xref&gt;
+      <div id="index.xml-egXML-d27e1588" class="pre egXML_valid"><span class="element">&lt;xsl:choose
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:html="http://www.w3.org/1999/xhtml"&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$navbarFile=''</span>"&gt;</span>
+  <span class="element">&lt;xsl:comment&gt;</span>no nav bar<span class="element">&lt;/xsl:comment&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>
+  <span class="element">&lt;xsl:element
+    name="<span class="attributevalue">{if ($outputTarget='html5') then 'nav' else 'div'}</span>"&gt;</span>
+   <span class="element">&lt;xsl:for-each select="<span class="attributevalue">document($navbarFile,document(''))</span>"&gt;</span>
+    <span class="element">&lt;xsl:for-each select="<span class="attributevalue">tei:list/tei:item</span>"&gt;</span>
+     <span class="element">&lt;html:span class="<span class="attributevalue">navbar</span>"&gt;</span>
+      <span class="element">&lt;html:a href="<span class="attributevalue">{$URLPREFIX}{tei:xref/@url}</span>" class="<span class="attributevalue">navbar</span>"&gt;</span>
+       <span class="element">&lt;xsl:apply-templates select="<span class="attributevalue">tei:xref/text()</span>"/&gt;</span>
+      <span class="element">&lt;/html:a&gt;</span>
+     <span class="element">&lt;/html:span&gt;</span>
+     <span class="element">&lt;xsl:if test="<span class="attributevalue">following-sibling::tei:item</span>"&gt;</span> | <span class="element">&lt;/xsl:if&gt;</span>
+    <span class="element">&lt;/xsl:for-each&gt;</span>
+   <span class="element">&lt;/xsl:for-each&gt;</span>
+  <span class="element">&lt;/xsl:element&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1608"><span id="index.xml-label-d27e1603">
+                     <span class="hi">pageHeader</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Banner for top of pagelayout mode
+      <div id="index.xml-egXML-d27e1610" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">mode</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:choose&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$mode='table'</span>"&gt;</span>
+  <span class="element">&lt;html:table width="<span class="attributevalue">100%</span>" border="<span class="attributevalue">0</span>"&gt;</span>
+   <span class="element">&lt;html:tr&gt;</span>
+    <span class="element">&lt;html:td
+      height="<span class="attributevalue">98</span>"
+      class="<span class="attributevalue">bgimage</span>"
+      onclick="<span class="attributevalue">window.location='{$homeURL}'</span>"
+      cellpadding="<span class="attributevalue">0</span>"&gt;</span>
+     <span class="element">&lt;xsl:call-template name="<span class="attributevalue">makeHTMLHeading</span>"&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">class</span>"&gt;</span>subtitle<span class="element">&lt;/xsl:with-param&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">text</span>"&gt;</span>
+       <span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateSubTitle</span>"/&gt;</span>
+      <span class="element">&lt;/xsl:with-param&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">level</span>"&gt;</span>2<span class="element">&lt;/xsl:with-param&gt;</span>
+     <span class="element">&lt;/xsl:call-template&gt;</span>
+     <span class="element">&lt;xsl:call-template name="<span class="attributevalue">makeHTMLHeading</span>"&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">class</span>"&gt;</span>title<span class="element">&lt;/xsl:with-param&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">text</span>"&gt;</span>
+       <span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateTitle</span>"/&gt;</span>
+      <span class="element">&lt;/xsl:with-param&gt;</span>
+      <span class="element">&lt;xsl:with-param name="<span class="attributevalue">level</span>"&gt;</span>1<span class="element">&lt;/xsl:with-param&gt;</span>
+     <span class="element">&lt;/xsl:call-template&gt;</span>
+    <span class="element">&lt;/html:td&gt;</span>
+    <span class="element">&lt;html:td style="<span class="attributevalue">vertical-align:top;</span>"/&gt;</span>
+   <span class="element">&lt;/html:tr&gt;</span>
+  <span class="element">&lt;/html:table&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>
+  <span class="element">&lt;xsl:call-template name="<span class="attributevalue">makeHTMLHeading</span>"&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">class</span>"&gt;</span>subtitle<span class="element">&lt;/xsl:with-param&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">text</span>"&gt;</span>
+    <span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateSubTitle</span>"/&gt;</span>
+   <span class="element">&lt;/xsl:with-param&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">level</span>"&gt;</span>2<span class="element">&lt;/xsl:with-param&gt;</span>
+  <span class="element">&lt;/xsl:call-template&gt;</span>
+  <span class="element">&lt;xsl:call-template name="<span class="attributevalue">makeHTMLHeading</span>"&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">class</span>"&gt;</span>title<span class="element">&lt;/xsl:with-param&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">text</span>"&gt;</span>
+    <span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateTitle</span>"/&gt;</span>
+   <span class="element">&lt;/xsl:with-param&gt;</span>
+   <span class="element">&lt;xsl:with-param name="<span class="attributevalue">level</span>"&gt;</span>1<span class="element">&lt;/xsl:with-param&gt;</span>
+  <span class="element">&lt;/xsl:call-template&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1654"><span id="index.xml-label-d27e1649">
+                     <span class="hi">rh-col-bottom</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Bottom of right-hand columnID of selected section
+      <div id="index.xml-egXML-d27e1656" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">currentID</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">mainFrame</span>"&gt;</span>
+ <span class="element">&lt;xsl:with-param name="<span class="attributevalue">currentID</span>" select="<span class="attributevalue">$currentID</span>"/&gt;</span>
+<span class="element">&lt;/xsl:call-template&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1666"><span id="index.xml-label-d27e1661">
+                     <span class="hi">rh-col-top</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Top of right-hand column<div id="index.xml-egXML-d27e1668" class="pre egXML_valid"><span class="element">&lt;xsl:call-template name="<span class="attributevalue">columnHeader</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1676"><span id="index.xml-label-d27e1671">
+                     <span class="hi">searchbox</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Make a search box</dd><dt id="index.xml-item-d27e1683"><span id="index.xml-label-d27e1678">
+                     <span class="hi">singleFileLabel</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Construct a label for the link which makes a
+    printable version of the document.For Printing</dd></dl><dl></dl><dl><dt id="index.xml-item-d27e1692"><span id="index.xml-label-d27e1687">
+                     <span class="hi">latexPackages</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX package setup
+         Declaration of the LaTeX packages needed to implement
+    this markup
+      <div id="index.xml-egXML-d27e1694" class="pre egXML_valid"><span class="element">&lt;xsl:text
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>\usepackage[<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$latexPaperSize</span>"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>,<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$latexGeometryOptions</span>"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>]{geometry}
+ \usepackage{framed}
+<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>\definecolor{shadecolor}{gray}{0.95}
+ \usepackage{longtable}
+ \usepackage[normalem]{ulem}
+ \usepackage{fancyvrb}
+ \usepackage{fancyhdr}
+ \usepackage{graphicx}
+<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:if test="<span class="attributevalue">key('ENDNOTES',1)</span>"&gt;</span> \usepackage{endnotes}
+<span class="element">&lt;xsl:choose&gt;</span>
+  <span class="element">&lt;xsl:when test="<span class="attributevalue">key('FOOTNOTES',1)</span>"&gt;</span> \def\theendnote{\@alph\c@endnote}
+  <span class="element">&lt;/xsl:when&gt;</span>
+  <span class="element">&lt;xsl:otherwise&gt;</span> \def\theendnote{\@arabic\c@endnote}
+  <span class="element">&lt;/xsl:otherwise&gt;</span>
+ <span class="element">&lt;/xsl:choose&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>\def\Gin@extensions{.pdf,.png,.jpg,.mps,.tif}
+<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:choose&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$reencode='true'</span>"&gt;</span>
+  <span class="element">&lt;xsl:text&gt;</span>\IfFileExists{tipa.sty}{\usepackage{tipa}}{}
+     \usepackage{times}
+  <span class="element">&lt;/xsl:text&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span>
+<span class="element">&lt;xsl:if test="<span class="attributevalue">not($userpackage='')</span>"&gt;</span> \usepackage{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$userpackage</span>"/&gt;</span>}
+<span class="element">&lt;/xsl:if&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span> \pagestyle{fancy}
+<span class="element">&lt;/xsl:text&gt;</span>
+ \usepackage[pdftitle={<span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateSimpleTitle</span>"/&gt;</span>},
+ pdfauthor={<span class="element">&lt;xsl:call-template name="<span class="attributevalue">generateAuthor</span>"/&gt;</span>}]{hyperref}
+ \hyperbaseurl{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$baseURL</span>"/&gt;</span>}
+
+<span class="element">&lt;xsl:if test="<span class="attributevalue">count(key('APP',1))&gt;0</span>"&gt;</span>\usepackage{ledmac}
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">ledmacOptions</span>"/&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1741"><span id="index.xml-label-d27e1736">
+                     <span class="hi">latexSetup</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX setup
+         The basic LaTeX setup which you should not 
+really tinker with unless you really understand  why and how. Note
+that we need to set up a mapping here for Unicode 8421, 10100 and
+10100 to glyphs for backslash and the two curly brackets, to provide literal
+characters. The normal characters remain active for LaTeX commands.
+Note that if $reencode is set to false, no input or output encoding
+packages are loaded, since it is assumed you are using a TeX variant
+capable of dealing with UTF-8 directly.
+
+      <div id="index.xml-egXML-d27e1743" class="pre egXML_valid"><span class="element">&lt;xsl:call-template name="<span class="attributevalue">latexSetupHook</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+ \IfFileExists{xcolor.sty}%
+ {\RequirePackage{xcolor}}%
+ {\RequirePackage{color}}
+ \usepackage{colortbl}
+<span class="element">&lt;xsl:choose&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$reencode='true'</span>"&gt;</span>\IfFileExists{utf8x.def}%
+   {\usepackage[utf8x]{inputenc}}%
+   {\usepackage[utf8]{inputenc}}
+   \PrerenderUnicode{–}
+ <span class="element">&lt;xsl:call-template name="<span class="attributevalue">latexBabel</span>"/&gt;</span>
+   \usepackage[T1]{fontenc}
+   \usepackage{float}
+   \usepackage[]{ucs}
+   \uc@dclc{8421}{default}{\textbackslash }
+   \uc@dclc{10100}{default}{\{}
+   \uc@dclc{10101}{default}{\}}
+   \uc@dclc{8491}{default}{\AA{}}
+   \uc@dclc{8239}{default}{\,}
+   \uc@dclc{20154}{default}{ }
+   \def\textschwa{\rotatebox{-90}{e}}
+   \def\textJapanese{}
+   \def\textChinese{}
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>\usepackage{fontspec}
+   \usepackage{xunicode}
+   \catcode`⃥=\active \def⃥{\textbackslash}
+   \catcode`❴=\active \def❴{\{}
+   \catcode`❵=\active \def❵{\}}
+   \def\textJapanese{\fontspec{Kochi Mincho}}
+   \def\textChinese{\fontspec{HAN NOM A}\XeTeXlinebreaklocale "zh"\XeTeXlinebreakskip = 0pt plus 1pt }
+   \def\textKorean{\fontspec{Baekmuk Gulim} }
+   \setmonofont{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$typewriterFont</span>"/&gt;</span>}
+ <span class="element">&lt;xsl:if test="<span class="attributevalue">not($sansFont='')</span>"&gt;</span> \setsansfont{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$sansFont</span>"/&gt;</span>}
+  <span class="element">&lt;/xsl:if&gt;</span>
+  <span class="element">&lt;xsl:if test="<span class="attributevalue">not($romanFont='')</span>"&gt;</span> \setromanfont{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$romanFont</span>"/&gt;</span>}
+  <span class="element">&lt;/xsl:if&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span>
+ \DeclareTextSymbol{\textpi}{OML}{25}
+ \usepackage{relsize}
+ \def\textsubscript#1{%
+ \@textsubscript{\selectfont#1}}
+ \def\@textsubscript#1{%
+ {\m@th\ensuremath{_{\mbox{\fontsize\sf@size\z@#1}}}}}
+ \def\textquoted#1{‘#1’}
+ \def\textsmall#1{{\small #1}}
+ \def\textlarge#1{{\large #1}}
+ \def\textoverbar#1{\ensuremath{\overline{#1}}}
+ \def\textgothic#1{{\fontspec{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$gothicFont</span>"/&gt;</span>}#1}}
+ \def\textcal#1{{\fontspec{<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$calligraphicFont</span>"/&gt;</span>}#1}}
+ \RequirePackage{array}
+ \def\@testpach{\@chclass
+ \ifnum \@lastchclass=6 \@ne \@chnum \@ne \else
+ \ifnum \@lastchclass=7 5 \else
+ \ifnum \@lastchclass=8 \tw@ \else
+ \ifnum \@lastchclass=9 \thr@@
+ \else \z@
+ \ifnum \@lastchclass = 10 \else
+ \edef\@nextchar{\expandafter\string\@nextchar}%
+ \@chnum
+ \if \@nextchar c\z@ \else
+ \if \@nextchar l\@ne \else
+ \if \@nextchar r\tw@ \else
+ \z@ \@chclass
+ \if\@nextchar |\@ne \else
+ \if \@nextchar !6 \else
+ \if \@nextchar @7 \else
+ \if \@nextchar (8 \else
+ \if \@nextchar )9 \else
+ 10
+ \@chnum
+ \if \@nextchar m\thr@@\else
+ \if \@nextchar p4 \else
+ \if \@nextchar b5 \else
+ \z@ \@chclass \z@ \@preamerr \z@ \fi \fi \fi \fi
+ \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi \fi}
+ 
+ \gdef\arraybackslash{\let\\=\@arraycr}
+ \def\textxi{\ensuremath{\xi}}
+ \def\Panel#1#2#3#4{\multicolumn{#3}{){\columncolor{#2}}#4}{#1}}
+
+<span class="element">&lt;xsl:text disable-output-escaping="<span class="attributevalue">yes</span>"&gt;</span>\newcolumntype{L}[1]{){\raggedright\arraybackslash}p{#1}}
+ \newcolumntype{C}[1]{){\centering\arraybackslash}p{#1}}
+ \newcolumntype{R}[1]{){\raggedleft\arraybackslash}p{#1}}
+ \newcolumntype{P}[1]{){\arraybackslash}p{#1}}
+ \newcolumntype{B}[1]{){\arraybackslash}b{#1}}
+ \newcolumntype{M}[1]{){\arraybackslash}m{#1}}
+ \definecolor{label}{gray}{0.75}
+ \DeclareRobustCommand*{\xref}{\hyper@normalise\xref@}
+ \def\xref@#1#2{\hyper@linkurl{#2}{#1}}
+ \def\Div[#1]#2{\section*{#2}}
+ \begingroup
+ \catcode`\_=\active
+ \gdef_#1{\ensuremath{\sb{\mathrm{#1}}}}
+ \endgroup
+ \mathcode`\_=\string"8000
+ \catcode`\_=12\relax
+<span class="element">&lt;/xsl:text&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1776"><span id="index.xml-label-d27e1771">
+                     <span class="hi">latexBabel</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX babel setup
+         LaTeX loading of babel with options
+      
+\usepackage[english]{babel}
+</dd><dt id="index.xml-item-d27e1783"><span id="index.xml-label-d27e1778">
+                     <span class="hi">latexLayout</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX layout preamble
+         All the LaTeX setup which affects page layout
+      <div id="index.xml-egXML-d27e1785" class="pre egXML_valid"><span class="element">&lt;xsl:choose
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$latexPaperSize='a3paper'</span>"&gt;</span>\paperwidth297mm
+   \paperheight420mm
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$latexPaperSize='a5paper'</span>"&gt;</span>
+   \paperwidth148mm
+   \paperheight210mm
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$latexPaperSize='a4paper'</span>"&gt;</span>\paperwidth210mm
+   \paperheight297mm
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">$latexPaperSize='letterpaper'</span>"&gt;</span>\paperwidth216mm
+   \paperheight279mm
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise/&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span> 
+ \def\@pnumwidth{1.55em}
+ \def\@tocrmarg {2.55em}
+ \def\@dotsep{4.5}
+ \setcounter{tocdepth}{3}
+ \clubpenalty=8000
+ \emergencystretch 3em
+ \hbadness=4000
+ \hyphenpenalty=400
+ \pretolerance=750
+ \tolerance=2000
+ \vbadness=4000
+ \widowpenalty=10000
+<span class="element">&lt;xsl:if test="<span class="attributevalue">not($docClass='letter')</span>"&gt;</span>\renewcommand\section{\@startsection {section}{1}{\z@}%
+ {-1.75ex \@plus -0.5ex \@minus -.2ex}%
+ {0.5ex \@plus .2ex}%
+ {\reset@font\Large\bfseries\sffamily}}
+ \renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+ {-1.75ex\@plus -0.5ex \@minus- .2ex}%
+ {0.5ex \@plus .2ex}%
+ {\reset@font\Large\sffamily}}
+ \renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+ {-1.5ex\@plus -0.35ex \@minus -.2ex}%
+ {0.5ex \@plus .2ex}%
+ {\reset@font\large\sffamily}}
+ \renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+ {-1ex \@plus-0.35ex \@minus -0.2ex}%
+ {0.5ex \@plus .2ex}%
+ {\reset@font\normalsize\sffamily}}
+ \renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+ {1.5ex \@plus1ex \@minus .2ex}%
+ {-1em}%
+ {\reset@font\normalsize\bfseries}}
+ 
+<span class="element">&lt;/xsl:if&gt;</span>
+ \def\l@section#1#2{\addpenalty{\@secpenalty} \addvspace{1.0em plus 1pt}
+ \@tempdima 1.5em \begingroup
+ \parindent \z@ \rightskip \@pnumwidth
+ \parfillskip -\@pnumwidth
+ \bfseries \leavevmode #1\hfil \hbox to\@pnumwidth{\hss #2}\par
+ \endgroup}
+ \def\l@subsection{\@dottedtocline{2}{1.5em}{2.3em}}
+ \def\l@subsubsection{\@dottedtocline{3}{3.8em}{3.2em}}
+ \def\l@paragraph{\@dottedtocline{4}{7.0em}{4.1em}}
+ \def\l@subparagraph{\@dottedtocline{5}{10em}{5em}}
+ \@ifundefined{c@section}{\newcounter{section}}{}
+ \@ifundefined{c@chapter}{\newcounter{chapter}}{}
+ \newif\if@mainmatter
+ \@mainmattertrue
+ \def\chaptername{Chapter}
+ \def\frontmatter{%
+ \pagenumbering{roman}
+ \def\thechapter{\@roman\c@chapter}
+ \def\theHchapter{\alph{chapter}}
+ \def\@chapapp{}%
+ }
+ \def\mainmatter{%
+ \cleardoublepage
+ \def\thechapter{\@arabic\c@chapter}
+ \setcounter{chapter}{0}
+ \setcounter{section}{0}
+ \pagenumbering{arabic}
+ \setcounter{secnumdepth}{6}
+ \def\@chapapp{\chaptername}%
+ \def\theHchapter{\arabic{chapter}}
+ }
+ \def\backmatter{%
+ \cleardoublepage
+ \setcounter{chapter}{0}
+ \setcounter{section}{0}
+ \setcounter{secnumdepth}{0}
+ \def\@chapapp{\appendixname}%
+ \def\thechapter{\@Alph\c@chapter}
+ \def\theHchapter{\Alph{chapter}}
+ \appendix
+ }
+ \newenvironment{bibitemlist}[1]{%
+ \list{\@biblabel{\@arabic\c@enumiv}}%
+ {\settowidth\labelwidth{\@biblabel{#1}}%
+ \leftmargin\labelwidth
+ \advance\leftmargin\labelsep
+ \@openbib@code
+ \usecounter{enumiv}%
+ \let\p@enumiv\@empty
+ \renewcommand\theenumiv{\@arabic\c@enumiv}%
+ }%
+ \sloppy
+ \clubpenalty4000
+ \@clubpenalty \clubpenalty
+ \widowpenalty4000%
+ \sfcode`\.\@m}%
+ {\def\@noitemerr
+ {\@latex@warning{Empty `bibitemlist' environment}}%
+ \endlist}
+ 
+ \def\tableofcontents{\section*{\contentsname}\@starttoc{toc}}
+ \parskip<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$parSkip</span>"/&gt;</span>
+ \parindent<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$parIndent</span>"/&gt;</span>
+ \def\Panel#1#2#3#4{\multicolumn{#3}{){\columncolor{#2}}#4}{#1}}
+ \newenvironment{reflist}{%
+ \begin{raggedright}\begin{list}{}
+ {%
+ \setlength{\topsep}{0pt}%
+ \setlength{\rightmargin}{0.25in}%
+ \setlength{\itemsep}{0pt}%
+ \setlength{\itemindent}{0pt}%
+ \setlength{\parskip}{0pt}%
+ \setlength{\parsep}{2pt}%
+ \def\makelabel##1{\itshape ##1}}%
+ }
+ {\end{list}\end{raggedright}}
+ \newenvironment{sansreflist}{%
+ \begin{raggedright}\begin{list}{}
+ {%
+ \setlength{\topsep}{0pt}%
+ \setlength{\rightmargin}{0.25in}%
+ \setlength{\itemindent}{0pt}%
+ \setlength{\parskip}{0pt}%
+ \setlength{\itemsep}{0pt}%
+ \setlength{\parsep}{2pt}%
+ \def\makelabel##1{\upshape\sffamily ##1}}%
+ }
+ {\end{list}\end{raggedright}}
+ \newenvironment{specHead}[2]%
+ {\vspace{20pt}\hrule\vspace{10pt}%
+ \hypertarget{#1}{}%
+ \markright{#2}%
+
+<span class="element">&lt;xsl:text&gt;</span> \pdfbookmark[<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$specLinkDepth</span>"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>]{#2}{#1}%
+ \hspace{-0.75in}{\bfseries\fontsize{16pt}{18pt}\selectfont#2}%
+ }{}
+<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:call-template name="<span class="attributevalue">latexPreambleHook</span>"/&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1817"><span id="index.xml-label-d27e1812">
+                     <span class="hi">ledmacOptions</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX setup commands for ledmac package
+      
+\renewcommand{\notenumfont}{\bfseries}
+\lineation{page}
+\linenummargin{inner}
+\footthreecol{A}
+\foottwocol{B}
+</dd><dt id="index.xml-item-d27e1825"><span id="index.xml-label-d27e1819">
+                     <span class="hi">latexBegin</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX setup before start of document
+         All the LaTeX setup which are executed before the start of
+    the document
+      <div id="index.xml-egXML-d27e1827" class="pre egXML_valid"><span class="element">&lt;xsl:text
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>\makeatletter
+ \thispagestyle{empty}
+ \markright{\@title}\markboth{\@title}{\@author}
+ \renewcommand\small{\@setfontsize\small{9pt}{11pt}\abovedisplayskip 8.5\p@ plus3\p@ minus4\p@
+ \belowdisplayskip \abovedisplayskip
+ \abovedisplayshortskip \z@ plus2\p@
+ \belowdisplayshortskip 4\p@ plus2\p@ minus2\p@
+ \def\@listi{\leftmargin\leftmargini
+ \topsep 2\p@ plus1\p@ minus1\p@
+ \parsep 2\p@ plus\p@ minus\p@
+ \itemsep 1pt}
+ }
+ \makeatother
+ \fvset{frame=single,numberblanklines=false,xleftmargin=5mm,xrightmargin=5mm}
+ \fancyhf{}
+ \setlength{\headheight}{14pt}
+ \fancyhead[LE]{\bfseries\leftmark}
+ \fancyhead[RO]{\bfseries\rightmark}
+ \fancyfoot[RO]{}
+ \fancyfoot[CO]{\thepage}
+ \fancyfoot[LO]{\TheID}
+ \fancyfoot[LE]{}
+ \fancyfoot[CE]{\thepage}
+ \fancyfoot[RE]{\TheID}
+ \hypersetup{linkbordercolor=0.75 0.75 0.75,urlbordercolor=0.75 0.75 0.75,bookmarksnumbered=true}
+ \fancypagestyle{plain}{\fancyhead{}\renewcommand{\headrulewidth}{0pt}}<span class="element">&lt;/xsl:text&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1836"><span id="index.xml-label-d27e1831">
+                     <span class="hi">latexEnd</span>
+                  </span></dt><dd>
+	     (for latex)
+	     
+         LaTeX setup at end of document
+         All the LaTeX setup which are executed at the end of
+    the document
+      </dd></dl></div></div><div class="teidiv0" id="headings"><h2><span class="headingNumber">5. </span><span class="head">Headings</span></h2><p>Headings for sections can be customized in various ways.</p><div class="teidiv1" id="index.xml-body.1_div.5_div.1"><h3><span class="headingNumber">5.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">autoHead</span>
+                     </td><td> Construct a heading 
+    for &lt;div&gt; elements with no &lt;head&gt; [<code class="code">boolean</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">numberSpacer</span>
+                     </td><td> Character to put after number of
+    section header [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e1885" class="pre egXML_valid"><span class="element">&lt;xsl:text
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                     </td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.5_div.2"><h3><span class="headingNumber">5.2. </span><span class="head">Templates</span></h3><dl><dt id="index.xml-item-d27e1897"><span id="index.xml-label-d27e1892">
+                     <span class="hi">autoMakeHead</span>
+                  </span></dt><dd>
+	     (for common)
+	     [common] How to make a heading for section if there is no
+      &lt;head&gt;<div id="index.xml-egXML-d27e1899" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">display</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:choose&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">tei:head and $display='full'</span>"&gt;</span>
+  <span class="element">&lt;xsl:apply-templates select="<span class="attributevalue">tei:head</span>" mode="<span class="attributevalue">makeheading</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">tei:head</span>"&gt;</span>
+  <span class="element">&lt;xsl:apply-templates select="<span class="attributevalue">tei:head</span>" mode="<span class="attributevalue">plain</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">tei:front/tei:head</span>"&gt;</span>
+  <span class="element">&lt;xsl:apply-templates select="<span class="attributevalue">tei:front/tei:head</span>" mode="<span class="attributevalue">plain</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">@n</span>"&gt;</span>
+  <span class="element">&lt;xsl:value-of select="<span class="attributevalue">@n</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when test="<span class="attributevalue">@type</span>"&gt;</span>
+  <span class="element">&lt;xsl:text&gt;</span>[<span class="element">&lt;/xsl:text&gt;</span>
+  <span class="element">&lt;xsl:value-of select="<span class="attributevalue">@type</span>"/&gt;</span>
+  <span class="element">&lt;xsl:text&gt;</span>]<span class="element">&lt;/xsl:text&gt;</span>
+ <span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>
+  <span class="element">&lt;xsl:text&gt;</span>➤<span class="element">&lt;/xsl:text&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e1925"><span id="index.xml-label-d27e1920">
+                     <span class="hi">headingNumberSuffix</span>
+                  </span></dt><dd>
+	     (for common)
+	      Punctuation to insert after a section
+    number<div id="index.xml-egXML-d27e1927" class="pre egXML_valid"><span class="element">&lt;xsl:text
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>.<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$numberSpacer</span>"/&gt;</span></div>
+                  </dd></dl></div></div><div class="teidiv0" id="numbering"><h2><span class="headingNumber">6. </span><span class="head">Numbering</span></h2><p>Section headings, figures, tables and notes can be numbered
+automatically.  We can set the numbering of front matter and back
+matter separately. If you prefer to supply your own numbering, using
+the <code class="code">n</code> attribute, you can choose this over automatic
+numbering.</p><p>Normally, heading numbers are followed by ‘. ’, but you can vary
+this. This would let you use eg fixed spaces.</p><div class="teidiv1" id="index.xml-body.1_div.6_div.1"><h3><span class="headingNumber">6.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">numberBackFigures</span>
+                     </td><td> Automatically number figures in back
+    matter [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">numberBackHeadings</span>
+                     </td><td> How to construct heading numbering in
+    back matter [<code class="code">string</code>]</td><td>A.1</td></tr><tr><td></td><td>
+                        <span class="hi">numberBackTables</span>
+                     </td><td> Automatically number tables in back
+    matter [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td></td><td>
+                        <span class="hi">numberBodyHeadings</span>
+                     </td><td> How to construct heading numbering in
+    main matter [<code class="code">string</code>]</td><td>1.1.1.1</td></tr><tr><td></td><td>
+                        <span class="hi">numberFigures</span>
+                     </td><td> Automatically number figures [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td></td><td>
+                        <span class="hi">numberFrontFigures</span>
+                     </td><td> Automatically number figures in
+    front matter [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">numberFrontHeadings</span>
+                     </td><td> How to construct heading numbering in
+    front matter [<code class="code">string</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">numberFrontTables</span>
+                     </td><td> Automatically number tables in front
+    matter [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td></td><td>
+                        <span class="hi">numberHeadings</span>
+                     </td><td> Automatically number sections [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td></td><td>
+                        <span class="hi">numberHeadingsDepth</span>
+                     </td><td> Depth to which sections should be
+    numbered [<code class="code">integer</code>]</td><td>9</td></tr><tr><td></td><td>
+                        <span class="hi">numberTables</span>
+                     </td><td> Automatically number tables [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td></td><td>
+                        <span class="hi">numberParagraphs</span>
+                     </td><td> Use value of "n" attribute to number
+    sections [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">numberParagraphs</span>
+                     </td><td>
+    Automatically number paragraphs.
+   [<code class="code">boolean</code>]</td><td>false</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.6_div.2"><h3><span class="headingNumber">6.2. </span><span class="head">Templates</span></h3><dl><dt id="index.xml-item-d27e2149"><span id="index.xml-label-d27e2144">
+                     <span class="hi">numberBackDiv</span>
+                  </span></dt><dd>
+	     (for common)
+	     [common] How to number sections in back matter<div id="index.xml-egXML-d27e2151" class="pre egXML_valid"><span class="element">&lt;xsl:if test="<span class="attributevalue">not($numberBackHeadings='')</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:number
+   count="<span class="attributevalue">tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6</span>"
+   format="<span class="attributevalue">A.1.1.1.1.1</span>"
+   level="<span class="attributevalue">multiple</span>"/&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e2160"><span id="index.xml-label-d27e2155">
+                     <span class="hi">numberBodyDiv</span>
+                  </span></dt><dd>
+	     (for common)
+	     [common] How to number sections in main matter<div id="index.xml-egXML-d27e2162" class="pre egXML_valid"><span class="element">&lt;xsl:if test="<span class="attributevalue">$numberHeadings='true'</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:number
+   count="<span class="attributevalue">tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6</span>"
+   level="<span class="attributevalue">multiple</span>"/&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e2171"><span id="index.xml-label-d27e2166">
+                     <span class="hi">numberFrontDiv</span>
+                  </span></dt><dd>
+	     (for common)
+	     [common] How to number sections in front matter<div id="index.xml-egXML-d27e2173" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">minimal</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:number
+  count="<span class="attributevalue">tei:div|tei:div1|tei:div2|tei:div3|tei:div4|tei:div5|tei:div6</span>"
+  level="<span class="attributevalue">multiple</span>"/&gt;</span>
+<span class="element">&lt;xsl:if test="<span class="attributevalue">$minimal='false'</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$numberSpacer</span>"/&gt;</span>
+<span class="element">&lt;/xsl:if&gt;</span></div>
+                  </dd></dl></div></div><div class="teidiv0" id="output"><h2><span class="headingNumber">7. </span><span class="head">Output</span></h2><p>You can set a name for the output file(s); if you ask for multiple
+output files, this name will be used to create unique filenames for
+each section. By default, results will go to wherever your XSLT
+processor normally writes (usually standard output).  If you opt to
+have files created, you can specify the name of the directory where
+the output is to be placed.</p><p>If you are making HTML, do you want a single output page, or a
+separate one for each section of the document?   You
+can decide to have a different splitting policy for front and
+back matter.  </p><div class="teidiv1" id="index.xml-body.1_div.7_div.1"><h3><span class="headingNumber">7.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">outputTarget</span>
+                     </td><td>Type of output being generated [<code class="code">string</code>]</td><td>html</td></tr><tr><td></td><td>
+                        <span class="hi">REQUEST</span>
+                     </td><td> The complete URL when the document is
+    being delivered from a web server (normally set by Apache or Cocoon) [<code class="code">string</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">STDOUT</span>
+                     </td><td> Write to standard output channel [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">ID</span>
+                     </td><td>An ID passed to the stylesheet to indicate which section to display [<code class="code">string</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">requestedID</span>
+                     </td><td>A wrapper around the ID, to allow for other ways of getting it [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e2271" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$ID</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                     </td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">URLPREFIX</span>
+                     </td><td>A path fragment to put before all internal URLs  [<code class="code">string</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">outputName</span>
+                     </td><td>The name of the output file [<code class="code">string</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">outputDir</span>
+                     </td><td>Directory in which to place generated files. [<code class="code">string</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">outputEncoding</span>
+                     </td><td>Encoding of output file(s). [<code class="code">string</code>]</td><td>utf-8</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">outputMethod</span>
+                     </td><td>Output method for output file(s). [<code class="code">string</code>]</td><td>xhtml</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">outputSuffix</span>
+                     </td><td>Suffix of output file(s). [<code class="code">string</code>]</td><td>.html</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">doctypePublic</span>
+                     </td><td>Public Doctype of output file(s). [<code class="code">string</code>]</td><td>-//W3C//DTD XHTML 1.0 Transitional//EN</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">doctypeSystem</span>
+                     </td><td>System Doctype of output file(s). [<code class="code">string</code>]</td><td>http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">pageLayout</span>
+                     </td><td>     The style of HTML (Simple, CSS or Table) which creates the layout for generated pages.
+         The choice is between
+Simple: A linear presentation is createdCSS: The page is created as a series of nested
+ &lt;div&gt;s which can be arranged using CSS into a multicolumn
+layoutTable: The page is created as an HTML table
+         
+       [<code class="code">string</code>]</td><td>Simple</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">splitBackmatter</span>
+                     </td><td>Break back matter into separate HTML pages (if splitting enabled). [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">splitFrontmatter</span>
+                     </td><td>Break front matter into separate HTML pages (if splitting enabled). [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">splitLevel</span>
+                     </td><td>     Level at which to split sections.
+         When processing a &lt;div&gt; or &lt;div[0-5]&gt;, compare
+the nesting depth and see whether to start a new HTML page. Since the
+TEI starts with &lt;div1&gt;, setting this parameter to 0 will cause
+top-level sections to be split apart. The default is not to split at
+all.
+
+       [<code class="code">integer</code>]</td><td>-1</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">standardSuffix</span>
+                     </td><td>Suffix for generated output files. [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e2469" class="pre egXML_valid"><span class="element">&lt;xsl:choose
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:when
+   test="<span class="attributevalue">tei:teiCorpus</span>"&gt;</span>.html<span class="element">&lt;/xsl:when&gt;</span>
+ <span class="element">&lt;xsl:when
+   test="<span class="attributevalue">$STDOUT='true'</span>"/&gt;</span>
+ <span class="element">&lt;xsl:otherwise&gt;</span>
+  <span class="element">&lt;xsl:value-of
+    select="<span class="attributevalue">$outputSuffix</span>"/&gt;</span>
+ <span class="element">&lt;/xsl:otherwise&gt;</span>
+<span class="element">&lt;/xsl:choose&gt;</span></div>
+                     </td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">topNavigationPanel</span>
+                     </td><td>Display navigation panel at top of pages. [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">urlChunkPrefix</span>
+                     </td><td>How to specify infra-document links. When a document is split,
+links need to be constructed between parts of the document. 
+The default is to use a query parameter on the URL. [<code class="code">string</code>]</td><td>?ID=</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">useIDs</span>
+                     </td><td>     Construct links using existing ID values.
+         It is often nice if, when making separate files, their names
+correspond to the ID attribute of the &gt;div&lt;. Alternatively, you
+	  can let the system choose names.
+       [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">autoBlockQuote</span>
+                     </td><td>Whether it should be attempted to make quotes into block
+      quotes if they are over a certain length [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">autoBlockQuoteLength</span>
+                     </td><td>Length beyond which a quote is a block quote [<code class="code">integer</code>]</td><td>150</td></tr><tr><td>fo</td><td>
+                        <span class="hi">language</span>
+                     </td><td>
+Language (for hyphenation)
+ [<code class="code">string</code>]</td><td>en_US</td></tr><tr><td>fo</td><td>
+                        <span class="hi">foEngine</span>
+                     </td><td>
+         Name of intended XSL FO engine
+         This is used to tailor the result for different XSL FO processors.
+By default, no special measures are taken, so
+there are no bookmarks or other such features. Possible values are
+
+               passivetex (the TeX-based PassiveTeX processor
+               xep   (XEP)
+               fop (FOP)
+               antenna  (Antenna House)
+            
+         
+       [<code class="code">string</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">baseURL</span>
+                     </td><td>
+URL root where referenced documents are located
+ [<code class="code">string</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">reencode</span>
+                     </td><td>
+Whether or not to load LaTeX packages which attempt to
+process the UTF-8 characters. Set to "false" if you are
+using XeTeX or similar.
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>latex</td><td>
+                        <span class="hi">realFigures</span>
+                     </td><td>
+Use real name of graphics files rather than pointers
+ [<code class="code">boolean</code>]</td><td>true</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.7_div.2"><h3><span class="headingNumber">7.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl><dl></dl><dl></dl></div></div><div class="teidiv0" id="toc"><h2><span class="headingNumber">8. </span><span class="head">Table of contents generation</span></h2><p>You probably want tables of contents built for your document, using
+the <span class="gi">&lt;div&gt;</span> structure. However, if you have used a <span class="gi">&lt;divGen
+type="toc"&gt;</span> explicitly, that will also create a table of contents,
+so you can suppress the automatic one.  When a table of contents is
+created, you choose how many levels of headings it will show.
+You can choose whether or not the front and backmatter appear
+in the table of contents.</p><div class="teidiv1" id="index.xml-body.1_div.8_div.1"><h3><span class="headingNumber">8.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">autoToc</span>
+                     </td><td>Make an automatic table of contents [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">class_subtoc</span>
+                     </td><td>CSS class for second-level TOC entries [<code class="code">string</code>]</td><td>subtoc</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">subTocDepth</span>
+                     </td><td>
+	Depth at which to stop doing a recursive table of contents.
+         You can have a mini table of contents at the start of each
+         section. The default is only to construct a TOC at the top
+         level; a value of -1 here means no subtoc at all. 
+       [<code class="code">integer</code>]</td><td>-1</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">tocBack</span>
+                     </td><td>Include the back matter in the table of contents. [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">tocDepth</span>
+                     </td><td>Depth to which table of contents is constructed. [<code class="code">string</code>]</td><td>5</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">tocFront</span>
+                     </td><td>Include the front matter in the table of contents. [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">tocElement</span>
+                     </td><td>Which HTML element to wrap each TOCs entry in. [<code class="code">string</code>]</td><td>p</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">tocContainerElement</span>
+                     </td><td>Which HTML element to wrap each TOC sections in. [<code class="code">string</code>]</td><td>div</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">refDocFooterText</span>
+                     </td><td>Text to link back to from foot of ODD reference pages
+   [<code class="code">string</code>]</td><td>TEI Guidelines</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">refDocFooterURL</span>
+                     </td><td>URL to link back to from foot of ODD reference pages
+   [<code class="code">anyURI</code>]</td><td>index.html</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div0Tocindent</span>
+                     </td><td>
+Indentation for level 0 TOC entries
+ [<code class="code">string</code>]</td><td>0in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div1Tocindent</span>
+                     </td><td>
+Indentation for level 1 TOC entries
+ [<code class="code">string</code>]</td><td>0.25in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div2Tocindent</span>
+                     </td><td>
+Indentation for level 2 TOC entries
+ [<code class="code">string</code>]</td><td>0.5in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div3Tocindent</span>
+                     </td><td>
+Indentation for level 3 TOC entries
+ [<code class="code">string</code>]</td><td>0.75in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div4Tocindent</span>
+                     </td><td>
+Indentation for level 4 TOC entries
+ [<code class="code">string</code>]</td><td>1in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">div5Tocindent</span>
+                     </td><td>
+    Indentation for level 5 TOC entries
+   [<code class="code">string</code>]</td><td>1.25in</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tocBack</span>
+                     </td><td>
+Make TOC for sections in &lt;back&gt;
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tocFront</span>
+                     </td><td>
+Make TOC for sections in &lt;front&gt;
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tocNumberSuffix</span>
+                     </td><td>
+Punctuation to insert after a section number in a TOC
+ [<code class="code">string</code>]</td><td>. </td></tr><tr><td>fo</td><td>
+                        <span class="hi">tocStartPage</span>
+                     </td><td>
+Page number on which TOC should start
+ [<code class="code">integer</code>]</td><td>1</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.8_div.2"><h3><span class="headingNumber">8.2. </span><span class="head">Templates</span></h3><dl><dt id="index.xml-item-d27e2967"><span id="index.xml-label-d27e2962">
+                     <span class="hi">navInterSep</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     Gap between elements in navigation list
+  <div id="index.xml-egXML-d27e2969" class="pre egXML_valid"><span class="element">&lt;xsl:text
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>: <span class="element">&lt;/xsl:text&gt;</span></div>
+                  </dd></dl><dl></dl></div></div><div class="teidiv0" id="i18n"><h2><span class="headingNumber">9. </span><span class="head">Internationalization</span></h2><p>At various places, the system has to create text. You can choose
+the words it uses (eg translate them to another language).</p><div class="teidiv1" id="index.xml-body.1_div.9_div.1"><h3><span class="headingNumber">9.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.9_div.2"><h3><span class="headingNumber">9.2. </span><span class="head">Templates</span></h3><dl><dt id="index.xml-item-d27e3001"><span id="index.xml-label-d27e2996">
+                     <span class="hi">copyrightStatement</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Make a copyright claimThis page is copyrighted</dd></dl></div></div><div class="teidiv0" id="CSS"><h2><span class="headingNumber">10. </span><span class="head">CSS</span></h2><p>Setting up material for the CSS file to accompany HTML output.</p><div class="teidiv1" id="index.xml-body.1_div.10_div.1"><h3><span class="headingNumber">10.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">class_toc</span>
+                     </td><td>CSS class for TOC entries [<code class="code">string</code>]</td><td>toc</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">class_ptr</span>
+                     </td><td>  CSS class for links derived from &lt;ptr&gt;     [<code class="code">string</code>]</td><td>ptr</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">class_ref</span>
+                     </td><td>CSS class for links derived from &lt;ref&gt; [<code class="code">string</code>]</td><td>ref</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">cssFile</span>
+                     </td><td>CSS style file to be associated with output file(s) [<code class="code">anyURI</code>]</td><td>http://www.tei-c.org/release/xml/tei/stylesheet/tei.css</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">cssPrintFile</span>
+                     </td><td>CSS style file for print; this will be given a media=print attribute.
+     [<code class="code">anyURI</code>]</td><td>http://www.tei-c.org/release/xml/tei/stylesheet/tei-print.css</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">cssSecondaryFile</span>
+                     </td><td>Secondary CSS style file; this will be given a media=screen attribute,
+so that it does not affect printing. It should be used for screen layout.
+   [<code class="code">anyURI</code>]</td><td></td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">cssInlineFile</span>
+                     </td><td>CSS file to include in the output file directly [<code class="code">anyURI</code>]</td><td></td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.10_div.2"><h3><span class="headingNumber">10.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl></div></div><div class="teidiv0" id="tables"><h2><span class="headingNumber">11. </span><span class="head">Tables</span></h2><p>Default behaviour of table elements.</p><div class="teidiv1" id="index.xml-body.1_div.11_div.1"><h3><span class="headingNumber">11.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">cellAlign</span>
+                     </td><td> Default alignment of table cells [<code class="code">string</code>]</td><td>left</td></tr><tr><td></td><td>
+                        <span class="hi">tableAlign</span>
+                     </td><td> Default alignment of tables [<code class="code">string</code>]</td><td>left</td></tr><tr><td>fo</td><td>
+                        <span class="hi">defaultCellLabelBackground</span>
+                     </td><td>
+Default colour for background of table cells which are labelling rows
+or columns [<code class="code">string</code>]</td><td>silver</td></tr><tr><td>fo</td><td>
+                        <span class="hi">inlineTables</span>
+                     </td><td>
+Force tables to appear inline
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">makeTableCaption</span>
+                     </td><td>
+Put a caption on tables  
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tableCaptionAlign</span>
+                     </td><td>
+Alignment of table captions
+ [<code class="code">string</code>]</td><td>center</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tableCellPadding</span>
+                     </td><td>
+Default padding on table cells
+ [<code class="code">string</code>]</td><td>2pt</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.11_div.2"><h3><span class="headingNumber">11.2. </span><span class="head">Templates</span></h3><dl></dl><dl><dt id="index.xml-item-d27e3259"><span id="index.xml-label-d27e3254">
+                     <span class="hi">tableCaptionstyle</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of table <div id="index.xml-egXML-d27e3261" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>center<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">end-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$exampleMargin</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">start-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$exampleMargin</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$spaceAroundTable</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$spaceBelowCaption</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">keep-with-next</span>"&gt;</span>always<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd></dl></div></div><div class="teidiv0" id="figures"><h2><span class="headingNumber">12. </span><span class="head">Figures and graphics</span></h2><p>Sometimes you need to prefix the names of all graphics files with 
+a directory name or a URL, or provide a default suffix.
+You can also tell <span class="gi">&lt;figure&gt;</span> elements whether or not to
+produce anything.</p><div class="teidiv1" id="index.xml-body.1_div.12_div.1"><h3><span class="headingNumber">12.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">graphicsPrefix</span>
+                     </td><td>Directory specification to put before names of graphics files,
+      unless they start with "./" [<code class="code">string</code>]</td><td></td></tr><tr><td></td><td>
+                        <span class="hi">graphicsSuffix</span>
+                     </td><td> Default file suffix for graphics files,
+    if not directly specified [<code class="code">string</code>]</td><td>.png</td></tr><tr><td></td><td>
+                        <span class="hi">standardScale</span>
+                     </td><td> Scaling of imported graphics [<code class="code">decimal</code>]</td><td>1</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">dpi</span>
+                     </td><td>Resolution of images. This is needed to calculate
+HTML width and height (in pixels) from supplied dimensions. [<code class="code">integer</code>]</td><td>96</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">showFigures</span>
+                     </td><td>Display figures. [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">autoScaleFigures</span>
+                     </td><td>
+How to scale figures if no width and height specified (pass to XSL FO content-width)
+ [<code class="code">string</code>]</td><td></td></tr><tr><td>fo</td><td>
+                        <span class="hi">captionInlineFigures</span>
+                     </td><td>
+Put captions on inline figures
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">showFloatHead</span>
+                     </td><td>
+Show the contents of &lt;head&gt; in a cross-reference to table or figure
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">showFloatLabel</span>
+                     </td><td>
+Show a title for figures or tables (eg Table or Figure) in a cross-reference
+ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>fo</td><td>
+                        <span class="hi">xrefShowPage</span>
+                     </td><td>
+Show the page number in a cross-reference to table or figure
+ [<code class="code">boolean</code>]</td><td>false</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.12_div.2"><h3><span class="headingNumber">12.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl><dl><dt id="index.xml-item-d27e3455"><span id="index.xml-label-d27e3450">
+                     <span class="hi">figureCaptionstyle</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of figures<div id="index.xml-egXML-d27e3457" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>center<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">end-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$exampleMargin</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">start-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$exampleMargin</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd></dl></div></div><div class="teidiv0" id="style"><h2><span class="headingNumber">13. </span><span class="head">Style</span></h2><div class="p">You can choose lots of features which affect the font, size, etc
+<ul><li class="item">What font to use for URLs.</li><li class="item">Whether titles, dates and authors are shown.</li><li class="item">Whether headings of objects are included in cross-references.</li></ul>
+            </div><div class="teidiv1" id="index.xml-body.1_div.13_div.1"><h3><span class="headingNumber">13.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">pagebreakStyle</span>
+                     </td><td> Display of &lt;pb&gt; element.
+    Choices are "visible", "active" and "none". [<code class="code">string</code>]</td><td>visible</td></tr><tr><td></td><td>
+                        <span class="hi">displayMode</span>
+                     </td><td> How to display Relax NG schema fragments
+    (rnc or rng) [<code class="code">string</code>]</td><td>rnc</td></tr><tr><td></td><td>
+                        <span class="hi">minimalCrossRef</span>
+                     </td><td> Provide minimal context for a link [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">postQuote</span>
+                     </td><td> Character to insert at end of quote. [<code class="code">string</code>]</td><td>’</td></tr><tr><td></td><td>
+                        <span class="hi">preQuote</span>
+                     </td><td> Character to insert at start of quote [<code class="code">string</code>]</td><td>‘</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">urlMarkup</span>
+                     </td><td>HTML element to put around visible text of display URLs [<code class="code">string</code>]</td><td>span</td></tr><tr><td>fo</td><td>
+                        <span class="hi">activeLinebreaks</span>
+                     </td><td>
+Make &lt;lb&gt; active (ie cause a line break)
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">alignment</span>
+                     </td><td>
+Alignment of text (ie justified or ragged)
+ [<code class="code">string</code>]</td><td>justify</td></tr><tr><td>fo</td><td>
+                        <span class="hi">authorSize</span>
+                     </td><td>
+Font size for display of author name 
+ [<code class="code">string</code>]</td><td>14pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">biblSize</span>
+                     </td><td>
+Font size for bibliography
+ [<code class="code">string</code>]</td><td>16pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodyFont</span>
+                     </td><td>
+Default font for body
+ [<code class="code">string</code>]</td><td>Times</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodyMaster</span>
+                     </td><td>
+Default font size for body (without dimension)
+ [<code class="code">string</code>]</td><td>10</td></tr><tr><td>fo</td><td>
+                        <span class="hi">bodySize</span>
+                     </td><td>
+Calculation of normal body font size (add dimension)
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3686" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>pt<span class="element">&lt;/xsl:text&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">dateSize</span>
+                     </td><td>
+Font size for display of date
+ [<code class="code">string</code>]</td><td>14pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">divFont</span>
+                     </td><td>
+Font for section headings
+ [<code class="code">string</code>]</td><td>Times</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleColor</span>
+                     </td><td>
+Colour for display of &lt;eg&gt; blocks.
+ [<code class="code">string</code>]</td><td>black</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleBackgroundColor</span>
+                     </td><td>
+Colour for background display of &lt;eg&gt; blocks.
+ [<code class="code">string</code>]</td><td>gray</td></tr><tr><td>fo</td><td>
+                        <span class="hi">exampleSize</span>
+                     </td><td>
+Calculation of font size for examples (add dimension)
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3768" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.6</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>pt<span class="element">&lt;/xsl:text&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">quoteSize</span>
+                     </td><td>
+Calculation of font size for quotations
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3791" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.9</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>pt<span class="element">&lt;/xsl:text&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">footnoteSize</span>
+                     </td><td>
+Font size for footnotes
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3813" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.8</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">footnotenumSize</span>
+                     </td><td>
+Font size for footnote numbers
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3833" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.7</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">giColor</span>
+                     </td><td>
+Colour for display of element names
+ [<code class="code">string</code>]</td><td>black</td></tr><tr><td>fo</td><td>
+                        <span class="hi">headingOutdent</span>
+                     </td><td>
+Indentation of headings
+ [<code class="code">string</code>]</td><td>0em</td></tr><tr><td>fo</td><td>
+                        <span class="hi">hyphenate</span>
+                     </td><td>
+Hyphenate text
+ [<code class="code">boolean</code>]</td><td>true</td></tr><tr><td>fo</td><td>
+                        <span class="hi">identColor</span>
+                     </td><td>
+Colour for display of &lt;ident&gt; values
+    Customization parameter.
+ [<code class="code">string</code>]</td><td>black</td></tr><tr><td>fo</td><td>
+                        <span class="hi">runFont</span>
+                     </td><td>
+Font family for running header and footer
+ [<code class="code">string</code>]</td><td>sans-serif</td></tr><tr><td>fo</td><td>
+                        <span class="hi">runSize</span>
+                     </td><td>
+Font size for running header and footer
+ [<code class="code">string</code>]</td><td>9pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">sansFont</span>
+                     </td><td>
+Sans-serif font
+ [<code class="code">string</code>]</td><td>Helvetica</td></tr><tr><td>fo</td><td>
+                        <span class="hi">smallSize</span>
+                     </td><td>
+Calculation of small font size (add dimension)
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3959" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.9</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>pt<span class="element">&lt;/xsl:text&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">tableSize</span>
+                     </td><td>
+Create font size for tables, by reference to $bodyMaster
+ [<code class="code">string</code>]</td><td></td></tr><tr><td colspan="4">
+                        <div id="index.xml-egXML-d27e3981" class="pre egXML_valid"><span class="element">&lt;xsl:value-of
+  select="<span class="attributevalue">$bodyMaster * 0.9</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>pt<span class="element">&lt;/xsl:text&gt;</span></div>
+                     </td></tr><tr><td>fo</td><td>
+                        <span class="hi">titleSize</span>
+                     </td><td>
+Font size for display of title
+ [<code class="code">string</code>]</td><td>16pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">tocSize</span>
+                     </td><td>
+Font size for TOC heading
+ [<code class="code">string</code>]</td><td>16pt</td></tr><tr><td>fo</td><td>
+                        <span class="hi">typewriterFont</span>
+                     </td><td>
+Font for literal code
+ [<code class="code">string</code>]</td><td>Courier</td></tr><tr><td>latex</td><td>
+                        <span class="hi">typewriterFont</span>
+                     </td><td>Font for literal code [<code class="code">string</code>]</td><td>DejaVu Sans Mono</td></tr><tr><td>latex</td><td>
+                        <span class="hi">sansFont</span>
+                     </td><td>Font for sans-serif [<code class="code">string</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">romanFont</span>
+                     </td><td>Font for serif [<code class="code">string</code>]</td><td></td></tr><tr><td>latex</td><td>
+                        <span class="hi">gothicFont</span>
+                     </td><td>Font for gothic [<code class="code">string</code>]</td><td>Lucida Blackletter</td></tr><tr><td>latex</td><td>
+                        <span class="hi">calligraphicFont</span>
+                     </td><td>Font for calligraphic [<code class="code">string</code>]</td><td>Lucida Calligraphy</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.13_div.2"><h3><span class="headingNumber">13.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl><dl><dt id="index.xml-item-d27e4116"><span id="index.xml-label-d27e4111">
+                     <span class="hi">divXRefHeading</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] How to display section headings in a cross-reference section title
+      <div id="index.xml-egXML-d27e4118" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">head</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>
+ <span class="element">&lt;xsl:apply-templates mode="<span class="attributevalue">section</span>" select="<span class="attributevalue">tei:head</span>"/&gt;</span>
+<span class="element">&lt;/xsl:param&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span> (<span class="element">&lt;/xsl:text&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">normalize-space($head)</span>"/&gt;</span>
+<span class="element">&lt;xsl:text&gt;</span>)<span class="element">&lt;/xsl:text&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4132"><span id="index.xml-label-d27e4127">
+                     <span class="hi">linkStyle</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of links<div id="index.xml-egXML-d27e4134" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-decoration</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>underline<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4143"><span id="index.xml-label-d27e4138">
+                     <span class="hi">setupDiv0</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for chapters (level 0)<div id="index.xml-egXML-d27e4145" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>18pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-weight</span>"&gt;</span>bold<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>6pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>12pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4164"><span id="index.xml-label-d27e4159">
+                     <span class="hi">setupDiv1</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for 1st level sections<div id="index.xml-egXML-d27e4166" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>14pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-weight</span>"&gt;</span>bold<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>3pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>9pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4185"><span id="index.xml-label-d27e4180">
+                     <span class="hi">setupDiv2</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for 2nd level sections <div id="index.xml-egXML-d27e4187" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>12pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-weight</span>"&gt;</span>bold<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>2pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>4pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4209"><span id="index.xml-label-d27e4203">
+                     <span class="hi">setupDiv3</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo]Set attributes for display of heading for 3rd level sections <div id="index.xml-egXML-d27e4211" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>10pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>0pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>4pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4230"><span id="index.xml-label-d27e4225">
+                     <span class="hi">setupDiv4</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for 4th level sections <div id="index.xml-egXML-d27e4232" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>10pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>0pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>4pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4251"><span id="index.xml-label-d27e4246">
+                     <span class="hi">setupDiv5</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for 5th level sections <div id="index.xml-egXML-d27e4253" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>10pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>0pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>4pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4272"><span id="index.xml-label-d27e4267">
+                     <span class="hi">setupDiv6</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Set attributes for display of heading for 6th level sections <div id="index.xml-egXML-d27e4274" class="pre egXML_valid"><span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-size</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;</span>10pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-align</span>"&gt;</span>left<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">font-style</span>"&gt;</span>italic<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-after</span>"&gt;</span>0pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">space-before.optimum</span>"&gt;</span>4pt<span class="element">&lt;/xsl:attribute&gt;</span>
+<span class="element">&lt;xsl:attribute name="<span class="attributevalue">text-indent</span>"&gt;</span>
+ <span class="element">&lt;xsl:value-of select="<span class="attributevalue">$headingOutdent</span>"/&gt;</span>
+<span class="element">&lt;/xsl:attribute&gt;</span></div>
+                  </dd><dt id="index.xml-item-d27e4293"><span id="index.xml-label-d27e4288">
+                     <span class="hi">showXrefURL</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] How to display the link text of a &lt;ptr&gt;the URL being linked to
+      <div id="index.xml-egXML-d27e4295" class="pre egXML_valid"><span class="element">&lt;xsl:param name="<span class="attributevalue">dest</span>"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"/&gt;</span>
+<span class="element">&lt;xsl:value-of select="<span class="attributevalue">$dest</span>"/&gt;</span></div>
+                  </dd></dl><dl></dl></div></div><div class="teidiv0" id="hook"><h2><span class="headingNumber">14. </span><span class="head">Hooks</span></h2><p>A set of templates which are empty by default; they can be used
+to add code at strategic points. The content must be valid XSLT.</p><div class="teidiv1" id="index.xml-body.1_div.14_div.1"><h3><span class="headingNumber">14.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.14_div.2"><h3><span class="headingNumber">14.2. </span><span class="head">Templates</span></h3><dl><dt id="index.xml-item-d27e4327"><span id="index.xml-label-d27e4322">
+                     <span class="hi">sectionHeadHook</span>
+                  </span></dt><dd>
+	     (for common)
+	     [common] Hook where actions can be inserted when making
+     a heading</dd></dl><dl><dt id="index.xml-item-d27e4335"><span id="index.xml-label-d27e4330">
+                     <span class="hi">bodyHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted just after &lt;body&gt;</dd><dt id="index.xml-item-d27e4342"><span id="index.xml-label-d27e4337">
+                     <span class="hi">bodyEndHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	          [html] Hook where HTML can be inserted just before the
+    &lt;body&gt; ends.
+         This can be used to add a page-wide footer block.
+      </dd><dt id="index.xml-item-d27e4349"><span id="index.xml-label-d27e4344">
+                     <span class="hi">bodyJavascriptHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where Javascript calls can be inserted  just after &lt;body&gt;</dd><dt id="index.xml-item-d27e4356"><span id="index.xml-label-d27e4351">
+                     <span class="hi">cssHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	          [html] Hook where extra CSS can be inserted
+           
+      </dd><dt id="index.xml-item-d27e4363"><span id="index.xml-label-d27e4358">
+                     <span class="hi">headHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	          [html] Hook where code can be added to the HTML &lt;head&gt;.
+         This would be used to insert &lt;meta&gt; tags.
+      </dd><dt id="index.xml-item-d27e4371"><span id="index.xml-label-d27e4365">
+                     <span class="hi">imgHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted when creating an &lt;img&gt;</dd><dt id="index.xml-item-d27e4378"><span id="index.xml-label-d27e4373">
+                     <span class="hi">figureHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted when processing a
+    figure</dd><dt id="index.xml-item-d27e4385"><span id="index.xml-label-d27e4380">
+                     <span class="hi">javascriptHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where extra Javascript functions can be defined</dd><dt id="index.xml-item-d27e4392"><span id="index.xml-label-d27e4387">
+                     <span class="hi">preAddressHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted just before the &lt;address&gt;</dd><dt id="index.xml-item-d27e4399"><span id="index.xml-label-d27e4394">
+                     <span class="hi">startDivHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted at the start of
+    processing each section</dd><dt id="index.xml-item-d27e4406"><span id="index.xml-label-d27e4401">
+                     <span class="hi">startHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted at the beginning
+    of the main text, after the header</dd><dt id="index.xml-item-d27e4414"><span id="index.xml-label-d27e4409">
+                     <span class="hi">teiEndHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted after processing &lt;TEI&gt;</dd><dt id="index.xml-item-d27e4421"><span id="index.xml-label-d27e4416">
+                     <span class="hi">teiStartHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted before processing &lt;TEI&gt;</dd><dt id="index.xml-item-d27e4428"><span id="index.xml-label-d27e4423">
+                     <span class="hi">xrefHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hook where HTML can be inserted when creating an
+    &lt;a&gt; element</dd><dt id="index.xml-item-d27e4435"><span id="index.xml-label-d27e4430">
+                     <span class="hi">egXMLStartHook</span>
+                  </span></dt><dd>
+	     (for xhtml)
+	     [html] Hooks where HTML can be inserted when processing
+    &lt;egXML&gt; element</dd></dl><dl><dt id="index.xml-item-d27e4443"><span id="index.xml-label-d27e4438">
+                     <span class="hi">afterBodyHook</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Hook where extra material can be inserted after the
+    &lt;body&gt; has been processed</dd><dt id="index.xml-item-d27e4450"><span id="index.xml-label-d27e4445">
+                     <span class="hi">blockStartHook</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Hook where work can be done at the start of each block</dd><dt id="index.xml-item-d27e4457"><span id="index.xml-label-d27e4452">
+                     <span class="hi">pageMasterHook</span>
+                  </span></dt><dd>
+	     (for fo)
+	     [fo] Hook where extra page masters can be defined</dd></dl><dl><dt id="index.xml-item-d27e4465"><span id="index.xml-label-d27e4460">
+                     <span class="hi">beginDocumentHook</span>
+                  </span></dt><dd>
+	     (for latex)
+	     [latex] Hook where LaTeX commands can be inserted after 
+the beginning of the document</dd><dt id="index.xml-item-d27e4472"><span id="index.xml-label-d27e4467">
+                     <span class="hi">latexSetupHook</span>
+                  </span></dt><dd>
+	     (for latex)
+	     [latex] Hook where LaTeX commands can be at start of setup</dd><dt id="index.xml-item-d27e4479"><span id="index.xml-label-d27e4474">
+                     <span class="hi">latexPreambleHook</span>
+                  </span></dt><dd>
+	     (for latex)
+	     [latex] Hook where LaTeX commands can be inserted in the
+    preamble before the beginning of the document</dd></dl></div></div><div class="teidiv0" id="misc"><h2><span class="headingNumber">15. </span><span class="head">Miscellaneous and advanced</span></h2><p>Finally, some miscellaneous or advanced features which you probably won't
+use much.</p><div class="teidiv1" id="index.xml-body.1_div.15_div.1"><h3><span class="headingNumber">15.1. </span><span class="head">Variables</span></h3><div class="table"><table class="table rules" rules="all" border="1"><tr class="label"><td>Type</td><td>Name</td><td>Description</td><td>Default</td></tr><tr><td></td><td>
+                        <span class="hi">teixslHome</span>
+                     </td><td> The home page for these stylesheets [<code class="code">anyURI</code>]</td><td>http://www.tei-c.org/Stylesheets/</td></tr><tr><td></td><td>
+                        <span class="hi">teiP4Compat</span>
+                     </td><td> Process elements according to assumptions
+    of TEI P4 [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">useHeaderFrontMatter</span>
+                     </td><td> Title, author and date is taken from the
+    &lt;teiHeader&gt; rather than looked for in the front matter [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td></td><td>
+                        <span class="hi">useFixedDate</span>
+                     </td><td>Whether to attempt to work out a current date (set to true
+    for test results which won't differ [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">generateParagraphIDs</span>
+                     </td><td>Generate a unique ID for all paragraphs [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">rendSeparator</span>
+                     </td><td>     Character separating values in a rend attribute.
+         Some projects use multiple values in rend
+         attributes. These are handled, but the separator character(s)
+         must be specified.
+       [<code class="code">string</code>]</td><td>; </td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">showTitleAuthor</span>
+                     </td><td>Show a title and author at start of document [<code class="code">boolean</code>]</td><td>false</td></tr><tr><td>xhtml</td><td>
+                        <span class="hi">verbose</span>
+                     </td><td>Be talkative while working. [<code class="code">boolean</code>]</td><td>false</td></tr></table></div></div><div class="teidiv1" id="index.xml-body.1_div.15_div.2"><h3><span class="headingNumber">15.2. </span><span class="head">Templates</span></h3><dl></dl><dl></dl></div></div><div class="stdfooter"><div class="footer"><a class="plain" href="http://www.tei-c.org/">Parent Institution</a> | <a class="plain" href="http://www.tei-c.org/">TEI</a>| <a class="plain" href="http://www.google.com">Search</a> | <a class="plain" href="mailto:feedback">Feedback</a></div><address> Sebastian Rahtz.
+      Date: 2012-04-15<br />This page is copyrighted<!--
+	  Generated from index.xml using an XSLT version 2.0 stylesheet
+	  based on http://www.tei-c.org/Stylesheets/
+	  processed using SAXON 9.3.0.4 from Saxonica
+	  on 2012-04-15T13:47:13Z--></address></div></body></html>
