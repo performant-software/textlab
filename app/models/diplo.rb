@@ -23,7 +23,7 @@ class Diplo < ActiveRecord::Base
     # String xhtml = publisher.transformTeiDocument(tei, XslUrl);  
     doc   = Saxon.XML(tei_document)
     xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
-    self.html_content = xslt.transform(doc)
+    diplo.html_content = xslt.transform(doc)
       
     # diplo.extract_leaf( html_document )
     diplo.save!

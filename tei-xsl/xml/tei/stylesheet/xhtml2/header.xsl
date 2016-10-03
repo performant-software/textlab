@@ -54,9 +54,10 @@ of this software, even if advised of the possibility of such damage.
    </doc>
 
   <xsl:key name="ALL-EXTRENDITION" match="@rendition[not(starts-with(.,'#'))]" use="1"/>
+  <xsl:key name="RENDITION" match="@rendition[not(starts-with(.,'#'))]" use="1"/>
   <xsl:key name="EXTRENDITION"     match="@rendition[not(starts-with(.,'#'))]" use="."/>
   <xsl:key name="ALL-LOCALRENDITION" match="tei:rendition" use='1'/>
-
+  
   <doc xmlns="http://www.oxygenxml.com/ns/doc/xsl">
       <desc>Process element teiHeader</desc>
    </doc>

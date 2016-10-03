@@ -6,8 +6,8 @@
     version="2.0">
     <!-- import base conversion style -->
 
-    <xsl:import href="../xhtml2/tei.xsl"/>
-    <xsl:import href="textstructure.xsl"/>
+    <xsl:import href="tei-xsl/xml/tei/stylesheet/xhtml2/tei.xsl"/>
+    <xsl:import href="tei-xsl/xml/tei/stylesheet/html5/textstructure.xsl"/>
     <!--<xsl:output method="xml" omit-xml-declaration="yes" doctype-system="about:legacy-compat" />-->
     <xsl:output method="html" omit-xml-declaration="yes" doctype-system="about:legacy-compat" />
     <xsl:param name="outputTarget">html5</xsl:param>
