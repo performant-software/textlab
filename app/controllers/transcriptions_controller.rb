@@ -14,6 +14,12 @@ class TranscriptionsController < ApplicationController
       format.html {
         @transcription.diplo.destroy if !@transcription.diplo.nil?
         @transcription.diplo = Diplo.create_diplo!( @transcription )
+        
+        if @transcription.diplo.nil?
+          render 'no_leaf'
+          return
+        end 
+        
         @transcription.save!
         @diplo_html = @transcription.diplo.html_content     
         

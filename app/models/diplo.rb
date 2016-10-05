@@ -21,14 +21,25 @@ class Diplo < ActiveRecord::Base
     xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
     xhtml = xslt.transform(doc).to_s    
     
+    return nil if !xhtml
+    
     # extract: <span class="ab"> .. <div class="stdfooter"> or notes or pb
     start_match = xhtml.match(/<span class=\"ab\">/)
-    end_match = xhtml.match(/<div class="(stdfooter|notes|pb)">/)
-    start_pos = start_match.begin(0)
-    length = end_match.begin(0) - start_pos    
-    diplo.html_content = xhtml.slice(start_pos,length)
-    diplo.save!
-    diplo
+    
+    if start_match
+      end_match = xhtml.match(/<div class="(stdfooter|notes|pb)">/)
+      if end_match
+        start_pos = start_match.begin(0)
+        length = end_match.begin(0) - start_pos    
+        diplo.html_content = xhtml.slice(start_pos,length)
+        diplo.save!
+        diplo
+      else
+        return nil
+      end
+    else
+      return nil
+    end    
   end
 
   def create_tei_document()
@@ -195,15 +206,6 @@ class Diplo < ActiveRecord::Base
     
   end
 
-
-  def extract_leaf( tei_document )
-    
-    
-    self.transcription.leaf.xml_id
-    
-
-      
-  end
 
   def validate_tei( tei, xsd_url )
     #
