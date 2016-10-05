@@ -13,7 +13,7 @@
   
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap-sprockets
+// require bootstrap-sprockets
 //= require underscore
 //= require backbone
   

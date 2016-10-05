@@ -18,7 +18,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
     this.fixAdds();
     this.fixErasures();
     this.fixStrikethroughs();
-    this.fixLinebreaks();
+    // this.fixLinebreaks();
   },
   
   // Positioning of metamark elements
@@ -54,8 +54,9 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
    * Add tooltip type stuff for app/rdg tags
    */
   addAppTips : function() {
+    var $el = this.$el;
      this.$('.app').each(function(i) {
-        $('body').append('<div class="apparatustip" id="apparatustip' + i + '"><div class="tipheader">Other Readings</div></div>');
+        $el.append('<div class="apparatustip" id="apparatustip' + i + '"><div class="tipheader">Other Readings</div></div>');
         var tip = $('#apparatustip' + i);
 
         $(this).find('.alternate').each(function(j) {
@@ -99,8 +100,9 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
    * Add tooltip type stuff for overwritten text (subst tags) tags
    */
   addSubstTips : function() {
+    var $el = this.$el
      this.$('.del').parents('.subst').find('.add').each(function(i) {
-        $('body').append('<div class="substtip diplomaticstyle" id="substtip' + i + '"><div class="tipheader">Altered Text</div></div>');
+        $el.append('<div class="substtip diplomaticstyle" id="substtip' + i + '"><div class="tipheader">Altered Text</div></div>');
         var tip = $('#substtip' + i);
         $(this).addClass('highlight-subst');
         $(this).parents('.subst').find('.del').each(function(j) {
