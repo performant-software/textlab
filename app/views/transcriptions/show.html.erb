@@ -27,11 +27,10 @@
 
 <script>
 
-// Global settings for the app from the server
-var LeafSettings = {
-  
-  tileSource: '<%= @transcription.leaf.tile_source %>'
-  
-};
+  // application main
+  $(document).ready(function() {
+    var leafViewer = new TextLab.LeafViewer({ el: $('#leaf-viewer'), model: <%=raw @leaf.to_json %> } );
+    leafViewer.render();  
+  });
 
 </script>

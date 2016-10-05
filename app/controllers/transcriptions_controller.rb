@@ -15,7 +15,19 @@ class TranscriptionsController < ApplicationController
         @transcription.diplo.destroy if !@transcription.diplo.nil?
         @transcription.diplo = Diplo.create_diplo!( @transcription )
         @transcription.save!
-        @diplo_html = @transcription.diplo.html_content      
+        @diplo_html = @transcription.diplo.html_content     
+        
+        unless @transcription.leaf.nil?
+          @leaf = { 
+            zones: @transcription.leaf.zones.map { |zone| zone.obj },
+            tile_source: @transcription.leaf.tile_source          
+          }
+        else
+          @leaf = { 
+            zones: [],
+            tile_source: nil
+          }
+        end
       }
       format.json { render json: @transcription.obj }
     end
