@@ -12,10 +12,9 @@ class TranscriptionsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        if @transcription.diplo.nil?
-          @transcription.diplo = Diplo.create_diplo!( @transcription )
-          @transcription.save!
-        end
+        @transcription.diplo.destroy if !@transcription.diplo.nil?
+        @transcription.diplo = Diplo.create_diplo!( @transcription )
+        @transcription.save!
         @diplo_html = @transcription.diplo.html_content      
       }
       format.json { render json: @transcription.obj }
