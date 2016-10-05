@@ -1,6 +1,12 @@
 TextLab.DiplomaticPanel = Backbone.View.extend({
       
   id: 'diplomatic-panel',
+  
+  syncScroll : true,
+  lastScrollPosition : 0,
+  maxScrollPosition : 0,
+  imagePanel : null,
+  marginBuffer : 2,
 
   render: function() {
     this.fixMetamark();
@@ -381,7 +387,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
      tmp.style.display = 'inline-block';
      tmp.style.cssText = "line-height:1em;";
      tmp.innerHTML = el.innerHTML;
-     var dip = document.getElementById('diplomatictext');
+     var dip = this.el;
      tmp = dip.appendChild(tmp);
      tmp.hidden = true;
      tmp.hidden = false;
@@ -421,7 +427,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
         //if (!$(s[i]).parents('.above').length && !$(s[i]).parents('.below').length) {
         var theEl = s[i];
         var size = this.getSpanDimensions(s[i]);
-        if (s[i].innerHTML.search("—") > -1 && $.browser.mozilla) {
+        if (s[i].innerHTML.search("—") > -1 /*&& $.browser.mozilla*/) {
            size.x = size.x - 17;
         }
         var newStyle = "left:-" + (size.x / 2) + "px;" + "top:" + 17 + "px;" + "margin-right:" + ((size.x - this.marginBuffer) * -1) + "px;";
@@ -475,7 +481,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
         //if (!$(s[i]).parents('.above').length && !$(s[i]).parents('.below').length) {
         var theEl = s[i];
         var size = this.getSpanDimensions(s[i]);
-        if (s[i].innerHTML.search("—") > -1 && $.browser.mozilla) {
+        if (s[i].innerHTML.search("—") > -1 /* && $.browser.mozilla */) {
            size.x = size.x - 17;
         }
         var newStyle = "left:-" + (size.x / 2) + "px;" + "top:" + 17 + "px;" + "margin-right:" + ((size.x - this.marginBuffer) * -1) + "px;";
@@ -492,7 +498,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
      for (var i = 0; i < s.length; i++) {
         var theEl = s[i];
         var size = this.getSpanDimensions(s[i]);
-        if (s[i].innerHTML.search("—") > -1 && $.browser.mozilla) {
+        if (s[i].innerHTML.search("—") > -1 /*&& $.browser.mozilla*/) {
            size.x = size.x - 17;
         }
         var newStyle = "left:-" + (size.x / 2) + "px;" + "top:" + 17 + "px;" + "margin-right:" + ((size.x - this.marginBuffer) * -1) + "px;";
@@ -523,7 +529,8 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
               el.hidden = true;
               el.hidden = false;
               // force browser to paint???
-              return this.checkOverlap(el);
+              // TODO fix
+              // return this.checkOverlap(el);
            }
         }
      }
