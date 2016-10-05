@@ -11,7 +11,8 @@ TextLab.XMLEditor = Backbone.View.extend({
   events: {
     'click .lb-mode-button': 'onClicklbMode',
     'click .tag-menu-item': 'onClickTagMenuItem',
-    'click .zone-link': 'onClickZoneLink'
+    'click .zone-link': 'onClickZoneLink',
+    'click .preview-button': 'onClickPreview'
   },
   
 	autoSaveDelay: 1000,
@@ -60,6 +61,10 @@ TextLab.XMLEditor = Backbone.View.extend({
     }    
     this.editor.focus();
     return false;
+  },
+  
+  onClickPreview: function() {
+    window.open("/transcriptions/"+this.model.id,'_blank');
   },
   
   onEnter: function() {

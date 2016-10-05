@@ -11,7 +11,13 @@ class TranscriptionsController < ApplicationController
   # GET /transcriptions/1.json
   def show
     respond_to do |format|
-      format.html
+      format.html {
+        if @transcription.diplo.nil?
+          @transcription.diplo = Diplo.create_diplo!( @transcription )
+          @transcription.save!
+        end
+        @diplo_html = @transcription.diplo.html_content      
+      }
       format.json { render json: @transcription.obj }
     end
   end
