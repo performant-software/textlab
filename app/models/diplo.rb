@@ -22,7 +22,7 @@ class Diplo < ActiveRecord::Base
     xhtml = xslt.transform(doc).to_s    
     
     # extract this div: <div class="pb" facs="#img_25">
-    start_match = xhtml.match(/<div class=\"pb\" facs="#img_\d+">/)
+    start_match = xhtml.match(/<span class=\"ab\">/)
     end_match = xhtml.match(/<div class="stdfooter">/)
     start_pos = start_match.begin(0)
     length = end_match.begin(0) - start_pos    
