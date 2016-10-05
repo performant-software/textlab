@@ -64,7 +64,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickPreview: function() {
-    window.open("/transcriptions/"+this.model.id+"?refresh=true",'_blank');
+    window.open("/transcriptions/"+this.model.id,'_blank');
   },
   
   onEnter: function() {
