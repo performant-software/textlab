@@ -16,6 +16,7 @@
 // require bootstrap-sprockets
 //= require underscore
 //= require backbone
+//= require_tree ./lib
   
 //= require_tree ./public
   

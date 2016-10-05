@@ -5,7 +5,7 @@ var TextLab = {};
 // application main
 $(document).ready(function() {
 
-  var diplomaticPanel = new TextLab.DiplomaticPanel({ el: $('#diplomatic-panel') } );
-  diplomaticPanel.render();
+  var leafViewer = new TextLab.LeafViewer({ el: $('#leaf-viewer'), tileSource: LeafSettings.tileSource } );
+  leafViewer.render();
   
 });

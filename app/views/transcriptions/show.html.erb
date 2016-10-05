@@ -1,4 +1,7 @@
-<div class='published-transcription'>
+<div id='leaf-viewer'>
+  
+  <div id='openseadragon'></div>
+    
   <div id='diplomatic-panel' class='tei-document'>
     <div class='textfromleaf diplomaticstyle'>
       <div id='v-margin-top'>
@@ -18,4 +21,17 @@
       </div>
     </div>
   </div>
+
 </div>
+
+
+<script>
+
+// Global settings for the app from the server
+var LeafSettings = {
+  
+  tileSource: '<%= @transcription.leaf.tile_source %>'
+  
+};
+
+</script>
