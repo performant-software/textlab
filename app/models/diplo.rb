@@ -21,9 +21,9 @@ class Diplo < ActiveRecord::Base
     xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
     xhtml = xslt.transform(doc).to_s    
     
-    # extract this div: <div class="pb" facs="#img_25">
+    # extract: <span class="ab"> .. <div class="stdfooter"> or notes or pb
     start_match = xhtml.match(/<span class=\"ab\">/)
-    end_match = xhtml.match(/<div class="stdfooter">/)
+    end_match = xhtml.match(/<div class="(stdfooter|notes|pb)">/)
     start_pos = start_match.begin(0)
     length = end_match.begin(0) - start_pos    
     diplo.html_content = xhtml.slice(start_pos,length)

@@ -285,6 +285,8 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
         }
         //console.log($(this).height())
      });
+     
+     var $el = this.$el;
 
      convertToRolloverMargin = function(el) {
         var html = $(el).html();
@@ -326,7 +328,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
 
         var elLeft;
         var elTop;
-        var elContent = $('#leafrightContent');
+        var elContent = $el;
 
         if ($(el).hasClass('add-margin-bottom')) {
            elLeft = elContent.offset().left + (elContent.width() / 2);
