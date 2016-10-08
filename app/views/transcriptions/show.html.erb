@@ -1,27 +1,29 @@
 <div id='leaf-viewer'>
   
-  <div id='openseadragon'></div>
+  <div class="row">
+    <div class="col-md-5" id='openseadragon'></div>
     
-  <div id='diplomatic-panel' class='tei-document'>
-    <div class='textfromleaf diplomaticstyle'>
-      <div id='v-margin-top'>
-        <div class='left-margin'></div>
-        <div class='center-margin'></div>
-        <div class='right-margin'></div>
-      </div>
-      <div id='h-margin-left'></div>
-      <div class='centerleaf'>
-        <%=raw @diplo_html %>
-      </div>
-      <div id='h-margin-right'></div>
-      <div id='v-margin-bottom'>
-        <div class='left-margin'></div>
-        <div class='center-margin'></div>
-        <div class='right-margin'></div>        
+    <div id='diplomatic-panel' class='tei-document col-md-5'>
+      <div class='textfromleaf diplomaticstyle'>
+        <div id='v-margin-top'>
+          <div class='left-margin'></div>
+          <div class='center-margin'></div>
+          <div class='right-margin'></div>
+        </div>
+        <div id='h-margin-left'></div>
+        <div class='centerleaf'>
+          <%=raw @diplo_html %>
+        </div>
+        <div id='h-margin-right'></div>
+        <div id='v-margin-bottom'>
+          <div class='left-margin'></div>
+          <div class='center-margin'></div>
+          <div class='right-margin'></div>        
+        </div>
       </div>
     </div>
+    
   </div>
-
 </div>
 
 

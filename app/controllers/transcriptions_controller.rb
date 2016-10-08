@@ -22,6 +22,7 @@ class TranscriptionsController < ApplicationController
         
         @transcription.save!
         @diplo_html = @transcription.diplo.html_content     
+        @title = @transcription.document.name
         
         unless @transcription.leaf.nil?
           @leaf = { 
@@ -34,6 +35,8 @@ class TranscriptionsController < ApplicationController
             tile_source: nil
           }
         end
+        
+        render layout: 'tl_viewer'
       }
       format.json { render json: @transcription.obj }
     end

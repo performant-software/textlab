@@ -18,7 +18,16 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
     this.fixAdds();
     this.fixErasures();
     this.fixStrikethroughs();
+    this.fixCarets();
     // this.fixLinebreaks();
+  },
+  
+  fixCarets: function() {
+    // since we don't use caret class for formatting, remove it. conflicts with Twitter Bootstrap
+    var spans = this.$('span');
+    _.each( spans, function( span ) {
+      $(span).removeClass('caret');
+    });    
   },
   
   // Positioning of metamark elements

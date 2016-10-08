@@ -1,10 +1,7 @@
 TextLab.LeafViewer = Backbone.View.extend({
       
   id: 'leaf-viewer',
-  
-  dashPattern: [50, 10],
-  unSelectedOpacity: 0.25,
-  
+    
   initialize: function() {
     _.bindAll(this,'onMouseOverRevision', 'onMouseOutRevision');
   },
@@ -35,15 +32,8 @@ TextLab.LeafViewer = Backbone.View.extend({
     var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
       return (item.data.zone && item.data.zone.zone_label == zoneLabel );
     });
-       
-    var zoneChildren = zoneGroup.children;
     
-    if( !zoneGroup.visible && state ) {
-      zoneGroup.visible = true;
-    }
-    
-    zoneChildren['zoneRect'].opacity = 1.0
-
+    zoneGroup.visible = true;
     paper.view.draw(); 
   },
   
@@ -53,16 +43,8 @@ TextLab.LeafViewer = Backbone.View.extend({
       return (item.data.zone && item.data.zone.zone_label == zoneLabel );
     });
        
-    var zoneChildren = zoneGroup.children;
-    
-    if( !zoneGroup.visible && state ) {
-      zoneGroup.visible = true;
-    }
-    
-    zoneChildren['zoneRect'].opacity = this.unSelectedOpacity;
-
-    paper.view.draw(); 
-    
+    zoneGroup.visible = false;
+    paper.view.draw();     
   },
   
   getTileSource: function( callback ) {
@@ -94,9 +76,7 @@ TextLab.LeafViewer = Backbone.View.extend({
 
     zoneItem.strokeColor = 'blue';
     zoneItem.strokeWidth = 12;
-    zoneItem.opacity = this.unSelectedOpacity;
     zoneItem.name = 'zoneRect';
-
 
     // resize handles
     var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
@@ -126,7 +106,8 @@ TextLab.LeafViewer = Backbone.View.extend({
     var zoneGroup = new paper.Group([zoneItem, resizeHandles, deleteButton ]);
     zoneGroup.zoneGroup = true;
     zoneGroup.data.zone = zone;
-
+    zoneGroup.visible = false;
+    
     return zoneGroup;
   },
   
