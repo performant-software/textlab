@@ -5,10 +5,49 @@ TextLab.LeafViewer = Backbone.View.extend({
   dashPattern: [50, 10],
   unSelectedOpacity: 0.25,
   
+  initialize: function() {
+    _.bindAll(this,'onMouseOverRevision');
+  },
+  
   render: function() {
     var diplomaticPanel = new TextLab.DiplomaticPanel({ el: this.$('#diplomatic-panel') } );
     diplomaticPanel.render();
     this.initViewer();
+    
+    // set up mouse enter handlers for all the revision sites 
+    var spans = diplomaticPanel.$('span');
+    _.each(spans, function(span) {
+      var $span = $(span);
+      var facs = $span.attr('facs');
+      if( facs ) {
+        // zone label is last 4 chars 
+        var zoneLabel = facs.slice( facs.length-4 );
+        $span.mouseenter( _.partial( this.onMouseOverRevision, zoneLabel ) );
+      }
+    },this);    
+    
+  },
+  
+  onMouseOverRevision: function( zoneLabel ) {
+    this.toggleHighlight( zoneLabel, true );
+  },
+  
+  toggleHighlight: function( zoneLabel, state ) { 
+    
+    // go through the items until we find the zone group for this zone
+    var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
+      return (item.data.zone && item.data.zone.zone_label == zoneLabel );
+    });
+       
+    var zoneChildren = zoneGroup.children;
+    
+    if( !zoneGroup.visible && state ) {
+      zoneGroup.visible = true;
+    }
+    
+    zoneChildren['zoneRect'].opacity = state ? 1.0 : this.unSelectedOpacity;
+
+    paper.view.draw(); 
   },
   
   getTileSource: function( callback ) {
@@ -38,30 +77,11 @@ TextLab.LeafViewer = Backbone.View.extend({
     var zoneItem = new paper.Path.Rectangle(from, to);
     var zoneBounds = zoneItem.bounds;
 
-    var zoneLinks = [];
-
     zoneItem.strokeColor = 'blue';
     zoneItem.strokeWidth = 12;
-    if( zoneLinks.length == 0 ) {
-      zoneItem.dashArray = this.dashPattern;
-    }
     zoneItem.opacity = this.unSelectedOpacity;
     zoneItem.name = 'zoneRect';
 
-    // zone id label
-    var labelPosition = new paper.Point(zoneBounds.right - 120, zoneBounds.bottom - 25 );
-    var text = new paper.PointText(labelPosition);
-    text.fontSize = 48;
-    text.fillColor = 'white';
-    var zoneLabel = zone.zone_label;
-    text.content = zoneLabel ? zoneLabel : '';
-    text.name = "zoneID";
-
-    // backdrop behind label
-    var backdrop = new paper.Path.Rectangle(text.bounds);
-    backdrop.fillColor = 'blue';
-    backdrop.opacity = this.unSelectedOpacity;
-    backdrop.name = 'backdrop';
 
     // resize handles
     var topHandle = new paper.Path.Circle(zoneBounds.topCenter, 30);
@@ -88,7 +108,7 @@ TextLab.LeafViewer = Backbone.View.extend({
     deleteButton.data.deleteButton = true;
 
     // zone group
-    var zoneGroup = new paper.Group([zoneItem, resizeHandles, deleteButton, backdrop, text ]);
+    var zoneGroup = new paper.Group([zoneItem, resizeHandles, deleteButton ]);
     zoneGroup.zoneGroup = true;
     zoneGroup.data.zone = zone;
 
