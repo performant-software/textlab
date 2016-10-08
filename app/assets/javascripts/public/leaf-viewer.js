@@ -6,7 +6,7 @@ TextLab.LeafViewer = Backbone.View.extend({
   unSelectedOpacity: 0.25,
   
   initialize: function() {
-    _.bindAll(this,'onMouseOverRevision');
+    _.bindAll(this,'onMouseOverRevision', 'onMouseOutRevision');
   },
   
   render: function() {
@@ -23,17 +23,14 @@ TextLab.LeafViewer = Backbone.View.extend({
         // zone label is last 4 chars 
         var zoneLabel = facs.slice( facs.length-4 );
         $span.mouseenter( _.partial( this.onMouseOverRevision, zoneLabel ) );
+        $span.mouseleave( _.partial( this.onMouseOutRevision, zoneLabel ) );
       }
     },this);    
     
   },
   
   onMouseOverRevision: function( zoneLabel ) {
-    this.toggleHighlight( zoneLabel, true );
-  },
-  
-  toggleHighlight: function( zoneLabel, state ) { 
-    
+        
     // go through the items until we find the zone group for this zone
     var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
       return (item.data.zone && item.data.zone.zone_label == zoneLabel );
@@ -45,9 +42,27 @@ TextLab.LeafViewer = Backbone.View.extend({
       zoneGroup.visible = true;
     }
     
-    zoneChildren['zoneRect'].opacity = state ? 1.0 : this.unSelectedOpacity;
+    zoneChildren['zoneRect'].opacity = 1.0
 
     paper.view.draw(); 
+  },
+  
+  onMouseOutRevision: function( zoneLabel ) {
+    // go through the items until we find the zone group for this zone
+    var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
+      return (item.data.zone && item.data.zone.zone_label == zoneLabel );
+    });
+       
+    var zoneChildren = zoneGroup.children;
+    
+    if( !zoneGroup.visible && state ) {
+      zoneGroup.visible = true;
+    }
+    
+    zoneChildren['zoneRect'].opacity = this.unSelectedOpacity;
+
+    paper.view.draw(); 
+    
   },
   
   getTileSource: function( callback ) {
