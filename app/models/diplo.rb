@@ -11,18 +11,53 @@ class Diplo < ActiveRecord::Base
     
     tei_document = diplo.create_tei_document()
 
-    # TODO make sure it is valid
-    # String xsdUrl = getServletContext().getResource(
-    #     "/tei-xsl/xml/tei/stylesheet/xsd/tei_all.xsd").toString();
-    # publisher.validateTeiDocument(tei, xsdUrl);
-    #
+    syntax_errors = self.validate_tei( tei_document )  
 
-    doc   = Saxon.XML(tei_document)
-    xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
-    xhtml = xslt.transform(doc).to_s    
+    if syntax_errors and syntax_errors.length > 0
+      diplo.error = true
+      diplo.html_content = "<ul>"
+      syntax_errors.each { |error|
+        diplo.html_content << "<li>#{error}</li>"      
+      }
+      diplo.html_content << "</ul>"
+    else
+      doc   = Saxon.XML(tei_document)    
+      xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
+      xhtml = xslt.transform(doc).to_s    
+      diplo.html_content = self.get_page(xhtml)
+      diplo.error = false
+    end
     
-    return nil if !xhtml
-    
+    diplo.save!
+    diplo        
+  end
+
+  def create_tei_document()
+   tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
+   tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"
+   tei_xml << "<teiHeader><fileDesc>
+              <titleStmt>
+              <title>one</title>
+              </titleStmt>
+              <publicationStmt>
+              <publisher/>
+              <pubPlace/>
+              <date/>
+              <authority/>
+              <availability>
+              <p/>
+              </availability>
+              </publicationStmt>
+              <sourceDesc>
+              <p/>
+              </sourceDesc>
+              </fileDesc></teiHeader>\n"
+   tei_xml <<  "<text><body>\n#{self.transcription.content}\n</body></text>\n"
+   tei_xml << "</TEI>"
+   tei_xml
+  end
+  
+  def self.get_page( xhtml )
     # extract: <span class="ab"> .. <div class="stdfooter"> or notes or pb
     start_match = xhtml.match(/<span class=\"ab\">/)
     
@@ -31,55 +66,18 @@ class Diplo < ActiveRecord::Base
       if end_match
         start_pos = start_match.begin(0)
         length = end_match.begin(0) - start_pos    
-        diplo.html_content = xhtml.slice(start_pos,length)
-        diplo.save!
-        diplo
-      else
-        return nil
+        return xhtml.slice(start_pos,length)
       end
-    else
-      return nil
-    end    
+    end        
+    
+    return nil
   end
 
-  def create_tei_document()
-   tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
-   tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"
-   tei_xml << "<teiHeader></teiHeader>\n"
-   tei_xml <<  "<facsimile></facsimile>\n"
-   tei_xml <<  "<text><body>\n#{self.transcription.content}\n</body></text>\n"
-   tei_xml << "</TEI>"
-   tei_xml
+  def self.validate_tei( tei_document )
+    xsd = Nokogiri::XML::Schema(File.read("tei-xsl/xml/tei/stylesheet/xsd/tei_all.xsd"))
+    doc = Nokogiri::XML(tei_document)
+    return xsd.validate(doc)
   end
-  
-
-  def validate_tei( tei, xsd_url )
-    #
-    #
-    # public void validateTeiDocument(String tei, String xsdUrl) throws MalformedURLException, SAXParseException, IOException {
-    #       Source xml = new StreamSource(new StringReader(tei));
-    #       URL schemaFile = new URL(xsdUrl);
-    #       SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-    #       Schema schema;
-    #       try {
-    #           schema = schemaFactory.newSchema(schemaFile);
-    #       } catch (SAXException e1) {
-    #           throw new IOException("Unable to load XSD: " + e1.toString(), e1);
-    #       }
-    #       Validator validator = schema.newValidator();
-    #
-    #       try {
-    #           validator.validate(xml);
-    #       } catch (SAXParseException e) {
-    #           // catch and rethrow the sax parse exception. it has more readable
-    #           // details as to why the validation failed.
-    #           throw e;
-    #       } catch (SAXException e) {
-    #           throw new IOException("Validation Failed", e);
-    #       }
-    #   }
-  end
-
     
   def obj
     { 

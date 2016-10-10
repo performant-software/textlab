@@ -15,6 +15,7 @@ gem 'exception_notification'
 gem 'devise'
 gem 'devise-encryptable'
 gem 'saxon-xslt', '~> 0.7.2'
+gem 'nokogiri'
 
 # Asset Pipeline
 gem 'sass-rails', '~> 5.0'

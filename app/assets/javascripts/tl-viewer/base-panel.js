@@ -2,14 +2,10 @@ TextLab.BasePanel = Backbone.View.extend({
       
   id: 'base-panel',
   
-
   render: function() {    
     this.deleteDels();
-    // add the adds
-    
     this.fixCarets();
   },
-  
   
   fixCarets: function() {
     // since we don't use caret class for formatting, remove it. conflicts with Twitter Bootstrap
@@ -25,10 +21,7 @@ TextLab.BasePanel = Backbone.View.extend({
     _.each( delSpans, function(delSpan) {
       $(delSpan).detach();  
     })    
-  },
-  
-
-
+  }
 
 });
 

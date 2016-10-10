@@ -216,6 +216,7 @@ DEPENDENCIES
   jquery-ui-rails
   jquery-ui-sass-rails
   less-rails
+  nokogiri
   puma
   rails (= 4.2.4)
   rails-backbone

@@ -20,6 +20,12 @@ class TranscriptionsController < ApplicationController
           return
         end 
         
+        if @transcription.diplo.error
+          @error_message = @transcription.diplo.html_content     
+          render 'error', layout: 'tl_viewer'
+          return
+        end
+        
         @transcription.save!
         @diplo_html = @transcription.diplo.html_content     
         @title = @transcription.document.name

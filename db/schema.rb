@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160930125819) do
+ActiveRecord::Schema.define(version: 20161010204333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160930125819) do
   create_table "diplos", force: :cascade do |t|
     t.integer "transcription_id"
     t.text    "html_content"
+    t.boolean "error"
   end
 
   create_table "document_nodes", force: :cascade do |t|
