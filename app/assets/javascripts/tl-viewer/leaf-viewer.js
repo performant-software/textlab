@@ -13,6 +13,10 @@ TextLab.LeafViewer = Backbone.View.extend({
   render: function() {
     var diplomaticPanel = new TextLab.DiplomaticPanel({ el: this.$('#diplomatic-panel') } );
     diplomaticPanel.render();
+
+    var basePanel = new TextLab.BasePanel({ el: this.$('#base-panel') } );
+    basePanel.render();
+    
     this.initViewer();
     
     // set up mouse enter handlers for all the revision sites 
@@ -28,6 +32,7 @@ TextLab.LeafViewer = Backbone.View.extend({
       }
     },this);    
     
+    this.displayTabPane( 'diplo-pane' );    
   },
   
   onSelectTab: function(event) {
@@ -35,10 +40,10 @@ TextLab.LeafViewer = Backbone.View.extend({
     var targetTab = $(event.currentTarget);
     var tabTargetID = targetTab.attr("data-tab");
     targetTab.tab('show');
-    this.diplayTabPane( tabTargetID );    
+    this.displayTabPane( tabTargetID );    
   },
     
-  diplayTabPane: function( tabID ) {    
+  displayTabPane: function( tabID ) {    
     this.$(".tab-pane").hide();
     this.$("#"+tabID).show();
   },

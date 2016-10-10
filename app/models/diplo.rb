@@ -41,11 +41,6 @@ class Diplo < ActiveRecord::Base
       return nil
     end    
   end
-  
-  def base_html
-    
-    
-  end
 
   def create_tei_document()
    tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
