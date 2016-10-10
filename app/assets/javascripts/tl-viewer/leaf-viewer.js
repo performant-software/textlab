@@ -1,7 +1,11 @@
 TextLab.LeafViewer = Backbone.View.extend({
       
   id: 'leaf-viewer',
-    
+  
+  events: {
+    "click .tab-button": 'onSelectTab'
+  },
+      
   initialize: function() {
     _.bindAll(this,'onMouseOverRevision', 'onMouseOutRevision');
   },
@@ -24,6 +28,19 @@ TextLab.LeafViewer = Backbone.View.extend({
       }
     },this);    
     
+  },
+  
+  onSelectTab: function(event) {
+    // var currentTab = this.$('.active');
+    var targetTab = $(event.currentTarget);
+    var tabTargetID = targetTab.attr("data-tab");
+    targetTab.tab('show');
+    this.diplayTabPane( tabTargetID );    
+  },
+    
+  diplayTabPane: function( tabID ) {    
+    this.$(".tab-pane").hide();
+    this.$("#"+tabID).show();
   },
   
   onMouseOverRevision: function( zoneLabel ) {

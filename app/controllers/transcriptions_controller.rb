@@ -22,6 +22,7 @@ class TranscriptionsController < ApplicationController
         
         @transcription.save!
         @diplo_html = @transcription.diplo.html_content     
+        @base_html = @transcription.diplo.base_html
         @title = @transcription.document.name
         
         unless @transcription.leaf.nil?

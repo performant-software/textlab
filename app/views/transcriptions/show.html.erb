@@ -2,25 +2,18 @@
   
   <div class="row">
     <div class="col-md-5" id='openseadragon'></div>
-    
-    <div id='diplomatic-panel' class='tei-document col-md-5'>
-      <div class='textfromleaf diplomaticstyle'>
-        <div id='v-margin-top'>
-          <div class='left-margin'></div>
-          <div class='center-margin'></div>
-          <div class='right-margin'></div>
-        </div>
-        <div id='h-margin-left'></div>
-        <div class='centerleaf'>
-          <%=raw @diplo_html %>
-        </div>
-        <div id='h-margin-right'></div>
-        <div id='v-margin-bottom'>
-          <div class='left-margin'></div>
-          <div class='center-margin'></div>
-          <div class='right-margin'></div>        
-        </div>
+
+    <div class="col-md-5">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#" class='tab-button' data-tab='diplo-pane'>Diplomatic</a></li>
+        <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
+      </ul>
+      <div class='tab-pane' id="diplo-pane">
+        <%= render partial: 'diplo' %>
       </div>
+      <div class='tab-pane' id="base-pane">
+        <%= render partial: 'base' %>
+      </div>      
     </div>
     
   </div>
