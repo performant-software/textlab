@@ -21,7 +21,8 @@ class TranscriptionsController < ApplicationController
         end 
         
         if @transcription.diplo.error
-          @error_message = @transcription.diplo.html_content     
+          @error_message = @transcription.diplo.html_content   
+          @name = @transcription.name  
           render 'error', layout: 'tl_viewer'
           return
         end

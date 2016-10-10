@@ -1,5 +1,6 @@
-<h3>Error Parsing Leaf</h3>
+<div id="error-list">
+  <h3>Error Parsing Transcription</h3>
+  <p>The following errors were encountered when validating the transcription <b><%= @name %></b> against TEI p5:</p>
+  <%=raw @error_message %>
+</div>
 
-<p>The following errors were encountered when validating this leaf against TEI p5:</p>
-
-<%=raw @error_message %>
