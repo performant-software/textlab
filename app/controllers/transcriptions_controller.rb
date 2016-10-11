@@ -94,6 +94,6 @@ class TranscriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transcription_params
-      params.permit( :name, :content, :shared, :submitted, :leaf_id, :document_id, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      params.permit( :name, :content, :shared, :submitted, :published, :leaf_id, :document_id, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
     end
 end

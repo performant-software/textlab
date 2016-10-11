@@ -12,7 +12,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .lb-mode-button': 'onClicklbMode',
     'click .tag-menu-item': 'onClickTagMenuItem',
     'click .zone-link': 'onClickZoneLink',
-    'click .preview-button': 'onClickPreview'
+    'click .preview-button': 'onClickPreview',
+    'click .publish-button': 'onClickPublish'
   },
   
 	autoSaveDelay: 1000,
@@ -23,6 +24,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.lbTag = TextLab.Tags['lb'];
     this.lbEnabled = false;
     this.leaf = options.leaf;
+    this.tabbedEditor = options.tabbedEditor;
   },
   
   onClickTagMenuItem: function(event) {
@@ -65,6 +67,10 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   onClickPreview: function() {
     window.open("/transcriptions/"+this.model.id,'_blank');
+  },
+  
+  onClickPublish: function() {
+    this.tabbedEditor.starTranscription( this.model.id );
   },
   
   onEnter: function() {

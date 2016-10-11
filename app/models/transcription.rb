@@ -47,7 +47,8 @@ class Transcription < ActiveRecord::Base
       content: self.content,
       zone_links: zoneLinksJSON,
       shared: self.shared,
-      submitted: self.submitted
+      submitted: self.submitted,
+      published: self.published
     }
   end
     

@@ -34,7 +34,10 @@
       overflow-x: hidden;
   }    
   
-  .preview-button {
+  .actions {
+    button {
+      margin-left: 5px;
+    }
     float: right;
   }
 }

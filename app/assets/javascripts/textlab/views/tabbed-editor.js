@@ -25,6 +25,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
      
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
       this.collection = transcriptions;
+      this.collection.models = _.sortBy( this.collection.models, function(t) { t.get('name') });
       
       // if there are no transcriptions, create a blank one
       if(this.collection.models.length == 0) {
@@ -59,7 +60,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       name: 'untitled',
       document_id: documentID, 
       shared: false, 
-      submitted: false 
+      submitted: false,
+      published: false 
     });
     this.collection.add( transcription );
     return transcription;
@@ -103,6 +105,24 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.resizeActivePanel();
   },
   
+  starTranscription: function( transcriptionID ) {
+    _.each( this.tabs, function( tab ) {
+      tab.transcription.set('published', ( tab.transcription.id == transcriptionID ));
+      tab.xmlEditor.save( _.bind( function() {
+        this.updateTabStar(tab);        
+      }, this));
+    }, this);
+  },
+  
+  updateTabStar: function(tab) {
+    var starEl = this.$("#"+tab.id+" i");  
+    if( tab.transcription.get('published') ) {
+      starEl.addClass('fa fa-star');
+    } else {
+      starEl.removeClass('fa fa-star');
+    }    
+  },
+    
   closeTab: function(tab) {
     tab.xmlEditor.save( _.bind( function() {
 
@@ -124,12 +144,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
     
   openXMLEditorTab: function(transcription) {    
-    var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model });
+    var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model, tabbedEditor: this });
     xmlEditor.render();
 
     var tab = { 
       id: 'tab-'+transcription.cid, 
       name: transcription.get('name'),
+      star: transcription.get('published'),
       xmlEditor: xmlEditor,
       transcription: transcription
     };
