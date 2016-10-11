@@ -13,7 +13,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .tag-menu-item': 'onClickTagMenuItem',
     'click .zone-link': 'onClickZoneLink',
     'click .preview-button': 'onClickPreview',
-    'click .publish-button': 'onClickPublish'
+    'click .publish-button': 'onClickPublish',
+    'click .unpublish-button': 'onClickUnPublish'
   },
   
 	autoSaveDelay: 1000,
@@ -71,6 +72,21 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   onClickPublish: function() {
     this.tabbedEditor.starTranscription( this.model.id );
+    
+  },
+  
+  onClickUnPublish: function() {
+    this.tabbedEditor.unStarTranscription( this.model.id );
+  },
+  
+  togglePublishButton: function( buttonState ) {
+    if( buttonState ) {
+      this.$('.unpublish-button').addClass('hidden');
+      this.$('.publish-button').removeClass('hidden');
+    } else {
+      this.$('.publish-button').addClass('hidden');
+      this.$('.unpublish-button').removeClass('hidden');
+    }
   },
   
   onEnter: function() {
@@ -233,7 +249,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
       
   render: function() {      
-    this.$el.html(this.template({ tags: _.keys( TextLab.Tags ) })); 
+    this.$el.html(this.template({ tags: _.keys( TextLab.Tags ), published: this.model.get('published') })); 
   },
   
   initEditor: function() {

@@ -114,12 +114,22 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this);
   },
   
+  unStarTranscription: function( transcriptionID ) {
+    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcriptionID } );
+    tab.transcription.set('published', false );
+    tab.xmlEditor.save( _.bind( function() {
+      this.updateTabStar(tab);        
+    }, this));    
+  },
+  
   updateTabStar: function(tab) {
     var starEl = this.$("#"+tab.id+" i");  
     if( tab.transcription.get('published') ) {
       starEl.addClass('fa fa-star');
+      tab.xmlEditor.togglePublishButton(false);
     } else {
       starEl.removeClass('fa fa-star');
+      tab.xmlEditor.togglePublishButton(true);
     }    
   },
     
