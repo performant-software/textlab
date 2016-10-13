@@ -34,6 +34,12 @@ class Document < ActiveRecord::Base
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end
   
+  def child_sections
+    self.root_node.child_nodes.order(:position).map { |child_node|  
+      child_node.document_section
+    }.compact
+  end
+  
   def team_list_obj( membership )
     {
       id: self.id,

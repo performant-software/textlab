@@ -4,7 +4,16 @@ class DocumentSectionsController < ApplicationController
 
   # GET /document_sections/1.json
   def show
-    render json: @document_section.obj.to_json
+    respond_to do |format|
+      format.html {
+        if @document_section.document.published 
+          render layout: 'tl_viewer'
+        else
+          render 'not_published', layout: 'tl_viewer'
+        end
+      }
+      format.json { render json: @document_section.obj }
+    end
   end
 
   # POST /document_sections.json
