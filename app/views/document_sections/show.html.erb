@@ -1,3 +1,15 @@
-<h2><%= @document_section.name %></h2>
+<div id="section-viewer">
+  <h2><%= @document_section.name %></h2>
 
+  <%=raw @document_section.base_html %>
+</div>
 
+<script>
+
+  // application main
+  $(document).ready(function() {
+    var sectionViewer = new TextLab.SectionViewer({ el: $('#section-viewer') } );
+    sectionViewer.render();  
+  });
+
+</script>
