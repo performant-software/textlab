@@ -1,11 +1,14 @@
 TextLab.EditSettingsDialog = Backbone.View.extend({
     
 	template: JST['textlab/templates/edit-settings-dialog'],
+  publishURLTemplate: _.template( "<%= loc.protocol %>//<%= loc.hostname %><%= (loc.port==null||loc.port==80) ? '' : ':'+loc.port %>/documents/<%= id %>.html" ),
+  fieldTitleTemplate: _.template( "Publish project to: <a target='_blank' href='<%= publishURL %>'><%= publishURL %></a>." ),
   
   id: 'settings-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input']
+		stringInput: JST['textlab/templates/common/string-input'],
+    checkMark: JST['textlab/templates/common/check-mark']
 	},
   
   events: {
@@ -21,7 +24,8 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
     this.close( _.bind( function() {
       this.model.set({
         name: this.$('#name').val(),
-        description: this.$('#description').val() 
+        description: this.$('#description').val(),
+        published: this.$('#published').is(":checked")
       });
       this.callback(this.model);
     }, this));
@@ -45,7 +49,11 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials }));    
+
+    var publishURL = this.publishURLTemplate( { loc: window.location, id: this.model.id } );
+    var publishFieldTitle = this.fieldTitleTemplate( { publishURL: publishURL } );
+    
+    this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials, publishFieldTitle: publishFieldTitle }));    
     
     this.membersPanel = new TextLab.MembersPanel( { collection: this.model.members } );    
     this.membersPanel.render();

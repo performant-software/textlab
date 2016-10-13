@@ -10,7 +10,16 @@ class DocumentsController < ApplicationController
 
   # GET /documents/1.json
   def show
-    render json: @document.obj(current_user.id).to_json
+    respond_to do |format|
+      format.html {
+        if @document.published 
+          render layout: 'tl_viewer'
+        else
+          render 'not_published', layout: 'tl_viewer'
+        end
+      }
+      format.json { render json: @document.obj(current_user.id) }
+    end
   end
 
   # POST /documents.json
@@ -50,6 +59,6 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.permit( :name, :description )
+    params.permit( :name, :description, :published )
   end
 end

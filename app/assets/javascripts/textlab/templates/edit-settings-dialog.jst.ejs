@@ -6,6 +6,14 @@
         <h4 class="modal-title" id="settingsModal">Edit Project Settings</h4>
       </div>
       <div class="modal-body">
+        <h4>Publishing Settings</h4>
+        <%= partials.checkMark( { 
+          field_name: 'published', 
+          field_title: publishFieldTitle,
+          field_value: document.published, 
+          error: false 
+        }) %>
+        
         <h4>General Settings</h4>
         <%= partials.stringInput( { 
           field_name: 'name', 

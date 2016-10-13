@@ -51,7 +51,8 @@ class Document < ActiveRecord::Base
       id: self.id,
       name: self.name,
       description: self.description,
-      owner: true
+      owner: true,
+      published: self.published
     }
   end
   
@@ -69,7 +70,8 @@ class Document < ActiveRecord::Base
       sections: sectionsJSON,
       document_nodes: nodesJSON,
       members: membersJSON,
-      owner: self.is_owner?(current_user_id)
+      owner: self.is_owner?(current_user_id),
+      published: self.published
     }
   end
   
