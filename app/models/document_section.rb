@@ -8,8 +8,9 @@ class DocumentSection < ActiveRecord::Base
     document_node.child_nodes.order(:position).each { |child_node|  
       if !child_node.leaf.nil?
         child_node.leaf.transcriptions.each { |transcription|
-          if transcription.published and !transcription.diplo.nil?
-            base_content << transcription.diplo.html_content
+          if transcription.published
+            transcription.diplo = Diplo.create_diplo!( transcription )    
+            base_content << transcription.diplo.html_content if transcription.diplo and !transcription.diplo.error
           end        
         }        
       end 
