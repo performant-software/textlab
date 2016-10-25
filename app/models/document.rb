@@ -30,6 +30,14 @@ class Document < ActiveRecord::Base
     ( !self.user_id.nil? && self.user_id == current_user_id )
   end
   
+  def is_member?(current_user_id)
+    self.memberships.where( user_id: current_user_id ).length > 0  
+  end  
+  
+  def can_view?(current_user)
+    self.published || (!current_user.nil? && ( self.is_owner?(current_user.id) || self.is_member?(current_user.id) ))
+  end
+  
   def root_node
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end

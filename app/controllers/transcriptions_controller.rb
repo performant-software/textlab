@@ -1,6 +1,6 @@
 class TranscriptionsController < ApplicationController
   before_action :set_transcription, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
 
   def index
     # get the transcriptions for a given leaf for current user
@@ -10,6 +10,11 @@ class TranscriptionsController < ApplicationController
 
   # GET /transcriptions/1.json
   def show
+    unless @transcription.document.can_view?( current_user )
+      redirect_to root_url 
+      return
+    end
+    
     respond_to do |format|
       format.html {
         @transcription.diplo.destroy if !@transcription.diplo.nil?

@@ -15,11 +15,12 @@
         <% } %>
         <p class="description"><%= document.description %></p>
       </div>
-      <% if( document.owner ) { %> 
         <div class='actions'>
-          <button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button>        
+          <a href="/documents/<%= document.id %>.html" target="_blank" class="btn btn-sm btn-default">View</a>
+          <% if( document.owner ) { %> 
+            <button class="btn btn-sm btn-danger delete-document-button" data-doc-id="<%= document.id %>">Delete</button>
+          <% } %>
         </div>
-      <% } %>
       
       <% if( !document.owner && !document.accepted ) { %>
         <div class='actions'>

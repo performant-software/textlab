@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   before_action :set_document, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
 
   # GET /documents.json
   def index
@@ -12,7 +12,7 @@ class DocumentsController < ApplicationController
   def show
     respond_to do |format|
       format.html {
-        if @document.published 
+        if @document.can_view?( current_user )
           render layout: 'tl_viewer'
         else
           render 'not_published', layout: 'tl_viewer'

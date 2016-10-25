@@ -1,17 +1,18 @@
 class DocumentSectionsController < ApplicationController
   before_action :set_document_section, only: [:show, :update, :destroy]
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :show
 
   # GET /document_sections/1.json
   def show
+    unless @document_section.document.can_view?( current_user )
+      redirect_to root_url 
+      return
+    end
+    
     respond_to do |format|
       format.html {
-        if @document_section.document.published 
-          @subsections = @document_section.subsections
-          render layout: 'tl_viewer'
-        else
-          render 'not_published', layout: 'tl_viewer'
-        end
+        @subsections = @document_section.subsections
+        render layout: 'tl_viewer'
       }
       format.json { render json: @document_section.obj }
     end
