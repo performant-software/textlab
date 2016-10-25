@@ -19,6 +19,12 @@ class DocumentSection < ActiveRecord::Base
     base_content
   end
   
+  def subsections
+    document_node.child_nodes.order(:position).map { |child_node|  
+      child_node.document_section
+    }.compact
+  end
+  
   def thumb_html( leaf, transcription )
     # IIIF format {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}            
     thumb_url = "#{leaf.tile_source}/full/200,/0/default.jpg"          

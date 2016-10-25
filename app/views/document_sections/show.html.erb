@@ -3,10 +3,20 @@
     <h2><%= @document_section.name %></h2>
     <%=raw @document_section.base_html %>
   </div>
+
+  <% if @subsections.length > 0 %>
+    <div class="subsections">
+      <h3>Subsections</h2>
+      <ul>
+        <% @subsections.each { |subsection| %>
+          <li><%= link_to subsection.name, document_section_path(subsection) %></li>
+        <% } %>
+      </ul>
+    </div>
+  <% end %>
 </div>
 
 <script>
-
   // application main
   $(document).ready(function() {
     var sectionViewer = new TextLab.SectionViewer({ el: $('#section-viewer') } );

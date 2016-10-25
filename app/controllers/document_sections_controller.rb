@@ -7,6 +7,7 @@ class DocumentSectionsController < ApplicationController
     respond_to do |format|
       format.html {
         if @document_section.document.published 
+          @subsections = @document_section.subsections
           render layout: 'tl_viewer'
         else
           render 'not_published', layout: 'tl_viewer'
