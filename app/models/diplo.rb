@@ -24,7 +24,7 @@ class Diplo < ActiveRecord::Base
       doc   = Saxon.XML(tei_document)    
       xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
       xhtml = xslt.transform(doc).to_s    
-      diplo.html_content = self.get_page(xhtml)
+      diplo.html_content = self.get_page(xhtml, transcription.leaf.xml_id )
       diplo.error = false
     end
     
@@ -57,7 +57,7 @@ class Diplo < ActiveRecord::Base
    tei_xml
   end
   
-  def self.get_page( xhtml )
+  def self.get_page( xhtml, leaf_xml_id )
     # extract: <span class="ab"> .. <div class="stdfooter"> or notes or pb
     start_match = xhtml.match(/<span class=\"ab\">/)
     
@@ -66,7 +66,7 @@ class Diplo < ActiveRecord::Base
       if end_match
         start_pos = start_match.begin(0)
         length = end_match.begin(0) - start_pos    
-        return xhtml.slice(start_pos,length)
+        return "<div class='transcription' id='#{leaf_xml_id}'>#{xhtml.slice(start_pos,length)}"
       end
     end        
     

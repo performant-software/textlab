@@ -10,12 +10,20 @@ class DocumentSection < ActiveRecord::Base
         child_node.leaf.transcriptions.each { |transcription|
           if transcription.published
             transcription.diplo = Diplo.create_diplo!( transcription )    
+            base_content << thumb_html( child_node.leaf, transcription )
             base_content << transcription.diplo.html_content if transcription.diplo and !transcription.diplo.error
           end        
         }        
       end 
     }
     base_content
+  end
+  
+  def thumb_html( leaf, transcription )
+    # IIIF format {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}            
+    thumb_url = "#{leaf.tile_source}/full/200,/0/default.jpg"          
+    diplo_url = "/transcriptions/#{transcription.id}.html"
+    "<a href='#{diplo_url}'><img class='thumb' src='#{thumb_url}'/></a>"
   end
   
   def obj    
