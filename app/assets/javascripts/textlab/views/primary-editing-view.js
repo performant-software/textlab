@@ -80,7 +80,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     }
 
     var xmlEditorPanel = this.$("#xml-editor-panel");
-    this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf, parentPanel: xmlEditorPanel });
+    this.tabbedEditor = new TextLab.TabbedEditor({ model: this.selectedLeaf, parentPanel: xmlEditorPanel, projectOwner: this.model.get('owner') });
     this.tabbedEditor.render();
     this.$("#"+this.tabbedEditor.id).replaceWith(this.tabbedEditor.$el);
     

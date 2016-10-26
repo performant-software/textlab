@@ -17,6 +17,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
                 	
 	initialize: function(options) {
     this.parentPanel = options.parentPanel;
+    this.projectOwner = options.projectOwner;
     _.bindAll( this, "initTranscriptions" );
   },
   

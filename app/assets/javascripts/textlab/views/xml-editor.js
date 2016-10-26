@@ -307,7 +307,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       submitted: this.model.get('submitted'),
       readOnly: this.model.isReadOnly(),
       owner: this.model.get('owner'),
-      projectOwner: true
+      projectOwner: this.tabbedEditor.projectOwner
     })); 
   },
   
