@@ -24,6 +24,20 @@
     <button class='toolbar-button btn btn-sm btn-default preview-button' href='#' ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Preview</button>
     <button class='toolbar-button btn btn-sm btn-default publish-button <%= published ? 'hidden' : '' %>' href='#' ><i class="fa fa-star" aria-hidden="true"></i> Publish</button>
     <button class='toolbar-button btn btn-sm btn-default unpublish-button <%= published ? '' : 'hidden' %>' href='#' ><i class="fa fa-star-o" aria-hidden="true"></i> Unpublish</button>
+    
+    <div class="dropdown">
+      <button id="action-dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a class='submit-button <%= submitted ? 'hidden' : '' %>' href="#"><i class="fa fa-send" aria-hidden="true"></i> Submit</a></li>
+        <li><a class='return-button <%= submitted ? '' : 'hidden' %>' href="#"><i class="fa fa-send-o" aria-hidden="true"></i> Return to Transcriber</a></li>
+        <li><a class='share-button <%= shared ? 'hidden' : '' %>' href="#"><i class="fa fa-share-square" aria-hidden="true"></i> Share</a></li>
+        <li><a class='stop-sharing-button <%= shared ? '' : 'hidden' %>' href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i> Stop Sharing</a></li>
+        <li><a class='delete-button' href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>
+      </ul>
+    </div>
+
   </div>
   
 </div>

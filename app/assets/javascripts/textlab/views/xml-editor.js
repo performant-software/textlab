@@ -14,7 +14,12 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .zone-link': 'onClickZoneLink',
     'click .preview-button': 'onClickPreview',
     'click .publish-button': 'onClickPublish',
-    'click .unpublish-button': 'onClickUnPublish'
+    'click .unpublish-button': 'onClickUnPublish',
+    'click .share-button': 'onClickShare',
+    'click .stop-sharing-button': 'onClickStopSharing',
+    'click .submit-button': 'onClickSubmit',
+    'click .return-button': 'onClickReturn',
+    'click .delete-button': 'onClickDelete'
   },
   
 	autoSaveDelay: 1000,
@@ -77,6 +82,52 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   onClickUnPublish: function() {
     this.tabbedEditor.unStarTranscription( this.model.id );
+  },
+  
+  onClickShare: function() {
+    this.updateSharing( true );
+    return false;
+  },
+  
+  onClickStopSharing: function() {
+    this.updateSharing( false );
+    return false;
+  },
+  
+  updateSharing: function( shared ) {
+    this.$('#action-dropdown').dropdown('toggle');
+    this.model.set('shared', shared );
+    
+    this.save( _.bind( function() {
+      var shareButton = this.$('.share-button');
+      var stopShareButton = this.$('.stop-sharing-button');
+      
+      if( shared ) {
+        shareButton.addClass('hidden');
+        stopShareButton.removeClass('hidden');
+      } else {
+        stopShareButton.addClass('hidden');
+        shareButton.removeClass('hidden');
+      }      
+    }, this));    
+  },
+
+  onClickSubmit: function() {    
+    this.$('#action-dropdown').dropdown('toggle');
+    this.model.set('submitted', true );
+    return false;
+  },
+  
+  onClickReturn: function() {
+    this.$('#action-dropdown').dropdown('toggle');
+    this.model.set('submitted', false );
+    return false;
+  },
+
+  onClickDelete: function() {
+    this.$('#action-dropdown').dropdown('toggle');
+    // TODO delete it
+    return false;
   },
   
   togglePublishButton: function( buttonState ) {
@@ -249,7 +300,12 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
       
   render: function() {      
-    this.$el.html(this.template({ tags: _.keys( TextLab.Tags ), published: this.model.get('published') })); 
+    this.$el.html(this.template({ 
+      tags: _.keys( TextLab.Tags ), 
+      published: this.model.get('published'), 
+      shared: this.model.get('shared'),
+      submitted: this.model.get('submitted') 
+    })); 
   },
   
   initEditor: function() {

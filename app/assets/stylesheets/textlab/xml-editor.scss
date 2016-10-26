@@ -30,11 +30,13 @@
   
   .scrollable-menu {
       height: auto;
-      max-height: 250px;
+      max-height: 200px;
       overflow-x: hidden;
   }    
   
   .actions {
+    width: 220px;
+        
     button {
       margin-left: 5px;
     }
