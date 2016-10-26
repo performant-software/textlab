@@ -29,6 +29,23 @@ TextLab.Transcription = Backbone.Model.extend({
     return links;    
   },
   
+  isReadOnly: function() {
+    var owner = this.get('owner');
+    var shared = this.get('shared');
+    var submitted = this.get('submitted');    
+    var readOnly = false;
+    
+    if( shared && !owner ) {
+      readOnly = true;
+    }
+    
+    if( submitted && owner ) {
+      readOnly = true;
+    }  
+    
+    return readOnly;     
+  },
+  
   sync: function(method, model, options) {
     
     // add hook for afterLoad event that does something after the model has been loaded

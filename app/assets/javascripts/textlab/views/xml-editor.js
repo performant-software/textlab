@@ -304,17 +304,28 @@ TextLab.XMLEditor = Backbone.View.extend({
       tags: _.keys( TextLab.Tags ), 
       published: this.model.get('published'), 
       shared: this.model.get('shared'),
-      submitted: this.model.get('submitted') 
+      submitted: this.model.get('submitted'),
+      readOnly: this.model.isReadOnly(),
+      owner: this.model.get('owner'),
+      projectOwner: true
     })); 
   },
   
   initEditor: function() {
+    
+    var readOnly = this.model.isReadOnly();
     var editorEl = this.$("#codemirror").get(0);
 		this.editor = CodeMirror.fromTextArea( editorEl, {
         mode: "xml",
         lineNumbers: true,
-        lineWrapping: true
+        lineWrapping: true,
+        readOnly: readOnly
 		});    
+    
+    if( readOnly ) {
+      this.$(".CodeMirror").addClass('read-only');
+      this.$(".CodeMirror-gutters").addClass('read-only');
+    }
     
     var doc = this.editor.getDoc();    
     if( this.model && this.model.get('content')  ) {

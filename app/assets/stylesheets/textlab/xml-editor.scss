@@ -34,6 +34,16 @@
       overflow-x: hidden;
   }    
   
+  .read-only {
+    background: #DAECFB;
+  }
+  
+  .readonly-bar {
+    button {
+      float: right;
+    }
+  }
+  
   .actions {
     width: 220px;
         

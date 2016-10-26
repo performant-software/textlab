@@ -61,7 +61,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       document_id: documentID, 
       shared: false, 
       submitted: false,
-      published: false 
+      published: false,
+      owner: true
     });
     this.collection.add( transcription );
     return transcription;

@@ -7,8 +7,8 @@ class Transcription < ActiveRecord::Base
   has_one :diplo, dependent: :destroy
   
   def self.get_all( leaf_id, user_id )
-    transcriptions = Transcription.where( { leaf_id: leaf_id, user_id: user_id } )
-    transcriptions.map { |transcription| transcription.obj }        
+    transcriptions = Transcription.where( "leaf_id = ? and (shared = true or user_id = ?)", leaf_id, user_id )
+    transcriptions.map { |transcription| transcription.obj(user_id) }        
   end
 
   def zone_links_json=( proposed_zone_links )    
@@ -37,9 +37,10 @@ class Transcription < ActiveRecord::Base
     end
   end
   
-  def obj
+  def obj(current_user_id=nil)
     
     zoneLinksJSON = self.zone_links.map { |zone_link| zone_link.obj }
+    owner = ( current_user_id == self.user_id ) 
     
     {
       id: self.id,
@@ -48,7 +49,8 @@ class Transcription < ActiveRecord::Base
       zone_links: zoneLinksJSON,
       shared: self.shared,
       submitted: self.submitted,
-      published: self.published
+      published: self.published,
+      owner: owner
     }
   end
     
