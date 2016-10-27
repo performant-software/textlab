@@ -12,7 +12,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
   events: {
     'click .doc-tab': 'onSelectTab',
     'click .close-x': 'onClose',
-    'click .add-tab-button': 'onAddTab'
+    'click .new-tab-button': 'onNew',
+    'click .open-tab-button': 'onOpen'
   },
                 	
 	initialize: function(options) {
@@ -54,13 +55,38 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.closeTab(tab);
   },
   
-  onAddTab: function() {    
+  newTranscription: function() {  
+    var documentID = this.model.get('document_id');
+    var transcription = new TextLab.Transcription({ 
+      leaf_id: this.model.id, 
+      name: 'untitled',
+      document_id: documentID, 
+      shared: false, 
+      submitted: false,
+      published: false,
+      owner: true
+    });
+    this.collection.add( transcription );
+    return transcription;
+  },
+  
+  onNew: function() {    
+    // var onSelectCallback = _.bind( function(transcription) {
+    //   var tab = this.openXMLEditorTab(transcription);
+    //   this.selectTab(tab);
+    // }, this);
+    //
+    // var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, collection: this.collection, callback: onSelectCallback } );
+    // transcriptionDialog.render();
+  },
+  
+  onOpen: function() {    
     var onSelectCallback = _.bind( function(transcription) {
       var tab = this.openXMLEditorTab(transcription);
       this.selectTab(tab);
     }, this);  
     
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, collection: this.collection, callback: onSelectCallback } );
+    var transcriptionDialog = new TextLab.OpenTranscriptionDialog( { collection: this.collection, callback: onSelectCallback } );
     transcriptionDialog.render();   
   },
   
