@@ -1,4 +1,4 @@
-#transcription-modal-container {
+#transcription-dialog-container {
   
   .instructions {
     padding-top: 2px;
@@ -7,11 +7,15 @@
   }
   
   .modal-body {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   
   .control-label {
     padding-top: 8px;
+  }
+  
+  .field-wrapper {
+    margin-left: 10px;
   }
   
 }

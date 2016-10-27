@@ -5,7 +5,6 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   id: 'transcription-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input'],
     dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
   
@@ -63,8 +62,15 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   
   render: function() {
     
-    var transcriptions = _.map( this.collection.toJSON(), function(transcription) { return { text: transcription.name, value: transcription.id }; });
-    transcriptions = _.sortBy(transcriptions, function(opt) { return opt.text; } ); 
+    var transcriptions = _.map( this.collection.toJSON(), function(transcription) { 
+      return { 
+        id: transcription.id 
+        name: transcription.name,
+        owner: 'owner name' 
+      }; 
+    });
+      
+    transcriptions = _.sortBy(transcriptions, function(opt) { return opt.name; } ); 
     
     this.$el.html(this.template({ leafName: this.model.get('name'), transcriptions: transcriptions, partials: this.partials }));    
     $('#modal-container').html(this.$el);

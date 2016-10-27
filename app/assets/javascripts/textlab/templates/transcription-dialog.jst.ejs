@@ -6,23 +6,26 @@
         <h4 class="modal-title" id="transcriptionModal">Open Transcription for <%= leafName %></h4>
       </div>
       <div class="modal-body">
-        <%= partials.dropdownInput( { 
-          field_name: 'transcription', 
-          field_title: 'Transcriptions', 
-          field_value: '', 
-          field_instructions: 'Select an existing transcription.', 
-          no_blank: true,
-          options: transcriptions,
-          error: false 
-        }) %>
-      
+        <p>Enter a new to create a new transcription or select an existing transcription to open.</p>
+            
       <%= partials.stringInput( { 
         field_name: 'transcription-name', 
-        field_title: "Name",
+        field_title: "New Name",
         field_value: '', 
-        field_instructions: "OR, enter a name for a new transcription.",
+        field_instructions: "Enter a name to create a new transcription.",
         error: false 
       }) %>
+      
+      <%= partials.dropdownInput( { 
+        field_name: 'transcription', 
+        field_title: 'Transcriptions', 
+        field_value: '', 
+        field_instructions: 'Select an existing transcription.', 
+        no_blank: true,
+        options: transcriptions,
+        error: false 
+      }) %>
+      
       </div>
       
       <div class="modal-footer">
