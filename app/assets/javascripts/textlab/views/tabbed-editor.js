@@ -71,13 +71,14 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   onNew: function() {    
-    // var onSelectCallback = _.bind( function(transcription) {
-    //   var tab = this.openXMLEditorTab(transcription);
-    //   this.selectTab(tab);
-    // }, this);
-    //
-    // var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, collection: this.collection, callback: onSelectCallback } );
-    // transcriptionDialog.render();
+    var onCreateCallback = _.bind(function(transcription) {
+      var tab = this.openXMLEditorTab(transcription);
+      this.selectTab(tab);
+    }, this);  
+    
+    var transcription = this.newTranscription();
+    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: transcription, callback: onCreateCallback } );
+    transcriptionDialog.render();   
   },
   
   onOpen: function() {    

@@ -1,0 +1,23 @@
+<div class="modal fade" id="transcription-modal" tabindex="-1" role="dialog" aria-labelledby="transcriptionModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="transcriptionModal"><%= (mode=='edit'? 'Edit' : 'New') %> Section</h4>
+      </div>
+      <div class="modal-body">
+        <%= partials.stringInput( { 
+          field_name: 'name', 
+          field_title: "Name",
+          field_value: transcription.get('name'), 
+          field_instructions: "Please enter a name for this transcription.",
+          error: false 
+        }) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary ok-button">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
