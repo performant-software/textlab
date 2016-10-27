@@ -50,7 +50,7 @@ class TranscriptionsController < ApplicationController
         
         render layout: 'tl_viewer'
       }
-      format.json { render json: @transcription.obj }
+      format.json { render json: @transcription.obj(current_user.id) }
     end
   end
 
@@ -60,7 +60,7 @@ class TranscriptionsController < ApplicationController
     @transcription.user = current_user
 
     if @transcription.save
-      render json: @transcription.obj
+      render json: @transcription.obj(current_user.id) 
     else
       render json: @transcription.errors, status: :unprocessable_entity
     end
@@ -76,7 +76,7 @@ class TranscriptionsController < ApplicationController
     end
     
     if @transcription.update(transcription_params)
-      render json: @transcription.obj
+      render json: @transcription.obj(current_user.id) 
     else
       render json: @transcription.errors, status: :unprocessable_entity
     end

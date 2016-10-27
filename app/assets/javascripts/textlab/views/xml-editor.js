@@ -19,6 +19,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .stop-sharing-button': 'onClickStopSharing',
     'click .submit-button': 'onClickSubmit',
     'click .return-button': 'onClickReturn',
+    'click .rename-button': 'onClickRename',
     'click .delete-button': 'onClickDelete'
   },
   
@@ -122,6 +123,18 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('submitted', false );
     return false;
+  },
+  
+  onClickRename: function() {
+    var onUpdateCallback = _.bind(function() {
+      this.save( _.bind( function() {
+        this.tabbedEditor.renameTranscription( this.model.id, this.model.get('name'));        
+      }, this));
+    }, this);  
+    
+    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
+    transcriptionDialog.render();    
+    return false;   
   },
 
   onClickDelete: function() {

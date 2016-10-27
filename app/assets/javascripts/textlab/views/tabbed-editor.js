@@ -4,6 +4,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
   
   id: 'tabbed-editor',
   
+  maxStartingTabs: 3,
+  
 	partials: {
 		tab: JST['textlab/templates/common/tab'],
 		tabPane: JST['textlab/templates/common/tab-pane']
@@ -144,6 +146,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this));    
   },
   
+  renameTranscription: function( transcriptionID, newName ) {
+    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcriptionID } );
+    var nameSpan = this.$("#"+tab.id+' .name');
+    nameSpan.html(newName);
+  },
+  
   updateTabStar: function(tab) {
     var starEl = this.$("#"+tab.id+" i");  
     if( tab.transcription.get('published') ) {
@@ -213,7 +221,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.$el.html(this.template()); 
     
     this.initTranscriptions( _.bind( function() {
-      _.each( this.collection.models, function( transcription ) {
+      _.each( _.first( this.collection.models, this.maxStartingTabs), function( transcription ) {
         this.openXMLEditorTab(transcription);
       }, this);
       
