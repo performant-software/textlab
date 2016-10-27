@@ -15,11 +15,14 @@ TextLab.OpenTranscriptionDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.callback = options.callback;
+    this.transcriptions = options.transcriptions;
   },
   
   onOK: function() {    
+    var transcriptionID = $('#transcription').val();    
+
     this.close( _.bind( function() {
-      
+      var transcription = _.find( this.transcriptions, function( t ) { return (t.id == transcriptionID); });
       this.callback(transcription);
     }, this));
   },
@@ -43,16 +46,16 @@ TextLab.OpenTranscriptionDialog = Backbone.View.extend({
   
   render: function() {
     
-    var transcriptions = _.map( this.collection.models, function(transcription) { 
+    var dropDownList = _.map( this.transcriptions, function(transcription) { 
       return { 
         value: transcription.id, 
         text: transcription.get('name'),
       }; 
     });
       
-    transcriptions = _.sortBy(transcriptions, function(opt) { return opt.name; } ); 
+    dropDownList = _.sortBy(dropDownList, function(opt) { return opt.text; } ); 
     
-    this.$el.html(this.template({ transcriptions: transcriptions, partials: this.partials }));    
+    this.$el.html(this.template({ transcriptions: dropDownList, partials: this.partials }));    
     $('#modal-container').html(this.$el);
     $('#open-transcription-modal').modal('show');
   } 

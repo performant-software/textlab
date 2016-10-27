@@ -86,7 +86,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
       this.selectTab(tab);
     }, this);  
     
-    var transcriptionDialog = new TextLab.OpenTranscriptionDialog( { collection: this.collection, callback: onSelectCallback } );
+    // make a list of the unopened transcriptions
+    var transcriptions = this.collection.models;
+    var openTranscriptions = _.map( this.tabs, function( tab ) { return tab.transcription } );
+    var availableTranscriptions = _.difference( transcriptions, openTranscriptions );
+    
+    var transcriptionDialog = new TextLab.OpenTranscriptionDialog( { transcriptions: availableTranscriptions, callback: onSelectCallback } );
     transcriptionDialog.render();   
   },
   
