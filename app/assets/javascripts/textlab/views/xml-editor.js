@@ -114,12 +114,14 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
 
   onClickSubmit: function() {    
+    // TODO
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('submitted', true );
     return false;
   },
   
   onClickReturn: function() {
+    // TODO
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('submitted', false );
     return false;
