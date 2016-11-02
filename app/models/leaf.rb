@@ -13,6 +13,7 @@ class Leaf < ActiveRecord::Base
     { 
       id: self.id,
       name: self.name,
+      document_id: self.document_id,
       xml_id: self.xml_id,
       tile_source: self.tile_source,
       next_zone_label: self.next_zone_label,

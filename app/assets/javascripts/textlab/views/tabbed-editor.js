@@ -74,8 +74,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
   
   onNew: function() {    
     var onCreateCallback = _.bind(function(transcription) {
-      var tab = this.openXMLEditorTab(transcription);
-      this.selectTab(tab);
+      transcription.save(null, { success: _.bind( function() {
+        var tab = this.openXMLEditorTab(transcription);
+        this.selectTab(tab);
+      }, this) });
     }, this);  
     
     var transcription = this.newTranscription();
