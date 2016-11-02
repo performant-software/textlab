@@ -72,6 +72,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
     return transcription;
   },
   
+  deleteTranscription: function( transcription ) {
+    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcription.id });
+    transcription.destroy({ success: _.bind( function() {
+      this.closeTab(tab,true);
+    }, this)});
+  },
+  
   onNew: function() {    
     var onCreateCallback = _.bind(function(transcription) {
       transcription.save(null, { success: _.bind( function() {
@@ -165,8 +172,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }    
   },
     
-  closeTab: function(tab) {
-    tab.xmlEditor.save( _.bind( function() {
+  closeTab: function(tab, dontSave ) {
+    
+    var closeTab = _.bind( function() {
 
       this.tabs = _.without(this.tabs, tab);      
 
@@ -182,7 +190,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
       this.$("#"+tab.id).detach();
       this.$("#"+tab.id+'-pane').detach();
 
-    }, this));
+    }, this);
+    
+    if( dontSave ) {
+      closeTab();
+    } else {
+      tab.xmlEditor.save( closeTab );
+    }
   },
     
   openXMLEditorTab: function(transcription) {    

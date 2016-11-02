@@ -141,7 +141,13 @@ TextLab.XMLEditor = Backbone.View.extend({
 
   onClickDelete: function() {
     this.$('#action-dropdown').dropdown('toggle');
-    // TODO delete it
+    
+    var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
+    
+    if( deleteConfirmed ) {
+      this.tabbedEditor.deleteTranscription( this.model );
+    }
+    
     return false;
   },
   
