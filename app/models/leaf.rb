@@ -5,7 +5,18 @@ class Leaf < ActiveRecord::Base
   has_many :transcriptions, dependent: :destroy
   belongs_to :document
   has_one :document_node, dependent: :destroy
-    
+  
+  def get_transcription_objs( user_id )
+    project_owner = self.document.is_owner?(user_id)
+    transcriptions = []
+    self.transcriptions.each { |t|      
+      if user_id == t.user_id || t.shared || (t.submitted and project_owner)
+        transcriptions << t.obj(user_id)
+      end
+    }
+    transcriptions
+  end
+  
   def obj
     
     zonesJSON = self.zones.map { |zone| zone.obj }

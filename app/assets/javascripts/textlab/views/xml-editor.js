@@ -114,16 +114,26 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
 
   onClickSubmit: function() {    
-    // TODO
     this.$('#action-dropdown').dropdown('toggle');
-    this.model.set('submitted', true );
+
+    var submitConfirmed = confirm("Do you wish to submit this transcription for publication?");
+    
+    if( submitConfirmed ) {
+      this.tabbedEditor.submitTranscription( this.model );
+    }
+    
     return false;
   },
   
   onClickReturn: function() {
-    // TODO
     this.$('#action-dropdown').dropdown('toggle');
-    this.model.set('submitted', false );
+
+    var returnConfirmed = confirm("Do you wish to return this transcription to its owner?");
+    
+    if( returnConfirmed ) {
+      this.tabbedEditor.returnTranscription( this.model );
+    }
+    
     return false;
   },
   
@@ -320,15 +330,36 @@ TextLab.XMLEditor = Backbone.View.extend({
     }, this);  
   },
       
-  render: function() {      
+  render: function() {
+    
+    var showPublishButton = this.tabbedEditor.projectOwner;
+    var showSubmitButton = !this.tabbedEditor.projectOwner;
+    var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
+    var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
+    var showTags = !this.model.isReadOnly();    
+    
+    var statusMessage = "";
+    if( this.model.get('submitted') ) {
+      if( this.tabbedEditor.projectOwner ) {
+        statusMessage = "Transcription submitted by: username."
+      } else {
+        statusMessage = "Transcription submitted for publication."
+      }
+    } else if( this.model.get('shared') && this.model.isReadOnly() ) {
+      statusMessage = "Transcription shared by: username";
+    }
+              
     this.$el.html(this.template({ 
-      tags: _.keys( TextLab.Tags ), 
-      published: this.model.get('published'), 
-      shared: this.model.get('shared'),
+      tags: _.keys( TextLab.Tags ),   
+      showPublishButton: showPublishButton,
+      showSubmitButton: showSubmitButton,
+      showReturnButton: showReturnButton,
+      showActionMenu: showActionMenu, 
+      published: this.model.get('published'),
       submitted: this.model.get('submitted'),
-      readOnly: this.model.isReadOnly(),
-      owner: this.model.get('owner'),
-      projectOwner: this.tabbedEditor.projectOwner
+      shared: this.model.get('shared'),
+      showTags: showTags,
+      statusMessage: statusMessage
     })); 
   },
   

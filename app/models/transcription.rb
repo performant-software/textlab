@@ -6,11 +6,6 @@ class Transcription < ActiveRecord::Base
   has_many :zone_links, dependent: :destroy
   has_one :diplo, dependent: :destroy
   
-  def self.get_all( leaf_id, user_id )
-    transcriptions = Transcription.where( "leaf_id = ? and (shared = true or user_id = ?)", leaf_id, user_id )
-    transcriptions.map { |transcription| transcription.obj(user_id) }        
-  end
-
   def zone_links_json=( proposed_zone_links )    
     self.zone_links.clear
     proposed_zone_links.each { |zone_link_obj|      

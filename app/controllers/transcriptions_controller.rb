@@ -5,7 +5,8 @@ class TranscriptionsController < ApplicationController
   def index
     # get the transcriptions for a given leaf for current user
     leaf_id = transcription_params[:leaf_id]
-    render json: Transcription.get_all( leaf_id, current_user.id )
+    leaf = Leaf.find(leaf_id)
+    render json: leaf.get_transcription_objs( current_user.id )
   end
 
   # GET /transcriptions/1.json

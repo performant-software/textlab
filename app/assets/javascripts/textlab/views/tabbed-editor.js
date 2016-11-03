@@ -79,6 +79,18 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this)});
   },
   
+  submitTranscription: function( transcription ) {
+    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcription.id });
+    transcription.set( 'submitted', true );
+    this.closeTab(tab);
+  },
+
+  returnTranscription: function( transcription ) {
+    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcription.id });
+    transcription.set( 'submitted', false );
+    this.closeTab(tab);
+  },
+  
   onNew: function() {    
     var onCreateCallback = _.bind(function(transcription) {
       transcription.save(null, { success: _.bind( function() {
