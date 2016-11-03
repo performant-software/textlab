@@ -65,12 +65,19 @@ TextLab.DocumentListView = Backbone.View.extend({
     var deleteButton = $(event.currentTarget);
     var documentID = parseInt(deleteButton.attr("data-doc-id"));
     var deletedDoc = this.collection.get(documentID);
-    deletedDoc.destroy({ success: _.bind( function() {
-      this.render();
-    }, this)});
+    
+    deleteButton.confirmation('show');    
+    
+    // delete if confirmed
+    this.$el.on('confirmed.bs.confirmation', _.bind( function () {
+      deletedDoc.destroy({ success: _.bind( function() {
+        this.render();
+      }, this)});
+    }, this));
+        
   },
   
-  render: function() {                  
+  render: function() {                      
     this.$el.html(this.template({ documents: this.collection.toJSON() }));
   }
   
