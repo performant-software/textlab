@@ -348,6 +348,18 @@ TextLab.XMLEditor = Backbone.View.extend({
     } else if( this.model.get('shared') && this.model.isReadOnly() ) {
       statusMessage = "Transcription shared by: username";
     }
+
+    var actionWidthClass = '';
+    if( showActionMenu ) {
+      if( showPublishButton ) {
+        actionWidthClass = 'room-for-action-and-publish';
+      } else {
+        actionWidthClass = 'room-for-action-menu';
+      }
+    }
+    if( showReturnButton ) {
+      actionWidthClass = 'room-for-return-button';
+    }
               
     this.$el.html(this.template({ 
       tags: _.keys( TextLab.Tags ),   
@@ -359,7 +371,8 @@ TextLab.XMLEditor = Backbone.View.extend({
       submitted: this.model.get('submitted'),
       shared: this.model.get('shared'),
       showTags: showTags,
-      statusMessage: statusMessage
+      statusMessage: statusMessage,
+      actionWidthClass: actionWidthClass
     })); 
   },
   

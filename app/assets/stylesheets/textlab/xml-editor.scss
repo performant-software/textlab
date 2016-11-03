@@ -28,6 +28,12 @@
     float: right;
   }
   
+  .status-message {
+    display: inline;
+    margin-left: 20px;
+    height: 20px;
+  }
+  
   .scrollable-menu {
       height: auto;
       max-height: 200px;
@@ -44,9 +50,19 @@
     }
   }
   
-  .actions {
+  .room-for-action-menu {
+    width: 130px;
+  }
+  
+  .room-for-action-and-publish {
     width: 220px;
-        
+  }
+  
+  .room-for-return-button {
+    width: 330px;    
+  }
+  
+  .actions {        
     button {
       margin-left: 5px;
     }

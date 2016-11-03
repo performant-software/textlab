@@ -21,20 +21,19 @@
                 
   <% } %>
 
-  <span><%= statusMessage %></span>  
-
+  <div class="status-message"><%= statusMessage %></div>  
   <div class="error-message"></div>
 
-  <div class='actions'>    
-    <button class='toolbar-button btn btn-sm btn-default preview-button' href='#' ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Preview</button>
-    <% if( showReturnButton ) { %>
-      <button class='toolbar-button btn btn-sm btn-default return-button <%= submitted ? '' : 'hidden' %>' href='#' ><i class="fa fa-send-o" aria-hidden="true"></i> Return to Sender</button>         
-    <% } %>
-    
+  <div class='actions <%= actionWidthClass %>' >    
+    <button class='toolbar-button btn btn-sm btn-default preview-button' href='#' ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Preview</button>    
     <% if( showPublishButton ) { %> 
       <button class='toolbar-button btn btn-sm btn-default publish-button <%= published ? 'hidden' : '' %>' href='#' ><i class="fa fa-star" aria-hidden="true"></i> Publish</button>
       <button class='toolbar-button btn btn-sm btn-default unpublish-button <%= published ? '' : 'hidden' %>' href='#' ><i class="fa fa-star-o" aria-hidden="true"></i> Unpublish</button>          
     <% }%>
+
+    <% if( showReturnButton ) { %>
+      <button class='toolbar-button btn btn-sm btn-default return-button <%= submitted ? '' : 'hidden' %>' href='#' ><i class="fa fa-send-o" aria-hidden="true"></i> Return to Sender</button>         
+    <% } %>
 
     <% if( showActionMenu ) { %> 
       <div class="dropdown">
