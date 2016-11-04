@@ -23,7 +23,10 @@ class Diplo < ActiveRecord::Base
     else
       doc   = Saxon.XML(tei_document)    
       xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
-      xhtml = xslt.transform(doc).to_s    
+      # TODO these options don't work, is there a way to config Saxon from here?
+      options = { "indent" => "'no'", "encoding" => "'utf-8'" } 
+             
+      xhtml = xslt.transform(doc,options).to_s    
       diplo.html_content = self.get_page(xhtml, transcription.leaf.xml_id )
       diplo.error = false
     end
