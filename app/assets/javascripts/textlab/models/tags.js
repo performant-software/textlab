@@ -344,9 +344,15 @@ TextLab.Tags = {
     }
   },
 
-  // pb: {
-  //
-  // },
+  pb: {
+    tag: 'pb',
+    empty: true,
+    atttributes: {
+      facs: {
+        fieldType: 'leaf'
+      }
+    }
+  },
 
   rdg: {
     tag: 'rdg',

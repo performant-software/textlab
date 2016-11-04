@@ -5,11 +5,13 @@ TextLab.XMLEditor = Backbone.View.extend({
   openTagTemplate: _.template("<<%= tag %><%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),
   emptyTagTemplate: _.template("<<%= tag %><%= attributes %>/>"),
+  pbTagAttrTemplate: _.template(" facs='#<%= xml_id %>'" ),
   
   id: 'xml-editor',
   
   events: {
     'click .lb-mode-button': 'onClicklbMode',
+    'click .pb-button': 'onClickpbMode',
     'click .tag-menu-item': 'onClickTagMenuItem',
     'click .zone-link': 'onClickZoneLink',
     'click .preview-button': 'onClickPreview',
@@ -69,6 +71,14 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.lbEnabled = true
     }    
     this.editor.focus();
+    return false;
+  },
+  
+  onClickpbMode: function() { 
+    var tag = TextLab.Tags['pb'];
+    var attrString = this.pbTagAttrTemplate({ xml_id: this.leaf.get('xml_id') });
+    var attributes = { attrString: attrString };
+    this.generateTag(tag, attributes);
     return false;
   },
   
