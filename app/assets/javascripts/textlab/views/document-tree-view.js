@@ -66,6 +66,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       
     var onSuccess = _.bind( function() {
        this.render();
+       this.mainViewport.onDocumentTreeChanged();
       console.log('update tree success')      
     }, this);
 
@@ -78,6 +79,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var leafNode = documentNodes.findWhere({ leaf_id: leaf.id });
     documentNodes.remove( leafNode );
     this.render();
+    this.mainViewport.onDocumentTreeChanged();
   },
   
   onAddLeaf: function() {

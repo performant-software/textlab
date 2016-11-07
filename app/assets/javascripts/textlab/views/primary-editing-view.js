@@ -39,6 +39,11 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     var documentToolbar = this.$("#document-toolbar");
 		documentTree.height(documentTreePanel.height() - documentToolbar.height());				
     documentTree.width(documentTreePanel.width());	
+
+    var explorerView = this.$("#explorer-view");
+    var documentExplorer = this.$("#document-explorer");
+    documentExplorer.height(explorerView.height());
+    documentExplorer.width(explorerView.width());
     
     this.tabbedEditor.resizeActivePanel();
     
@@ -48,6 +53,10 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       overlay.resize();
       overlay.resizecanvas();     
     } 
+  },
+
+  onDocumentTreeChanged: function() {
+    this.documentExplorer.render();
   },
     
   selectSection: function( sectionNode ) {
