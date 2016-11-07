@@ -5,13 +5,15 @@ class DocumentSectionsController < ApplicationController
   # GET /document_sections/1.json
   def show
     unless @document_section.document.can_view?( current_user )
-      redirect_to root_url 
+      render 'not_published', layout: 'tl_viewer'
       return
     end
     
     respond_to do |format|
       format.html {
         @subsections = @document_section.subsections
+        @ancestor_nodes = @document_section.document_node.ancestor_nodes
+        @node_title = @document_section.name
         render layout: 'tl_viewer'
       }
       format.json { render json: @document_section.obj }

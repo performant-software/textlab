@@ -1,7 +1,7 @@
 TextLab.EditSettingsDialog = Backbone.View.extend({
     
 	template: JST['textlab/templates/edit-settings-dialog'],
-  publishURLTemplate: _.template( "<%= loc.protocol %>//<%= loc.hostname %><%= (loc.port==null||loc.port==80) ? '' : ':'+loc.port %>/documents/<%= id %>.html" ),
+  publishURLTemplate: _.template( "<%= loc.protocol %>//<%= loc.hostname %><%= (loc.port==null||loc.port==80) ? '' : ':'+loc.port %>/document_sections/<%= id %>.html" ),
   fieldTitleTemplate: _.template( "Publish project to: <a target='_blank' href='<%= publishURL %>'><%= publishURL %></a>." ),
   
   id: 'settings-dialog-container',
@@ -50,7 +50,10 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
   
   render: function() {
 
-    var publishURL = this.publishURLTemplate( { loc: window.location, id: this.model.id } );
+    var rootDocNode = this.model.getRootNode();
+    var rootSection = rootDocNode.getSection();
+
+    var publishURL = this.publishURLTemplate( { loc: window.location, id: rootSection.id } );
     var publishFieldTitle = this.fieldTitleTemplate( { publishURL: publishURL } );
     
     this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials, publishFieldTitle: publishFieldTitle }));    

@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <h1><%= @title %></h1>
+  <%= render partial: 'layouts/breadcrumbs' %>
   <div class="content">
       <%= yield %>
   </div>

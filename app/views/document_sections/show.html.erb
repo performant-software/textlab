@@ -1,12 +1,11 @@
 <div id="section-viewer">
   <div class='base-text'>
-    <h2><%= @document_section.name %></h2>
     <%=raw @document_section.base_html %>
   </div>
 
   <% if @subsections.length > 0 %>
     <div class="subsections">
-      <h3>Subsections</h2>
+      <h3><%= @ancestor_nodes.length > 0 ? "Subsections" : "Table of Contents" %></h2>
       <ul>
         <% @subsections.each { |subsection| %>
           <li><%= link_to subsection.name, document_section_path(subsection) %></li>

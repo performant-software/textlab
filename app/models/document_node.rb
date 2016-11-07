@@ -21,6 +21,18 @@ class DocumentNode < ActiveRecord::Base
       end
     end
   end
+
+  def ancestor_nodes
+    ancestors = []
+    
+    node = self
+    while !node.parent_node.nil?
+      ancestors.push node.parent_node
+      node = node.parent_node
+    end
+  
+    ancestors
+  end
         
   def obj    
     { 

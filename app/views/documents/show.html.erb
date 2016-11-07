@@ -1,7 +1,0 @@
-<h1><%= @document.name %></h1>
-
-<ol>
-  <% @document.child_sections.each { |section| %> 
-    <li><%= link_to section.name, document_section_path(section) %></li>
-  <% } %>
-</ol>

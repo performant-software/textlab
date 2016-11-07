@@ -4,7 +4,7 @@ class DocumentNodesController < ApplicationController
 
   # GET /document_nodes/1.json
   def show
-    render json: @document_node.obj.to_json
+    render json: @document_node.obj
   end
 
   # POST /document_nodes.json
