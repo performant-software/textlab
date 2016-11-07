@@ -1,3 +1,25 @@
-<div class='no-leaf'>
-  <h2><i class="fa fa-file-o fa-5x"></i><span class='message'>No leaf is selected.</span>
-</div>
+<% if( items.length == 0 ) { %> 
+	<div class='no-leaf'>
+	  <h2><i class="fa fa-folder-o fa-5x"></i><span class='message'>This section is empty.</span>
+	</div>
+<% } else { %>
+
+	<div class="thumb-container">
+	<% _.each( items, function( item ) { %>
+
+		<% if( item.nodeType == 'thumb' ) { %> 
+			<img class='thumb document-node' data-id='<%= item.id %>' src='<%= item.imgSrc %>'/>
+		<% } %>
+		
+		<% if( item.nodeType == 'blank-thumb' ) { %> 
+			<div class='thumb-icon document-node' data-id='<%= item.id %>' ><i class="fa fa-file-o fa-5x"></i></div>
+		<% } %>
+
+		<% if( item.nodeType == 'section' ) { %> 
+			<div class='thumb-icon document-node' data-id='<%= item.id %>' ><i class="fa fa-folder-o fa-5x"></i></div>
+		<% } %>
+
+	<% }); %>
+	</div>
+
+<% } %>

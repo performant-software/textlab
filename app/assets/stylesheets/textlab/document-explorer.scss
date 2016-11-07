@@ -2,6 +2,7 @@
   
   padding: 5px;
   
+  
   .no-leaf {
     margin: 40px;
     
@@ -9,7 +10,25 @@
       padding-left: 10px;
       margin-bottom: 60px;
     }
+
   }
-  
+
+  .thumb-container {
+  	overflow-y: scroll;
+
+	.thumb {
+		margin: 20px;
+	}
+
+	.thumb-icon {
+		padding: 20px;
+		margin: 20px;
+		display: inline;
+	}
+
+  }
+
+
+
   
 }

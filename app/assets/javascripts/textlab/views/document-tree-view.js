@@ -159,8 +159,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       var leaf = docNode.getLeaf();
       this.mainViewport.selectLeaf(leaf);
     } else {
-      var section = docNode.getSection();
-      this.mainViewport.selectSection(section);
+      this.mainViewport.selectSection(docNode);
     }
   },
   
