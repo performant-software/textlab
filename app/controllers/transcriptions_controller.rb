@@ -36,7 +36,10 @@ class TranscriptionsController < ApplicationController
         @transcription.save!
         @diplo_html = @transcription.diplo.html_content     
         @title = @transcription.document.name
-        @ancestor_nodes = @transcription.leaf.document_node.ancestor_nodes
+        @document_node = @transcription.leaf.document_node
+        @prev_leaf = @document_node.prev_leaf
+        @next_leaf =  @document_node.next_leaf
+        @ancestor_nodes = @document_node.ancestor_nodes
         @node_title = @transcription.leaf.name
         
         unless @transcription.leaf.nil?

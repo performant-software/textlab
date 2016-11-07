@@ -22,6 +22,36 @@ class DocumentNode < ActiveRecord::Base
     end
   end
 
+  def prev_leaf
+    if self.position > 0 
+      node = DocumentNode.find_by( document_node_id: self.parent_node, position: self.position-1 )
+      transcription = node.leaf.published_transcription if node.leaf
+      unless transcription.nil?
+        return transcription
+      else
+        return node.prev_leaf
+      end
+    else
+      return nil
+    end
+  end
+
+  def next_leaf
+    siblings = self.parent_node.child_nodes
+
+    if self.position < (siblings.length-1)
+      node = DocumentNode.find_by( document_node_id: self.parent_node, position: self.position+1 )
+      transcription = node.leaf.published_transcription if node.leaf
+      unless transcription.nil?
+        return transcription
+      else
+        return node.next_leaf        
+      end
+    else
+      return nil
+    end
+  end
+
   def ancestor_nodes
     ancestors = []
     

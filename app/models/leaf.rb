@@ -16,6 +16,10 @@ class Leaf < ActiveRecord::Base
     }
     transcriptions
   end
+
+  def published_transcription
+    self.transcriptions.find_by( published: true )
+  end
   
   def obj
     

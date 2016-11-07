@@ -11,8 +11,9 @@ class DocumentSectionsController < ApplicationController
     
     respond_to do |format|
       format.html {
+        @document_node = @document_section.document_node
+        @ancestor_nodes = @document_node.ancestor_nodes
         @subsections = @document_section.subsections
-        @ancestor_nodes = @document_section.document_node.ancestor_nodes
         @node_title = @document_section.name
         render layout: 'tl_viewer'
       }
