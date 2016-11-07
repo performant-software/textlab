@@ -8,15 +8,24 @@
 	<% _.each( items, function( item ) { %>
 
 		<% if( item.nodeType == 'thumb' ) { %> 
-			<img class='thumb document-node' data-id='<%= item.id %>' src='<%= item.imgSrc %>'/>
+			<div class='document-node' data-id='<%= item.id %>' >
+				<img class='thumb' src='<%= item.imgSrc %>'/>
+				<div class='thumb-label' ><%= item.name %></div>
+			</div>
 		<% } %>
 		
 		<% if( item.nodeType == 'blank-thumb' ) { %> 
-			<div class='thumb-icon document-node' data-id='<%= item.id %>' ><i class="fa fa-file-o fa-5x"></i></div>
+			<div class='document-node' data-id='<%= item.id %>' >
+				<i class="fa fa-file-o fa-5x thumb-icon"></i>
+				<div class='thumb-label' ><%= item.name %></div>
+			</div>
 		<% } %>
 
 		<% if( item.nodeType == 'section' ) { %> 
-			<div class='thumb-icon document-node' data-id='<%= item.id %>' ><i class="fa fa-folder-o fa-5x"></i></div>
+			<div class='document-node' data-id='<%= item.id %>' >
+				<i class="fa fa-folder fa-5x thumb-icon"></i>
+				<div class='thumb-label' ><%= item.name %></div>
+			</div>
 		<% } %>
 
 	<% }); %>

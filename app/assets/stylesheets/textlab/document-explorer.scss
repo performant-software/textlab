@@ -12,38 +12,31 @@
 
   }
 
-  .thumb-container {
+  .document-node {
+    display: inline-block;
+    margin: 20px;
+    width: 120px;    
+    border: 3px solid white;
+    padding: 3px;
+  }
 
-  	.thumb {
-  		margin: 20px;
-  	}
+  .document-node:hover { 
+    border: 3px solid blue;
+  }
 
-    img {
-      padding: 3px;
-      border: 3px solid white;
-    }
-  
-    img:hover { 
-      padding: 3px;
-      border: 3px solid blue;
-    }
+	.thumb {
+    width: 100px;
+	}
 
-  	.thumb-icon {
-  		padding: 20px;
-  		margin: 20px;
-  		display: inline;
-  	}
+  .thumb-icon {
+    width: 100px;
+    padding-bottom: 5px;
+    text-align: center;
+  }
 
-    .thumb-icon i {
-      padding: 3px;
-      border: 3px solid white;
-    }
-
-    .thumb-icon i:hover {
-      padding: 3px;
-      border: 3px solid blue;
-    }
-
+  .thumb-label {
+    width: 100px;
+    text-align: center;
   }
 
 }
