@@ -9,7 +9,11 @@
       </button>
       <ul class="dropdown-menu scrollable-menu">
         <% _.each( tags, function(tag) { %>
-          <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
+          <% if( tag == 'pb' ) { %> 
+            <li><a class='pb-button' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>
+          <% } else { %> 
+            <li><a class='tag-menu-item' data-tag-id='<%= tag %>' href="#"><%= tag %></a></li>          
+          <% } %>
         <% }) %>
       </ul>
     </div>
