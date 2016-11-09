@@ -8,7 +8,9 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       map: {
         expanderClosed: "fa fa-plus-square",
         expanderOpen: "fa fa-plus",
-        loading: "glyphicon glyphicon-refresh"
+        loading: "glyphicon glyphicon-refresh",
+        dragHelper: "glyphicon glyphicon-play",
+        dropMarker: "glyphicon glyphicon-arrow-right",
       }
 	},
   
@@ -20,7 +22,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
               	
 	initialize: function(options) {
     this.mainViewport = options.mainViewport;
-    _.bindAll( this, "onNodeSelected" );
+    _.bindAll( this, "onNodeSelected", "onDragEnter", "onDragDrop" );
   },
   
   insertAt: function() {
@@ -164,6 +166,24 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       this.mainViewport.selectSection(docNode);
     }
   },
+
+  onDragEnter: function(node, data) {
+    var documentNode = node.data.docNode;
+    return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after']; 
+  },
+
+  onDragDrop: function(node, data) {
+    
+    // remove node from one part of the tree and move it to another
+    data.otherNode.moveTo(node, data.hitMode);        
+
+    // update tree data
+    // could change the position of the siblings
+    // could change the parent of itself or another node?
+
+        
+
+  },
   
   getSelectedNode: function() {
     var treeNode = this.fancyTree.getActiveNode();
@@ -235,11 +255,18 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
 			var documentTree = this.$('#document-tree');		
 			documentTree.fancytree({ source: documentTreeModel, 
-									  click: this.onNodeSelected,
-									  selectMode: 1,
-                    aria: true,
-                    extensions: [ 'glyph', 'clones' ],
-                    glyph: this.glyphConfig });
+  		  click: this.onNodeSelected,
+  		  selectMode: 2,
+        aria: true,
+        extensions: [ 'dnd', 'glyph', 'clones' ],
+        glyph: this.glyphConfig, 
+        dnd: {
+          focusOnClick: true,
+          dragStart: function() { return true; },
+          dragEnter: this.onDragEnter,
+          dragDrop: this.onDragDrop
+        }
+      });
 			
 			this.fancyTree = documentTree.fancytree("getTree");
 		} else {
