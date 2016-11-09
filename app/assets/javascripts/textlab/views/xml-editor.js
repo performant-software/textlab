@@ -83,7 +83,11 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickPreview: function() {
-    window.open("/transcriptions/"+this.model.id,'_blank');
+    if( this.model.id ) {
+      window.open("/transcriptions/"+this.model.id,'_blank');
+    } else {
+      alert( "This transcription is blank or could not be saved, unable to preview.")
+    }
   },
   
   onClickPublish: function() {
