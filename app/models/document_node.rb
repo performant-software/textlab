@@ -68,7 +68,7 @@ class DocumentNode < ActiveRecord::Base
     { 
       id: self.id,
       position: self.position,
-      parent_id: self.parent_node.nil? ? nil : self.parent_node.id,
+      document_node_id: self.parent_node.nil? ? nil : self.parent_node.id,
       leaf_id: self.leaf.nil? ? nil : self.leaf.id,
       document_section_id: self.document_section.nil? ? nil : self.document_section.id
     }

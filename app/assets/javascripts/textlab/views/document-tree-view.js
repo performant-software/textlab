@@ -169,20 +169,35 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
   onDragEnter: function(node, data) {
     var documentNode = node.data.docNode;
-    return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after']; 
+    if( documentNode.isRoot() ) {
+      return [ ];
+    } else {
+      return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after']; 
+    }
   },
 
   onDragDrop: function(node, data) {
-    
-    // remove node from one part of the tree and move it to another
-    data.otherNode.moveTo(node, data.hitMode);        
+    var draggedNode = data.otherNode;
 
-    // update tree data
-    // could change the position of the siblings
-    // could change the parent of itself or another node?
+    var previousParent = draggedNode.parent;
+    draggedNode.moveTo(node, data.hitMode);        
+    var newParent = draggedNode.parent;
 
-        
+    // update position numbers and parent ids in domain model
+    var renumberNodes = function( parentNode ) {
+      var siblingNodes = parentNode.children;
+      var parentID = parentNode.data.docNode.id;      
+      var count = 0;
+      _.each( siblingNodes, function(sibling) {
+        var docNode = sibling.data.docNode;
+        docNode.set('position', count++ );
+        docNode.set('document_node_id', parentID ); 
+        docNode.save();
+      });
+    };
 
+    renumberNodes( previousParent );
+    renumberNodes( newParent );
   },
   
   getSelectedNode: function() {

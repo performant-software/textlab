@@ -8,13 +8,13 @@ TextLab.DocumentNode = Backbone.Model.extend({
   getChildren: function() {
     var nodeID = this.id;
     var documentNodes = this.collection.document.documentNodes;
-    var children = documentNodes.where({ parent_id: nodeID });
+    var children = documentNodes.where({ document_node_id: nodeID });
     return children;
   },
   
   getParent: function() {
     var documentNodes = this.collection.document.documentNodes;
-    return documentNodes.findWhere({ id: this.get('parent_id') }); 
+    return documentNodes.findWhere({ id: this.get('document_node_id') }); 
   },
   
   getSection: function() {
@@ -44,7 +44,7 @@ TextLab.DocumentNode = Backbone.Model.extend({
   },
   
   isRoot: function() {
-    return this.get('parent_id') == null;
+    return this.get('document_node_id') == null;
   }
     
 });
