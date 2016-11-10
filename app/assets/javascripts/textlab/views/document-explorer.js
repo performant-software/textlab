@@ -10,13 +10,16 @@ TextLab.DocumentExplorer = Backbone.View.extend({
   id: 'document-explorer',
     
   events: {
-    "click .document-node": "onClickNode"
+    "click .document-node": "onClickNode",
+    "click #edit-info-button": "onEditInfo",
+    "click .breadcrumb": "onClickBreadcrumb"
   },
             	
 	initialize: function(options) {
     // need document and which part to display initially (which might be null)
     this.currentSection = null;
     this.mainViewport = options.mainViewport;
+    this.documentTree = options.documentTree;
   },
   
   selectSection: function(sectionNode) {
@@ -44,8 +47,41 @@ TextLab.DocumentExplorer = Backbone.View.extend({
     }
   },
 
+  onClickBreadcrumb: function(e) {
+    // TODO 
+    return false;
+  },
+
+  onEditInfo: function() {
+    var callback = _.bind(function(section) {
+      this.model.save( null, { 
+        success: _.bind( function() {
+          this.render();
+          this.documentTree.render();
+        }, this), 
+        error: TextLab.Routes.routes.onError });
+    }, this);
+    
+    var deleteCallback = _.bind(function(section) {   
+      this.documentTree.deleteSectionNode(section);
+      section.destroy({ 
+        success: _.bind( function() { this.mainViewport.selectSection(null); }, this ), 
+        error: TextLab.Routes.onError });            
+    }, this);
+    
+    var section = this.currentSection.getSection();
+    var sectionDialog = new TextLab.SectionDialog( { 
+      model: section, 
+      callback: callback, 
+      deleteCallback: deleteCallback, 
+      mode: 'edit' 
+    });
+    sectionDialog.render();     
+    return false;  
+  },
+
   render: function() {
-    var items = [];
+    var items = [], ancestors = [], sectionName = "";
     if( this.currentSection ) {
       var nodes = this.currentSection.getChildren();
       items = _.map( nodes, function(node) {
@@ -65,9 +101,17 @@ TextLab.DocumentExplorer = Backbone.View.extend({
           return { nodeType: 'section', name: section.get('name'), id: node.id };
         }
       }, this);
+
+      ancestors = _.map( this.currentSection.getAncestors(), function( ancestor ) {
+        var section = ancestor.getSection();
+        return { name: section.get('name'), url: '' };
+      });
+
+      sectionName = this.currentSection.getSection().get('name');
     } 
 
-    this.$el.html(this.template({ items: items }));
+
+    this.$el.html(this.template({ name: sectionName, ancestors: ancestors, items: items }));
   } 
     
 });

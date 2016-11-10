@@ -1,3 +1,16 @@
+<div class='top-bar'>
+		<a class='btn btn-sm btn-default' id='edit-info-button' href='#'>
+		<span class="fa fa-file-o" aria-hidden="true"></span>  Edit Section
+	</a>
+	<ol class="breadcrumb">
+	  <% _.each( ancestors, function(a) { %> 
+		  <li><a class='breadcrumb' href="<%= a.url %>"><%= a.name %></a></li>
+	  <% }) %>
+	  <li class="active"><%= name %></li>
+	</ol>
+
+</div>
+
 <% if( items.length == 0 ) { %> 
 	<div class='no-leaf'>
 	  <h2><i class="fa fa-folder-o fa-5x"></i><span class='message'>This section is empty.</span>

@@ -60,9 +60,12 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   },
     
   selectSection: function( sectionNode ) {
+
+    var node = ( sectionNode == null ) ? this.model.getRootNode() : sectionNode;
+
     // need to hide split view and show the explorer view
     this.$('.editor-view').hide();
-    this.documentExplorer.selectSection( sectionNode );
+    this.documentExplorer.selectSection( node );
     this.$('.explorer-view').show();
   },
   
@@ -101,7 +104,10 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.surfaceView.render();    
     this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
     
-    this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model, mainViewport: this });
+    this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model, 
+      mainViewport: this, 
+      documentTree: this.documentTreeView 
+    });
     this.documentExplorer.render();
     var documentExplorerEl = this.$("#"+this.documentExplorer.id);
     documentExplorerEl.replaceWith(this.documentExplorer.$el);   

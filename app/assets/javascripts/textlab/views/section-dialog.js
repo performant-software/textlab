@@ -33,10 +33,16 @@ TextLab.SectionDialog = Backbone.View.extend({
     this.close();
   },
   
-  onDelete: function() {
-    this.close( _.bind( function() {
-      this.deleteCallback(this.model);
-    },this) );
+  onDelete: function() {  
+    var deleteButton = this.$('.delete-button');
+    deleteButton.confirmation('show');    
+      
+    // delete if confirmed
+    this.$el.on('confirmed.bs.confirmation', _.bind( function () {
+      this.close( _.bind( function() {
+        this.deleteCallback(this.model);
+      },this) );
+    }, this));
   },
   
   close: function( closeCallback ) {

@@ -83,6 +83,13 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     this.render();
     this.mainViewport.onDocumentTreeChanged();
   },
+
+  deleteSectionNode: function( section ) {
+    var documentNodes = this.model.documentNodes;
+    var sectionNode = documentNodes.findWhere({ document_section_id: section.id });
+    documentNodes.remove( sectionNode );
+    this.render();
+  },
   
   onAddLeaf: function() {
     var onCreateCallback = _.bind(function(leaf) {
@@ -192,7 +199,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
         docNode.set('document_node_id', parentID ); 
-        docNode.save();
+        docNode.save({ error: TextLab.Routes.onError });
       });
     };
 

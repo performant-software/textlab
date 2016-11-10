@@ -11,6 +11,20 @@ TextLab.DocumentNode = Backbone.Model.extend({
     var children = documentNodes.where({ document_node_id: nodeID });
     return children;
   },
+
+  getAncestors: function() {
+    var ancestors = [];
+    var node = this;
+    var parentNode = node.getParent();
+
+    while( parentNode != null ) {
+      ancestors.push(parentNode);
+      node = parentNode;
+      parentNode = node.getParent();
+    }
+
+    return ancestors.reverse();
+  },
   
   getParent: function() {
     var documentNodes = this.collection.document.documentNodes;
