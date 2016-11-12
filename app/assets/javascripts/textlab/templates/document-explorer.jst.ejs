@@ -4,7 +4,7 @@
 	</a>
 	<ol class="breadcrumb">
 	  <% _.each( ancestors, function(a) { %> 
-		  <li><a class='breadcrumb' href="<%= a.url %>"><%= a.name %></a></li>
+		  <li><a class='breadcrumb' data-id="<%= a.id %>"><%= a.name %></a></li>
 	  <% }) %>
 	  <li class="active"><%= name %></li>
 	</ol>

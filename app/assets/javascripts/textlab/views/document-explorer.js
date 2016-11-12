@@ -29,10 +29,7 @@ TextLab.DocumentExplorer = Backbone.View.extend({
     this.render();
   },
 
-  onClickNode: function(event) {
-    var itemIcon = $(event.currentTarget);
-    var nodeID = parseInt(itemIcon.attr("data-id"));    
-
+  selectNodeByID: function(nodeID) {
     var documentNode = _.find( this.model.documentNodes.models, function( documentNode ) {
       return (documentNode.id == nodeID );     
     });  
@@ -47,8 +44,16 @@ TextLab.DocumentExplorer = Backbone.View.extend({
     }
   },
 
-  onClickBreadcrumb: function(e) {
-    // TODO 
+  onClickNode: function(event) {
+    var itemIcon = $(event.currentTarget);
+    var nodeID = parseInt(itemIcon.attr("data-id"));    
+    this.selectNodeByID( nodeID );
+  },
+
+  onClickBreadcrumb: function(event) {
+    var itemIcon = $(event.currentTarget);
+    var nodeID = parseInt(itemIcon.attr("data-id"));
+    this.selectNodeByID( nodeID );
     return false;
   },
 
@@ -107,7 +112,7 @@ TextLab.DocumentExplorer = Backbone.View.extend({
 
       ancestors = _.map( this.currentSection.getAncestors(), function( ancestor ) {
         var section = ancestor.getSection();
-        return { name: section.get('name'), url: '' };
+        return { name: section.get('name'), id: ancestor.id };
       });
 
       sectionName = this.currentSection.getSection().get('name');
