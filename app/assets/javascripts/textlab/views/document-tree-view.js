@@ -205,6 +205,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
     renumberNodes( previousParent );
     renumberNodes( newParent );
+    this.mainViewport.onDocumentTreeChanged();
   },
   
   getSelectedNode: function() {

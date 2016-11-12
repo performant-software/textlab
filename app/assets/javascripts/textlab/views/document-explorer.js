@@ -83,7 +83,10 @@ TextLab.DocumentExplorer = Backbone.View.extend({
   render: function() {
     var items = [], ancestors = [], sectionName = "";
     if( this.currentSection ) {
-      var nodes = this.currentSection.getChildren();
+      var nodes = _.sortBy( this.currentSection.getChildren(), function(node) { 
+        return node.get('position');      
+      } );
+      
       items = _.map( nodes, function(node) {
 
         if( node.isLeaf() ) {
