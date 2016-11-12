@@ -119,7 +119,12 @@ TextLab.DocumentExplorer = Backbone.View.extend({
     } 
 
 
-    this.$el.html(this.template({ name: sectionName, ancestors: ancestors, items: items }));
+    this.$el.html(this.template({ 
+      name: sectionName, 
+      ancestors: ancestors, 
+      items: items,
+      canEditSection: this.model.get('owner') 
+    }));
   } 
     
 });

@@ -1,7 +1,9 @@
 <div class='top-bar'>
+	<% if( canEditSection ) { %> 
 		<a class='btn btn-sm btn-default' id='edit-info-button' href='#'>
-		<span class="fa fa-file-o" aria-hidden="true"></span>  Edit Section
-	</a>
+			<span class="fa fa-file-o" aria-hidden="true"></span> Edit Section
+		</a>
+	<% } %>
 	<ol class="breadcrumb">
 	  <% _.each( ancestors, function(a) { %> 
 		  <li><a class='breadcrumb' data-id="<%= a.id %>"><%= a.name %></a></li>

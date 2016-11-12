@@ -21,6 +21,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     this.mainViewport = options.mainViewport;
     this.tabbedEditor = options.tabbedEditor;
     this.documentTree = options.documentTree;
+    this.owner = options.owner;
     this.dragStart = null;
   },
   
@@ -354,7 +355,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
       
   render: function() {        
-    this.$el.html(this.template()); 
+    this.$el.html(this.template({ canEditLeafInfo: this.owner })); 
   },
   
   toggleZoneLink: function( zoneLabel, state ) {

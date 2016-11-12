@@ -98,6 +98,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     
     this.surfaceView = new TextLab.SurfaceView({ 
       model: this.selectedLeaf, 
+      owner: this.model.get('owner'),
       tabbedEditor: this.tabbedEditor, 
       documentTree: this.documentTreeView,
       mainViewport: this });
