@@ -56,6 +56,7 @@ class Document < ActiveRecord::Base
       owner_name: self.user.email,
       membership_id: membership.id,
       accepted: membership.accepted,
+      root_node: root_node.document_section_id,
       owner: false
     }
   end
@@ -66,6 +67,7 @@ class Document < ActiveRecord::Base
       name: self.name,
       description: self.description,
       owner: true,
+      root_node: root_node.document_section_id,
       published: self.published
     }
   end

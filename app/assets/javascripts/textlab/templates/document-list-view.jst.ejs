@@ -16,7 +16,7 @@
         <p class="description"><%= document.description %></p>
       </div>
         <div class='actions'>
-          <a href="/documents/<%= document.id %>.html" target="_blank" class="btn btn-sm btn-default">View</a>
+          <a href="/document_sections/<%= document.root_node %>.html" target="_blank" class="btn btn-sm btn-default">View</a>
           <% if( document.owner ) { %> 
             <button class="btn btn-sm btn-danger delete-document-button" data-title="Delete this Project?" data-doc-id="<%= document.id %>">Delete</button>
           <% } %>

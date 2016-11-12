@@ -11,13 +11,6 @@ class DocumentsController < ApplicationController
   # GET /documents/1.json
   def show
     respond_to do |format|
-      format.html {
-        if @document.can_view?( current_user )
-          render layout: 'tl_viewer'
-        else
-          render 'not_published', layout: 'tl_viewer'
-        end
-      }
       format.json { render json: @document.obj(current_user.id) }
     end
   end
