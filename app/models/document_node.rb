@@ -22,6 +22,22 @@ class DocumentNode < ActiveRecord::Base
     end
   end
 
+  # when nodes are removed, update sibling positions
+  before_destroy do |document_node|
+    unless self.parent_node.nil?
+      delete_at = document_node.position
+      children = self.parent_node.child_nodes.order(:position)
+      step = delete_at
+      children.each do |child|
+        if child.id != document_node.id && child.position >= delete_at 
+          child.position = step
+          step = step + 1
+          child.save
+        end
+      end
+    end  
+  end
+
   def prev_leaf
     if self.position > 0 
       node = DocumentNode.find_by( document_node_id: self.parent_node, position: self.position-1 )
