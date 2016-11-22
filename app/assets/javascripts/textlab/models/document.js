@@ -44,6 +44,40 @@ TextLab.Document = Backbone.Model.extend({
   addLeaf: function( leaf, parentNode ) {
     leaf.set("document_id", this.id );
     this.leafs.add( leaf );
+  },
+
+  parseLeafManifest: function(leafManifest) {
+
+    // read this text a line at a time, create a JSON representation of it to send to server.
+
+    var lines = leafManifest.split('\n');
+    var leafs = [];
+
+    _.each( lines, function(line) {
+      var fields = line.split(',');
+      // expect exactly 3 columns in each line
+      if( fields.length == 3 ) {
+        var leaf = {};
+        for( var i=0; i < fields.length; i++ ) {
+          var field = fields[i];
+          if( i == 0 ) {
+            leaf.name = field;
+          } 
+          else if( i == 1 ) {
+            leaf.xml_id = field;
+          }
+          else if( i == 2 ) {
+            leaf.tile_source = field;
+          }
+        }
+        leafs.push(leaf);        
+      } else {
+        // unexpected number of fields
+        return null;
+      }
+    });
+
+    return leafs;
   }
       
 });

@@ -13,5 +13,23 @@
   .control-label {
     padding-top: 8px;
   }
+
+  #drop-zone {
+    border: 2px dashed #ccc;
+    height: 60px;
+    width: 250px;
+    padding-top: 20px;
+    text-align: center;
+    margin-left: 150px
+  }
+
+  .import-message {
+    float: left;
+    margin-top: 5px;
+  }
+
+  .error {
+    color: red;
+  }
   
 }

@@ -5,6 +5,8 @@ class Document < ActiveRecord::Base
   has_many :document_sections, dependent: :destroy
   has_many :document_nodes, dependent: :destroy
   has_many :memberships, dependent: :destroy
+
+  attr_writer :leaf_manifest
         
   def self.get_all( current_user )
 		documents = Document.where( user_id: current_user.id )
@@ -24,6 +26,31 @@ class Document < ActiveRecord::Base
     root_node.position = 0
     root_node.document_section = root_section
     root_node.save
+
+    # turn this into an array of leaves
+    if @leaf_manifest
+      position = 0
+      manifest = JSON.parse(@leaf_manifest)
+      manifest.each { |leaf_obj|
+        leaf = Leaf.new({
+          document: document,
+          name: leaf_obj['name'],
+          xml_id: leaf_obj['xml_id'],
+          tile_source: leaf_obj['tile_source']
+        })
+        
+        if leaf.save
+          leaf_node = DocumentNode.new( {
+            document: document,
+            position: position,
+            leaf: leaf,
+            document_node_id: root_node.id
+          })
+          leaf_node.save! 
+          position = position + 1
+        end
+      } 
+    end
   end
   
   def is_owner?(current_user_id)
@@ -47,7 +74,7 @@ class Document < ActiveRecord::Base
       child_node.document_section
     }.compact
   end
-  
+
   def team_list_obj( membership )
     {
       id: self.id,
@@ -124,5 +151,6 @@ class Document < ActiveRecord::Base
     }
     
   end
+
   
 end
