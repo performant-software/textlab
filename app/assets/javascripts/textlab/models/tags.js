@@ -229,9 +229,18 @@ TextLab.Tags = {
     empty: false
   },
 
-  // gap: {
-  //
-  // },
+  gap: {
+    tag: 'gap',
+    empty: true,
+    attributes: {
+      reason: {
+        displayName: 'Reason', 
+        fieldType: 'string', 
+        defaultValue: 'illegible',
+        instructions: "Please specify the reason for a gap." 
+      }
+    }
+  },
 
   handShift: {
     tag: 'handShift',
