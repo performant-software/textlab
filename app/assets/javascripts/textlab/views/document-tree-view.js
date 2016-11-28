@@ -174,6 +174,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     }
   },
 
+  highlightNode: function( docNode ) {
+    var treeNode = this.fancyTree.getNodeByKey( docNode.id.toString() );
+    treeNode.setActive(true);
+  },
+
   onDragEnter: function(node, data) {
     var documentNode = node.data.docNode;
     if( documentNode.isRoot() ) {

@@ -23,8 +23,6 @@ TextLab.DocumentExplorer = Backbone.View.extend({
   },
   
   selectSection: function(sectionNode) {
-    // TODO get the list of leaves for this section and render them.. 
-    // also need to render folders and leaves with no images.
     this.currentSection = sectionNode;
     this.render();
   },
@@ -42,6 +40,8 @@ TextLab.DocumentExplorer = Backbone.View.extend({
       // if it is a subsection, switch sections
       this.selectSection(documentNode);
     }
+
+    this.documentTree.highlightNode(documentNode);
   },
 
   onClickNode: function(event) {
