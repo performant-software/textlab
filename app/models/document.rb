@@ -117,40 +117,6 @@ class Document < ActiveRecord::Base
       published: self.published
     }
   end
-  
-  def import_document!( manuscript_guid )
-
-    # note: this fn assumes document is empty to start
-    root_node = self.root_node
-    position = 0
-    
-    # create all folders and their contents
-    TlFolder.where({ manuscript_id: manuscript_guid }).order(:name).each { |folder|
-      section = DocumentSection.new
-      section.document = self
-      section.name = folder.name
-      section.save!
-
-      node = DocumentNode.new
-      node.document = self
-      node.position = position
-      node.document_node_id = root_node.id
-      node.document_section = section
-      node.save!
-      position = position + 1
-
-      leaf_position = 0
-      folder.tl_transcriptions.where( ownedby: 'admin' ).order(:name).each { |transcription|
-        leaf_position = transcription.import_leaves!( node, self, leaf_position, manuscript_guid )
-      }
-    }
-
-    # import the transcriptions that aren't in folders
-    TlTranscription.where({ tl_folder_id: nil, manuscriptid: manuscript_guid, ownedby: 'admin' }).order(:name).each { |transcription|
-      position = transcription.import_leaves!( root_node, self, position, manuscript_guid )
-    }
-    
-  end
-
+ 
   
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161011173308) do
+ActiveRecord::Schema.define(version: 20161129164111) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,6 +109,16 @@ ActiveRecord::Schema.define(version: 20161011173308) do
     t.text     "transcription_type"
   end
 
+  create_table "tl_users", id: false, force: :cascade do |t|
+    t.text     "username",    null: false
+    t.text     "firstname",   null: false
+    t.text     "lastname",    null: false
+    t.text     "email",       null: false
+    t.text     "password",    null: false
+    t.boolean  "disabled",    null: false
+    t.datetime "datecreated", null: false
+  end
+
   create_table "transcriptions", force: :cascade do |t|
     t.string   "name"
     t.text     "content"
@@ -135,6 +145,9 @@ ActiveRecord::Schema.define(version: 20161011173308) do
     t.inet     "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "username"
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
