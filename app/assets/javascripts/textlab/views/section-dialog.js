@@ -59,7 +59,14 @@ TextLab.SectionDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ section: this.model, partials: this.partials, mode: this.mode }));    
+    this.$el.html(this.template({ section: this.model, partials: this.partials, mode: this.mode })); 
+
+    if( this.mode != 'edit' ) {
+      this.leafManifestPanel = new TextLab.LeafManifestPanel({ model: this.model });
+      this.leafManifestPanel.render();
+      this.$("#"+this.leafManifestPanel.id).replaceWith(this.leafManifestPanel.$el);
+    }
+
     $('#modal-container').html(this.$el);
     $('#section-modal').modal('show');
   } 

@@ -6,6 +6,8 @@ class DocumentNode < ActiveRecord::Base
   belongs_to :leaf
   belongs_to :document_section
   
+  attr_writer :leaf_manifest
+
   # when nodes are added, update sibling positions
   before_create do |document_node|
     unless self.parent_node.nil?
@@ -19,6 +21,13 @@ class DocumentNode < ActiveRecord::Base
           child.save
         end
       end
+    end
+  end
+
+  after_create do |document_node|
+    # if a manifest was provided, import it
+    if @leaf_manifest
+      Document.import_manifest(@leaf_manifest, document_node)
     end
   end
 

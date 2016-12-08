@@ -27,30 +27,36 @@ class Document < ActiveRecord::Base
     root_node.document_section = root_section
     root_node.save
 
-    # turn this into an array of leaves
     if @leaf_manifest
-      position = 0
-      manifest = JSON.parse(@leaf_manifest)
-      manifest.each { |leaf_obj|
-        leaf = Leaf.new({
-          document: document,
-          name: leaf_obj['name'],
-          xml_id: leaf_obj['xml_id'],
-          tile_source: leaf_obj['tile_source']
-        })
-        
-        if leaf.save
-          leaf_node = DocumentNode.new( {
-            document: document,
-            position: position,
-            leaf: leaf,
-            document_node_id: root_node.id
-          })
-          leaf_node.save! 
-          position = position + 1
-        end
-      } 
+      Document.import_manifest(@leaf_manifest, root_node)
     end
+   
+  end
+
+  def self.import_manifest(leaf_manifest, parent_node)
+    position = 0
+    manifest = JSON.parse(leaf_manifest)
+    document = parent_node.document
+    
+    manifest.each { |leaf_obj|
+      leaf = Leaf.new({
+        document: document,
+        name: leaf_obj['name'],
+        xml_id: leaf_obj['xml_id'],
+        tile_source: leaf_obj['tile_source']
+      })
+      
+      if leaf.save
+        leaf_node = DocumentNode.new( {
+          document: document,
+          position: position,
+          leaf: leaf,
+          document_node_id: parent_node.id
+        })
+        leaf_node.save! 
+        position = position + 1
+      end
+    } 
   end
   
   def is_owner?(current_user_id)

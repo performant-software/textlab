@@ -3,6 +3,8 @@
 class TlTranscription < ActiveRecord::Base
   
   belongs_to :tl_folder
+
+  BILLY_BUDD_GUID = '55893C45-66DD-4FC1-B606-079B73DEAF08'
   
   def padded_image_id( image_id )     
         
@@ -23,15 +25,44 @@ class TlTranscription < ActiveRecord::Base
     
     zeros + image_id;
   end
-  
-  
+
+  def pb_regex(manuscript_guid)
+    if BILLY_BUDD_GUID == manuscript_guid
+      /(<pb facs="#img_\d+")\/>/ 
+    else
+      /(<pb facs="#\d+")\/>/
+    end
+  end  
+
+  def img_url(manuscript_guid)
+    if BILLY_BUDD_GUID == manuscript_guid      
+      "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
+    else
+      ""
+    end
+  end
+
+  def img_scale(manuscript_guid)
+    if BILLY_BUDD_GUID == manuscript_guid      
+      # TL1 img_25 PNG file is 1319×1369 while source TIFF is 3262x3430 
+      x_scale = 2.473085671 
+      y_scale = 2.505478451
+    else
+      x_scale = 1.0
+      y_scale = 1.0     
+    end
+
+    [ x_scale, y_scale ]
+  end
+
   # iterate through the PB tags in this transcription and cut up the transcription by pb tags
   def import_leaves!( parent_node, document, position, manuscript_guid )    
     # clear old TL codes
     content = self.transcriptiontext.gsub(/__\S+\s/,'')
     
     # find first pb
-    match_data = content.match(/(<pb facs="#img_\d+")\/>/)
+    pb_rx = self.pb_regex(manuscript_guid)
+    match_data = content.match(pb_rx)
     
     # grab any content from before the first pb
     if match_data != nil
@@ -45,7 +76,7 @@ class TlTranscription < ActiveRecord::Base
     # now march through the pbs
     while match_data != nil
       start_pos = match_data.begin(0)
-      match_data = content.match(/(<pb facs="#img_\d+")\/>/, match_data.end(0))    
+      match_data = content.match(pb_rx, match_data.end(0))    
       page_length = (match_data != nil) ? (match_data.begin(0)-start_pos) : (content.length-start_pos)
       page_content = content.slice(start_pos,page_length)
       position = self.import_leaf!( page_content, parent_node, document, position, manuscript_guid )
@@ -58,13 +89,14 @@ class TlTranscription < ActiveRecord::Base
   def import_leaf!( content, parent_node, document, position, manuscript_guid )
 
     # see if we can discern which leaf image was used by looking at the pb tag.
-    match_image_id = content.match(/<pb facs="#img_(\d+)"\/>/)
+    pb_rx = self.pb_regex(manuscript_guid)
+    match_image_id = content.match(pb_rx)
     image_url = nil
     unless match_image_id.nil?
       image_xml_id = match_image_id[1]
       leaf_name = "leaf #{image_xml_id}"
       image_source_id = self.padded_image_id( image_xml_id )      
-      image_url = "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
+      image_url = self.img_url(manuscript_guid)
     end
 
     leaf = Leaf.find_by( name: leaf_name, document_id: document.id )
@@ -82,18 +114,15 @@ class TlTranscription < ActiveRecord::Base
         # load the zone data for this leaf
         tl_leaf = TlLeaf.where({ name: leaf.xml_id, manuscriptid: manuscript_guid }).first
         if tl_leaf
-          # TL1 img_25 PNG file is 1319×1369 while source TIFF is 3262x3430 
-          x_scale = 2.473085671	
-          y_scale = 2.505478451
-        
+          image_scale = img_scale(manuscript_guid)
           revision_sites = TlRevisionSite.where( { leafid: tl_leaf.leaf_guid })
           highest_num = 0
           revision_sites.each { |revision_site|
-            zone = revision_site.import_zone!( leaf, x_scale, y_scale )
+            zone = revision_site.import_zone!( leaf, image_scale[0], image_scale[1] )
             highest_num = revision_site.sitenum if revision_site.sitenum > highest_num
           }
           leaf.next_zone_label = highest_num + 1
-        end            
+        end
       else
         # no leaf 
         leaf.name = self.name

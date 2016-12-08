@@ -116,6 +116,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   
   onAddSection: function() {    
     var onCreateCallback = _.bind(function(section) {
+      
+      // store this for when we create the document node
+      var leafManifest = section.get('leaf_manifest');
+      section.unset('leaf_manifest');
+
       this.model.addSection(section);
       section.save(null, { 
         success: _.bind( function( section ) {  
@@ -124,7 +129,8 @@ TextLab.DocumentTreeView = Backbone.View.extend({
             document_node_id: insertPoint.parent.id, 
             position: insertPoint.position,
             document_section_id: section.id, 
-            document_id: this.model.id  
+            document_id: this.model.id,
+            leaf_manifest: leafManifest  
           });
           this.addDocumentNode(sectionNode);
         },this),      
