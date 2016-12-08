@@ -44,6 +44,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var parentNode = this.model.documentNodes.findWhere({id: documentNode.get('document_node_id') });
     var children = _.sortBy( parentNode.getChildren(), function(child) { return child.get('position') } );
     var step = insertAt + 1;
+    var leafManifestProvided = (documentNode.get('leaf_manifest') != null );
     
     // re-order the sibliings as necessary
     _.each( children, function( child ) {
@@ -67,8 +68,15 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     //   end
       
     var onSuccess = _.bind( function() {
+
+      if( leafManifestProvided ) {
+        // need to reload model in this case
+        location.reload();
+      } else {        
        this.render();
        this.mainViewport.onDocumentTreeChanged();
+      }
+
       console.log('update tree success')      
     }, this);
 
