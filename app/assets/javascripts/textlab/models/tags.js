@@ -113,7 +113,7 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'place' 
       },
-      rendered: { 
+      rend: { 
         displayName: 'Rendered', 
         fieldType: 'dropdown', 
         instructions: '',
@@ -131,13 +131,13 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'hand' 
       },
-      stage: {
+      change: {
         displayName: 'Stage', 
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
       },
-      zone: {
+      facs: {
         displayName: 'Zone',
         instructions: '',
         fieldType: 'zone'
@@ -174,7 +174,7 @@ TextLab.Tags = {
     tag: 'del',
     empty: false,
     attributes: {
-      rendered: { 
+      rend: { 
         displayName: 'Rendered', 
         fieldType: 'dropdown', 
         instructions: '',
@@ -186,27 +186,19 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'renderType' 
       },
-      delType: { 
-        displayName: 'Deletion Type', 
-        fieldType: 'dropdown', 
-        vocab: [
-          { value: 'false-start', text: 'False Start' }
-        ], 
-        instructions: "" 
-      },
       hand: { 
         displayName: 'Hand', 
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'hand' 
       },
-      stage: {
+      change: {
         displayName: 'Stage', 
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
       },
-      zone: {
+      facs: {
         displayName: 'Zone',
         instructions: '',
         fieldType: 'zone'
@@ -298,11 +290,17 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'place' 
       },
-      fn: {
+      function: {
         displayName: 'Function of metamark', 
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'metamark' 
+      },
+      rend: { 
+        displayName: 'Hand', 
+        fieldType: 'dropdown', 
+        instructions: '',
+        vocab: 'hand' 
       },
       rendType: { 
         displayName: 'Render Type', 
@@ -310,19 +308,13 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'renderType' 
       },
-      hand: { 
-        displayName: 'Hand', 
-        fieldType: 'dropdown', 
-        instructions: '',
-        vocab: 'hand' 
-      },
-      stage: {
+      change: {
         displayName: 'Stage', 
         fieldType: 'dropdown', 
         instructions: '',
         vocab: 'stage' 
       },
-      zone: {
+      facs: {
         displayName: 'Zone',
         instructions: '',
         fieldType: 'zone'
@@ -380,7 +372,7 @@ TextLab.Tags = {
     tag: 'restore',
     empty: false,
     attributes: {
-      stage: {
+      change: {
         displayName: 'Stage', 
         fieldType: 'dropdown', 
         instructions: '',
@@ -392,7 +384,7 @@ TextLab.Tags = {
         instructions: '',
         vocab: 'hand' 
       },
-      zone: {
+      facs: {
         displayName: 'Zone',
         instructions: '',
         fieldType: 'zone'
