@@ -123,6 +123,7 @@ TextLab.Tags = {
         displayName: 'Render Type', 
         fieldType: 'dropdown', 
         instructions: '',
+        appendTo: 'rend',
         vocab: 'renderType' 
       },
       hand: { 
@@ -184,6 +185,7 @@ TextLab.Tags = {
         displayName: 'Render Type', 
         fieldType: 'dropdown', 
         instructions: '',
+        appendTo: 'rend',
         vocab: 'renderType' 
       },
       hand: { 
@@ -306,6 +308,7 @@ TextLab.Tags = {
         displayName: 'Render Type', 
         fieldType: 'dropdown', 
         instructions: '',
+        appendTo: 'rend',
         vocab: 'renderType' 
       },
       change: {

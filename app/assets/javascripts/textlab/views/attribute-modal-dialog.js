@@ -25,24 +25,33 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
   onCreate: function() {    
     var attributesModal = $('#attributes-modal');
     
-    var attributes = " ";
-    var zoneOffset = null;
-    
+    var attributeList = [];    
     _.each( this.tag.attributes, _.bind( function( attribute, key ) {
       var fieldID = 'att-'+key;
       var value = $('#'+fieldID).val();      
-      var pair = { key: key, value: value };
+      if( attribute.appendTo ) {
+        // in this case, append the value to an existing attribute
+        var appendTarget = _.find( attributeList, function(attr) { return attr.key == attribute.appendTo; });
+        appendTarget.value = appendTarget.value + " " + value;
+      } else {
+        var pair = { key: key, value: value, attr: attribute };
+        attributeList.push( pair );
+      }      
+    }, this));
 
+    var attributes = " ";
+    var zoneOffset = null;
+    _.each( attributeList, _.bind( function(pair) {
       var attrString = this.attributeTemplate(pair);    
       
       // use regex to find start offset within attrString and add length of attributes so far
-      if( attribute.fieldType == 'zone' && value != null ) {
+      if( pair.attr.fieldType == 'zone' && pair.value != null ) {
         var match = /="/.exec(attrString);
         zoneOffset = match.index + attributes.length + 2;
       } 
-      
+
       attributes = attributes + attrString;      
-    }, this));
+    },this));
     
     this.close( _.bind( function() {
       this.callback({ attrString: attributes, zoneOffset: zoneOffset });
