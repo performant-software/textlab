@@ -78,15 +78,7 @@ TextLab.LeafManifestPanel = Backbone.View.extend({
     }, this);
 
     var file = _.first(files);
-
-    // validate MIME type
-    if( file.type == 'text/plain' || file.type == '' || file.type == 'text/csv' ) {
-      reader.readAsText(file);
-    } else {
-      $('.import-message').html(this.mimeTypeErrorMessage);
-      this.$('.drop-zone-message').html(this.dropZoneInstructions);
-      this.model.set('leaf_manifest', null );
-    }
+    reader.readAsText(file);
 
   },
 
