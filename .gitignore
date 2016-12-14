@@ -12,6 +12,7 @@
 !/log/.keep
 /tmp
 /ssl
+/tl_import/dmp
 
 /config/secrets_dev.yml
 
