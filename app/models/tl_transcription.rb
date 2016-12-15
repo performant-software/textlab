@@ -138,15 +138,14 @@ class TlTranscription < ActiveRecord::Base
       position = position + 1    
     end
                     
-    # TODO does this user exist already? if not, create them and add them to this project
-    # user = User.find_or_create_by( )
-    user_id = document.user.id
+    # cross reference username
+    user = User.find_by( username: self.ownedby )
     
     # add this transcription to the selected leaf
     transcription = Transcription.new({ 
       name: self.name, 
       document_id: document.id,
-      user_id: user_id,
+      user_id: user.id,
       leaf_id: leaf.id,
       content: content,
       shared: false,
@@ -155,6 +154,16 @@ class TlTranscription < ActiveRecord::Base
     
     transcription.save!
     transcription.generate_zone_links!
+
+    # add user to document project if they are already a member
+    if Membership.count( user_id: user.id, document_id: document.id ) == 0
+      membership = Membership.new( user_id: user.id, 
+                                   document_id: document.id,
+                                   primary_editor: true,
+                                   secondary_editor: true,
+                                   accepted: true )
+      membership.save!
+    end
     
     position 
   end

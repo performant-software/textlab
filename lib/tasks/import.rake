@@ -1,9 +1,16 @@
 namespace :import do
    
+
+   	desc "Load data into the tl_* tables"
+	task :load => :environment do
+		system('tl_import/import.sh')
+	end
+
 	desc "Import data from the tl_* tables"
 	task :run => :environment do
 		TlUser.import_users!
 		TlManuscript.import_manuscripts!
+		TlUser.invite_members!
 	end
 
 	desc "Drop the tl_* tables"

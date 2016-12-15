@@ -21,5 +21,4 @@ class TlUser < ActiveRecord::Base
 		user.save!
 	end
 
-
 end
