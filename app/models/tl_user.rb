@@ -9,16 +9,21 @@ class TlUser < ActiveRecord::Base
 	end
 
 	def import_user!
-		user = User.new( {
-			username: self.username,
-			first_name: self.firstname,
-			last_name: self.lastname,
-			email: self.email,
-			password: ENV['IMPORTED_USER_PASSWORD'],
-			password_confirmation: ENV['IMPORTED_USER_PASSWORD']
-		})
+		user = User.find_by( email: self.email )
 
-		user.save!
+		if user.nil?
+			user = User.new( {
+				username: self.username,
+				first_name: self.firstname,
+				last_name: self.lastname,
+				email: self.email,
+				password: ENV['IMPORTED_USER_PASSWORD'],
+				password_confirmation: ENV['IMPORTED_USER_PASSWORD']
+			})
+	
+			user.save!
+		end
+
 	end
 
 end

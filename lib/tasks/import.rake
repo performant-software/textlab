@@ -10,7 +10,6 @@ namespace :import do
 	task :run => :environment do
 		TlUser.import_users!
 		TlManuscript.import_manuscripts!
-		TlUser.invite_members!
 	end
 
 	desc "Drop the tl_* tables"
