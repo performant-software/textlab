@@ -59,7 +59,7 @@ TextLab.DocumentExplorer = Backbone.View.extend({
 
   onEditInfo: function() {
     var callback = _.bind(function(section) {
-      this.model.save( null, { 
+      section.save( null, { 
         success: _.bind( function() {
           this.render();
           this.documentTree.render();
