@@ -68,6 +68,70 @@ ActiveRecord::Schema.define(version: 20161129164111) do
     t.boolean  "accepted"
   end
 
+  create_table "tl_folders", id: :bigserial, force: :cascade do |t|
+    t.text "name",          null: false
+    t.text "manuscript_id", null: false
+    t.text "folder_type"
+  end
+
+  create_table "tl_leafs", primary_key: "leaf_guid", force: :cascade do |t|
+    t.text     "name",                                      null: false
+    t.text     "manuscriptid",                default: "0", null: false
+    t.integer  "orderno",           limit: 8
+    t.text     "createdby"
+    t.datetime "createdon",                                 null: false
+    t.text     "lastupdatedby"
+    t.datetime "lastupdatedon"
+    t.text     "imageid"
+    t.integer  "chapterid",         limit: 8
+    t.text     "publishedbasetext"
+  end
+
+  add_index "tl_leafs", ["manuscriptid"], name: "idx_170270_manuscriptid", using: :btree
+  add_index "tl_leafs", ["orderno"], name: "idx_170270_orderno", using: :btree
+
+  create_table "tl_manuscripts", force: :cascade do |t|
+    t.text     "name",                    null: false
+    t.text     "userid"
+    t.datetime "datecreated",             null: false
+    t.text     "author",                  null: false
+    t.datetime "datepublished"
+    t.text     "catalogsource"
+    t.integer  "readingtextid", limit: 8
+  end
+
+  create_table "tl_revision_sites", force: :cascade do |t|
+    t.text    "polygon"
+    t.text    "leafid"
+    t.integer "sitenum", limit: 8
+  end
+
+  add_index "tl_revision_sites", ["leafid"], name: "idx_170336_leafid", using: :btree
+
+  create_table "tl_transcriptions", force: :cascade do |t|
+    t.text     "manuscriptid",                 null: false
+    t.text     "ownedby"
+    t.text     "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "publishedon"
+    t.datetime "sharedon"
+    t.text     "transcriptiontext"
+    t.integer  "tl_folder_id",       limit: 8
+    t.text     "transcription_type"
+  end
+
+  add_index "tl_transcriptions", ["manuscriptid", "ownedby"], name: "idx_170397_manuscriptidusername", using: :btree
+
+  create_table "tl_users", primary_key: "username", force: :cascade do |t|
+    t.text     "firstname",   null: false
+    t.text     "lastname",    null: false
+    t.text     "email",       null: false
+    t.text     "password",    null: false
+    t.boolean  "disabled",    null: false
+    t.datetime "datecreated", null: false
+  end
+
   create_table "transcriptions", force: :cascade do |t|
     t.string   "name"
     t.text     "content"

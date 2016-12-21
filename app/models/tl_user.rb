@@ -3,6 +3,7 @@
 class TlUser < ActiveRecord::Base  
 
 	def self.import_users!
+
 		TlUser.where( disabled: false ).each { |tl_user|
 			tl_user.import_user!
 		}
@@ -20,8 +21,8 @@ class TlUser < ActiveRecord::Base
 				password: ENV['IMPORTED_USER_PASSWORD'],
 				password_confirmation: ENV['IMPORTED_USER_PASSWORD']
 			})
-	
-			user.save!
+
+			user.save
 		end
 
 	end

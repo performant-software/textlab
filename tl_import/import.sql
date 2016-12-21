@@ -8,7 +8,7 @@ ALTER TABLE transcription RENAME COLUMN lastupdatedon TO updated_at;
 ALTER TABLE transcription ADD COLUMN transcription_type text;
 update transcription set transcription_type = type;
 ALTER TABLE transcription DROP COLUMN type;
-alter table transcription rename column parent_folder to folder_id;
+alter table transcription rename column parent_folder to tl_folder_id;
 alter table transcription rename to tl_transcriptions;
 
 ALTER TABLE folder ADD COLUMN folder_type text;

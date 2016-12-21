@@ -32,13 +32,22 @@ class TlTranscription < ActiveRecord::Base
     else
       /(<pb facs="#\d+")\/>/
     end
-  end  
+  end
 
-  def img_url(manuscript_guid)
+  def img_xml_id_regex(manuscript_guid)  
+    if BILLY_BUDD_GUID == manuscript_guid
+      /<pb facs="#img_(\d+)"\/>/
+    else
+      /<pb facs="#(\d+)"\/>/
+    end
+  end
+
+  def img_url(manuscript_guid,image_source_id)
     if BILLY_BUDD_GUID == manuscript_guid      
       "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
     else
-      ""
+      # TODO determine URLs for other manuscripts
+      ""  
     end
   end
 
@@ -89,14 +98,14 @@ class TlTranscription < ActiveRecord::Base
   def import_leaf!( content, parent_node, document, position, manuscript_guid )
 
     # see if we can discern which leaf image was used by looking at the pb tag.
-    pb_rx = self.pb_regex(manuscript_guid)
+    pb_rx = self.img_xml_id_regex(manuscript_guid)
     match_image_id = content.match(pb_rx)
     image_url = nil
     unless match_image_id.nil?
       image_xml_id = match_image_id[1]
       leaf_name = "leaf #{image_xml_id}"
       image_source_id = self.padded_image_id( image_xml_id )      
-      image_url = self.img_url(manuscript_guid)
+      image_url = self.img_url(manuscript_guid,image_source_id)
     end
 
     leaf = Leaf.find_by( name: leaf_name, document_id: document.id )
@@ -140,12 +149,13 @@ class TlTranscription < ActiveRecord::Base
                     
     # cross reference username
     user = User.find_by( username: self.ownedby )
+    user_id = user.nil? ? nil : user.id
     
     # add this transcription to the selected leaf
     transcription = Transcription.new({ 
       name: self.name, 
       document_id: document.id,
-      user_id: user.id,
+      user_id: user_id,
       leaf_id: leaf.id,
       content: content,
       shared: false,
@@ -155,9 +165,9 @@ class TlTranscription < ActiveRecord::Base
     transcription.save!
     transcription.generate_zone_links!
 
-    # add user to document project if they are already a member
-    if Membership.count( user_id: user.id, document_id: document.id ) == 0
-      membership = Membership.new( user_id: user.id, 
+    # add user to document project if they are not already a member
+    if !user_id.nil? and Membership.where( user_id: user_id, document_id: document.id ).count == 0
+      membership = Membership.new( user_id: user_id, 
                                    document_id: document.id,
                                    primary_editor: true,
                                    secondary_editor: true,

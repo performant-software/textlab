@@ -8,21 +8,22 @@ class TlManuscript < ActiveRecord::Base
 		}
 	end
 
-	def import_manuscript( tl_manuscript )
+	def import_manuscript!
 
 		# note: this fn assumes document is empty to start
-		manuscript_guid = tl_manuscript.id
-		root_node = self.root_node
-		position = 0
+		manuscript_guid = self.id
 
-		owner = User.find_by( username: tl_manuscript.userid )
+		owner = User.find_by( username: self.userid )
 
 		document = Document.new({
-			name: tl_manuscript.name,
+			name: self.name,
 			user: owner
 		})
 
 		document.save!
+
+		root_node = document.root_node
+		position = 0
 
 		# create all folders and their contents
 		TlFolder.where({ manuscript_id: manuscript_guid }).order(:name).each { |folder|
