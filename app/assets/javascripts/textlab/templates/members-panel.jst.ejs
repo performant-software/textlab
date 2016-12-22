@@ -8,9 +8,9 @@
             <span class='permissions'> Primary Editor </span>
             <div class='row-actions'>
               <% if( member.accepted ) { %> 
-                <button class="btn btn-sm btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
+                <button class="btn btn-xs btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
               <% } else { %> 
-                <button class="btn btn-sm btn-danger cancel-invite-button" data-member-id="<%= member.id %>">Cancel Invite</button> 
+                <button class="btn btn-xs btn-danger cancel-invite-button" data-member-id="<%= member.id %>">Cancel Invite</button> 
               <% } %>
             </div>
           </div>
