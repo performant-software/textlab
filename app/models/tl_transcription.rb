@@ -169,8 +169,8 @@ class TlTranscription < ActiveRecord::Base
     transcription.save!
     transcription.generate_zone_links!
 
-    # add user to document project if they are not already a member
-    if !user_id.nil? and Membership.where( user_id: user_id, document_id: document.id ).count == 0
+    # add user to document project if they are not already a member and not the owner.
+    if !user_id.nil? and user_id != document.user_id and Membership.where( user_id: user_id, document_id: document.id ).count == 0
       membership = Membership.new( user_id: user_id, 
                                    document_id: document.id,
                                    primary_editor: true,

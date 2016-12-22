@@ -21,3 +21,7 @@ ALTER TABLE leaf RENAME COLUMN id TO leaf_guid;
 alter table leaf rename to tl_leafs;
 
 alter table revisionsite rename to tl_revision_sites;
+
+update tl_leafs set createdby='jbryant' where createdby='admin';
+update tl_manuscripts set userid='jbryant' where userid='admin';
+update tl_transcriptions set ownedby='jbryant' where ownedby='admin';
