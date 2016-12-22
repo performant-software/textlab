@@ -65,7 +65,7 @@ class TlTranscription < ActiveRecord::Base
   end
 
   # iterate through the PB tags in this transcription and cut up the transcription by pb tags
-  def import_leaves!( parent_node, document, position, manuscript_guid )    
+  def import_leaves!( parent_node, document, position, manuscript_guid, blank_leaf )
     # clear old TL codes
     content = self.transcriptiontext.gsub(/__\S+\s/,'')
     
@@ -76,10 +76,10 @@ class TlTranscription < ActiveRecord::Base
     # grab any content from before the first pb
     if match_data != nil
       pre_content = content.slice(0,match_data.begin(0))
-      position = self.import_leaf!( pre_content, parent_node, document, position, manuscript_guid )
+      position = self.import_leaf!( pre_content, parent_node, document, position, manuscript_guid, blank_leaf )
     else
       # if there are no pb tags in this doc
-      position = self.import_leaf!( content, parent_node, document, position, manuscript_guid )
+      position = self.import_leaf!( content, parent_node, document, position, manuscript_guid, blank_leaf )
     end
       
     # now march through the pbs
@@ -88,14 +88,17 @@ class TlTranscription < ActiveRecord::Base
       match_data = content.match(pb_rx, match_data.end(0))    
       page_length = (match_data != nil) ? (match_data.begin(0)-start_pos) : (content.length-start_pos)
       page_content = content.slice(start_pos,page_length)
-      position = self.import_leaf!( page_content, parent_node, document, position, manuscript_guid )
+      position = self.import_leaf!( page_content, parent_node, document, position, manuscript_guid, blank_leaf )
     end
     
     position
   end
   
   # import a single leaf
-  def import_leaf!( content, parent_node, document, position, manuscript_guid )
+  def import_leaf!( content, parent_node, document, position, manuscript_guid, blank_leaf )
+
+    # don't create if content is blank
+    return position if content.match( /./ ).nil?
 
     # see if we can discern which leaf image was used by looking at the pb tag.
     pb_rx = self.img_xml_id_regex(manuscript_guid)
@@ -132,19 +135,20 @@ class TlTranscription < ActiveRecord::Base
           }
           leaf.next_zone_label = highest_num + 1
         end
+
+        leaf.save!
+
+        document_node = DocumentNode.new
+        document_node.document_node_id = parent_node.id
+        document_node.document = document
+        document_node.position = position
+        document_node.leaf = leaf
+        document_node.save!    
+        position = position + 1  
       else
-        # no leaf 
-        leaf.name = self.name
+        # no leaf
+        leaf = blank_leaf
       end
-      leaf.save!
-      
-      document_node = DocumentNode.new
-      document_node.document_node_id = parent_node.id
-      document_node.document = document
-      document_node.position = position
-      document_node.leaf = leaf
-      document_node.save!    
-      position = position + 1    
     end
                     
     # cross reference username

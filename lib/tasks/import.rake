@@ -22,4 +22,14 @@ namespace :import do
 		ActiveRecord::Migration.drop_table(:tl_revision_sites)
 	end
 
+	desc "Publish all official TEI transcriptions"
+	task :publish => :environment do
+		Document.all.each { |document|
+			Transcription.where(document_id: document.id, name: "Official TEI" ).each { |transcription| 
+				transcription.published = true
+				transcription.save! 
+			}
+		}
+	end
+
 end

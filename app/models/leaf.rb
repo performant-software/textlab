@@ -20,6 +20,16 @@ class Leaf < ActiveRecord::Base
   def published_transcription
     self.transcriptions.find_by( published: true )
   end
+
+  def create_node!( parent_node, position )
+    document_node = DocumentNode.new()
+    document_node.document_node_id = parent_node.id
+    document_node.document = self.document
+    document_node.position = position
+    document_node.leaf = self
+    document_node.save!    
+    position + 1 
+  end
   
   def obj
     
