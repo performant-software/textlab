@@ -22,6 +22,10 @@ alter table leaf rename to tl_leafs;
 
 alter table revisionsite rename to tl_revision_sites;
 
+ALTER TABLE sequence RENAME COLUMN id TO sequence_guid;
+alter table sequence rename to tl_sequences;
+
 update tl_leafs set createdby='jbryant' where createdby='admin';
 update tl_manuscripts set userid='jbryant' where userid='admin';
 update tl_transcriptions set ownedby='jbryant' where ownedby='admin';
+update tl_sequences set ownedby='jbryant' where ownedby='admin';

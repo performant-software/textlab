@@ -20,6 +20,7 @@ namespace :import do
 		ActiveRecord::Migration.drop_table(:tl_folders)
 		ActiveRecord::Migration.drop_table(:tl_leafs)
 		ActiveRecord::Migration.drop_table(:tl_revision_sites)
+		ActiveRecord::Migration.drop_table(:tl_sequences)
 	end
 
 	desc "Publish all official TEI transcriptions"
