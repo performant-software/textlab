@@ -28,6 +28,7 @@ namespace :import do
 		Document.all.each { |document|
 			Transcription.where(document_id: document.id, name: "Official TEI" ).each { |transcription| 
 				transcription.published = true
+				transcription.shared = true
 				Diplo.create_diplo!( transcription ) unless transcription.diplo
 				transcription.save! 
 			}
