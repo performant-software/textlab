@@ -80,6 +80,9 @@ class TranscriptionsController < ApplicationController
     if transcription_params[:zone_links_json].nil?
       @transcription.zone_links.clear
     end
+
+    # clear cached diplo when editing transcription
+    @transcription.diplo.delete if @transcription.diplo
     
     if @transcription.update(transcription_params)
       render json: @transcription.obj(current_user.id) 

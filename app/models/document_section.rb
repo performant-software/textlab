@@ -9,7 +9,7 @@ class DocumentSection < ActiveRecord::Base
       if !child_node.leaf.nil?
         child_node.leaf.transcriptions.each { |transcription|
           if transcription.published
-            transcription.diplo = Diplo.create_diplo!( transcription )    
+            Diplo.create_diplo!( transcription ) unless transcription.diplo
             base_content << thumb_html( child_node.leaf, transcription )
             base_content << transcription.diplo.html_content if transcription.diplo and !transcription.diplo.error
           end        
