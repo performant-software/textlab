@@ -21,14 +21,19 @@ class Diplo < ActiveRecord::Base
       }
       diplo.html_content << "</ul>"
     else
-      doc   = Saxon.XML(tei_document)    
-      xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
-      # TODO these options don't work, is there a way to config Saxon from here?
-      options = { "indent" => "'no'", "encoding" => "'utf-8'" } 
-             
-      xhtml = xslt.transform(doc,options).to_s    
-      diplo.html_content = self.get_page(xhtml, transcription.leaf.xml_id )
-      diplo.error = false
+      begin
+        doc   = Saxon.XML(tei_document)    
+        xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
+        # TODO these options don't work, is there a way to config Saxon from here?
+        options = { "indent" => "'no'", "encoding" => "'utf-8'" } 
+               
+        xhtml = xslt.transform(doc,options).to_s    
+        diplo.html_content = self.get_page(xhtml, transcription.leaf.xml_id )
+        diplo.error = false
+      rescue Exception => e
+        diplo.error = true
+        diplo.html_content = e.to_s
+      end
     end
     
     diplo.save!
