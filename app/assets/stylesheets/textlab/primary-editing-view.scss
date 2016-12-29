@@ -1,6 +1,6 @@
 
 #primary-editing-view {
-  
+
   .pretty-split-pane-frame {
   	box-sizing: border-box;
   	width: 100%;
@@ -46,6 +46,7 @@
 	#right-component {
 		left: 25em;
 		margin-left: 5px;
+		overflow-y: hidden;
 	}
 		
 	#surface-view-panel {

@@ -37,7 +37,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     var documentTreePanel = this.$("#document-tree-panel");
     var documentTree = this.$("#document-tree");
     var documentToolbar = this.$("#document-toolbar");
-		documentTree.height(documentTreePanel.height() - documentToolbar.height());				
+		documentTree.height(documentTreePanel.height() - documentToolbar.height() - 25);				
     documentTree.width(documentTreePanel.width());	
 
     var explorerView = this.$("#explorer-view");

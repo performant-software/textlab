@@ -1,5 +1,7 @@
 #document-tree-view {
   
+  position: fixed;
+
   #document-toolbar {
     padding: 5px;
   	border-bottom: 1px solid gray;
@@ -9,6 +11,7 @@
   #tree-container {
     padding: 5px;
     overflow-y: scroll;
+    width: 95%;
   }
     
 }
