@@ -9,6 +9,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
   marginBuffer : 2,
 
   render: function() {
+    this.fixCarets();
     this.fixMetamark();
     this.fixSuper();
     this.fixSublinear();
@@ -18,7 +19,6 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
     this.fixAdds();
     this.fixErasures();
     this.fixStrikethroughs();
-    this.fixCarets();
     // this.fixLinebreaks();
   },
   
