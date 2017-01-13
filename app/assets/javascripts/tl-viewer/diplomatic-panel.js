@@ -132,6 +132,8 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
            }, 400);
         });
 
+        var anchorOffset = $(this).offset();
+
         $(this).removeAttr('title').mouseenter(function() {
            if (tip.fadeTimeout) {
               clearTimeout(tip.fadeTimeout);
@@ -140,10 +142,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
               opacity : 1
            }).fadeIn();
         }).mousemove(function(mouse) {
-           tip.css({
-              left : mouse.pageX - tip.width() - 5,
-              top : mouse.pageY - tip.height() - 15
-           });
+           $(tip).offset({ top: anchorOffset.top + 15, left: anchorOffset.left + 15 });
         }).mouseleave(function() {
            tip.fadeTimeout = setTimeout(function() {
               tip.fadeOut();
