@@ -7,6 +7,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
   maxScrollPosition : 0,
   imagePanel : null,
   marginBuffer : 2,
+  popoverAttachmentPoint: '#leaf-viewer',
 
   render: function() {
     this.fixCarets();
@@ -159,7 +160,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
      var maxRight;
      var convertToRollover;
 
-     convertToRollover = function(el, isBelow) {
+     convertToRollover = _.bind( function(el, isBelow) {
         var html =  $(el).html();
         var startPos = html.indexOf("<span class=\"rollover bubble\">");
         if ( startPos > -1 ) {
@@ -168,7 +169,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
         }
 
         var rollover = $('<div class="add-rollover"></div>').html(html);
-        $('body').append(rollover);
+        $(this.popoverAttachmentPoint).append(rollover);
 
         $(rollover).mouseenter(function() {
            if (rollover.fadeTimeout) {
@@ -239,7 +240,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
               rollover.fadeOut();
            }, 1000);
         });
-     };
+     }, this);
 
      maxRight = this.$el.offset().left + this.$el.width();
      var tmpEl = $('<span>^MQ</span>');
@@ -297,11 +298,11 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
      
      var $el = this.$el;
 
-     convertToRolloverMargin = function(el) {
+     convertToRolloverMargin = _.bind( function(el) {
         var html = $(el).html();
 
         var rollover = $('<div class="add-rollover"></div>').html(html);
-        $('body').append(rollover);
+        $(this.popoverAttachmentPoint).append(rollover);
 
         $(rollover).mouseenter(function() {
            if (rollover.fadeTimeout) {
@@ -383,7 +384,7 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
               rollover.fadeOut();
            }, 1000);
         });
-     };
+     }, this);
 
      this.$('.add[class*="add-margin"]').each(function(i) {
         convertToRolloverMargin($(this));
