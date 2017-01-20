@@ -20,6 +20,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     this.tag = options.tag;
     this.currentZone = options.zone;
     this.callback = options.callback;
+    _.bindAll(this, "renderAttributeField" );
   },
   
   onCreate: function() {    
@@ -57,7 +58,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
       this.callback({ attrString: attributes, zoneOffset: zoneOffset });
     }, this));
   },
-  
+
   onCancel: function() {    
     this.close();
   },
@@ -74,7 +75,33 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     
     attributesModal.modal('hide');
   },
-  
+
+  renderAttributeField: function( attribute, key, zones ) {
+    if( attribute.fieldType == 'zone' ) {
+      var defaultZone = this.currentZone ? this.currentZone.get('zone_label') : '';
+
+      return this.partials.dropdownInput( { 
+        field_name: 'att-'+key, 
+        field_title: attribute.displayName, 
+        field_value: defaultZone, 
+        field_instructions: attribute.instructions, 
+        no_blank: true,
+        options: zones,
+        error: false 
+      }); 
+     } 
+    else {
+      return this.partials[ attribute.fieldType + 'Input' ]( { 
+        field_name: 'att-'+key, 
+        field_title: attribute.displayName, 
+        field_value: attribute.defaultValue ? attribute.defaultValue : '', 
+        field_instructions: attribute.instructions, 
+        options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
+        error: false 
+      }); 
+    }
+  },
+
   render: function() {
     
     // prepare list of options for zone drop down
@@ -87,10 +114,14 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     var sortedOptions = _.sortBy(zoneOptions, function(opt) {
       return opt.text;
     }, this ); 
-    
-    var currentZoneLabel = this.currentZone ? this.currentZone.get('zone_label') : '';
-    
-    this.$el.html(this.template({ tag: this.tag, defaultZone: currentZoneLabel, zones: sortedOptions, partials: this.partials }));    
+        
+    this.$el.html(this.template({ 
+      tag: this.tag, 
+      zones: sortedOptions, 
+      partials: this.partials,
+      renderAttributeField: this.renderAttributeField
+    }));
+
     $('#modal-container').html(this.$el);
     $('#attributes-modal').modal('show');
   } 

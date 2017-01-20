@@ -7,29 +7,23 @@
       </div>
       <div class="modal-body">
         <ul>
-        <% _.each( tag.attributes, function( attribute, key ) { %>
-          <% if( attribute.fieldType == 'zone' ) { %>
-            <%= partials.dropdownInput( { 
-              field_name: 'att-'+key, 
-              field_title: attribute.displayName, 
-              field_value: defaultZone, 
-              field_instructions: attribute.instructions, 
-              no_blank: true,
-              options: zones,
-              error: false 
-            }) %>
-          <% } else { %>
-            <%= partials[ attribute.fieldType + 'Input' ]( { 
-              field_name: 'att-'+key, 
-              field_title: attribute.displayName, 
-              field_value: attribute.defaultValue ? attribute.defaultValue : '', 
-              field_instructions: attribute.instructions, 
-              options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
-              error: false 
-            }) %>
-          <% } %>
-        <% }); %>
-      </ul>
+          <% var tag = TextLab.Tags[tag.tag]; %>
+          <% _.each( tag.attributes, function( attribute, key ) { %>
+            <%= renderAttributeField( attribute, key, zones ) %>
+          <% }); %>
+
+          <% _.each( tag.elements, function(tagName) { %>
+            <div class="panel panel-default">
+              <% var elementTag = TextLab.Tags[ tagName ]; %>
+              <div class="panel-heading"><%= elementTag.tag %></div>
+              <div class="panel-body">
+                <% _.each( elementTag.attributes, function( attribute, key ) { %>
+                  <%= renderAttributeField( attribute, key, zones ) %>
+                <% }); %>
+              </div>
+            </div>
+          <% }); %>
+        </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>

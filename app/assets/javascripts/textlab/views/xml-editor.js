@@ -243,9 +243,27 @@ TextLab.XMLEditor = Backbone.View.extend({
 		// clear the current timer 		
 		window.clearTimeout( this.autoSaveTimerID );	
 	},
-    
+
+  generateCompoundTag: function() {
+    // for multitag - put down first tag, then move to the end, put down second tag (no selection), then move to begining 
+    // and put down wrapping tag. (make it work for n tags)
+
+  },
+
+  // what are the correct inputs for this method?
   generateTag: function(tag, attributes) {
-    var insertion, startPos;
+    var doc =  this.editor.getDoc();
+
+    // TODO calls either compound tag or single tag
+    
+    var from = doc.getCursor("from");
+    var to = doc.somethingSelected() ? doc.getCursor("to") : null;
+
+    this.generateSingleTag( tag, attributes, from, to );
+  },
+
+  generateSingleTag: function(tag, attributes, from, to) {
+    var insertion;
     var doc =  this.editor.getDoc();
     var attrString = attributes ? attributes.attrString : "";
     
@@ -253,30 +271,37 @@ TextLab.XMLEditor = Backbone.View.extend({
       insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attrString });
     } else {
       var openTag = this.openTagTemplate({ tag: tag.tag, attributes: attrString });
-      var body = doc.getSelection();
+      var body = "";
+      // only need to populate body if insertion is a range.
+      if( to ) {
+        body = doc.getRange(from,to);
+        var existingMarks = doc.findMarks(from,to);
+        var existingMarkOffsets = _.map( existingMarks, function( existingMark ) {
+          var markPos = existingMark.find();
+          return doc.indexFromPos(markPos.from) + openTag.length;
+        }, this );
+      } 
       var closeTag = this.closeTagTemplate(tag);
       insertion = openTag + body + closeTag;
     }
-
-    // note the start position of the insertion
-    startPos = doc.getCursor("from");
     
     // if a range is selected, replace it. Otherwise, insert at caret.
-    if( doc.somethingSelected() && !tag.empty ) {
-      doc.replaceSelection(insertion);
-    } else {
-      doc.replaceRange(insertion, startPos );
-    }
+    doc.replaceRange(insertion, from, to);
     
     // need to know insertion point + offset into insertion where link appears. 
     if( attributes && attributes.zoneOffset ) {
       var elementStart = "<"+tag.tag;
-      var offset = doc.indexFromPos(startPos) + elementStart.length + attributes.zoneOffset;      
+      var offset = doc.indexFromPos(from) + elementStart.length + attributes.zoneOffset;      
       var zoneMark = this.markZoneLink(offset);
       var markRange = zoneMark.find();
       var zoneLabel = doc.getRange(markRange.from, markRange.to);
       this.surfaceView.toggleZoneLink( zoneLabel, true );
     }
+
+    // repair any existing marks
+    _.each( existingMarkOffsets, function( existingMarkOffset ) {
+      this.markZoneLink(existingMarkOffset);
+    }, this);
     
     this.editor.focus();
   },

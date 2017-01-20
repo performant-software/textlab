@@ -400,9 +400,19 @@ TextLab.Tags = {
     empty: false
   },
 
-  // subst: {
-  //
-  // },
+  subst: {
+    tag: 'subst',
+    empty: false,
+    instructions: '',
+    elements: [ 'del', 'add' ],
+    attributes: {
+      facs: {
+        displayName: 'Zone',
+        instructions: '',
+        fieldType: 'zone'
+      }      
+    }
+  },
 
   supplied: {
     tag: 'supplied',
