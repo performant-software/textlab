@@ -250,13 +250,13 @@ TextLab.XMLEditor = Backbone.View.extend({
     var from = doc.getCursor("from");
     var to = doc.somethingSelected() ? doc.getCursor("to") : null;
 
-    if( children ) {
+    if( children && children.length > 0 ) {
       // for child tags - put down first tag with optional selection
       // then put down n more tags (no selection)
       var childFrom = from;
       var childTo = to;
       _.each( children, function( child ) {
-        var tagEnd = this.generateSingleTag( child.tag, child.attributes, childFrom, childTo );
+        var tagEnd = this.generateSingleTag( child.tag, child, childFrom, childTo );
         childFrom = tagEnd;
         childTo = null;
       }, this);
