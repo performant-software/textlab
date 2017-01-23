@@ -1,6 +1,7 @@
 class Document < ActiveRecord::Base
       	
   belongs_to :user
+  belongs_to :project_config
   has_many :leafs, dependent: :destroy
   has_many :document_sections, dependent: :destroy
   has_many :document_nodes, dependent: :destroy
