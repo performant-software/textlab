@@ -47,8 +47,8 @@ TextLab.XMLEditor = Backbone.View.extend({
     }
         
     if( tag.attributes ) {    
-      var onCreateCallback = _.bind(function(attributes) {
-        this.generateTag(tag,attributes);
+      var onCreateCallback = _.bind(function(attributes, children) {
+        this.generateTag(tag,attributes,children);
       }, this);
             
       var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, zone: event.zone, tag: tag, callback: onCreateCallback } );
@@ -244,22 +244,29 @@ TextLab.XMLEditor = Backbone.View.extend({
 		window.clearTimeout( this.autoSaveTimerID );	
 	},
 
-  generateCompoundTag: function() {
-    // for multitag - put down first tag, then move to the end, put down second tag (no selection), then move to begining 
-    // and put down wrapping tag. (make it work for n tags)
-
-  },
-
   // what are the correct inputs for this method?
-  generateTag: function(tag, attributes) {
+  generateTag: function(tag, attributes, children) {
     var doc =  this.editor.getDoc();
-
-    // TODO calls either compound tag or single tag
-    
     var from = doc.getCursor("from");
     var to = doc.somethingSelected() ? doc.getCursor("to") : null;
 
+    if( children ) {
+      // for child tags - put down first tag with optional selection
+      // then put down n more tags (no selection)
+      var childFrom = from;
+      var childTo = to;
+      _.each( children, function( child ) {
+        var tagEnd = this.generateSingleTag( child.tag, child.attributes, childFrom, childTo );
+        childFrom = tagEnd;
+        childTo = null;
+      }, this);
+
+      // parent will encompass all children that were inserted.
+      to = childFrom;
+    }
+
     this.generateSingleTag( tag, attributes, from, to );
+    this.editor.focus();
   },
 
   generateSingleTag: function(tag, attributes, from, to) {
@@ -303,7 +310,8 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.markZoneLink(existingMarkOffset);
     }, this);
     
-    this.editor.focus();
+    var endIndex = doc.indexFromPos(from) + insertion.length;
+    return doc.posFromIndex(endIndex);
   },
   
   removeZoneLink: function( removedZone ) {

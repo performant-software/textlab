@@ -7,9 +7,10 @@
       </div>
       <div class="modal-body">
         <ul>
+          <% var elementIndex = 0; %>
           <% var tag = TextLab.Tags[tag.tag]; %>
           <% _.each( tag.attributes, function( attribute, key ) { %>
-            <%= renderAttributeField( attribute, key, zones ) %>
+            <%= renderAttributeField( elementIndex, attribute, key, zones ) %>
           <% }); %>
 
           <% _.each( tag.elements, function(tagName) { %>
@@ -18,7 +19,8 @@
               <div class="panel-heading"><%= elementTag.tag %></div>
               <div class="panel-body">
                 <% _.each( elementTag.attributes, function( attribute, key ) { %>
-                  <%= renderAttributeField( attribute, key, zones ) %>
+                  <% elementIndex = elementIndex + 1; %>
+                  <%= renderAttributeField( elementIndex, attribute, key, zones ) %>
                 <% }); %>
               </div>
             </div>

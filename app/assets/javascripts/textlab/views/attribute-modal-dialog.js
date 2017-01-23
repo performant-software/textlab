@@ -2,7 +2,8 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     
 	template: JST['textlab/templates/attribute-modal-dialog'],
   attributeTemplate: _.template('<%= key %>="<%= value %>" '),
-  
+  fieldIDTemplate: _.template('<%= index %>-att-<%= key %>'),
+
   id: 'attribute-modal-container',
   
 	partials: {
@@ -22,13 +23,12 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     this.callback = options.callback;
     _.bindAll(this, "renderAttributeField" );
   },
-  
-  onCreate: function() {    
-    var attributesModal = $('#attributes-modal');
+
+  parseElementFields: function(tag, elementIndex) {
     
     var attributeList = [];    
-    _.each( this.tag.attributes, _.bind( function( attribute, key ) {
-      var fieldID = 'att-'+key;
+    _.each( tag.attributes, _.bind( function( attribute, key ) {
+      var fieldID = this.fieldIDTemplate({ index: elementIndex, key: key });
       var value = $('#'+fieldID).val();      
       if( attribute.appendTo ) {
         // in this case, append the value to an existing attribute
@@ -53,9 +53,21 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
 
       attributes = attributes + attrString;      
     },this));
+
+    return { tag: tag, attrString: attributes, zoneOffset: zoneOffset };
+  },
+  
+  onCreate: function() {    
+    var elementIndex = 0;
+    var parentElement = this.parseElementFields(this.tag, elementIndex);
+
+    var children = _.map( this.tag.elements, function( element ) {
+      elementIndex = elementIndex + 1;
+      return this.parseElementFields(TextLab.Tags[element], elementIndex);
+    }, this);
     
     this.close( _.bind( function() {
-      this.callback({ attrString: attributes, zoneOffset: zoneOffset });
+      this.callback(parentElement, children);
     }, this));
   },
 
@@ -76,12 +88,12 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     attributesModal.modal('hide');
   },
 
-  renderAttributeField: function( attribute, key, zones ) {
+  renderAttributeField: function( elementIndex, attribute, key, zones ) {
     if( attribute.fieldType == 'zone' ) {
       var defaultZone = this.currentZone ? this.currentZone.get('zone_label') : '';
 
       return this.partials.dropdownInput( { 
-        field_name: 'att-'+key, 
+        field_name: this.fieldIDTemplate({ index: elementIndex, key: key }), 
         field_title: attribute.displayName, 
         field_value: defaultZone, 
         field_instructions: attribute.instructions, 
@@ -92,7 +104,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
      } 
     else {
       return this.partials[ attribute.fieldType + 'Input' ]( { 
-        field_name: 'att-'+key, 
+        field_name: this.fieldIDTemplate({ index: elementIndex, key: key }), 
         field_title: attribute.displayName, 
         field_value: attribute.defaultValue ? attribute.defaultValue : '', 
         field_instructions: attribute.instructions, 
