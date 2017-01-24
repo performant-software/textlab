@@ -21,6 +21,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     this.tag = options.tag;
     this.currentZone = options.zone;
     this.callback = options.callback;
+    this.config = options.config;
     _.bindAll(this, "renderAttributeField" );
   },
 
@@ -63,7 +64,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
 
     var children = _.map( this.tag.elements, function( element ) {
       elementIndex = elementIndex + 1;
-      return this.parseElementFields(TextLab.Tags[element], elementIndex);
+      return this.parseElementFields(this.config.tags[element], elementIndex);
     }, this);
     
     this.close( _.bind( function() {
@@ -108,7 +109,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
         field_title: attribute.displayName, 
         field_value: attribute.defaultValue ? attribute.defaultValue : '', 
         field_instructions: attribute.instructions, 
-        options: (typeof attribute.vocab === "string") ? TextLab.Vocabs[attribute.vocab] : attribute.vocab,
+        options: (typeof attribute.vocab === "string") ? this.config.vocabs[attribute.vocab] : attribute.vocab,
         error: false 
       }); 
     }
@@ -130,6 +131,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     this.$el.html(this.template({ 
       tag: this.tag, 
       zones: sortedOptions, 
+      config: this.config,
       partials: this.partials,
       renderAttributeField: this.renderAttributeField
     }));

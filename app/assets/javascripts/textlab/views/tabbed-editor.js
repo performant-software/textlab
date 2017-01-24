@@ -21,6 +21,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
 	initialize: function(options) {
     this.parentPanel = options.parentPanel;
     this.projectOwner = options.projectOwner;
+    this.config = options.config;
     _.bindAll( this, "initTranscriptions" );
   },
   
@@ -212,7 +213,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
     
   openXMLEditorTab: function(transcription) {    
-    var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model, tabbedEditor: this });
+    var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model, config: this.config, tabbedEditor: this });
     xmlEditor.render();
 
     var tab = { 

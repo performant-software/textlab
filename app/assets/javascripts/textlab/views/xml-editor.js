@@ -30,16 +30,21 @@ TextLab.XMLEditor = Backbone.View.extend({
             	
 	initialize: function(options) {
     _.bindAll( this, "onEnter", "requestAutosave", "save");
-    this.lbTag = TextLab.Tags['lb'];
     this.lbEnabled = false;
     this.leaf = options.leaf;
+    this.config = options.config;
+
+    // tags with special behaviors
+    this.lbTag = this.config.tags['lb'];
+    this.pbTag = this.config.tags['pb'];
+
     this.tabbedEditor = options.tabbedEditor;
   },
   
   onClickTagMenuItem: function(event) {
     var target = $(event.currentTarget); 
     var tagID = target.attr("data-tag-id");		
-    var tag = TextLab.Tags[tagID];
+    var tag = this.config.tags[tagID];
       
     // are we coming from drop down? if so, hide it
     if( !target.hasClass('toolbar-button')) {
@@ -51,7 +56,7 @@ TextLab.XMLEditor = Backbone.View.extend({
         this.generateTag(tag,attributes,children);
       }, this);
             
-      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, zone: event.zone, tag: tag, callback: onCreateCallback } );
+      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, config: this.config, zone: event.zone, tag: tag, callback: onCreateCallback } );
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
@@ -75,11 +80,12 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickpbMode: function() { 
-    var tag = TextLab.Tags['pb'];
-    var attrString = this.pbTagAttrTemplate({ xml_id: this.leaf.get('xml_id') });
-    var attributes = { attrString: attrString };
-    this.generateTag(tag, attributes);
-    return false;
+    if( this.pbTag ) {
+      var attrString = this.pbTagAttrTemplate({ xml_id: this.leaf.get('xml_id') });
+      var attributes = { attrString: attrString };
+      this.generateTag(this.pbTag, attributes);
+      return false;
+    }
   },
   
   onClickPreview: function() {
@@ -186,7 +192,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onEnter: function() {
-    if( this.lbEnabled ) {
+    if( this.lbEnabled && this.lbTag ) {
       this.generateTag(this.lbTag);
     }    
   },
@@ -409,7 +415,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     }
               
     this.$el.html(this.template({ 
-      tags: _.keys( TextLab.Tags ),   
+      tags: _.keys( this.config.tags ),   
       showPublishButton: showPublishButton,
       showSubmitButton: showSubmitButton,
       showReturnButton: showReturnButton,
