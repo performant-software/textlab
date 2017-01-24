@@ -23,8 +23,17 @@ TextLab.DocumentListView = Backbone.View.extend({
     }, this);
           
     var doc = new TextLab.Document();
-    var documentModalDialog = new TextLab.NewDocumentDialog( { model: doc, callback: onCreateCallback } );
-    documentModalDialog.render();    
+
+    // load project configs before we display dialog
+    doc.getProjectConfigs( _.bind(function( projectConfigs ) {
+      var documentModalDialog = new TextLab.NewDocumentDialog( { 
+        model: doc, 
+        projectConfigs: projectConfigs,
+        callback: onCreateCallback 
+      });
+      documentModalDialog.render();     
+    }, this));
+
   },
   
   onAcceptInvite: function(event) {

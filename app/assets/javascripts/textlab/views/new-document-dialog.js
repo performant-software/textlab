@@ -5,7 +5,8 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
   id: 'document-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input']
+		stringInput: JST['textlab/templates/common/string-input'],
+    dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
 
   events: {
@@ -15,13 +16,15 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.callback = options.callback;
+    this.projectConfigs = options.projectConfigs;
   },
   
   onCreate: function() {    
     this.close( _.bind( function() {
       this.model.set({
         name: this.$('#name').val(),
-        description: this.$('#description').val() 
+        description: this.$('#description').val(),
+        project_config_id: this.$('#projectConfig').val() 
       });
       this.callback(this.model);
     }, this));
@@ -45,7 +48,20 @@ TextLab.NewDocumentDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ document: this.model, partials: this.partials }));    
+
+    var projectConfigList = _.map( this.projectConfigs.models, function(projectConfig) { 
+      return { 
+        value: projectConfig.id, 
+        text: projectConfig.get('name'),
+      }; 
+    });
+
+    this.$el.html(this.template({ 
+      document: this.model, 
+      projectConfigs: projectConfigList,
+      partials: this.partials 
+    }));
+
     this.$('#leaf-manifest-panel')
 
     var leafPanelEl = this.$("#leaf-manifest-panel");

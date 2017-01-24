@@ -20,7 +20,16 @@
           field_instructions: "Please enter a brief description of this project.",
           error: false 
         }) %>        
-        
+        <%= partials.dropdownInput( { 
+          field_name: 'projectConfig', 
+          field_title: 'Project Configuration', 
+          field_value: _.first(projectConfigs).value, 
+          field_instructions: 'Project configuration determines the tags and vocabs.', 
+          no_blank: true,
+          options: projectConfigs,
+          error: false 
+        }) %>      
+
         <div id="leaf-manifest-panel"></div>
 
       </div>
