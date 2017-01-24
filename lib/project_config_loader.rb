@@ -3,7 +3,11 @@ class ProjectConfigLoader
   
 	def self.load_config(filepath, make_default=false)
 		config_data = ProjectConfigLoader.read_json_file(filepath)
-		project_config = ProjectConfig.new(config_data)
+		project_config = ProjectConfig.new
+		project_config.name = config_data['name']
+		project_config.description = config_data['description']
+		project_config.vocabs = config_data['vocabs'].to_json
+		project_config.tags = config_data['tags'].to_json
 		project_config.save!
 
 		if make_default

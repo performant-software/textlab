@@ -121,7 +121,8 @@ class Document < ActiveRecord::Base
       document_nodes: nodesJSON,
       members: membersJSON,
       owner: self.is_owner?(current_user_id),
-      published: self.published
+      published: self.published,
+      project_config: self.project_config.obj
     }
   end
  

@@ -6,6 +6,11 @@ TextLab.Document = Backbone.Model.extend({
     this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"], { document: this } );
     this.documentSections = new TextLab.DocumentSectionCollection( model["sections"] );
     this.members = new TextLab.MembershipCollection( model["members"] );
+
+    this.config = model["project_config"];
+    this.config.vocabs = JSON.parse(this.config.vocabs);
+    this.config.tags = JSON.parse(this.config.tags);
+
     this.leafs.document = this;
     this.documentNodes.document = this;
     this.documentSections.document = this;

@@ -52,6 +52,6 @@ class DocumentsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def document_params
-    params.permit( :name, :description, :published, :leaf_manifest )
+    params.permit( :name, :description, :published, :leaf_manifest, :project_config_id )
   end
 end
