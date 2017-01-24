@@ -6,10 +6,7 @@ TextLab.Document = Backbone.Model.extend({
     this.documentNodes = new TextLab.DocumentNodeCollection( model["document_nodes"], { document: this } );
     this.documentSections = new TextLab.DocumentSectionCollection( model["sections"] );
     this.members = new TextLab.MembershipCollection( model["members"] );
-
-    this.config = model["project_config"];
-    this.config.vocabs = JSON.parse(this.config.vocabs);
-    this.config.tags = JSON.parse(this.config.tags);
+    this.loadProjectConfig( model["project_config"] );
 
     this.leafs.document = this;
     this.documentNodes.document = this;
@@ -41,6 +38,28 @@ TextLab.Document = Backbone.Model.extend({
     });    
   },
   
+  loadProjectConfig: function( configObj ) {
+    this.config = configObj;
+    this.config.vocabs = JSON.parse(configObj.vocabs);
+    this.config.tags = JSON.parse(configObj.tags);
+  },
+
+  getProjectConfigs: function( callback ) {
+    var configs = new TextLab.ConfigCollection();
+    configs.fetch( { success: callback, error: TextLab.Routes.routes.onError } );
+  },
+
+  updateProjectConfig: function( projectConfigID, callback ) {
+    var config = new TextLab.Config({ id: projectConfigID });
+    config.fetch({ 
+      success: _.bind( function(projectConfig) {
+        this.loadProjectConfig(projectConfig.toJSON());
+        callback();
+      }, this), 
+      error: TextLab.Routes.routes.onError 
+    });    
+  },
+
   addSection: function( section ) {
     section.set("document_id", this.id );
     this.documentSections.add( section );

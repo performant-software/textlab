@@ -52,6 +52,14 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.selectTab(tab);
   },
 
+  onConfigChanged: function(config) {
+    this.config = config;
+    _.each( this.tabs, function(tab) {
+      tab.xmlEditor.onConfigChanged(config);
+    }, this);
+    this.render();
+  },
+
   onClose: function(event) {
     var tabID = $(event.currentTarget).attr('data-tab-id');
     var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });

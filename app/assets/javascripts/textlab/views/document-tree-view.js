@@ -152,7 +152,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
   
   onEditProjectSettings: function() {
-    var onUpdateCallback = _.bind(function(doc) {
+    var onUpdateCallback = _.bind(function(doc,configChanged) {
       doc.save(null, { 
         success: _.bind( function() {  
           var docName = doc.get('name');
@@ -167,13 +167,25 @@ TextLab.DocumentTreeView = Backbone.View.extend({
             }, this), 
             error: TextLab.Routes.routes.onError } );
           }
+          if( configChanged ) {
+            this.mainViewport.onConfigChanged(this.model.config);
+          }
         },this),      
         error: TextLab.Routes.routes.onError 
       });
     }, this);          
 
-    var editSettingsDialog = new TextLab.EditSettingsDialog( { model: this.model, callback: onUpdateCallback } );
-    editSettingsDialog.render();    
+    // load project configs before we display dialog
+    this.model.getProjectConfigs( _.bind(function( projectConfigs ) {
+      var editSettingsDialog = new TextLab.EditSettingsDialog({ 
+        model: this.model, 
+        projectConfigs: projectConfigs, 
+        callback: onUpdateCallback 
+      });
+
+      editSettingsDialog.render();    
+    }, this));
+
     return false;
   },
     

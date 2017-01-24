@@ -115,6 +115,10 @@ TextLab.XMLEditor = Backbone.View.extend({
     return false;
   },
   
+  onConfigChanged: function(config) {
+    this.config = config;
+  },
+
   updateSharing: function( shared ) {
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('shared', shared );

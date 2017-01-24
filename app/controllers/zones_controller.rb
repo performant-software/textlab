@@ -2,12 +2,6 @@ class ZonesController < ApplicationController
   before_action :set_zone, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /zones.json
-  def index
-    @zones = Zone.get_all
-    render json: @zones.to_json
-  end
-
   # GET /zones/1.json
   def show
     render json: @zone.obj.to_json

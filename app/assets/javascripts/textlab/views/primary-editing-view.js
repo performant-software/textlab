@@ -58,6 +58,12 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   onDocumentTreeChanged: function() {
     this.documentExplorer.render();
   },
+
+  onConfigChanged: function(config) {
+    if( this.tabbedEditor ) {
+      this.tabbedEditor.onConfigChanged(config);
+    }
+  },
     
   selectSection: function( sectionNode ) {
 

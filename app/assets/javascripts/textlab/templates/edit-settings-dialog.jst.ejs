@@ -28,7 +28,16 @@
           field_value: document.description, 
           field_instructions: "Please enter a brief description of this project.",
           error: false 
-        }) %>        
+        }) %>    
+        <%= partials.dropdownInput( { 
+          field_name: 'projectConfig', 
+          field_title: 'Project Configuration', 
+          field_value: document.project_config_id, 
+          field_instructions: 'Project configuration determines the tags and vocabs.', 
+          no_blank: true,
+          options: projectConfigs,
+          error: false 
+        }) %>       
       
       <h4>Project Members</h4>  
       <div id="members-panel"></div>

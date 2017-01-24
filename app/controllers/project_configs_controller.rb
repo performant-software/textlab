@@ -2,7 +2,7 @@ class ProjectConfigsController < ApplicationController
   before_action :set_project_config, only: [:show, :update, :destroy]
   before_action :authenticate_user!
 
-  # GET /zones.json
+  # GET /project_configs.json
   def index
     @project_configs = ProjectConfig.get_all
     render json: @project_configs

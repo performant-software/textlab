@@ -8,7 +8,8 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
   
 	partials: {
 		stringInput: JST['textlab/templates/common/string-input'],
-    checkMark: JST['textlab/templates/common/check-mark']
+    checkMark: JST['textlab/templates/common/check-mark'],
+    dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
   
   events: {
@@ -18,16 +19,30 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.callback = options.callback;
+    this.projectConfigs = options.projectConfigs;
   },
   
   onUpdate: function() {    
     this.close( _.bind( function() {
+      var projectConfigID = this.$('#projectConfig').val();
+      var configChanged = (projectConfigID != this.model.get('project_config_id'));
+
       this.model.set({
         name: this.$('#name').val(),
         description: this.$('#description').val(),
-        published: this.$('#published').is(":checked")
+        published: this.$('#published').is(":checked"),
+        project_config_id: projectConfigID,
       });
-      this.callback(this.model);
+
+      if( configChanged ) {
+        // fetch new project configs before we proceed
+        this.model.updateProjectConfig( projectConfigID, _.bind(function() {
+          this.callback(this.model, true);
+        }, this));
+      } else {
+        this.callback(this.model, false);
+      }
+    
     }, this));
   },
   
@@ -55,8 +70,20 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
 
     var publishURL = this.publishURLTemplate( { loc: window.location, id: rootSection.id } );
     var publishFieldTitle = this.fieldTitleTemplate( { publishURL: publishURL } );
+
+    var projectConfigList = _.map( this.projectConfigs.models, function(projectConfig) { 
+      return { 
+        value: projectConfig.id, 
+        text: projectConfig.get('name'),
+      }; 
+    });
     
-    this.$el.html(this.template({ document: this.model.toJSON(), partials: this.partials, publishFieldTitle: publishFieldTitle }));    
+    this.$el.html(this.template({ 
+      document: this.model.toJSON(), 
+      partials: this.partials, 
+      projectConfigs: projectConfigList,
+      publishFieldTitle: publishFieldTitle 
+    }));    
     
     this.membersPanel = new TextLab.MembersPanel( { collection: this.model.members } );    
     this.membersPanel.render();
