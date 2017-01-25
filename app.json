@@ -1,0 +1,74 @@
+{
+  "name": "tl2",
+  "scripts": {
+  },
+  "env": {
+    "EMAIL_ADDRESS": {
+      "required": true
+    },
+    "EMAIL_AUTHENTICATION": {
+      "required": true
+    },
+    "EMAIL_DELIVER": {
+      "required": true
+    },
+    "EMAIL_DOMAIN": {
+      "required": true
+    },
+    "EMAIL_ENABLE_STARTTLS_AUTO": {
+      "required": true
+    },
+    "EMAIL_LIST": {
+      "required": true
+    },
+    "EMAIL_PASSWORD": {
+      "required": true
+    },
+    "EMAIL_PORT": {
+      "required": true
+    },
+    "EMAIL_RETURN_PATH": {
+      "required": true
+    },
+    "EMAIL_USER_NAME": {
+      "required": true
+    },
+    "EXCEPTION_EMAIL_PREFIX": {
+      "required": true
+    },
+    "EXCEPTION_RECIPIENTS": {
+      "required": true
+    },
+    "EXCEPTION_SENDER_ADDRESS": {
+      "required": true
+    },
+    "HEROKU_POSTGRESQL_AMBER_URL": {
+      "required": true
+    },
+    "LANG": {
+      "required": true
+    },
+    "RACK_ENV": {
+      "required": true
+    },
+    "RAILS_ENV": {
+      "required": true
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": true
+    },
+    "SECRET_KEY_BASE": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ]
+}
