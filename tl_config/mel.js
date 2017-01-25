@@ -421,26 +421,25 @@
     "supplied": {
       "tag": "supplied",
       "empty": false
-    }
+    },
 
-    // also encloses <app><rdg>lorem</rdg></app>
-    // unclear: {
-   //    tag: "unclear",
-   //    empty: false,
-   //    attributes: {
-   //      resp: {
-   //        displayName: "Responsible persons",
-   //        fieldType: "string",
-   //        default"value": "#MEL",
-   //        instructions: "Please enter the responsible person."
-   //      },
-   //      zone: {
-   //        displayName: "Zone",
-   //        instructions: "",
-   //        fieldType: "zone"
-   //      }
-   //    }
-   //  }
+    "unclear": {
+      "tag": "unclear",
+      "empty": false,
+      "attributes": {
+        "resp": {
+          "displayName": "Responsible persons",
+          "fieldType": "string",
+          "defaultvalue": "#MEL",
+          "instructions": "Please enter the responsible person."
+        },
+        "facs": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }
+    }
 
   }
 }

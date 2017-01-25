@@ -393,6 +393,24 @@
     "supplied": {
       "tag": "supplied",
       "empty": false
+    },
+
+    "unclear": {
+      "tag": "unclear",
+      "empty": false,
+      "attributes": {
+        "resp": {
+          "displayName": "Responsible persons",
+          "fieldType": "string",
+          "defaultvalue": "",
+          "instructions": "Please enter the responsible person."
+        },
+        "zone": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }
     }
 
   }
