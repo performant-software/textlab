@@ -5,7 +5,8 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   id: 'transcription-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input']
+		stringInput: JST['textlab/templates/common/string-input'],
+    dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
   
   events: {
@@ -19,11 +20,19 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   },
   
   onOK: function() {    
-    this.close( _.bind( function() {            
+    this.close( _.bind( function() { 
+
+      var editorType = this.$('#editorType').val();
+      if( this.mode != 'edit' && editorType == 'transcription' ) {
+        this.model = TextLab.Transcription.newTranscription();
+      } else {
+        this.model = TextLab.Sequence.newSequence();
+      }
+
       this.model.set({
         name: this.$('#name').val() 
       });
-      this.callback(this.model);
+      this.callback(this.model,editorType);
     }, this));
   },
   
@@ -45,7 +54,19 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ transcription: this.model, partials: this.partials, mode: this.mode }));    
+
+    var editorTypeList = [ 
+      { value: 'transcription', text: 'Transcription' },
+      { value: 'sequence', text: 'Sequence' } 
+    ];
+
+    this.$el.html(this.template({ 
+      model: this.model, 
+      editorTypes: editorTypeList, 
+      partials: this.partials, 
+      mode: this.mode 
+    }));    
+
     $('#modal-container').html(this.$el);
     $('#transcription-modal').modal('show');
   } 

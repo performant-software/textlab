@@ -4,7 +4,20 @@ TextLab.Transcription = Backbone.Model.extend({
   initialize: function( attributes, options ) {
     this.afterLoad( attributes );    
   },
-  
+
+  newTranscription: function( documentID ) {  
+    var transcription = new TextLab.Transcription({ 
+      leaf_id: this.model.id, 
+      name: 'untitled',
+      document_id: documentID, 
+      shared: false, 
+      submitted: false,
+      published: false,
+      owner: true
+    });
+    return transcription;
+  },
+
   afterLoad: function( attributes ) {
     if( attributes && attributes["zone_links"] ) {
       this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);

@@ -34,7 +34,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       
       // if there are no transcriptions, create a blank one
       if(this.collection.models.length == 0) {
-        this.newTranscription();
+        var transcription = TextLab.Transcription.newTranscription(this.model.get('document_id'));
+        this.collection.add( transcription );
       }
     
       callback();
@@ -66,21 +67,6 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.closeTab(tab);
   },
   
-  newTranscription: function() {  
-    var documentID = this.model.get('document_id');
-    var transcription = new TextLab.Transcription({ 
-      leaf_id: this.model.id, 
-      name: 'untitled',
-      document_id: documentID, 
-      shared: false, 
-      submitted: false,
-      published: false,
-      owner: true
-    });
-    this.collection.add( transcription );
-    return transcription;
-  },
-  
   deleteTranscription: function( transcription ) {
     var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcription.id });
     transcription.destroy({ success: _.bind( function() {
@@ -101,15 +87,23 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   onNew: function() {    
-    var onCreateCallback = _.bind(function(transcription) {
-      transcription.save(null, { success: _.bind( function() {
-        var tab = this.openXMLEditorTab(transcription);
-        this.selectTab(tab);
-      }, this) });
+    var onCreateCallback = _.bind(function(editorModel, editorType) {
+      if( editorType == 'transcription' ) {
+        this.collection.add(editorModel);
+        editorModel.save(null, { success: _.bind( function() {
+          var tab = this.openXMLEditorTab(editorModel);
+          this.selectTab(tab);
+        }, this) });
+      } else {
+        this.collection.add(editorModel);
+        editorModel.save(null, { success: _.bind( function() {
+          var tab = this.openSequenceEditorTab(editorModel);
+          this.selectTab(tab);
+        }, this) });
+      }
     }, this);  
     
-    var transcription = this.newTranscription();
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: transcription, callback: onCreateCallback } );
+    var transcriptionDialog = new TextLab.TranscriptionDialog( { callback: onCreateCallback } );
     transcriptionDialog.render();   
   },
   
@@ -248,6 +242,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.tabs.push(tab);
     
     return tab;
+  },
+
+  openSequenceEditorTab: function(sequence) {
+    // TODO
+
+
   },
       
   render: function() {
