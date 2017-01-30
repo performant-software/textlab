@@ -144,6 +144,8 @@ TextLab.SequenceEditor = Backbone.View.extend({
     if( showReturnButton ) {
       actionWidthClass = 'room-for-return-button';
     }
+
+    var showPublishButton = false;
               
     this.$el.html(this.template({ 
       showPublishButton: showPublishButton,

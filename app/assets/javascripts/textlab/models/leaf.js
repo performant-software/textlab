@@ -72,7 +72,20 @@ TextLab.Leaf = Backbone.Model.extend({
       }
     }); 
   },
-  
+
+  getSequences: function( callback ) {
+    var sequencesURL = _.template("/sequences?leaf_id=<%= leafID %>");
+    
+    $.ajax({
+      url: sequencesURL( { leafID: this.id }),
+      dataType: 'json',
+      success: function( sequences ) {
+        var sequenceCollection = new TextLab.SequenceCollection( sequences );        
+        callback( sequenceCollection );
+      }
+    }); 
+  },
+
   getZoneLabelPrefix: function() {
     return '#' + this.get('xml_id') + '-';
   },

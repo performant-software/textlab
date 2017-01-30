@@ -16,6 +16,7 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.callback = options.callback;
+    this.leaf = options.leaf;
     this.mode = options.mode;
   },
   
@@ -23,10 +24,12 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
     this.close( _.bind( function() { 
 
       var editorType = this.$('#editorType').val();
-      if( this.mode != 'edit' && editorType == 'transcription' ) {
-        this.model = TextLab.Transcription.newTranscription();
-      } else {
-        this.model = TextLab.Sequence.newSequence();
+      if( this.mode != 'edit' ) {
+        if( editorType == 'transcription' ) {
+          this.model = TextLab.Transcription.newTranscription(this.leaf);
+        } else {
+          this.model = TextLab.Sequence.newSequence(this.leaf);
+        }        
       }
 
       this.model.set({
@@ -61,7 +64,7 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
     ];
 
     this.$el.html(this.template({ 
-      model: this.model, 
+      name: (this.model) ? this.model.get('name') : '', 
       editorTypes: editorTypeList, 
       partials: this.partials, 
       mode: this.mode 

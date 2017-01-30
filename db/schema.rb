@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170123171925) do
+ActiveRecord::Schema.define(version: 20170130153833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,16 @@ ActiveRecord::Schema.define(version: 20170123171925) do
     t.string "description"
     t.text   "vocabs"
     t.text   "tags"
+  end
+
+  create_table "sequences", force: :cascade do |t|
+    t.integer "leaf_id"
+    t.string  "name"
+    t.integer "document_id"
+    t.integer "user_id"
+    t.boolean "shared"
+    t.boolean "submitted"
+    t.boolean "published"
   end
 
   create_table "tl_folders", id: :bigserial, force: :cascade do |t|

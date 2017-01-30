@@ -5,19 +5,6 @@ TextLab.Transcription = Backbone.Model.extend({
     this.afterLoad( attributes );    
   },
 
-  newTranscription: function( documentID ) {  
-    var transcription = new TextLab.Transcription({ 
-      leaf_id: this.model.id, 
-      name: 'untitled',
-      document_id: documentID, 
-      shared: false, 
-      submitted: false,
-      published: false,
-      owner: true
-    });
-    return transcription;
-  },
-
   afterLoad: function( attributes ) {
     if( attributes && attributes["zone_links"] ) {
       this.zoneLinks = new TextLab.ZoneLinkCollection(attributes["zone_links"]);
@@ -82,6 +69,19 @@ TextLab.Transcription = Backbone.Model.extend({
   }
     
 });
+
+TextLab.Transcription.newTranscription = function( leaf ) {  
+  var transcription = new TextLab.Transcription({ 
+    leaf_id: leaf.id, 
+    name: 'untitled',
+    document_id: leaf.get('document_id'), 
+    shared: false, 
+    submitted: false,
+    published: false,
+    owner: true
+  });
+  return transcription;
+};
 
 TextLab.TranscriptionCollection = Backbone.Collection.extend({
   model: TextLab.Transcription,

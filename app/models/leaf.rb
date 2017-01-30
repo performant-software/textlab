@@ -3,6 +3,7 @@ class Leaf < ActiveRecord::Base
   has_many :zones, dependent: :destroy
   has_many :zone_links, dependent: :destroy
   has_many :transcriptions, dependent: :destroy
+  has_many :sequences, dependent: :destroy
   belongs_to :document
   has_one :document_node, dependent: :destroy
   
@@ -15,6 +16,17 @@ class Leaf < ActiveRecord::Base
       end
     }
     transcriptions
+  end
+
+  def get_sequence_objs( user_id )
+    project_owner = self.document.is_owner?(user_id)
+    sequences = []
+    self.sequences.each { |s|      
+      if user_id == s.user_id || s.shared || (s.submitted and project_owner)
+        sequences << s.obj(user_id)
+      end
+    }
+    sequences
   end
 
   def published_transcription

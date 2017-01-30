@@ -29,19 +29,29 @@ TextLab.TabbedEditor = Backbone.View.extend({
     if( !this.model ) return;
      
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
-      this.collection = transcriptions;
-      this.collection.models = _.sortBy( this.collection.models, function(t) { t.get('name') });
+      this.transcriptions = transcriptions;
+      this.transcriptions.models = _.sortBy( this.transcriptions.models, function(t) { t.get('name') });
       
       // if there are no transcriptions, create a blank one
-      if(this.collection.models.length == 0) {
+      if(this.transcriptions.models.length == 0) {
         var transcription = TextLab.Transcription.newTranscription(this.model.get('document_id'));
-        this.collection.add( transcription );
+        this.transcriptions.add( transcription );
       }
     
       callback();
     },this) );
   },
   
+  initSequences: function( callback ) {   
+    if( !this.model ) return;
+     
+    this.model.getSequences( _.bind( function( sequences ) {
+      this.sequences = sequences;
+      this.sequences.models = _.sortBy( this.sequences.models, function(t) { t.get('name') });
+      callback();
+    },this) );
+  },
+
   selectLeaf: function(leaf) {
     this.model = leaf;
     this.render();
@@ -89,13 +99,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
   onNew: function() {    
     var onCreateCallback = _.bind(function(editorModel, editorType) {
       if( editorType == 'transcription' ) {
-        this.collection.add(editorModel);
+        this.transcriptions.add(editorModel);
         editorModel.save(null, { success: _.bind( function() {
           var tab = this.openXMLEditorTab(editorModel);
           this.selectTab(tab);
         }, this) });
       } else {
-        this.collection.add(editorModel);
+        this.sequences.add(editorModel);
         editorModel.save(null, { success: _.bind( function() {
           var tab = this.openSequenceEditorTab(editorModel);
           this.selectTab(tab);
@@ -103,7 +113,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
       }
     }, this);  
     
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { callback: onCreateCallback } );
+    var transcriptionDialog = new TextLab.TranscriptionDialog( { leaf: this.model, callback: onCreateCallback } );
     transcriptionDialog.render();   
   },
   
@@ -114,16 +124,15 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this);  
     
     // make a list of the unopened transcriptions
-    var transcriptions = this.collection.models;
     var openTranscriptions = _.map( this.tabs, function( tab ) { return tab.transcription } );
-    var availableTranscriptions = _.difference( transcriptions, openTranscriptions );
+    var availableTranscriptions = _.difference( this.transcriptions.models, openTranscriptions );
     
     var transcriptionDialog = new TextLab.OpenTranscriptionDialog( { transcriptions: availableTranscriptions, callback: onSelectCallback } );
     transcriptionDialog.render();   
   },
   
   resizeActivePanel: function() {    
-    if( this.activeTab && this.parentPanel ) {
+    if( this.activeTab && this.parentPanel && this.activeTab.xmlEditor ) {
       var xmlEditorToolbar = this.$(".xml-editor-toolbar");
       this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 30 );
       this.activeTab.xmlEditor.editor.refresh();
@@ -147,7 +156,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     tabPaneEl.show();
     
     // update surface view
-    this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
+    if( tab.transcription ) {
+      this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
+    }
     
     this.activeTab = tab;
     this.resizeActivePanel();
@@ -245,9 +256,30 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
 
   openSequenceEditorTab: function(sequence) {
-    // TODO
+    var sequenceEditor = new TextLab.SequenceEditor({ model: sequence, leaf: this.model, tabbedEditor: this });
+    sequenceEditor.render();
 
+    var tab = { 
+      id: 'tab-'+sequence.cid, 
+      name: sequence.get('name'),
+      star: sequence.get('published'),
+      sequenceEditor: sequenceEditor,
+      sequence: sequence
+    };
+    
+    var tabPaneID = tab.id+'-pane';
+    this.$(".tabs").append( this.partials.tab(tab) );
+    this.$(".tab-panes").append( this.partials.tabPane({ id: tabPaneID }) );
+    
+    var tabPaneEl = this.$("#"+tabPaneID);
+    tabPaneEl.append( sequenceEditor.$el );
+    
+    // it isn't visible by default
+    tabPaneEl.hide();
 
+    this.tabs.push(tab);
+    
+    return tab;
   },
       
   render: function() {
@@ -256,17 +288,21 @@ TextLab.TabbedEditor = Backbone.View.extend({
     
     // TODO start with loading spinner active
     this.$el.html(this.template()); 
-    
-    this.initTranscriptions( _.bind( function() {
-      _.each( _.first( this.collection.models, this.maxStartingTabs), function( transcription ) {
+
+    var loadingComplete = _.bind( function() {
+      _.each( _.first( this.transcriptions.models, this.maxStartingTabs), function( transcription ) {
         this.openXMLEditorTab(transcription);
-      }, this);
-      
+      }, this );
+
       // select the first tab initially
       if( this.tabs.length > 0 ) {
         this.selectTab(_.first(this.tabs));
       }
-    }, this) );              
+    }, this );
+    
+    // after init transcriptions, init sequences, then loading complete
+    this.initTranscriptions( _.bind( this.initSequences, this, loadingComplete ) );
+
   },
   
   postRender: function(surfaceView) {

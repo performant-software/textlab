@@ -4,19 +4,6 @@ TextLab.Sequence = Backbone.Model.extend({
   initialize: function( attributes, options ) {
     
   },
-
-  newSequence: function( documentID ) {  
-    var sequence = new TextLab.Sequence({ 
-      leaf_id: this.model.id, 
-      name: 'untitled',
-      document_id: documentID, 
-      shared: false, 
-      submitted: false,
-      published: false,
-      owner: true
-    });
-    return sequence;
-  },
   
   isReadOnly: function() {
     var owner = this.get('owner');
@@ -36,6 +23,20 @@ TextLab.Sequence = Backbone.Model.extend({
   }
     
 });
+
+TextLab.Sequence.newSequence = function( leaf ) {  
+  var sequence = new TextLab.Sequence({ 
+    leaf_id: leaf.id, 
+    name: 'untitled',
+    document_id: leaf.get('document_id'), 
+    shared: false, 
+    submitted: false,
+    published: false,
+    owner: true
+  });
+  return sequence;
+};
+
 
 TextLab.SequenceCollection = Backbone.Collection.extend({
   model: TextLab.Sequence,
