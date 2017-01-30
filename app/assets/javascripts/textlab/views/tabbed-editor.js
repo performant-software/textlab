@@ -131,7 +131,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   resizeActivePanel: function() {    
     if( this.activeTab && this.parentPanel ) {
       var xmlEditorToolbar = this.$(".xml-editor-toolbar");
-      this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 30 );
+      this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 100 );
       this.activeTab.xmlEditor.editor.refresh();
     }
   },
