@@ -39,7 +39,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     return false;
   },
   
-   updateSharing: function( shared ) {
+  updateSharing: function( shared ) {
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('shared', shared );
     
@@ -103,6 +103,20 @@ TextLab.SequenceEditor = Backbone.View.extend({
     // }
     
     // return false;
+  },
+
+  onClickAddStep: function() {
+    var onCreateCallback = _.bind(function(step) {
+      this.model.narrativeSteps.add(step);
+      this.model.save(null, { success: _.bind( function() {
+        // TODO update grid
+      }, this) });
+    }, this);  
+    
+    var narrativeStep = new TextLab.NarrativeStep();
+    var stepDialog = new TextLab.NarrativeStepDialog( { model: narrativeStep, callback: onCreateCallback } );
+    stepDialog.render();   
+
   },
 
   togglePublishButton: function( buttonState ) {

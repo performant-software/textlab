@@ -1,0 +1,21 @@
+<div class="modal fade" id="step-modal" tabindex="-1" role="dialog" aria-labelledby="stepModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="documentModal"><%= (mode=='edit'? 'Edit' : 'New') %> Narrative Step</h4>
+      </div>
+      <div class="modal-body">
+        <b>Step</b>
+        <div id="step">This is a step.</div>
+
+        <b>Narrative</b>
+        <div id="narrative">This is a narrative.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary ok-button">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

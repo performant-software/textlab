@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require jquery-ui/jquery-ui
 //= require jquery.fancytree/dist/jquery.fancytree-all
+//= require summernote/dist/summernote
 //= require underscore
 //= require backbone
 //= require bootstrap-sprockets

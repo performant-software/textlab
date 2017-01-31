@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170130153833) do
+ActiveRecord::Schema.define(version: 20170131193302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -67,6 +67,14 @@ ActiveRecord::Schema.define(version: 20170130153833) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.boolean  "accepted"
+  end
+
+  create_table "narrative_steps", force: :cascade do |t|
+    t.integer "sequence_id"
+    t.integer "zone_id"
+    t.integer "step_number"
+    t.text    "step"
+    t.text    "narrative"
   end
 
   create_table "project_configs", force: :cascade do |t|
