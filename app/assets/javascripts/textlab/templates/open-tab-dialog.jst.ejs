@@ -1,18 +1,18 @@
-<div class="modal fade" id="open-transcription-modal" tabindex="-1" role="dialog" aria-labelledby="open-transcriptionModal">
+<div class="modal fade" id="open-tab-modal" tabindex="-1" role="dialog" aria-labelledby="open-tabModal">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="open-transcriptionModal">Open Transcription</h4>
+        <h4 class="modal-title" id="open-tabModal">Open Tab</h4>
       </div>
       <div class="modal-body">      
         <%= partials.dropdownInput( { 
-          field_name: 'transcription', 
-          field_title: 'Transcriptions', 
+          field_name: 'tab', 
+          field_title: 'Tabs', 
           field_value: '', 
-          field_instructions: 'Select an existing transcription.', 
+          field_instructions: 'Select an existing transcription or sequence.', 
           no_blank: true,
-          options: transcriptions,
+          options: tabs,
           error: false 
         }) %>    
       </div>      

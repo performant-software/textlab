@@ -118,17 +118,25 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   onOpen: function() {    
-    var onSelectCallback = _.bind( function(transcription) {
-      var tab = this.openXMLEditorTab(transcription);
+    var onSelectCallback = _.bind( function(tabModel,tabType) {
+      var tab = ( tabType == 'transcription') ? this.openXMLEditorTab(tabModel) : this.openSequenceEditorTab(tabModel);
       this.selectTab(tab);
     }, this);  
     
     // make a list of the unopened transcriptions
-    var openTranscriptions = _.map( this.tabs, function( tab ) { return tab.transcription } );
+    var openTranscriptions = _.compact( _.map( this.tabs, function( tab ) { return tab.transcription } ));
     var availableTranscriptions = _.difference( this.transcriptions.models, openTranscriptions );
+
+    // make a list of the unopened sequences
+    var openSequences = _.compact( _.map( this.tabs, function( tab ) { return tab.sequence } ));
+    var availableSequences = _.difference( this.sequences.models, openSequences );
     
-    var transcriptionDialog = new TextLab.OpenTranscriptionDialog( { transcriptions: availableTranscriptions, callback: onSelectCallback } );
-    transcriptionDialog.render();   
+    var openTabDialog = new TextLab.OpenTabDialog( { 
+      transcriptions: availableTranscriptions, 
+      sequences: availableSequences, 
+      callback: onSelectCallback 
+    });
+    openTabDialog.render();   
   },
   
   resizeActivePanel: function() {    
@@ -221,7 +229,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     if( dontSave ) {
       closeTab();
     } else {
-      tab.xmlEditor.save( closeTab );
+      if( tab.xmlEditor ) {
+        tab.xmlEditor.save( closeTab );        
+      }
     }
   },
     
