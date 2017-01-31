@@ -5,8 +5,9 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
   id: 'narrative-step-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input']
-	},
+    dropdownInput: JST['textlab/templates/common/dropdown-input'],
+    numberInput: JST['textlab/templates/common/number-input']	
+  },
   
   events: {
     'click .ok-button': 'onOK',
@@ -19,12 +20,16 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
   },
   
   onOK: function() {    
-    this.close( _.bind( function() {      
-      // this.model.set({
-      //   name: this.$('#name').val(),
-      //   xml_id: this.$('#xml_id').val(),
-      //   tile_source: this.$('#tile_source').val() 
-      // });
+    this.close( _.bind( function() {  
+      var narrative = this.$('#narrative').summernote('code');
+      var step = this.$('#step').summernote('code');
+
+      this.model.set({
+        zone_id: this.$('#zone_id').val(),
+        step_number: this.$('#step_number').val(),
+        step: step,
+        narrative: narrative
+      });
       this.callback(this.model);
     }, this));
   },
@@ -47,20 +52,19 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ leaf: this.model, partials: this.partials, mode: this.mode }));    
+    this.$el.html(this.template({ 
+      zones: [],
+      model: this.model.toJSON(), 
+      partials: this.partials, 
+      mode: this.mode 
+    }));    
     $('#modal-container').html(this.$el);
     $('#step-modal').modal('show');
 
+    // set up summernote text fields
     var toolbarConfig = [['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']]];
-    
-    $('#step').summernote({
-      toolbar: toolbarConfig
-    });
-
-    $('#narrative').summernote({
-      toolbar: toolbarConfig
-    });
-
+    $('#step').summernote({ toolbar: toolbarConfig });
+    $('#narrative').summernote({ toolbar: toolbarConfig });
   } 
     
 });
