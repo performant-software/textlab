@@ -60,7 +60,7 @@
           "instructions": "",
           "vocab": "place" 
         },
-        "rendered": { 
+        "rend": { 
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -78,13 +78,13 @@
           "instructions": "",
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -117,10 +117,17 @@
           "instructions": "",
           "vocab": "place" 
         },
+        "rend": { 
+          "displayName": "Rendered", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "rendered" 
+        },
         "rendType": { 
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
@@ -129,13 +136,13 @@
           "instructions": "",
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -157,7 +164,7 @@
       "tag": "del",
       "empty": false,
       "attributes": {
-        "rendered": { 
+        "rend": { 
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -175,13 +182,13 @@
           "instructions": "",
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -271,31 +278,32 @@
           "instructions": "",
           "vocab": "place" 
         },
-        "fn": {
+        "function": {
           "displayName": "Function of metamark", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "metamark" 
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
-          "instructions": "",
-          "vocab": "renderType" 
-        },
-        "hand": { 
+        "rend": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "hand" 
         },
-        "stage": {
+        "rendType": { 
+          "displayName": "Render Type", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "appendTo": "rend",
+          "vocab": "renderType" 
+        },
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -351,7 +359,7 @@
       "tag": "restore",
       "empty": false,
       "attributes": {
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -363,7 +371,7 @@
           "instructions": "",
           "vocab": "hand" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -405,7 +413,7 @@
           "defaultvalue": "",
           "instructions": "Please enter the responsible person."
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
