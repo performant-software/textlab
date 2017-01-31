@@ -5,7 +5,6 @@
   <div class="status-message"><%= statusMessage %></div> 
 
   <div class='actions <%= actionWidthClass %>' >    
-    <button class='toolbar-button btn btn-sm btn-default preview-button' href='#' ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Preview</button>    
     <% if( showPublishButton ) { %> 
       <button class='toolbar-button btn btn-sm btn-default publish-button <%= published ? 'hidden' : '' %>' href='#' ><i class="fa fa-star" aria-hidden="true"></i> Accept</button>
       <button class='toolbar-button btn btn-sm btn-default unpublish-button <%= published ? '' : 'hidden' %>' href='#' ><i class="fa fa-star-o" aria-hidden="true"></i> Return</button>          
