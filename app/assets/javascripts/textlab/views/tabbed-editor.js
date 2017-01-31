@@ -113,8 +113,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       }
     }, this);  
     
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { leaf: this.model, callback: onCreateCallback } );
-    transcriptionDialog.render();   
+    var tabDialog = new TextLab.TabDialog( { leaf: this.model, callback: onCreateCallback } );
+    tabDialog.render();   
   },
   
   onOpen: function() {    

@@ -1,8 +1,8 @@
-TextLab.TranscriptionDialog = Backbone.View.extend({
+TextLab.TabDialog = Backbone.View.extend({
     
-	template: JST['textlab/templates/transcription-dialog'],
+	template: JST['textlab/templates/tab-dialog'],
   
-  id: 'transcription-dialog-container',
+  id: 'tab-dialog-container',
   
 	partials: {
 		stringInput: JST['textlab/templates/common/string-input'],
@@ -44,7 +44,7 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
   },
     
   close: function( closeCallback ) {
-    var sectionModal = $('#transcription-modal');
+    var sectionModal = $('#tab-modal');
     
     sectionModal.on('hidden.bs.modal', _.bind( function () {
       this.$el.detach();
@@ -71,7 +71,7 @@ TextLab.TranscriptionDialog = Backbone.View.extend({
     }));    
 
     $('#modal-container').html(this.$el);
-    $('#transcription-modal').modal('show');
+    $('#tab-modal').modal('show');
   } 
     
 });
