@@ -3,32 +3,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="documentModal"><%= (mode=='edit'? 'Edit' : 'New') %> Narrative Step</h4>
+        <h4 class="modal-title" id="documentModal"><%= (mode=='edit'? 'Edit' : 'New') %> Step</h4>
       </div>
       <div class="modal-body">
-        <%= partials.numberInput( { 
-          field_name: 'step_number', 
-          field_title: "Step Number",
-          field_value: model.step_number, 
-          field_instructions: "This is the step number.",
-          error: false 
-        }) %>   
 
         <%= partials.dropdownInput( { 
           field_name: 'zone_id', 
           field_title: 'Zone', 
           field_value: model.zone_id, 
-          field_instructions: "Please choose the zone described by this step.", 
+          field_instructions: "Please select the zone referenced in this step.", 
           no_blank: true,
           options: zones,
           error: false 
         }) %>
 
-        <b>Step</b>
+        <b>Transcription at this step</b>
         <div id="step"><%= model.step %></div>
 
-        <b>Narrative</b>
+        <b>Narrative of this step</b>
         <div id="narrative"><%= model.narrative %></div>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
