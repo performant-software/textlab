@@ -1,11 +1,14 @@
 TextLab.SequenceEditor = Backbone.View.extend({
     
 	template: JST['textlab/templates/sequence-editor'],
-  
+  gridTemplate: JST['textlab/templates/sequence-grid'],
+
   id: 'sequence-editor',
   
   events: {
     'click .add-step-button': 'onClickAddStep',
+    'click .edit-step-button': 'onClickEditStep',
+    'click .delete-step-button': 'onClickDeleteStep',
     'click .publish-button': 'onClickPublish',
     'click .unpublish-button': 'onClickUnPublish',
     'click .share-button': 'onClickShare',
@@ -108,15 +111,39 @@ TextLab.SequenceEditor = Backbone.View.extend({
   onClickAddStep: function() {
     var onCreateCallback = _.bind(function(step) {
       this.model.narrativeSteps.add(step);
-      this.model.save(null, { success: _.bind( function() {
-        // TODO update grid
+      step.save(null, { success: _.bind( function() {
+        this.renderGrid();
       }, this) });
     }, this);  
     
-    var narrativeStep = new TextLab.NarrativeStep();
+    // TODO load the step transcription from the previous step, set the zone and step number.
+    var narrativeStep = new TextLab.NarrativeStep( { sequence_id: this.model.id });
     var stepDialog = new TextLab.NarrativeStepDialog( { model: narrativeStep, callback: onCreateCallback } );
     stepDialog.render();   
+  },
 
+  onClickEditStep: function(event) {
+    var editButton = $(event.currentTarget);
+    var stepID = parseInt(editButton.attr("data-step-id"));
+    var narrativeStep = this.model.narrativeSteps.get(stepID);
+
+    var onUpdateCallback = _.bind(function(step) {
+      step.save(null, { success: _.bind( function() {
+        this.renderGrid();
+      }, this) });
+    }, this);
+
+    var stepDialog = new TextLab.NarrativeStepDialog({ 
+      model: narrativeStep, 
+      callback: onUpdateCallback, 
+      mode: 'edit' 
+    });
+    stepDialog.render();
+    return false;
+  },
+
+  onClickDeleteStep: function() {
+    return false;
   },
 
   togglePublishButton: function( buttonState ) {
@@ -127,6 +154,12 @@ TextLab.SequenceEditor = Backbone.View.extend({
       this.$('.publish-button').addClass('hidden');
       this.$('.unpublish-button').removeClass('hidden');
     }
+  },
+
+  renderGrid: function() {
+    this.$('#sequence-grid').html(this.gridTemplate({ 
+      narrativeSteps: this.model.narrativeSteps.toJSON()
+    })); 
   },
 
   render: function() {
@@ -172,6 +205,8 @@ TextLab.SequenceEditor = Backbone.View.extend({
       statusMessage: statusMessage,
       actionWidthClass: actionWidthClass
     })); 
+
+    this.renderGrid();
   }
   
   

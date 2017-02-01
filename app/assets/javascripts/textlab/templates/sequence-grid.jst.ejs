@@ -1,0 +1,22 @@
+<h4>Revision Sequence</h4>
+<table class="table table-striped">
+  <tr>
+    <th>Step #</th>
+    <th>Zone</th> 
+    <th>Step</th>
+    <th>Narrative</th>
+    <th>Actions</th>
+  </tr>
+  <% _.each( narrativeSteps, function(narrativeStep) { %> 
+    <tr>
+      <td><%= narrativeStep.step_number %></td>
+      <td><%= narrativeStep.zone_id %></td> 
+      <td><%= narrativeStep.step %></td>
+      <td><%= narrativeStep.narrative %></td>
+      <td>
+        <a class='btn btn-xs btn-default edit-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>
+        <a class='btn btn-xs btn-danger delete-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+      </td>
+    </tr>
+  <% }); %>
+</table>

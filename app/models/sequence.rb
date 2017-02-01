@@ -3,9 +3,11 @@ class Sequence < ActiveRecord::Base
   belongs_to :document
   belongs_to :user
   belongs_to :leaf
+  has_many :narrative_steps
     
   def obj(current_user_id=nil)
     
+    steps = self.narrative_steps.map { |step| step.obj }
     owner = ( current_user_id == self.user_id ) 
     
     {
@@ -14,6 +16,7 @@ class Sequence < ActiveRecord::Base
       shared: self.shared,
       submitted: self.submitted,
       published: self.published,
+      narrative_steps: steps,
       owner: owner
     }
   end

@@ -1,7 +1,8 @@
 #sequence-editor {
 
   width: 100%;
-
+  overflow-y: scroll;
+  
   .sequence-editor-toolbar {
     padding: 5px;
     padding-top: 10px;
@@ -10,7 +11,7 @@
     border-bottom: 1px solid gray;
   }
 
-  #sequence-editor-viewport {
+  #sequence-grid {
     padding: 10px;
   }
   
