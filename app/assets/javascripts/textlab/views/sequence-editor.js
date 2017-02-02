@@ -194,9 +194,9 @@ TextLab.SequenceEditor = Backbone.View.extend({
 
     // look up the zone labels for each zone
     var narrativeSteps = _.map( steps, function(step) {
-      var zoneID = step.zone_id;
+      var zoneID = parseInt(step.zone_id);
       var zone = this.leaf.zones.get(zoneID);
-      step.zoneLabel = zone.generateZoneLabel(zoneID);
+      step.zoneLabel = zone.get('zone_label');
       return step;
     }, this);
 
