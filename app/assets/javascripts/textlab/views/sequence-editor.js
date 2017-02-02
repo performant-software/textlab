@@ -87,15 +87,15 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
   
   onClickRename: function() {
-    // var onUpdateCallback = _.bind(function() {
-    //   this.save( _.bind( function() {
-    //     this.tabbedEditor.renameTranscription( this.model.id, this.model.get('name'));        
-    //   }, this));
-    // }, this);  
+    var onRenameCallback = _.bind(function(sequence) {
+      sequence.save(null, { success: _.bind( function() {
+        this.tabbedEditor.renameTab( 'sequence', this.model.id, this.model.get('name'));    
+      }, this) });
+    }, this);  
     
-    // var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
-    // transcriptionDialog.render();    
-    // return false;   
+    var tabDialog = new TextLab.TabDialog( { model: this.model, callback: onRenameCallback, mode: 'edit' } );
+    tabDialog.render();  
+    return false;  
   },
 
   onClickDelete: function() {

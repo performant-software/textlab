@@ -164,11 +164,11 @@ TextLab.XMLEditor = Backbone.View.extend({
   onClickRename: function() {
     var onUpdateCallback = _.bind(function() {
       this.save( _.bind( function() {
-        this.tabbedEditor.renameTranscription( this.model.id, this.model.get('name'));        
+        this.tabbedEditor.renameTab( 'transcription', this.model.id, this.model.get('name'));        
       }, this));
     }, this);  
     
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
+    var transcriptionDialog = new TextLab.TabDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
     transcriptionDialog.render();    
     return false;   
   },

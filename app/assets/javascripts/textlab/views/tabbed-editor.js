@@ -196,8 +196,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this));    
   },
   
-  renameTranscription: function( transcriptionID, newName ) {
-    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcriptionID } );
+  renameTab: function( tabType, modelID, newName ) {
+    var tab = this.getTab( tabType, modelID );
     var nameSpan = this.$("#"+tab.id+' .name');
     nameSpan.html(newName);
   },
@@ -241,13 +241,18 @@ TextLab.TabbedEditor = Backbone.View.extend({
       }
     }
   },
+
+  getTab: function( tabType, id ) {
+    var tabID = tabType+'-tab-'+id;
+    return _.find( this.tabs, function(tab) { return tab.id == tabID; });
+  },
     
   openXMLEditorTab: function(transcription) {    
     var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model, config: this.config, tabbedEditor: this });
     xmlEditor.render();
 
     var tab = { 
-      id: 'tab-'+transcription.cid, 
+      id: 'transcription-tab-'+transcription.id, 
       name: transcription.get('name'),
       star: transcription.get('published'),
       xmlEditor: xmlEditor,
@@ -282,7 +287,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     sequenceEditor.render();
 
     var tab = { 
-      id: 'tab-'+sequence.cid, 
+      id: 'sequence-tab-'+sequence.id, 
       name: sequence.get('name'),
       star: sequence.get('published'),
       sequenceEditor: sequenceEditor,
