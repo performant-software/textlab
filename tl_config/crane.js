@@ -1,6 +1,7 @@
 {
   "name": "Crane",
   "description": "Project configuration for Red Badge of Courage.",
+  "version": "2",
 
   "vocabs": {
     "place": [  
@@ -29,8 +30,11 @@
       { "value": "dstX", "text":"Undetermined draft stage" }
     ],
     "deletionRendered": [
-      { "value": "single-stroke", "text": "Single stroke" },
-      { "value": "double-stroke", "text": "Double stroke" }
+      { "value": "single-stroke", "text": "Single-stroke" },
+      { "value": "double-stroke", "text": "Double-stroke" },
+      { "value": "multi-stroke", "text": "Multi-stroke" },
+      { "value": "overwrite", "text": "Overwrite" },
+      { "value": "erasure", "text": "Erasure" }
     ],
     "metamark": [
       { "value": "foliation", "text": "foliation" },
@@ -60,7 +64,7 @@
           "instructions": "",
           "vocab": "place" 
         },
-        "rendered": { 
+        "rend": { 
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -70,21 +74,23 @@
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
+          "defaultValue": "#SC", 
           "instructions": "",
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -117,25 +123,33 @@
           "instructions": "",
           "vocab": "place" 
         },
+        "rend": { 
+          "displayName": "Rendered", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "rendered" 
+        },
         "rendType": { 
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "defaultValue": "#SC", 
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -157,7 +171,7 @@
       "tag": "del",
       "empty": false,
       "attributes": {
-        "rendered": { 
+        "rend": { 
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -167,21 +181,23 @@
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "defaultValue": "#SC", 
           "vocab": "hand" 
         },
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -271,31 +287,32 @@
           "instructions": "",
           "vocab": "place" 
         },
-        "fn": {
+        "function": {
           "displayName": "Function of metamark", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "metamark" 
         },
+        "rend": { 
+          "displayName": "Rendered", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "rendered" 
+        },
         "rendType": { 
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
-        },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
-          "instructions": "",
-          "vocab": "hand" 
-        },
-        "stage": {
+        },    
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "stage" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -351,7 +368,7 @@
       "tag": "restore",
       "empty": false,
       "attributes": {
-        "stage": {
+        "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
           "instructions": "",
@@ -360,10 +377,11 @@
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
+          "defaultValue": "#SC",  
           "instructions": "",
           "vocab": "hand" 
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
@@ -402,10 +420,10 @@
         "resp": {
           "displayName": "Responsible persons",
           "fieldType": "string",
-          "defaultvalue": "",
+          "defaultvalue": "#SC",
           "instructions": "Please enter the responsible person."
         },
-        "zone": {
+        "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
