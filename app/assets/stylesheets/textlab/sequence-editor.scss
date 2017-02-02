@@ -1,7 +1,8 @@
 #sequence-editor {
 
-  width: 100%;
-  overflow-y: scroll;
+  .edit-step-button {
+    margin-bottom: 5px; 
+  }
   
   .sequence-editor-toolbar {
     padding: 5px;
@@ -12,7 +13,8 @@
   }
 
   #sequence-grid {
-    padding: 10px;
+    padding: 5px;
+    overflow-y: scroll;
   }
   
   .zone-link {

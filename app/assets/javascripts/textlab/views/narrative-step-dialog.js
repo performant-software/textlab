@@ -17,6 +17,7 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
 	initialize: function(options) {
     this.callback = options.callback;
     this.mode = options.mode;
+    this.zones = options.zones;
   },
   
   onOK: function() {    
@@ -53,7 +54,7 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
   
   render: function() {
     this.$el.html(this.template({ 
-      zones: [],
+      zones: this.zones,
       model: this.model.toJSON(), 
       partials: this.partials, 
       mode: this.mode 

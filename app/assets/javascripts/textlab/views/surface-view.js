@@ -396,7 +396,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zoneBounds = zoneItem.bounds;
     
     var zoneLinks;
-    if( this.tabbedEditor.activeTab ) {
+    if( this.tabbedEditor.activeTab && this.tabbedEditor.activeTab.transcription ) {
       zoneLinks = this.tabbedEditor.activeTab.transcription.getZoneLinks( zone );
     } else {
       zoneLinks = [];

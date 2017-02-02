@@ -9,6 +9,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     'click .add-step-button': 'onClickAddStep',
     'click .edit-step-button': 'onClickEditStep',
     'click .delete-step-button': 'onClickDeleteStep',
+    'click .zone-link': 'onClickZoneLink',
     'click .publish-button': 'onClickPublish',
     'click .unpublish-button': 'onClickUnPublish',
     'click .share-button': 'onClickShare',
@@ -22,6 +23,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
 	initialize: function(options) {
      this.leaf = options.leaf;
      this.tabbedEditor = options.tabbedEditor;
+     this.surfaceView = options.surfaceView;
   },
 
   onClickPublish: function() {
@@ -116,9 +118,15 @@ TextLab.SequenceEditor = Backbone.View.extend({
       }, this) });
     }, this);  
     
+    var zones = this.generateZoneList();
+
     // TODO load the step transcription from the previous step, set the zone and step number.
     var narrativeStep = new TextLab.NarrativeStep( { sequence_id: this.model.id });
-    var stepDialog = new TextLab.NarrativeStepDialog( { model: narrativeStep, callback: onCreateCallback } );
+    var stepDialog = new TextLab.NarrativeStepDialog({ 
+      zones: zones,
+      model: narrativeStep, 
+      callback: onCreateCallback 
+    });
     stepDialog.render();   
   },
 
@@ -133,7 +141,10 @@ TextLab.SequenceEditor = Backbone.View.extend({
       }, this) });
     }, this);
 
+    var zones = this.generateZoneList();
+
     var stepDialog = new TextLab.NarrativeStepDialog({ 
+      zones: zones,
       model: narrativeStep, 
       callback: onUpdateCallback, 
       mode: 'edit' 
@@ -142,7 +153,29 @@ TextLab.SequenceEditor = Backbone.View.extend({
     return false;
   },
 
+  onClickZoneLink: function(event) {
+    var zoneLink = $(event.currentTarget);
+    var zoneID = parseInt(zoneLink.attr("data-zone-id"));
+    var zone = this.leaf.zones.get(zoneID);
+    this.surfaceView.selectZone( zone );
+    return false;
+  },
+
+  // prepare list of options for zone drop down
+  generateZoneList: function() {
+    var zoneOptions = _.map( this.leaf.zones.models, function( zone ) {
+      return { value: zone.id, text: zone.get('zone_label') };
+    });
+    
+    var sortedOptions = _.sortBy(zoneOptions, function(opt) {
+      return opt.text;
+    }, this ); 
+
+    return sortedOptions;
+  },
+
   onClickDeleteStep: function() {
+    // TODO
     return false;
   },
 
@@ -157,8 +190,18 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   renderGrid: function() {
+    var steps = this.model.narrativeSteps.toJSON();
+
+    // look up the zone labels for each zone
+    var narrativeSteps = _.map( steps, function(step) {
+      var zoneID = step.zone_id;
+      var zone = this.leaf.zones.get(zoneID);
+      step.zoneLabel = zone.generateZoneLabel(zoneID);
+      return step;
+    }, this);
+
     this.$('#sequence-grid').html(this.gridTemplate({ 
-      narrativeSteps: this.model.narrativeSteps.toJSON()
+      narrativeSteps: narrativeSteps
     })); 
   },
 

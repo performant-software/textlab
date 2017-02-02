@@ -146,8 +146,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
         this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 100 );
         this.activeTab.xmlEditor.editor.refresh();        
       } else {
-        var sequenceEditor = this.$("#sequence-editor");
-        sequenceEditor.width(this.parentPanel.width());
+        var sequenceEditorToolbar = this.$(".sequence-editor-toolbar");
+        var sequenceEditor = this.$("#sequence-grid");
+        sequenceEditor.width(this.parentPanel.width() - 10);
+        sequenceEditor.height(this.parentPanel.height() - sequenceEditorToolbar.height() - 100 );
       }
     }
   },
@@ -271,7 +273,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
 
   openSequenceEditorTab: function(sequence) {
-    var sequenceEditor = new TextLab.SequenceEditor({ model: sequence, leaf: this.model, tabbedEditor: this });
+    var sequenceEditor = new TextLab.SequenceEditor({ 
+      model: sequence, 
+      leaf: this.model, 
+      tabbedEditor: this,
+      surfaceView: this.surfaceView,
+    });
     sequenceEditor.render();
 
     var tab = { 

@@ -10,7 +10,11 @@
   <% _.each( narrativeSteps, function(narrativeStep) { %> 
     <tr>
       <td><%= narrativeStep.step_number %></td>
-      <td><%= narrativeStep.zone_id %></td> 
+      <td>
+        <a href="#" class="zone-link" data-zone-id="<%= narrativeStep.zone_id %>">
+          <%= narrativeStep.zoneLabel %>
+        </a>
+      </td> 
       <td><%= narrativeStep.step %></td>
       <td><%= narrativeStep.narrative %></td>
       <td>
