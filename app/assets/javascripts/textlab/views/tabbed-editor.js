@@ -75,6 +75,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     var tabID = $(event.currentTarget).attr('data-tab-id');
     var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
     this.closeTab(tab);
+    return false;
   },
   
   deleteTab: function( tabType, editorModel ) {
@@ -238,6 +239,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
     } else {
       if( tab.xmlEditor ) {
         tab.xmlEditor.save( closeTab );        
+      } else {
+        closeTab();
       }
     }
   },
