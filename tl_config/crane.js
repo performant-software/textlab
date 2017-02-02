@@ -358,7 +358,7 @@
         "resp": { 
           "displayName": "Responsible persons", 
           "fieldType": "string", 
-          "defaultValue": "#SCA",
+          "defaultValue": "#SC",
           "instructions": "Enter the responsible person." 
         }
       }
