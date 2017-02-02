@@ -3,7 +3,7 @@ class Sequence < ActiveRecord::Base
   belongs_to :document
   belongs_to :user
   belongs_to :leaf
-  has_many :narrative_steps
+  has_many :narrative_steps, dependent: :destroy
     
   def obj(current_user_id=nil)
     

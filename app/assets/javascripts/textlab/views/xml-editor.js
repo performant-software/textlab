@@ -179,7 +179,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
     
     if( deleteConfirmed ) {
-      this.tabbedEditor.deleteTranscription( this.model );
+      this.tabbedEditor.deleteTab( 'transcription', this.model );
     }
     
     return false;

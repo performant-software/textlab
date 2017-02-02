@@ -77,9 +77,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.closeTab(tab);
   },
   
-  deleteTranscription: function( transcription ) {
-    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcription.id });
-    transcription.destroy({ success: _.bind( function() {
+  deleteTab: function( tabType, editorModel ) {
+    var tab = this.getTab( tabType, editorModel.id );
+    editorModel.destroy({ success: _.bind( function() {
       this.closeTab(tab,true);
     }, this)});
   },

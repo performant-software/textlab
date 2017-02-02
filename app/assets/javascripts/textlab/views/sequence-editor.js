@@ -99,15 +99,15 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   onClickDelete: function() {
-    // this.$('#action-dropdown').dropdown('toggle');
+    this.$('#action-dropdown').dropdown('toggle');
     
-    // var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
+    var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
     
-    // if( deleteConfirmed ) {
-    //   this.tabbedEditor.deleteTranscription( this.model );
-    // }
+    if( deleteConfirmed ) {
+      this.tabbedEditor.deleteTab( 'sequence', this.model );
+    }
     
-    // return false;
+    return false;
   },
 
   onClickAddStep: function() {
