@@ -1,6 +1,7 @@
 {
   "name": "Crane",
   "description": "Project configuration for Red Badge of Courage.",
+  "version": "2",
 
   "vocabs": {
     "place": [  
@@ -29,8 +30,11 @@
       { "value": "dstX", "text":"Undetermined draft stage" }
     ],
     "deletionRendered": [
-      { "value": "single-stroke", "text": "Single stroke" },
-      { "value": "double-stroke", "text": "Double stroke" }
+      { "value": "single-stroke", "text": "Single-stroke" },
+      { "value": "double-stroke", "text": "Double-stroke" },
+      { "value": "multi-stroke", "text": "Multi-stroke" },
+      { "value": "overwrite", "text": "Overwrite" },
+      { "value": "erasure", "text": "Erasure" }
     ],
     "metamark": [
       { "value": "foliation", "text": "foliation" },
@@ -70,11 +74,13 @@
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
+          "defaultValue": "#SC", 
           "instructions": "",
           "vocab": "hand" 
         },
@@ -134,6 +140,7 @@
           "displayName": "Hand", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "defaultValue": "#SC", 
           "vocab": "hand" 
         },
         "change": {
@@ -174,12 +181,14 @@
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "appendTo": "rend",
           "vocab": "renderType" 
         },
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "defaultValue": "#SC", 
           "vocab": "hand" 
         },
         "change": {
@@ -285,10 +294,10 @@
           "vocab": "metamark" 
         },
         "rend": { 
-          "displayName": "Hand", 
+          "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "rendered" 
         },
         "rendType": { 
           "displayName": "Render Type", 
@@ -296,7 +305,7 @@
           "instructions": "",
           "appendTo": "rend",
           "vocab": "renderType" 
-        },
+        },    
         "change": {
           "displayName": "Stage", 
           "fieldType": "dropdown", 
@@ -368,6 +377,7 @@
         "hand": { 
           "displayName": "Hand", 
           "fieldType": "dropdown", 
+          "defaultValue": "#SC",  
           "instructions": "",
           "vocab": "hand" 
         },
