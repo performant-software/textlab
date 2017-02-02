@@ -19,7 +19,7 @@
       <td><%= narrativeStep.narrative %></td>
       <td>
         <a class='btn btn-xs btn-default edit-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>
-        <a class='btn btn-xs btn-danger delete-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+        <a class='btn btn-xs btn-danger delete-step-button' data-step-id='<%= narrativeStep.id %>' data-title="Delete this Step?" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
       </td>
     </tr>
   <% }); %>

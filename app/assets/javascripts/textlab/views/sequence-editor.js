@@ -174,8 +174,20 @@ TextLab.SequenceEditor = Backbone.View.extend({
     return sortedOptions;
   },
 
-  onClickDeleteStep: function() {
-    // TODO
+  onClickDeleteStep: function(event) {
+    var deleteButton = $(event.currentTarget);
+    var stepID = parseInt(deleteButton.attr("data-step-id"));
+    var narrativeStep = this.model.narrativeSteps.get(stepID);
+    
+    deleteButton.confirmation('show');    
+    
+    // delete if confirmed
+    deleteButton.on('confirmed.bs.confirmation', _.bind( function () {
+      narrativeStep.destroy({ success: _.bind( function() {
+        this.renderGrid();
+      }, this)});
+    }, this));  
+
     return false;
   },
 
@@ -196,7 +208,9 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var narrativeSteps = _.map( steps, function(step) {
       var zoneID = parseInt(step.zone_id);
       var zone = this.leaf.zones.get(zoneID);
-      step.zoneLabel = zone.get('zone_label');
+      if( zone ) {
+        step.zoneLabel = zone.get('zone_label');
+      }
       return step;
     }, this);
 
