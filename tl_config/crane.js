@@ -420,7 +420,7 @@
         "resp": {
           "displayName": "Responsible persons",
           "fieldType": "string",
-          "defaultvalue": "",
+          "defaultvalue": "#SC",
           "instructions": "Please enter the responsible person."
         },
         "facs": {

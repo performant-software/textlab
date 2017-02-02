@@ -303,10 +303,10 @@
           "vocab": "metamark" 
         },
         "rend": { 
-          "displayName": "Hand", 
+          "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "rendered" 
         },
         "rendType": { 
           "displayName": "Render Type", 
