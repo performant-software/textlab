@@ -17,8 +17,8 @@
           <%= narrativeStep.zoneLabel %>
         </a>
       </td> 
-      <td><%= narrativeStep.step %></td>
-      <td><%= narrativeStep.narrative %></td>
+      <td class='step-column'><%= narrativeStep.step %></td>
+      <td class='narrative-column'><%= narrativeStep.narrative %></td>
       <% if( !readOnly ) { %> 
         <td>
           <a class='btn btn-xs btn-default edit-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>

@@ -16,6 +16,14 @@
     padding: 5px;
     overflow-y: scroll;
 
+    .step-column {
+      width: 300px;
+    }
+
+    .narrative-column {
+      width: 300px;
+    }
+
     .read-only {
       background: #DAECFB;
     }
