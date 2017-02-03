@@ -34,7 +34,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
       
       // if there are no transcriptions, create a blank one
       if(this.transcriptions.models.length == 0) {
-        var transcription = TextLab.Transcription.newTranscription(this.model.get('document_id'));
+        var transcription = TextLab.Transcription.newTranscription(this.model);
         this.transcriptions.add( transcription );
       }
     

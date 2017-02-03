@@ -1,6 +1,8 @@
 <div class='btn-toolbar sequence-editor-toolbar'>
   
-  <button class='add-step-button toolbar-button btn btn-sm btn-default' href='#' >Add Step</button>
+  <% if( showAddStep ) { %> 
+    <button class='add-step-button toolbar-button btn btn-sm btn-default' href='#' >Add Step</button>
+  <% } %> 
 
   <div class="status-message"><%= statusMessage %></div> 
 

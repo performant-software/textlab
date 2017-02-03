@@ -15,6 +15,10 @@
   #sequence-grid {
     padding: 5px;
     overflow-y: scroll;
+
+    .read-only {
+      background: #DAECFB;
+    }
   }
   
   .zone-link {

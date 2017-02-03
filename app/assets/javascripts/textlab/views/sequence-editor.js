@@ -214,7 +214,8 @@ TextLab.SequenceEditor = Backbone.View.extend({
       return step;
     }, this);
 
-    this.$('#sequence-grid').html(this.gridTemplate({ 
+    this.$('#sequence-grid').html(this.gridTemplate({
+      readOnly: this.model.isReadOnly(), 
       narrativeSteps: narrativeSteps
     })); 
   },
@@ -224,7 +225,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
     var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
-    // var showTags = !this.model.isReadOnly();    
+    var showAddStep = !this.model.isReadOnly();    
     
     var statusMessage = "";
     if( this.model.get('submitted') ) {
@@ -252,6 +253,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var showPublishButton = false;
               
     this.$el.html(this.template({ 
+      showAddStep: showAddStep,
       showPublishButton: showPublishButton,
       showSubmitButton: showSubmitButton,
       showReturnButton: showReturnButton,
