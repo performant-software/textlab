@@ -56,7 +56,13 @@ TextLab.XMLEditor = Backbone.View.extend({
         this.generateTag(tag,attributes,children);
       }, this);
             
-      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, config: this.config, zone: event.zone, tag: tag, callback: onCreateCallback } );
+      var attributeModalDialog = new TextLab.AttributeModalDialog({ 
+        model: this.leaf, 
+        config: this.config, 
+        zone: event.zone, 
+        tag: tag, 
+        callback: onCreateCallback 
+      });
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
