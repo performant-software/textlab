@@ -48,7 +48,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('shared', shared );
     
-    this.save( _.bind( function() {
+    this.model.save( null, { success: _.bind( function() {
       var shareButton = this.$('.share-button');
       var stopShareButton = this.$('.stop-sharing-button');
       
@@ -59,7 +59,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
         stopShareButton.addClass('hidden');
         shareButton.removeClass('hidden');
       }      
-    }, this));    
+    }, this) });    
   },
 
   onClickSubmit: function() {    

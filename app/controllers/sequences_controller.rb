@@ -98,6 +98,6 @@ class SequencesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sequence_params
-      params.permit(  :name, :shared, :submitted, :published, :leaf_id, :document_id )
+      params.permit( :id, :name, :shared, :submitted, :published, :leaf_id, :document_id )
     end
 end
