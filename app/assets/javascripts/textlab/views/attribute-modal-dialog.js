@@ -91,7 +91,8 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
 
   renderAttributeField: function( elementIndex, attribute, key, zones ) {
     if( attribute.fieldType == 'zone' ) {
-      var defaultZone = this.currentZone ? this.currentZone.get('zone_label') : '';
+      var zoneLabelPrefix = this.model.getZoneLabelPrefix();
+      var defaultZone = this.currentZone ? zoneLabelPrefix + this.currentZone.get('zone_label') : '';
 
       return this.partials.dropdownInput( { 
         field_name: this.fieldIDTemplate({ index: elementIndex, key: key }), 
@@ -120,8 +121,8 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     // prepare list of options for zone drop down
     var zoneLabelPrefix = this.model.getZoneLabelPrefix();
     var zoneOptions = _.map( this.model.zones.models, function( zone ) {
-      var zoneLabel = zoneLabelPrefix + zone.get('zone_label');
-      return { value: zoneLabel, text: zoneLabel };
+      var zoneValue = zoneLabelPrefix + zone.get('zone_label');
+      return { value: zoneValue, text: zone.get('zone_label') };
     });
     
     var sortedOptions = _.sortBy(zoneOptions, function(opt) {

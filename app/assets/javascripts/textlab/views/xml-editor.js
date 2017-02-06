@@ -29,7 +29,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
             	
 	initialize: function(options) {
-    _.bindAll( this, "onEnter", "requestAutosave", "save");
+    _.bindAll( this, "onEnter", "requestAutosave", "save", "onDrop");
     this.lbEnabled = false;
     this.leaf = options.leaf;
     this.config = options.config;
@@ -39,6 +39,28 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.pbTag = this.config.tags['pb'];
 
     this.tabbedEditor = options.tabbedEditor;
+  },
+
+  onDrop: function(cm,dragEvent) {
+
+    // don't proceed if transcription is read only
+    if( this.model.isReadOnly(this.tabbedEditor.projectOwner) ) return false;
+
+    // if a file was dropped
+    if( dragEvent.dataTransfer.files ) {
+      var filename = dragEvent.dataTransfer.files[0].name;
+      var parts = filename.split('.');
+      if( parts.length > 1 ) {
+        var partsMinusExt = _.first( parts, parts.length - 1 );
+        filename = partsMinusExt.join('.');
+      }
+
+      // rename this transcription based on this filename.
+      this.model.set('name', filename);
+      this.save( _.bind( function() {
+        this.tabbedEditor.renameTranscription( this.model.id, filename );
+      }, this));
+    }
   },
   
   onClickTagMenuItem: function(event) {
@@ -56,7 +78,13 @@ TextLab.XMLEditor = Backbone.View.extend({
         this.generateTag(tag,attributes,children);
       }, this);
             
-      var attributeModalDialog = new TextLab.AttributeModalDialog( { model: this.leaf, config: this.config, zone: event.zone, tag: tag, callback: onCreateCallback } );
+      var attributeModalDialog = new TextLab.AttributeModalDialog({ 
+        model: this.leaf, 
+        config: this.config, 
+        zone: event.zone, 
+        tag: tag, 
+        callback: onCreateCallback 
+      });
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
@@ -393,7 +421,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
     var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
-    var showTags = !this.model.isReadOnly();    
+    var showTags = !this.model.isReadOnly(this.tabbedEditor.projectOwner);    
     
     var statusMessage = "";
     if( this.model.get('submitted') ) {
@@ -435,7 +463,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   initEditor: function() {
     
-    var readOnly = this.model.isReadOnly();
+    var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var editorEl = this.$("#codemirror").get(0);
 		this.editor = CodeMirror.fromTextArea( editorEl, {
         mode: "xml",
@@ -464,6 +492,8 @@ TextLab.XMLEditor = Backbone.View.extend({
           this.onEnter();
         }
     }, this));
+
+    this.editor.on('drop', this.onDrop );
     
     // save as we go
     this.editor.on( "change", this.requestAutosave );
