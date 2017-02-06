@@ -35,7 +35,7 @@ TextLab.Sequence = Backbone.Model.extend({
     Backbone.sync(method, model, options);
   },
 
-  isReadOnly: function() {
+  isReadOnly: function( isProjectOwner ) {
     var owner = this.get('owner');
     var shared = this.get('shared');
     var submitted = this.get('submitted');    
@@ -48,6 +48,10 @@ TextLab.Sequence = Backbone.Model.extend({
     if( submitted && owner ) {
       readOnly = true;
     }  
+
+    if( submitted && isProjectOwner ) {
+      readOnly = false;
+    }
     
     return readOnly;     
   }

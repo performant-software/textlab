@@ -171,7 +171,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var submitConfirmed = confirm("Do you wish to submit this transcription for publication?");
     
     if( submitConfirmed ) {
-      this.tabbedEditor.submitTranscription( this.model );
+      this.tabbedEditor.submitTab( 'transcription', this.model );
     }
     
     return false;
@@ -183,7 +183,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var returnConfirmed = confirm("Do you wish to return this transcription to its owner?");
     
     if( returnConfirmed ) {
-      this.tabbedEditor.returnTranscription( this.model );
+      this.tabbedEditor.returnTab( 'transcription', this.model );
     }
     
     return false;

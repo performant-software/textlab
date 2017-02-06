@@ -63,27 +63,27 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   onClickSubmit: function() {    
-    // this.$('#action-dropdown').dropdown('toggle');
+    this.$('#action-dropdown').dropdown('toggle');
 
-    // var submitConfirmed = confirm("Do you wish to submit this transcription for publication?");
+    var submitConfirmed = confirm("Do you wish to submit this sequence for publication?");
     
-    // if( submitConfirmed ) {
-    //   this.tabbedEditor.submitTranscription( this.model );
-    // }
+    if( submitConfirmed ) {
+      this.tabbedEditor.submitTab( 'sequence', this.model );
+    }
     
-    // return false;
+    return false;
   },
   
   onClickReturn: function() {
-    // this.$('#action-dropdown').dropdown('toggle');
+    this.$('#action-dropdown').dropdown('toggle');
 
-    // var returnConfirmed = confirm("Do you wish to return this transcription to its owner?");
+    var returnConfirmed = confirm("Do you wish to return this sequence to its owner?");
     
-    // if( returnConfirmed ) {
-    //   this.tabbedEditor.returnTranscription( this.model );
-    // }
+    if( returnConfirmed ) {
+      this.tabbedEditor.returnTab( 'sequence', this.model );
+    }
     
-    // return false;
+    return false;
   },
   
   onClickRename: function() {
@@ -215,17 +215,34 @@ TextLab.SequenceEditor = Backbone.View.extend({
     }, this);
 
     this.$('#sequence-grid').html(this.gridTemplate({
-      readOnly: this.model.isReadOnly(), 
+      readOnly: this.model.isReadOnly(this.tabbedEditor.projectOwner), 
       narrativeSteps: narrativeSteps
     })); 
   },
 
+  save: function( callback ) {
+    var onError = function() {
+      $('.error-message').html('ERROR: Unable to save changes.');
+      TextLab.Routes.routes.onError();
+    };
+  
+    var onSuccess = function() {
+      $('.error-message').html('');
+      if( callback ) {
+        callback();
+      }
+    };
+    
+    this.model.save(null, { success: onSuccess, error: onError });
+  },  
+
   render: function() {
     
+    var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
     var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
-    var showAddStep = !this.model.isReadOnly();    
+    var showAddStep = !readOnly;  
     
     var statusMessage = "";
     if( this.model.get('submitted') ) {
@@ -234,7 +251,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
       } else {
         statusMessage = "Sequence submitted for publication."
       }
-    } else if( this.model.get('shared') && this.model.isReadOnly() ) {
+    } else if( this.model.get('shared') && readOnly ) {
       statusMessage = "Sequence shared by: username";
     }
 
