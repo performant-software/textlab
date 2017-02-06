@@ -58,7 +58,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       // rename this transcription based on this filename.
       this.model.set('name', filename);
       this.save( _.bind( function() {
-        this.tabbedEditor.renameTranscription( this.model.id, filename );
+        this.tabbedEditor.renameTab( 'transcription', this.model.id, filename );
       }, this));
     }
   },
