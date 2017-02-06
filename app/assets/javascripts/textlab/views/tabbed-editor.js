@@ -204,7 +204,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   },
   
   updateTabStar: function(tab) {
-    var starEl = this.$("#"+tab.id+" i");  
+    var starEl = this.$("#"+tab.id+" .accept-star");  
     if( tab.transcription.get('published') ) {
       starEl.addClass('fa fa-star');
       tab.xmlEditor.togglePublishButton(false);
@@ -259,7 +259,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       name: transcription.get('name'),
       star: transcription.get('published'),
       xmlEditor: xmlEditor,
-      transcription: transcription
+      transcription: transcription,
+      icon: 'fa fa-file-text-o'
     };
     
     var tabPaneID = tab.id+'-pane';
@@ -294,7 +295,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
       name: sequence.get('name'),
       star: sequence.get('published'),
       sequenceEditor: sequenceEditor,
-      sequence: sequence
+      sequence: sequence,
+      icon: 'fa fa-list-ol'
     };
     
     var tabPaneID = tab.id+'-pane';
