@@ -399,7 +399,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
     var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
-    var showTags = !this.model.isReadOnly();    
+    var showTags = !this.model.isReadOnly(this.tabbedEditor.projectOwner);    
     
     var statusMessage = "";
     if( this.model.get('submitted') ) {
@@ -441,7 +441,7 @@ TextLab.XMLEditor = Backbone.View.extend({
   
   initEditor: function() {
     
-    var readOnly = this.model.isReadOnly();
+    var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var editorEl = this.$("#codemirror").get(0);
 		this.editor = CodeMirror.fromTextArea( editorEl, {
         mode: "xml",
