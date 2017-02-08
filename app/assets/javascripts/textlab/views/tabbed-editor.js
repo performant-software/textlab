@@ -163,8 +163,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
         this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 100 );
         this.activeTab.xmlEditor.editor.refresh();        
       } else {
-        var sequenceEditorToolbar = this.$(".sequence-editor-toolbar");
-        var sequenceEditor = this.$("#sequence-grid");
+        var sequenceEditorToolbar = this.activeTab.sequenceEditor.$(".sequence-editor-toolbar");
+        var sequenceEditor = this.activeTab.sequenceEditor.$("#sequence-grid");
         sequenceEditor.width(this.parentPanel.width() - 10);
         sequenceEditor.height(this.parentPanel.height() - sequenceEditorToolbar.height() - 100 );
       }
