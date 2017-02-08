@@ -196,21 +196,44 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.resizeActivePanel();
   },
   
-  starTranscription: function( transcriptionID ) {
-    _.each( this.tabs, function( tab ) {
-      tab.transcription.set('published', ( tab.transcription.id == transcriptionID ));
-      tab.xmlEditor.save( _.bind( function() {
-        this.updateTabStar(tab);        
+  starTab: function( tabType, modelID ) {
+
+    if( tabType == 'transcription' ) {
+      _.each( this.tabs, function( tab ) {
+        if( tab.transcription ) {
+          var published = ( tab.transcription.id == modelID );
+          tab.transcription.set('published', published);
+          tab.xmlEditor.save( _.bind( function() {
+            this.updateTabStar(tab, published);        
+          }, this));
+        }
+      }, this);
+    } else {
+      var tab = this.getTab( tabType, modelID );
+      tab.sequence.set('published', true);
+      tab.sequenceEditor.save( _.bind( function() {
+        this.updateTabStar(tab, true);        
       }, this));
-    }, this);
+    }
   },
   
-  unStarTranscription: function( transcriptionID ) {
-    var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == transcriptionID } );
-    tab.transcription.set('published', false );
-    tab.xmlEditor.save( _.bind( function() {
-      this.updateTabStar(tab);        
-    }, this));    
+  unStarTab: function( tabType, modelID ) {
+
+    if( tabType == 'transcription') {
+      var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == modelID } );
+        if( tab.transcription ) {
+          tab.transcription.set('published', false );
+          tab.xmlEditor.save( _.bind( function() {
+            this.updateTabStar(tab, false);        
+          }, this)); 
+        }   
+    } else {
+      var tab = this.getTab( tabType, modelID );
+      tab.sequence.set('published', false);
+      tab.sequenceEditor.save( _.bind( function() {
+        this.updateTabStar(tab, false);        
+      }, this));
+    }
   },
   
   renameTab: function( tabType, modelID, newName ) {
@@ -219,14 +242,15 @@ TextLab.TabbedEditor = Backbone.View.extend({
     nameSpan.html(newName);
   },
   
-  updateTabStar: function(tab) {
-    var starEl = this.$("#"+tab.id+" .accept-star");  
-    if( tab.transcription.get('published') ) {
+  updateTabStar: function(tab, published) {
+    var starEl = this.$("#"+tab.id+" .accept-star"); 
+    var editor = tab.xmlEditor ? tab.xmlEditor : tab.sequenceEditor;
+    if( published ) {
       starEl.addClass('fa fa-star');
-      tab.xmlEditor.togglePublishButton(false);
+      editor.togglePublishButton(false);
     } else {
       starEl.removeClass('fa fa-star');
-      tab.xmlEditor.togglePublishButton(true);
+      editor.togglePublishButton(true);
     }    
   },
     

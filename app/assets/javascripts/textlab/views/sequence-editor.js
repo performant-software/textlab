@@ -27,11 +27,11 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   onClickPublish: function() {
-    // this.tabbedEditor.starTranscription( this.model.id );  
+    this.tabbedEditor.starTab( 'sequence', this.model.id );
   },
   
   onClickUnPublish: function() {
-    // this.tabbedEditor.unStarTranscription( this.model.id );
+    this.tabbedEditor.unStarTab( 'sequence', this.model.id );
   },
   
   onClickShare: function() {
@@ -237,7 +237,8 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },  
 
   render: function() {
-    
+
+    var showPublishButton = this.tabbedEditor.projectOwner;
     var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
@@ -266,8 +267,6 @@ TextLab.SequenceEditor = Backbone.View.extend({
     if( showReturnButton ) {
       actionWidthClass = 'room-for-return-button';
     }
-
-    var showPublishButton = false;
               
     this.$el.html(this.template({ 
       showAddStep: showAddStep,

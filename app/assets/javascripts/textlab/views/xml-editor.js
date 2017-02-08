@@ -125,12 +125,11 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickPublish: function() {
-    this.tabbedEditor.starTranscription( this.model.id );
-    
+    this.tabbedEditor.starTab( 'transcription', this.model.id );
   },
   
   onClickUnPublish: function() {
-    this.tabbedEditor.unStarTranscription( this.model.id );
+    this.tabbedEditor.unStarTab( 'transcription', this.model.id );
   },
   
   onClickShare: function() {
