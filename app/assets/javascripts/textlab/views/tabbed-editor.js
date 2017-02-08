@@ -125,19 +125,35 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this);  
     
     // make a list of the unopened transcriptions
-    var openTranscriptions = _.compact( _.map( this.tabs, function( tab ) { return tab.transcription } ));
-    var availableTranscriptions = _.difference( this.transcriptions.models, openTranscriptions );
+    var loadingComplete = _.bind( function() {
 
-    // make a list of the unopened sequences
-    var openSequences = _.compact( _.map( this.tabs, function( tab ) { return tab.sequence } ));
-    var availableSequences = _.difference( this.sequences.models, openSequences );
-    
-    var openTabDialog = new TextLab.OpenTabDialog( { 
-      transcriptions: availableTranscriptions, 
-      sequences: availableSequences, 
-      callback: onSelectCallback 
-    });
-    openTabDialog.render();   
+      var availableTranscriptions = _.map( this.transcriptions.models, function( transcription ) { 
+        var found = _.find( this.tabs, function(tab) { 
+          return tab.transcription && (tab.transcription.id == transcription.id ); 
+        });
+        return (found) ? null : transcription;
+      },this);
+      availableTranscriptions = _.compact( availableTranscriptions );
+
+
+      var availableSequences = _.map( this.sequences.models, function( sequence ) { 
+        var found = _.find( this.tabs, function(tab) { 
+          return tab.sequence && (tab.sequence.id == sequence.id ); 
+        });
+        return (found) ? null : sequence;
+      },this);
+      availableSequences = _.compact( availableSequences );
+      
+      var openTabDialog = new TextLab.OpenTabDialog( { 
+        transcriptions: availableTranscriptions, 
+        sequences: availableSequences, 
+        callback: onSelectCallback 
+      });
+      openTabDialog.render();   
+    }, this);
+
+    // reload the transcriptions and sequences before opening the dialog
+    this.initTranscriptions( _.bind( this.initSequences, this, loadingComplete ) );
   },
   
   resizeActivePanel: function() {    
