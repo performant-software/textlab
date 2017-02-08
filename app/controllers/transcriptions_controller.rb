@@ -1,5 +1,5 @@
 class TranscriptionsController < ApplicationController
-  before_action :set_transcription, only: [:show, :update, :destroy]
+  before_action :set_transcription, except: :index
   before_action :authenticate_user!, except: :show
 
   def index
@@ -108,6 +108,35 @@ class TranscriptionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def transcription_params
-      params.permit( :name, :content, :shared, :submitted, :published, :leaf_id, :document_id, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      if @transcription.nil?
+        return params.permit( :leaf_id )         
+      end
+
+      # if user owns sequence
+      if current_user.id == @transcription.user_id
+
+        # if user owns document
+        if current_user.id == @transcription.document.user_id   
+            return params.permit( :name, :content, :shared, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+        else
+          # has it been submitted yet?
+          if @transcription.submitted
+            return params.permit()
+          else
+            return params.permit( :name, :content, :shared, :submitted, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+          end
+        end
+      else
+        if current_user.id == @transcription.document.user_id
+          # has it been submitted yet?
+          if @transcription.submitted
+            return params.permit( :name, :content, :shared, :published, :submitted, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+          else
+            return params.permit()
+          end
+        else
+          return params.permit()
+        end
+      end
     end
 end

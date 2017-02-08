@@ -1,5 +1,5 @@
 class SequencesController < ApplicationController
-  before_action :set_sequence, only: [:show, :update, :destroy]
+  before_action :set_sequence, except: :index
   before_action :authenticate_user!, except: :show
 
   def index
@@ -74,6 +74,9 @@ class SequencesController < ApplicationController
 
   # PATCH/PUT /sequences/1.json
   def update    
+
+    # TODO don't allow unprived users to modify fields
+
     if @sequence.update(sequence_params)
       render json: @sequence.obj(current_user.id) 
     else
@@ -96,8 +99,38 @@ class SequencesController < ApplicationController
       @sequence = Sequence.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def sequence_params
-      params.permit( :id, :name, :shared, :submitted, :published, :leaf_id, :document_id )
+
+      if @sequence.nil?
+        return params.permit( :leaf_id )         
+      end
+
+      # if user owns sequence
+      if current_user.id == @sequence.user_id
+
+        # if user owns document
+        if current_user.id == @sequence.document.user_id   
+            return params.permit( :name, :shared, :published )            
+        else
+          # has it been submitted yet?
+          if @sequence.submitted
+            return params.permit()
+          else
+            return params.permit( :name, :shared, :submitted )          
+          end
+        end
+      else
+        if current_user.id == @sequence.document.user_id
+          # has it been submitted yet?
+          if @sequence.submitted
+            return params.permit( :name, :shared, :submitted, :published )
+          else
+            return params.permit()
+          end
+        else
+          return params.permit()
+        end
+      end
+
     end
 end
