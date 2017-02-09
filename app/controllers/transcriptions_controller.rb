@@ -18,8 +18,7 @@ class TranscriptionsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @transcription.diplo.destroy if !@transcription.diplo.nil?
-        @transcription.diplo = Diplo.create_diplo!( @transcription )
+        @transcription.diplo = Diplo.create_diplo!( @transcription ) if @transcription.diplo.nil?
         
         if @transcription.diplo.nil?
           render 'no_leaf'
