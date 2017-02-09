@@ -1,5 +1,5 @@
 class SequencesController < ApplicationController
-  before_action :set_sequence, except: :index
+  before_action :set_sequence, except: [ :index, :create ]
   before_action :authenticate_user!, except: :show
 
   def index

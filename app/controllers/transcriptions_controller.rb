@@ -1,5 +1,5 @@
 class TranscriptionsController < ApplicationController
-  before_action :set_transcription, except: :index
+  before_action :set_transcription, except: [ :index, :create ]
   before_action :authenticate_user!, except: :show
 
   def index
