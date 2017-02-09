@@ -18,7 +18,9 @@ class TranscriptionsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @transcription.diplo = Diplo.create_diplo!( @transcription ) if @transcription.diplo.nil?
+        if @transcription.diplo.nil?
+          @transcription.diplo = Diplo.create_diplo!( @transcription ) 
+        end 
         
         if @transcription.diplo.nil?
           render 'no_leaf'
@@ -83,7 +85,10 @@ class TranscriptionsController < ApplicationController
     # clear cached diplo when editing transcription
     @transcription.diplo.delete if @transcription.diplo
     
-    if @transcription.update(transcription_params)
+    # excludes fields the user isn't authorized to edit
+    filtered_params = @transcription.filter_by_permissions(transcription_params, current_user.id)
+
+    if @transcription.update(filtered_params)
       render json: @transcription.obj(current_user.id) 
     else
       render json: @transcription.errors, status: :unprocessable_entity
@@ -105,37 +110,7 @@ class TranscriptionsController < ApplicationController
       @transcription = Transcription.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def transcription_params
-      if @transcription.nil?
-        return params.permit( :leaf_id )         
-      end
-
-      # if user owns sequence
-      if current_user.id == @transcription.user_id
-
-        # if user owns document
-        if current_user.id == @transcription.document.user_id   
-            return params.permit( :name, :content, :shared, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
-        else
-          # has it been submitted yet?
-          if @transcription.submitted
-            return params.permit()
-          else
-            return params.permit( :name, :content, :shared, :submitted, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
-          end
-        end
-      else
-        if current_user.id == @transcription.document.user_id
-          # has it been submitted yet?
-          if @transcription.submitted
-            return params.permit( :name, :content, :shared, :published, :submitted, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
-          else
-            return params.permit()
-          end
-        else
-          return params.permit()
-        end
-      end
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
     end
 end

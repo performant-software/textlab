@@ -1,10 +1,19 @@
 class Transcription < ActiveRecord::Base
   
+  include EditingPermissions
+
   belongs_to :document
   belongs_to :user
   belongs_to :leaf
   has_many :zone_links, dependent: :destroy
   has_one :diplo, dependent: :destroy
+
+  # TODO if publish setting is changed, make sure all others are unpublished
+
+  # tells editing permissions which fields contain writable content
+  def content_fields
+    [ :name, :content, :zone_links_json ]
+  end
   
   def zone_links_json=( proposed_zone_links )    
     self.zone_links.clear

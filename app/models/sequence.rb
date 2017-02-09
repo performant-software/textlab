@@ -1,9 +1,16 @@
 class Sequence < ActiveRecord::Base
   
+  include EditingPermissions
+
   belongs_to :document
   belongs_to :user
   belongs_to :leaf
   has_many :narrative_steps, dependent: :destroy
+
+  # tells editing permissions which fields contain writable content
+  def content_fields
+    [ :name ]
+  end
    
   def obj(current_user_id=nil)
     
