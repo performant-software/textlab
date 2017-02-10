@@ -62,7 +62,7 @@ class SequencesController < ApplicationController
     end
 
     def sequence_params
-      params.permit( :leaf_id, :name, :shared, :submitted, :published )
+      params.permit( :leaf_id, :name, :shared, :submitted, :published, :document_id )
     end
 
 end

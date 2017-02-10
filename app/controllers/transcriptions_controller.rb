@@ -111,6 +111,6 @@ class TranscriptionsController < ApplicationController
     end
 
     def transcription_params
-      params.permit( :leaf_id, :name, :content, :shared, :submitted, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
     end
 end

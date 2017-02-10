@@ -1,19 +1,17 @@
-
-<div class='nav-actions'>
-  <% unless @prev_leaf.nil? %>
-    <a href="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left fa-2x'></i> Previous</a>
-  <% end %>
-  <% unless @next_leaf.nil? %>
-    <a href="<%= url_for @next_leaf %>">Next <i class='fa fa-chevron-circle-right fa-2x'></i></a>
-  <% end %>
-</div>
-
 <div id='leaf-viewer'>
   <div class="row">
-    <div class="leaf-pane col-md-5">
+    <div class="leaf-pane col-md-5 left-col">
+      <div class='nav-actions'>
+        <% unless @prev_leaf.nil? %>
+          <a class="prev-leaf-button" href="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left'></i> Previous Leaf</a>
+        <% end %>
+        <% unless @next_leaf.nil? %>
+          <a class="next-leaf-button" href="<%= url_for @next_leaf %>">Next Leaf <i class='fa fa-chevron-circle-right'></i></a>
+        <% end %>
+      </div>
       <div id='openseadragon'></div>
     </div>
-    <div class="col-md-5">
+    <div class="col-md-5 right-col">
       <ul class="nav nav-tabs">
         <li role="presentation" class="active"><a href="#" class='tab-button' data-tab='diplo-pane'>Diplomatic</a></li>
         <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
@@ -27,6 +25,11 @@
       </div>      
     </div>
     </div>    
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <%# render partial: 'sequences' %>
+    </div>
   </div>
 </div>
 
