@@ -11,6 +11,13 @@ class Sequence < ActiveRecord::Base
   def content_fields
     [ :name ]
   end
+
+  def list_obj
+    {
+      id: self.id,
+      name: self.name
+    }
+  end
    
   def obj(current_user_id=nil)
     

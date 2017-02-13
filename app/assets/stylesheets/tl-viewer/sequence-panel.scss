@@ -1,0 +1,20 @@
+#sequence-panel {
+	
+  .actions {
+    float: right;
+  }
+
+  #sequence-grid {
+
+    padding: 5px;
+
+    .step-column {
+      width: 300px;
+    }
+
+    .narrative-column {
+      width: 300px;
+    }
+
+  }
+}

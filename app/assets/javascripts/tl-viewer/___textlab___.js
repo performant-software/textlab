@@ -1,4 +1,3 @@
 
 // application namespace
 var TextLab = {};
-

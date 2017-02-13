@@ -28,7 +28,7 @@
   </div>
   <div class="row">
     <div class="col-md-10">
-      <%# render partial: 'sequences' %>
+      <div id="sequence-list-panel"></div>
     </div>
   </div>
 </div>
@@ -38,7 +38,10 @@
 
   // application main
   $(document).ready(function() {
-    var leafViewer = new TextLab.LeafViewer({ el: $('#leaf-viewer'), model: <%=raw @leaf.to_json %> } );
+    var leafViewer = new TextLab.LeafViewer({ 
+      el: $('#leaf-viewer'), 
+      model: <%=raw @leaf.to_json %>
+    });
     leafViewer.render();  
   });
 

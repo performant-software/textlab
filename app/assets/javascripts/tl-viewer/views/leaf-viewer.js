@@ -16,6 +16,12 @@ TextLab.LeafViewer = Backbone.View.extend({
 
     var basePanel = new TextLab.BasePanel({ el: this.$('#base-panel') } );
     basePanel.render();
+
+    var sequenceListPanel = new TextLab.SequenceListPanel({ 
+      el: this.$('#sequence-list-panel'),
+      sequences: this.model.sequences 
+    });
+    sequenceListPanel.render();
     
     this.initViewer();
     
