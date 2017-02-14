@@ -1,0 +1,17 @@
+<h4><a href="#" class='back-to-list-link'>Sequences</a> / <%= name %> by username</h4>
+
+<table id="sequence-grid" class="table">
+  <tr>
+    <th>Step</th>
+    <th>Narrative</th>
+  </tr>
+  <% _.each( steps, function(step) { %>
+    <tr>
+      <td class='step-column'><%= step.step %></td>
+      <td class='narrative-column'><%= step.narrative %></td>
+    </tr>
+  <%  }); %>
+</table>
+<div class='actions'>
+    <button class='btn btn-default toggle-grid-button' href='#' >Show First Step</button>
+</div>

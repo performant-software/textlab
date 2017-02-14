@@ -1,4 +1,12 @@
 #sequence-panel {
+
+  table.table, table.table td {
+   border: none;
+  }
+
+  table.table tr {
+    border: solid 1px #D3D3D3;
+  }
 	
   .actions {
     float: right;

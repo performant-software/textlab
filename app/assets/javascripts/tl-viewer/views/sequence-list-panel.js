@@ -14,15 +14,20 @@ TextLab.SequenceListPanel = Backbone.View.extend({
   
   onViewSequence: function(event) {    
 
-    // TODO load the sequence from the server and display it .. hide the list and display the panel for this sequence
     var viewLink = $(event.currentTarget);
-    var sequenceID = parseInt(viewLink.attr("data-sequence-id"));    
+    var sequenceID = parseInt(viewLink.attr("data-sequence-id"));  
+
+    var onLoad = _.bind( function(sequence) {
+      var sequencePanel = new TextLab.SequencePanel({ 
+        sequenceListPanel: this,
+        model: sequence });
+      this.$('#sequence-list').hide();
+      sequencePanel.render();
+      this.$el.append(sequencePanel.$el);
+    }, this );
 
     var sequence = new TextLab.Sequence({ id: sequenceID });
-    sequence.fetch({ success: function(sequence) {
-      var sequencePanel = new TextLab.SequencePanel({ model: sequence });
-      sequencePanel.render();
-    }});    
+    sequence.fetch({ success: onLoad });    
 
     return false;
   },
