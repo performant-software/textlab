@@ -74,7 +74,20 @@ TextLab.SequencePanel = Backbone.View.extend({
     var narrativeSteps = this.model.narrativeSteps;
     this.currentStep = _.first(narrativeSteps.models);
     this.stepNumber = 0;
-    this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
+    var zoneLabel = this.currentStep.get('zone_label');
+    this.leafViewer.highlightZone( zoneLabel, true );
+    this.hightlightSpan( zoneLabel, true );
+  },
+
+  hightlightSpan: function( zoneLabel, state ) {
+    // in facs
+    var span$ = this.leafViewer.$("#img_17-"+zoneLabel);
+
+    if( state ) {
+      span$.addClass('seq-highlight')
+    } else {
+      span$.removeClass('seq-highlight')
+    }
   },
     
   render: function() {    
