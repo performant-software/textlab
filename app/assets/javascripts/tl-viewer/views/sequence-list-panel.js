@@ -10,6 +10,7 @@ TextLab.SequenceListPanel = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.sequences = options.sequences;
+    this.leafViewer = options.leafViewer;
   },
   
   onViewSequence: function(event) {    
@@ -20,9 +21,11 @@ TextLab.SequenceListPanel = Backbone.View.extend({
     var onLoad = _.bind( function(sequence) {
       var sequencePanel = new TextLab.SequencePanel({ 
         sequenceListPanel: this,
+        leafViewer: this.leafViewer,
         model: sequence });
       this.$('#sequence-list').hide();
       sequencePanel.render();
+      this.leafViewer.mouseOverEnabled = false;
       this.$el.append(sequencePanel.$el);
     }, this );
 

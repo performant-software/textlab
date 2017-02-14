@@ -18,6 +18,16 @@ class Sequence < ActiveRecord::Base
       name: self.name
     }
   end
+
+  def published_obj 
+    steps = self.narrative_steps.map { |step| step.published_obj }
+    
+    {
+      id: self.id,
+      name: self.name,
+      narrative_steps: steps
+    }
+  end
    
   def obj(current_user_id=nil)
     

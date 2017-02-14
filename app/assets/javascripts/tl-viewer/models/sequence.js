@@ -1,8 +1,11 @@
 TextLab.Sequence = Backbone.Model.extend({
-  urlRoot: "/sequences",
   
   initialize: function( attributes, options ) {
     this.afterLoad( attributes );
+  },
+
+  url: function() {
+    return "/sequences/"+this.id+".json?p=true";
   },
 
   afterLoad: function( attributes ) {

@@ -7,6 +7,7 @@ TextLab.LeafViewer = Backbone.View.extend({
   },
       
   initialize: function() {
+    this.mouseOverEnabled = true;
     _.bindAll(this,'onMouseOverRevision', 'onMouseOutRevision');
   },
   
@@ -17,11 +18,14 @@ TextLab.LeafViewer = Backbone.View.extend({
     var basePanel = new TextLab.BasePanel({ el: this.$('#base-panel') } );
     basePanel.render();
 
-    var sequenceListPanel = new TextLab.SequenceListPanel({ 
-      el: this.$('#sequence-list-panel'),
-      sequences: this.model.sequences 
-    });
-    sequenceListPanel.render();
+    if( this.model.sequences && this.model.sequences.length > 0 ) {
+      var sequenceListPanel = new TextLab.SequenceListPanel({ 
+        el: this.$('#sequence-list-panel'),
+        sequences: this.model.sequences, 
+        leafViewer: this
+      });
+      sequenceListPanel.render();      
+    }
     
     this.initViewer();
     
@@ -53,26 +57,27 @@ TextLab.LeafViewer = Backbone.View.extend({
     this.$(".tab-pane").hide();
     this.$("#"+tabID).show();
   },
-  
-  onMouseOverRevision: function( zoneLabel ) {
-        
+
+  highlightZone: function( zoneLabel, state ) {
     // go through the items until we find the zone group for this zone
     var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
       return (item.data.zone && item.data.zone.zone_label == zoneLabel );
     });
     
-    zoneGroup.visible = true;
+    zoneGroup.visible = state;
     paper.view.draw(); 
   },
   
+  onMouseOverRevision: function( zoneLabel ) {
+    if( this.mouseOverEnabled ) {
+      this.highlightZone(zoneLabel,true);
+    }
+  },
+  
   onMouseOutRevision: function( zoneLabel ) {
-    // go through the items until we find the zone group for this zone
-    var zoneGroup = _.find( paper.project.activeLayer.children, function(item) {
-      return (item.data.zone && item.data.zone.zone_label == zoneLabel );
-    });
-       
-    zoneGroup.visible = false;
-    paper.view.draw();     
+    if( this.mouseOverEnabled ) {
+      this.highlightZone(zoneLabel,false);
+    }
   },
   
   getTileSource: function( callback ) {

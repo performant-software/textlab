@@ -17,7 +17,13 @@ class SequencesController < ApplicationController
     end
     
     respond_to do |format|  
-      format.json { render json: @sequence.obj(current_user.id) }
+      format.json { 
+        if sequence_params[:p]
+          render json: @sequence.published_obj() 
+        else          
+          render json: @sequence.obj(current_user.id) 
+        end
+      }
     end
   end
 
@@ -62,7 +68,7 @@ class SequencesController < ApplicationController
     end
 
     def sequence_params
-      params.permit( :leaf_id, :name, :shared, :submitted, :published, :document_id )
+      params.permit( :p, :leaf_id, :name, :shared, :submitted, :published, :document_id )
     end
 
 end

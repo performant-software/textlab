@@ -14,6 +14,7 @@ TextLab.SequencePanel = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.sequenceListPanel = options.sequenceListPanel;
+    this.leafViewer = options.leafViewer;
     this.showGrid = false;
     this.gotoFirstStep();
   },
@@ -22,7 +23,11 @@ TextLab.SequencePanel = Backbone.View.extend({
     this.showGrid = !this.showGrid;
 
     if(!this.showGrid) {
+      this.leafViewer.mouseOverEnabled = false;
       this.gotoFirstStep();
+    } else {
+      this.leafViewer.mouseOverEnabled = true;
+      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
     }
 
     this.render();
@@ -33,9 +38,13 @@ TextLab.SequencePanel = Backbone.View.extend({
     var maxSteps = this.model.narrativeSteps.models.length;
 
     if( this.stepNumber < maxSteps-1 ) {
+      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
+
       this.stepNumber = this.stepNumber + 1;
       this.currentStep = this.model.narrativeSteps.models[this.stepNumber];
       this.render();      
+
+      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
     }
     return false;
   },
@@ -43,22 +52,29 @@ TextLab.SequencePanel = Backbone.View.extend({
   onPrevStep: function() {    
 
     if( this.stepNumber > 0 ) {
+      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
+
       this.stepNumber = this.stepNumber - 1;
       this.currentStep = this.model.narrativeSteps.models[this.stepNumber];
       this.render();
+
+      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
     }
     return false;
   },
 
   onBackToList: function() {
+    this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
     this.$el.detach();
     this.sequenceListPanel.$('#sequence-list').show();
+    this.leafViewer.mouseOverEnabled = true;
   },
 
   gotoFirstStep: function() {
     var narrativeSteps = this.model.narrativeSteps;
     this.currentStep = _.first(narrativeSteps.models);
     this.stepNumber = 0;
+    this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
   },
     
   render: function() {    
