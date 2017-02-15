@@ -13,5 +13,8 @@
 <div class='actions'>
     <button class='btn btn-default toggle-grid-button' href='#' >Show All Steps</button>
     <button class='btn btn-default prev-step-button' href='#' ><i class="fa fa-caret-left" aria-hidden="true"></i>  Previous Step</button>
+    <% for( var i=0; i < maxSteps; i++ ) { %> 
+      <button data-step-number='<%= i %>' class='btn btn-default goto-step-button <%= (i==stepNumber) ? "active" : "" %>' href='#' ><%= i + 1 %></button>
+    <% } %>
     <button class='btn btn-primary next-step-button' href='#' >Next Step <i class="fa fa-caret-right" aria-hidden="true"></i></button>
 </div>

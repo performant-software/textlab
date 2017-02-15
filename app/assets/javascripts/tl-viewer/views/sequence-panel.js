@@ -11,6 +11,7 @@ TextLab.SequencePanel = Backbone.View.extend({
   events: {
     'click .toggle-grid-button': "onToggleGrid",
     'click .next-step-button': "onNextStep",
+    'click .goto-step-button': "onGotoStep",
     'click .prev-step-button': "onPrevStep",
     'click .back-to-list-link': "onBackToList"
   },
@@ -48,6 +49,14 @@ TextLab.SequencePanel = Backbone.View.extend({
     return false;
   },
 
+  onGotoStep: function(event) {
+    var gotoButton = $(event.currentTarget);
+    var stepNumber = parseInt(gotoButton.attr("data-step-number"));   
+    this.setCurrentStep(stepNumber);
+    this.render();   
+    return false;
+  },
+
   onPrevStep: function() {    
     if( this.stepNumber > 0 ) {
       var nextStep = this.stepNumber - 1;
@@ -67,6 +76,8 @@ TextLab.SequencePanel = Backbone.View.extend({
   gotoFirstStep: function() {
     this.setCurrentStep(0);
   },
+
+
 
   setCurrentStep: function(nextStepNumber) {
     if( this.currentStep ) {
