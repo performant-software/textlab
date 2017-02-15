@@ -117,7 +117,17 @@ TextLab.TabbedEditor = Backbone.View.extend({
     var tabDialog = new TextLab.TabDialog( { leaf: this.model, callback: onCreateCallback } );
     tabDialog.render();   
   },
-  
+
+  quickSequence: function( firstStep, zone_id ) {
+    var sequence = TextLab.Sequence.newSequence( this.model );
+    this.sequences.add(sequence);
+    sequence.save(null, { success: _.bind( function() {
+      var tab = this.openSequenceEditorTab(sequence);
+      this.selectTab(tab);
+      tab.sequenceEditor.activateNarrativeStepDialog( firstStep, zone_id );
+    }, this) });
+  },
+
   onOpen: function() {    
     var onSelectCallback = _.bind( function(tabModel,tabType) {
       var tab = ( tabType == 'transcription') ? this.openXMLEditorTab(tabModel) : this.openSequenceEditorTab(tabModel);

@@ -104,12 +104,31 @@ TextLab.SurfaceView = Backbone.View.extend({
     return false;
   },
   
-  onPopoverButton: function(e) {
+  onPopoverButton: function(event) {
+    var target = $(event.currentTarget); 
+    var tagID = target.attr("data-tag-id");   
+    var zone = this.selectedZoneGroup.data.zone;
+ 
     this.hidePopOverMenu();
-    e.zone = this.selectedZoneGroup.data.zone;
+
+    var xmlEditor = null;
     if( this.tabbedEditor.activeTab ) {
-      this.tabbedEditor.activeTab.xmlEditor.onClickTagMenuItem(e);
+      xmlEditor = this.tabbedEditor.activeTab.xmlEditor;
     }
+     
+    if( tagID == 'new-sequence' ) {
+      var selectedText = "";
+      if( xmlEditor ) {
+        selectedText = xmlEditor.getSelection();
+      }
+      this.tabbedEditor.quickSequence( selectedText, zone.id );
+    } else {
+      if( xmlEditor ) {
+        xmlEditor.activateTagDialog(tagID, zone);
+      }
+    }
+
+    return false;
   },
   
   toggleHighlight: function( zoneGroup, state ) {    

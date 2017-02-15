@@ -62,16 +62,10 @@ TextLab.XMLEditor = Backbone.View.extend({
       }, this));
     }
   },
-  
-  onClickTagMenuItem: function(event) {
-    var target = $(event.currentTarget); 
-    var tagID = target.attr("data-tag-id");		
+
+  activateTagDialog: function( tagID, zone ) {
+
     var tag = this.config.tags[tagID];
-      
-    // are we coming from drop down? if so, hide it
-    if( !target.hasClass('toolbar-button')) {
-      this.$('#xml-tag-dropdown').dropdown('toggle');
-    }
         
     if( tag.attributes ) {    
       var onCreateCallback = _.bind(function(attributes, children) {
@@ -81,7 +75,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       var attributeModalDialog = new TextLab.AttributeModalDialog({ 
         model: this.leaf, 
         config: this.config, 
-        zone: event.zone, 
+        zone: zone, 
         tag: tag, 
         callback: onCreateCallback 
       });
@@ -89,7 +83,20 @@ TextLab.XMLEditor = Backbone.View.extend({
     } else {
       this.generateTag(tag);
     }     
-    
+
+  },
+  
+  onClickTagMenuItem: function(event) {
+    var target = $(event.currentTarget); 
+    var tagID = target.attr("data-tag-id");   
+
+    // are we coming from drop down? if so, hide it
+    if( !target.hasClass('toolbar-button')) {
+      this.$('#xml-tag-dropdown').dropdown('toggle');
+    }
+
+    this.activateTagDialog( tagID );
+
     return false;
   },
   
@@ -281,7 +288,11 @@ TextLab.XMLEditor = Backbone.View.extend({
 		window.clearTimeout( this.autoSaveTimerID );	
 	},
 
-  // what are the correct inputs for this method?
+  getSelection: function() {
+    var doc = this.editor.getDoc();
+    return doc.getSelection();
+  },
+
   generateTag: function(tag, attributes, children) {
     var doc =  this.editor.getDoc();
     var from = doc.getCursor("from");

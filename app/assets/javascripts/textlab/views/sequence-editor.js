@@ -111,6 +111,11 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   onClickAddStep: function() {
+     // TODO load the step transcription from the previous step, set the zone and step number.
+     this.activateNarrativeStepDialog( "", null);
+  },
+
+  activateNarrativeStepDialog: function( stepText, zoneID ) {
     var onCreateCallback = _.bind(function(step) {
       this.model.narrativeSteps.add(step);
       step.save(null, { success: _.bind( function() {
@@ -120,8 +125,11 @@ TextLab.SequenceEditor = Backbone.View.extend({
     
     var zones = this.generateZoneList();
 
-    // TODO load the step transcription from the previous step, set the zone and step number.
-    var narrativeStep = new TextLab.NarrativeStep( { sequence_id: this.model.id });
+    var narrativeStep = new TextLab.NarrativeStep({
+      step: stepText,
+      zone_id: zoneID, 
+      sequence_id: this.model.id 
+    });
     var stepDialog = new TextLab.NarrativeStepDialog({ 
       zones: zones,
       model: narrativeStep, 
