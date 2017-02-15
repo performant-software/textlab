@@ -2,7 +2,8 @@ TextLab.SequencePanel = Backbone.View.extend({
 
 	stepSequencePanelTemplate: JST['tl-viewer/templates/step-sequence-panel'],
   sequenceGridPanelTemplate: JST['tl-viewer/templates/sequence-grid-panel'],
-  
+  emptySequencePanelTemplate: JST['tl-viewer/templates/empty-sequence-panel'],
+
   facsSelectorTemplate: _.template( "span[facs='#<%= leafID %>-<%= zoneLabel %>']" ),
 
   id: 'sequence-panel',
@@ -74,7 +75,8 @@ TextLab.SequencePanel = Backbone.View.extend({
       this.hightlightSpan( currentZoneLabel, false );
     }
 
-    if( nextStepNumber != null ) {
+    if( nextStepNumber != null && this.model.narrativeSteps && 
+        this.model.narrativeSteps.models.length > 0 ) {
       var nextStep = this.model.narrativeSteps.models[nextStepNumber];
       var nextZoneLabel = nextStep.get('zone_label');
       this.leafViewer.highlightZone( nextZoneLabel, true );
@@ -109,12 +111,18 @@ TextLab.SequencePanel = Backbone.View.extend({
         steps: this.model.narrativeSteps.toJSON()
       }));
     } else {
-      this.$el.html(this.stepSequencePanelTemplate({ 
-        name: this.model.get('name'), 
-        stepNumber: this.stepNumber,
-        maxSteps: this.model.narrativeSteps.models.length,
-        step: this.currentStep.toJSON()
-      }));      
+      if( this.currentStep != null ) {
+        this.$el.html(this.stepSequencePanelTemplate({ 
+          name: this.model.get('name'), 
+          stepNumber: this.stepNumber,
+          maxSteps: this.model.narrativeSteps.models.length,
+          step: this.currentStep.toJSON()
+        }));          
+      } else {
+        this.$el.html(this.emptySequencePanelTemplate({ 
+          name: this.model.get('name')
+        })); 
+      }
     }
   }
   
