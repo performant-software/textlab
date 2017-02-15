@@ -131,11 +131,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
         var found = _.find( this.tabs, function(tab) { 
           return tab.transcription && (tab.transcription.id == transcription.id ); 
         });
+
         return (found) ? null : transcription;
       },this);
       availableTranscriptions = _.compact( availableTranscriptions );
-
-
       var availableSequences = _.map( this.sequences.models, function( sequence ) { 
         var found = _.find( this.tabs, function(tab) { 
           return tab.sequence && (tab.sequence.id == sequence.id ); 
@@ -154,6 +153,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     // reload the transcriptions and sequences before opening the dialog
     this.initTranscriptions( _.bind( this.initSequences, this, loadingComplete ) );
+
   },
   
   resizeActivePanel: function() {    

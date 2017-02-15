@@ -2,6 +2,10 @@
   width: 490px;
   padding: 30px;
   background: #fdedcc;
+
+   .multistrikethrough, .doublestrikethrough {
+      text-decoration: line-through;
+   }
 }
 
 .apparatustip {

@@ -45,6 +45,7 @@ class TranscriptionsController < ApplicationController
         
         unless @transcription.leaf.nil?
           @leaf = { 
+            xml_id: @transcription.leaf.xml_id,
             zones: @transcription.leaf.zones.map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
             sequences: @transcription.leaf.published_sequence_objs          

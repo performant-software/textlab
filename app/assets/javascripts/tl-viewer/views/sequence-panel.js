@@ -2,7 +2,9 @@ TextLab.SequencePanel = Backbone.View.extend({
 
 	stepSequencePanelTemplate: JST['tl-viewer/templates/step-sequence-panel'],
   sequenceGridPanelTemplate: JST['tl-viewer/templates/sequence-grid-panel'],
-    
+  
+  facsSelectorTemplate: _.template( "span[facs='#<%= leafID %>-<%= zoneLabel %>']" ),
+
   id: 'sequence-panel',
   
   events: {
@@ -27,7 +29,7 @@ TextLab.SequencePanel = Backbone.View.extend({
       this.gotoFirstStep();
     } else {
       this.leafViewer.mouseOverEnabled = true;
-      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
+      this.setCurrentStep(null);
     }
 
     this.render();
@@ -38,60 +40,69 @@ TextLab.SequencePanel = Backbone.View.extend({
     var maxSteps = this.model.narrativeSteps.models.length;
 
     if( this.stepNumber < maxSteps-1 ) {
-      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
-
-      this.stepNumber = this.stepNumber + 1;
-      this.currentStep = this.model.narrativeSteps.models[this.stepNumber];
+      var nextStep = this.stepNumber + 1;
+      this.setCurrentStep(nextStep);
       this.render();      
-
-      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
     }
     return false;
   },
 
   onPrevStep: function() {    
-
     if( this.stepNumber > 0 ) {
-      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
-
-      this.stepNumber = this.stepNumber - 1;
-      this.currentStep = this.model.narrativeSteps.models[this.stepNumber];
+      var nextStep = this.stepNumber - 1;
+      this.setCurrentStep(nextStep);
       this.render();
-
-      this.leafViewer.highlightZone( this.currentStep.get('zone_label'), true );
     }
     return false;
   },
 
   onBackToList: function() {
-    this.leafViewer.highlightZone( this.currentStep.get('zone_label'), false );
+    this.setCurrentStep(null);
     this.$el.detach();
     this.sequenceListPanel.$('#sequence-list').show();
     this.leafViewer.mouseOverEnabled = true;
   },
 
   gotoFirstStep: function() {
-    var narrativeSteps = this.model.narrativeSteps;
-    this.currentStep = _.first(narrativeSteps.models);
-    this.stepNumber = 0;
-    var zoneLabel = this.currentStep.get('zone_label');
-    this.leafViewer.highlightZone( zoneLabel, true );
-    this.hightlightSpan( zoneLabel, true );
+    this.setCurrentStep(0);
+  },
+
+  setCurrentStep: function(nextStepNumber) {
+    if( this.currentStep ) {
+      var currentZoneLabel = this.currentStep.get('zone_label');
+      this.leafViewer.highlightZone( currentZoneLabel, false );
+      this.hightlightSpan( currentZoneLabel, false );
+    }
+
+    if( nextStepNumber != null ) {
+      var nextStep = this.model.narrativeSteps.models[nextStepNumber];
+      var nextZoneLabel = nextStep.get('zone_label');
+      this.leafViewer.highlightZone( nextZoneLabel, true );
+      this.hightlightSpan( nextZoneLabel, true );      
+    } else {
+      nextStep = null;
+    }
+
+    this.currentStep = nextStep;
+    this.stepNumber = nextStepNumber;
   },
 
   hightlightSpan: function( zoneLabel, state ) {
-    // in facs
-    var span$ = this.leafViewer.$("#img_17-"+zoneLabel);
+    var leafID = this.leafViewer.model.xml_id;
+    var facsSelector = this.facsSelectorTemplate({ 
+      leafID: leafID, 
+      zoneLabel: zoneLabel
+    });
+    var facsSpan = this.leafViewer.$(facsSelector);
 
     if( state ) {
-      span$.addClass('seq-highlight')
+      facsSpan.addClass('seq-highlight');
     } else {
-      span$.removeClass('seq-highlight')
+      facsSpan.removeClass('seq-highlight');
     }
   },
     
   render: function() {    
-
     if( this.showGrid ) {
       this.$el.html(this.sequenceGridPanelTemplate({ 
         name: this.model.get('name'), 

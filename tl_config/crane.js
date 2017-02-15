@@ -5,7 +5,9 @@
 
   "vocabs": {
     "place": [  
-      { "value": "interlined", "text": "interlined" }, 
+      { "value": "inline", "text": "inline" }, 
+      { "value": "above", "text": "Superlinear (above)" }, 
+      { "value": "below", "text": "Sublinear (below)" }, 
       { "value": "margin-left", "text": "Left margin" },
       { "value": "margin-right", "text": "Right margin" },
       { "value": "margin-top", "text": "Top margin" },
@@ -30,20 +32,16 @@
       { "value": "dstX", "text":"Undetermined draft stage" }
     ],
     "deletionRendered": [
-      { "value": "single-stroke", "text": "Single-stroke" },
-      { "value": "double-stroke", "text": "Double-stroke" },
-      { "value": "multi-stroke", "text": "Multi-stroke" },
+      { "value": "strikethrough", "text": "Strikethrough" },
+      { "value": "doublestrikethrough", "text": "Doublestrikethrough" },
+      { "value": "multistrikethrough", "text": "Multistrikethrough" },
       { "value": "overwrite", "text": "Overwrite" },
       { "value": "erasure", "text": "Erasure" }
     ],
     "metamark": [
       { "value": "foliation", "text": "foliation" },
       { "value": "caret", "text": "Caret" },
-      { "value": "inverted-caret", "text": "Inverted caret" },
       { "value": "placemark", "text": "Placemark" }
-    ],
-    "calculations": [
-      { "value": "calculations", "text": "calculations" }
     ]
   },
 
@@ -61,12 +59,14 @@
         "place": { 
           "displayName": "Place",
           "fieldType": "dropdown", 
+          "defaultValue": "above",
           "instructions": "",
           "vocab": "place" 
         },
         "rend": { 
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
+          "defaultValue": "no-caret",
           "instructions": "",
           "vocab": "rendered" 
         },
