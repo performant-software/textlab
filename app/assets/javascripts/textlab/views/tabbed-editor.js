@@ -295,6 +295,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }
   },
 
+  getEditMode: function() {
+    return ( this.activeTab && this.activeTab.sequenceEditor ) ? 'sequence' : 'xml';
+  },
+
   getTab: function( tabType, id ) {
     var tabID = tabType+'-tab-'+id;
     return _.find( this.tabs, function(tab) { return tab.id == tabID; });

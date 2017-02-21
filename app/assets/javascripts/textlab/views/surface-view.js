@@ -111,9 +111,10 @@ TextLab.SurfaceView = Backbone.View.extend({
  
     this.hidePopOverMenu();
 
-    var xmlEditor = null;
+    var xmlEditor = null, sequenceEditor = null;
     if( this.tabbedEditor.activeTab ) {
       xmlEditor = this.tabbedEditor.activeTab.xmlEditor;
+      sequenceEditor = this.tabbedEditor.activeTab.sequenceEditor;
     }
      
     if( tagID == 'new-sequence' ) {
@@ -122,10 +123,16 @@ TextLab.SurfaceView = Backbone.View.extend({
         selectedText = xmlEditor.getSelection();
       }
       this.tabbedEditor.quickSequence( selectedText, zone.id );
-    } else {
-      if( xmlEditor ) {
-        xmlEditor.activateTagDialog(tagID, zone);
-      }
+      return false;
+    } 
+
+    if( tagID == 'add-step' ) {
+      sequenceEditor.activateNarrativeStepDialog( "", zone.id );
+      return false;
+    }
+
+    if( xmlEditor ) {
+      xmlEditor.activateTagDialog(tagID, zone);
     }
 
     return false;
@@ -241,7 +248,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone = zoneGroup.data.zone;
     
     // popover content
-    var popOverHTML = this.zonePopoverTemplate();
+    var editMode = this.tabbedEditor.getEditMode();
+    var popOverHTML = this.zonePopoverTemplate({ editMode: editMode });
     
     // anchor popoover at that point
     this.popOver = this.$('.popover-anchor');
