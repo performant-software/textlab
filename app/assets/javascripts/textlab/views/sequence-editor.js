@@ -124,8 +124,10 @@ TextLab.SequenceEditor = Backbone.View.extend({
     }, this);  
     
     var zones = this.generateZoneList();
+    var nextStepNumber = this.model.narrativeSteps.models.length;
 
     var narrativeStep = new TextLab.NarrativeStep({
+      step_number: nextStepNumber,
       step: stepText,
       zone_id: zoneID, 
       sequence_id: this.model.id 
@@ -142,9 +144,19 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var editButton = $(event.currentTarget);
     var stepID = parseInt(editButton.attr("data-step-id"));
     var narrativeStep = this.model.narrativeSteps.get(stepID);
+    var oldStepNumber = narrativeStep.get('step_number');
 
     var onUpdateCallback = _.bind(function(step) {
+      var currentStepNumber = step.get('step_number');
+      var moved = ( oldStepNumber != currentStepNumber );
+
+      if( moved ) {
+        step.set('new_step_number', currentStepNumber );
+      }
       step.save(null, { success: _.bind( function() {
+        if( moved ) {
+          this.model.insertStep(step, currentStepNumber);
+        }
         this.renderGrid();
       }, this) });
     }, this);
@@ -186,12 +198,13 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var deleteButton = $(event.currentTarget);
     var stepID = parseInt(deleteButton.attr("data-step-id"));
     var narrativeStep = this.model.narrativeSteps.get(stepID);
-    
+
     deleteButton.confirmation('show');    
     
     // delete if confirmed
     deleteButton.on('confirmed.bs.confirmation', _.bind( function () {
       narrativeStep.destroy({ success: _.bind( function() {
+        this.model.renumberSteps();
         this.renderGrid();
       }, this)});
     }, this));  
@@ -210,6 +223,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
   },
 
   renderGrid: function() {
+
     var steps = this.model.narrativeSteps.toJSON();
 
     // look up the zone labels for each zone

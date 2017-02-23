@@ -44,6 +44,6 @@ class NarrativeStepsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def narrative_step_params
-      params.permit( :id, :step_number, :sequence_id, :zone_id, :step, :narrative )
+      params.permit( :id, :step_number, :new_step_number, :sequence_id, :zone_id, :step, :narrative )
     end
 end

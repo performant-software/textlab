@@ -31,7 +31,7 @@ class Sequence < ActiveRecord::Base
    
   def obj(current_user_id=nil)
     
-    steps = self.narrative_steps.map { |step| step.obj }
+    steps = self.narrative_steps.order('step_number').map { |step| step.obj }
     owner = ( current_user_id == self.user_id ) 
     
     {

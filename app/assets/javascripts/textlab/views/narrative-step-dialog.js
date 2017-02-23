@@ -27,7 +27,6 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
 
       this.model.set({
         zone_id: this.$('#zone_id').val(),
-        step_number: this.$('#step_number').val(),
         step: step,
         narrative: narrative
       });
