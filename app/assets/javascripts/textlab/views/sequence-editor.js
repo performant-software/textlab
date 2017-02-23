@@ -17,7 +17,9 @@ TextLab.SequenceEditor = Backbone.View.extend({
     'click .submit-button': 'onClickSubmit',
     'click .return-button': 'onClickReturn',
     'click .rename-button': 'onClickRename',
-    'click .delete-button': 'onClickDelete'
+    'click .delete-button': 'onClickDelete',
+    'click .up-step-button': 'onClickStepUp',
+    'click .down-step-button': 'onClickStepDown'    
   },  
             	
 	initialize: function(options) {
@@ -110,8 +112,42 @@ TextLab.SequenceEditor = Backbone.View.extend({
     return false;
   },
 
+  moveStep: function( stepID, positionOffset ) {
+
+    // prevent further movement until saved
+    this.$('.arrow-button').addClass('disabled');
+
+    var steps = this.model.narrativeSteps;
+    var currentStep = steps.findWhere({ id: stepID });
+    var currentStepNumber = currentStep.get('step_number');
+    var targetStepNumber = currentStepNumber + positionOffset;
+    var targetStep = steps.findWhere({ step_number: targetStepNumber });
+
+    currentStep.set('new_step_number', targetStepNumber );
+
+    currentStep.save(null, { success: _.bind( function() {
+      targetStep.set('step_number', currentStepNumber );
+      steps.sort();
+      this.renderGrid();
+    }, this) });
+  },
+
+  onClickStepUp: function(event) {
+    var upButton = this.$(event.currentTarget);
+    var stepID = parseInt(upButton.attr("data-step-id"));  
+    this.moveStep( stepID, -1 );  
+    return false;
+  },
+
+  onClickStepDown: function(event) {
+    var downButton = this.$(event.currentTarget);
+    var stepID = parseInt(downButton.attr("data-step-id"));  
+    this.moveStep( stepID, 1 );  
+    return false;
+  },
+
   onClickAddStep: function() {
-     // TODO load the step transcription from the previous step, set the zone and step number.
+     // TODO load the step transcription from the previous step
      this.activateNarrativeStepDialog( "", null);
   },
 
@@ -144,19 +180,9 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var editButton = $(event.currentTarget);
     var stepID = parseInt(editButton.attr("data-step-id"));
     var narrativeStep = this.model.narrativeSteps.get(stepID);
-    var oldStepNumber = narrativeStep.get('step_number');
 
     var onUpdateCallback = _.bind(function(step) {
-      var currentStepNumber = step.get('step_number');
-      var moved = ( oldStepNumber != currentStepNumber );
-
-      if( moved ) {
-        step.set('new_step_number', currentStepNumber );
-      }
       step.save(null, { success: _.bind( function() {
-        if( moved ) {
-          this.model.insertStep(step, currentStepNumber);
-        }
         this.renderGrid();
       }, this) });
     }, this);

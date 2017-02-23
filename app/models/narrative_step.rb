@@ -14,21 +14,12 @@ class NarrativeStep < ActiveRecord::Base
     }    
   end
 
-  def new_step_number=(new_step_num)
-    # renumber the other steps and assign this step this number.
-    steps = self.sequence.narrative_steps.order('step_number')
-    i = new_step_num + 1
-    steps.each { |step|
-      # make a space at this point in the sequence, don't order self
-      if step.id != self.id
-        if step.step_number >= new_step_num
-          step.step_number = i
-          step.save!
-          i = i + 1
-        end
-      end
-    }
+  def new_step_number=(new_step_num)    
+    old_number = self.step_number
+    step = self.sequence.narrative_steps.where( step_number: new_step_num ).first
+    step.step_number = old_number
     self.step_number = new_step_num
+    step.save!
   end
   
   def published_obj

@@ -35,21 +35,14 @@ TextLab.Sequence = Backbone.Model.extend({
     Backbone.sync(method, model, options);
   },
 
-  insertStep: function( movedStep, newStepNumber) {
-    // renumber the other steps and assign this step this number.
-    var steps = this.narrativeSteps.models;
-    var i = newStepNumber + 1;
-
-    _.each( steps, function(step) {
-      // make a space at this point in the sequence, don't order self
-      if( step.id != movedStep.id ) {
-        if( step.get('step_number') >= newStepNumber ) {
-          step.set('step_number', i++ );
-        }
-      }
+  moveStep: function( movedStep, newStepNumber) {
+    var old_number = movedStep.get('step_number');
+    var step = this.narrativeSteps.findWhere({ step_number: newStepNumber });
+    step.set('step_number', old_number );
+    movedStep.set('step_number', newStepNumber );
+    this.narrativeSteps = _.sortBy(this.narrativeSteps.models, function(step) { 
+      return step.get('step_number');
     });
-
-    movedStep.set('step_number', newStepNumber);
   },
 
   renumberSteps: function() {

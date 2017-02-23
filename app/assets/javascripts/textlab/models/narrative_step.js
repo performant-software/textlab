@@ -4,5 +4,6 @@ TextLab.NarrativeStep = Backbone.Model.extend({
 
 TextLab.NarrativeStepCollection = Backbone.Collection.extend({
   model: TextLab.NarrativeStep,
-  url: "narrative_steps"
+  url: "narrative_steps",
+  comparator: 'step_number'
 }); 
