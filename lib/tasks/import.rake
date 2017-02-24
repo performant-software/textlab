@@ -26,7 +26,7 @@ namespace :import do
 	desc "Publish all official TEI transcriptions"
 	task :publish => :environment do
 		Document.all.each { |document|
-			Transcription.where(document_id: document.id, name: "Official TEI" ).each { |transcription| 
+			Transcription.where(document_id: document.id, name: "Official TEI", user_id: document.user_id ).each { |transcription| 
 				transcription.published = true
 				transcription.shared = true
 				Diplo.create_diplo!( transcription ) unless transcription.diplo

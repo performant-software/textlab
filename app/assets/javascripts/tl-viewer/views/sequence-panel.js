@@ -82,16 +82,22 @@ TextLab.SequencePanel = Backbone.View.extend({
   setCurrentStep: function(nextStepNumber) {
     if( this.currentStep ) {
       var currentZoneLabel = this.currentStep.get('zone_label');
-      this.leafViewer.highlightZone( currentZoneLabel, false );
-      this.hightlightSpan( currentZoneLabel, false );
+
+      if( currentZoneLabel && currentZoneLabel != "" ) {        
+        this.leafViewer.highlightZone( currentZoneLabel, false );
+        this.hightlightSpan( currentZoneLabel, false );
+      }
     }
 
     if( nextStepNumber != null && this.model.narrativeSteps && 
         this.model.narrativeSteps.models.length > 0 ) {
       var nextStep = this.model.narrativeSteps.models[nextStepNumber];
       var nextZoneLabel = nextStep.get('zone_label');
-      this.leafViewer.highlightZone( nextZoneLabel, true );
-      this.hightlightSpan( nextZoneLabel, true );      
+
+      if( nextZoneLabel && nextZoneLabel != "" ) {
+        this.leafViewer.highlightZone( nextZoneLabel, true );
+        this.hightlightSpan( nextZoneLabel, true );              
+      }
     } else {
       nextStep = null;
     }

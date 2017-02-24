@@ -64,6 +64,11 @@ class TlManuscript < ActiveRecord::Base
         document_node.position = position
         document_node.leaf = blank_leaf
         document_node.save!    
+
+        # next, import the sequences for this document
+        TlSequence.where({ manuscriptid: manuscript_guid} ).each { |tl_sequence|
+        	tl_sequence.import_sequence!(document)
+        }
     
   end
 

@@ -26,7 +26,7 @@ class NarrativeStep < ActiveRecord::Base
     {
       id: self.id,
       step_number: self.step_number,
-      zone_label: self.zone.zone_label,
+      zone_label: self.zone.nil? ? "" : self.zone.zone_label,
       step: self.step,
       narrative: self.narrative      
     }
