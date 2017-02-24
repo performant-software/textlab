@@ -127,7 +127,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     } 
 
     if( tagID == 'add-step' ) {
-      sequenceEditor.activateNarrativeStepDialog( "", zone.id );
+      sequenceEditor.activateNarrativeStepDialog( null, zone.id );
       return false;
     }
 
