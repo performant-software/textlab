@@ -107,7 +107,7 @@ class Document < ActiveRecord::Base
   end
   
   def obj(current_user_id=nil)
-    leafsJSON = self.leafs.map { |leaf| leaf.obj }
+    leafsJSON = self.leafs.map { |leaf| leaf.obj(current_user_id) }
     sectionsJSON = self.document_sections.map { |section| section.obj }
     nodesJSON = self.document_nodes.map { |node| node.obj }
     membersJSON = self.memberships.map { |membership| membership.obj }

@@ -145,13 +145,19 @@ TextLab.TabbedEditor = Backbone.View.extend({
         return (found) ? null : transcription;
       },this);
       availableTranscriptions = _.compact( availableTranscriptions );
-      var availableSequences = _.map( this.sequences.models, function( sequence ) { 
-        var found = _.find( this.tabs, function(tab) { 
-          return tab.sequence && (tab.sequence.id == sequence.id ); 
-        });
-        return (found) ? null : sequence;
-      },this);
-      availableSequences = _.compact( availableSequences );
+
+      var availableSequences;
+      if( this.model.get('secondary_enabled') ) {
+        availableSequences = _.map( this.sequences.models, function( sequence ) { 
+          var found = _.find( this.tabs, function(tab) { 
+            return tab.sequence && (tab.sequence.id == sequence.id ); 
+          });
+          return (found) ? null : sequence;
+        },this);
+        availableSequences = _.compact( availableSequences );        
+      } else {
+        availableSequences = [];
+      }
       
       var openTabDialog = new TextLab.OpenTabDialog( { 
         transcriptions: availableTranscriptions, 
@@ -214,10 +220,11 @@ TextLab.TabbedEditor = Backbone.View.extend({
           var published = ( tab.transcription.id == modelID );
           tab.transcription.set('published', published);
           tab.xmlEditor.save( _.bind( function() {
-            this.updateTabStar(tab, published);        
+            this.updateTabStar(tab, published);  
           }, this));
         }
       }, this);
+      this.model.set('secondary_enabled', true);      
     } else {
       var tab = this.getTab( tabType, modelID );
       tab.sequence.set('published', true);
@@ -231,12 +238,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     if( tabType == 'transcription') {
       var tab = _.find( this.tabs, function(tab) { return tab.transcription.id == modelID } );
-        if( tab.transcription ) {
-          tab.transcription.set('published', false );
-          tab.xmlEditor.save( _.bind( function() {
-            this.updateTabStar(tab, false);        
-          }, this)); 
-        }   
+      if( tab.transcription ) {
+        tab.transcription.set('published', false );
+        tab.xmlEditor.save( _.bind( function() {
+          this.updateTabStar(tab, false);        
+        }, this)); 
+      }   
+      this.model.set('secondary_enabled', false);      
     } else {
       var tab = this.getTab( tabType, modelID );
       tab.sequence.set('published', false);

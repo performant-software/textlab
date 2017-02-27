@@ -59,9 +59,12 @@ TextLab.TabDialog = Backbone.View.extend({
   render: function() {
 
     var editorTypeList = [ 
-      { value: 'transcription', text: 'Transcription' },
-      { value: 'sequence', text: 'Sequence' } 
+      { value: 'transcription', text: 'Transcription' }
     ];
+
+    if( this.model.get('secondary_enabled') ) {
+      editorTypeList.push( { value: 'sequence', text: 'Sequence' } );
+    }
 
     this.$el.html(this.template({ 
       name: (this.model) ? this.model.get('name') : '', 

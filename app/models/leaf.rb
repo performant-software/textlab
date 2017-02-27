@@ -47,8 +47,16 @@ class Leaf < ActiveRecord::Base
     document_node.save!    
     position + 1 
   end
+
+  def secondary_enabled(current_user_id)
+    # locate the transcription for this leaf that is published
+    transcription = self.transcriptions.find_by(published: true)
+
+    # if there is one, secondary is enabled if we are owner or it is shared
+    !transcription.nil? && (transcription.shared || transcription.user_id == current_user_id)
+  end
   
-  def obj
+  def obj(current_user_id)
     
     zonesJSON = self.zones.map { |zone| zone.obj }
     
@@ -59,6 +67,7 @@ class Leaf < ActiveRecord::Base
       xml_id: self.xml_id,
       tile_source: self.tile_source,
       next_zone_label: self.next_zone_label,
+      secondary_enabled: secondary_enabled(current_user_id),
       zones: zonesJSON
     }
   end

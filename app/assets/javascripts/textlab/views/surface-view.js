@@ -249,7 +249,8 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     // popover content
     var editMode = this.tabbedEditor.getEditMode();
-    var popOverHTML = this.zonePopoverTemplate({ editMode: editMode });
+    var secondaryEnabled = this.model.get('secondary_enabled');
+    var popOverHTML = this.zonePopoverTemplate({ editMode: editMode, secondaryEnabled: secondaryEnabled });
     
     // anchor popoover at that point
     this.popOver = this.$('.popover-anchor');
