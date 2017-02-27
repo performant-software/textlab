@@ -94,6 +94,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   returnTab: function( tabType, editorModel ) {
     var tab = this.getTab( tabType, editorModel.id );
     editorModel.set( 'submitted', false );
+    editorModel.set( 'published', false );   // returning always unpublishes
     this.closeTab(tab);
   },
   
