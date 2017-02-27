@@ -21,13 +21,14 @@ class TlSequence < ActiveRecord::Base
 		#  now parse the narrative steps from the sequence xml
 		xml_document  = Nokogiri::XML(self.sequencexml)
 		step_nodes = xml_document.root.children
+		i = 0
 
 		step_nodes.each { |step_node|
 			narrative_step = NarrativeStep.new( { sequence_id: sequence.id })
 			fields = step_node.children
 			fields.each { |field|
 				if field.name == 'num'
-					narrative_step.step_number = field.content
+					narrative_step.step_number = i
 				elsif field.name == 'sitename'
 					# work out which zone this is referencing
 					sitename = field.content
@@ -51,6 +52,7 @@ class TlSequence < ActiveRecord::Base
 				end
 			}
 			narrative_step.save!
+			i = i + 1
 		}
 
 		# we added the leaf_id
