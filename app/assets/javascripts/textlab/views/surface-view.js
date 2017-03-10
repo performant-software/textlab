@@ -104,12 +104,38 @@ TextLab.SurfaceView = Backbone.View.extend({
     return false;
   },
   
-  onPopoverButton: function(e) {
+  onPopoverButton: function(event) {
+    var target = $(event.currentTarget); 
+    var tagID = target.attr("data-tag-id");   
+    var zone = this.selectedZoneGroup.data.zone;
+ 
     this.hidePopOverMenu();
-    e.zone = this.selectedZoneGroup.data.zone;
+
+    var xmlEditor = null, sequenceEditor = null;
     if( this.tabbedEditor.activeTab ) {
-      this.tabbedEditor.activeTab.xmlEditor.onClickTagMenuItem(e);
+      xmlEditor = this.tabbedEditor.activeTab.xmlEditor;
+      sequenceEditor = this.tabbedEditor.activeTab.sequenceEditor;
     }
+     
+    if( tagID == 'new-sequence' ) {
+      var selectedText = "";
+      if( xmlEditor ) {
+        selectedText = xmlEditor.getSelection();
+      }
+      this.tabbedEditor.quickSequence( selectedText, zone.id );
+      return false;
+    } 
+
+    if( tagID == 'add-step' ) {
+      sequenceEditor.activateNarrativeStepDialog( null, zone.id );
+      return false;
+    }
+
+    if( xmlEditor ) {
+      xmlEditor.activateTagDialog(tagID, zone);
+    }
+
+    return false;
   },
   
   toggleHighlight: function( zoneGroup, state ) {    
@@ -222,7 +248,9 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zone = zoneGroup.data.zone;
     
     // popover content
-    var popOverHTML = this.zonePopoverTemplate();
+    var editMode = this.tabbedEditor.getEditMode();
+    var secondaryEnabled = this.model.get('secondary_enabled');
+    var popOverHTML = this.zonePopoverTemplate({ editMode: editMode, secondaryEnabled: secondaryEnabled });
     
     // anchor popoover at that point
     this.popOver = this.$('.popover-anchor');
@@ -396,7 +424,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     var zoneBounds = zoneItem.bounds;
     
     var zoneLinks;
-    if( this.tabbedEditor.activeTab ) {
+    if( this.tabbedEditor.activeTab && this.tabbedEditor.activeTab.transcription ) {
       zoneLinks = this.tabbedEditor.activeTab.transcription.getZoneLinks( zone );
     } else {
       zoneLinks = [];

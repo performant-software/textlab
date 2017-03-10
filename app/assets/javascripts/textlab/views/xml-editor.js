@@ -58,20 +58,14 @@ TextLab.XMLEditor = Backbone.View.extend({
       // rename this transcription based on this filename.
       this.model.set('name', filename);
       this.save( _.bind( function() {
-        this.tabbedEditor.renameTranscription( this.model.id, filename );
+        this.tabbedEditor.renameTab( 'transcription', this.model.id, filename );
       }, this));
     }
   },
-  
-  onClickTagMenuItem: function(event) {
-    var target = $(event.currentTarget); 
-    var tagID = target.attr("data-tag-id");		
+
+  activateTagDialog: function( tagID, zone ) {
+
     var tag = this.config.tags[tagID];
-      
-    // are we coming from drop down? if so, hide it
-    if( !target.hasClass('toolbar-button')) {
-      this.$('#xml-tag-dropdown').dropdown('toggle');
-    }
         
     if( tag.attributes ) {    
       var onCreateCallback = _.bind(function(attributes, children) {
@@ -81,7 +75,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       var attributeModalDialog = new TextLab.AttributeModalDialog({ 
         model: this.leaf, 
         config: this.config, 
-        zone: event.zone, 
+        zone: zone, 
         tag: tag, 
         callback: onCreateCallback 
       });
@@ -89,7 +83,20 @@ TextLab.XMLEditor = Backbone.View.extend({
     } else {
       this.generateTag(tag);
     }     
-    
+
+  },
+  
+  onClickTagMenuItem: function(event) {
+    var target = $(event.currentTarget); 
+    var tagID = target.attr("data-tag-id");   
+
+    // are we coming from drop down? if so, hide it
+    if( !target.hasClass('toolbar-button')) {
+      this.$('#xml-tag-dropdown').dropdown('toggle');
+    }
+
+    this.activateTagDialog( tagID );
+
     return false;
   },
   
@@ -125,12 +132,11 @@ TextLab.XMLEditor = Backbone.View.extend({
   },
   
   onClickPublish: function() {
-    this.tabbedEditor.starTranscription( this.model.id );
-    
+    this.tabbedEditor.starTab( 'transcription', this.model.id );
   },
   
   onClickUnPublish: function() {
-    this.tabbedEditor.unStarTranscription( this.model.id );
+    this.tabbedEditor.unStarTab( 'transcription', this.model.id );
   },
   
   onClickShare: function() {
@@ -171,7 +177,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var submitConfirmed = confirm("Do you wish to submit this transcription for publication?");
     
     if( submitConfirmed ) {
-      this.tabbedEditor.submitTranscription( this.model );
+      this.tabbedEditor.submitTab( 'transcription', this.model );
     }
     
     return false;
@@ -183,7 +189,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var returnConfirmed = confirm("Do you wish to return this transcription to its owner?");
     
     if( returnConfirmed ) {
-      this.tabbedEditor.returnTranscription( this.model );
+      this.tabbedEditor.returnTab( 'transcription', this.model );
     }
     
     return false;
@@ -192,11 +198,11 @@ TextLab.XMLEditor = Backbone.View.extend({
   onClickRename: function() {
     var onUpdateCallback = _.bind(function() {
       this.save( _.bind( function() {
-        this.tabbedEditor.renameTranscription( this.model.id, this.model.get('name'));        
+        this.tabbedEditor.renameTab( 'transcription', this.model.id, this.model.get('name'));        
       }, this));
     }, this);  
     
-    var transcriptionDialog = new TextLab.TranscriptionDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
+    var transcriptionDialog = new TextLab.TabDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
     transcriptionDialog.render();    
     return false;   
   },
@@ -207,7 +213,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
     
     if( deleteConfirmed ) {
-      this.tabbedEditor.deleteTranscription( this.model );
+      this.tabbedEditor.deleteTab( 'transcription', this.model );
     }
     
     return false;
@@ -282,7 +288,11 @@ TextLab.XMLEditor = Backbone.View.extend({
 		window.clearTimeout( this.autoSaveTimerID );	
 	},
 
-  // what are the correct inputs for this method?
+  getSelection: function() {
+    var doc = this.editor.getDoc();
+    return doc.getSelection();
+  },
+
   generateTag: function(tag, attributes, children) {
     var doc =  this.editor.getDoc();
     var from = doc.getCursor("from");

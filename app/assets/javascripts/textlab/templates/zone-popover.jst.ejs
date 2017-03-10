@@ -1,5 +1,12 @@
-<button class="popover-button btn btn-sm btn-default" data-tag-id="add" href="#">add</button>
-<button class="popover-button btn btn-sm btn-default" data-tag-id="del" href="#">del</button>
-<button class="popover-button btn btn-sm btn-default" data-tag-id="restore" href="#">restore</button>
-<button class="popover-button btn btn-sm btn-default" data-tag-id="metamark" href="#">metamark</button>
-<button class="popover-button btn btn-sm btn-default" data-tag-id="subst" href="#">subst</button>
+<% if( editMode == 'xml') { %>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="add" href="#">add</button>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="del" href="#">del</button>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="restore" href="#">restore</button>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="metamark" href="#">metamark</button>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="subst" href="#">subst</button>
+	<% if( secondaryEnabled ) { %> 
+		<button class="popover-button btn btn-sm btn-default" data-tag-id="new-sequence" href="#">New Sequence</button>
+	<% } %>
+<% } else { %>
+	<button class="popover-button btn btn-sm btn-default" data-tag-id="add-step" href="#">Add Step</button>
+<% } %>

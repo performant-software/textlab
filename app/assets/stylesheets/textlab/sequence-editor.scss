@@ -1,0 +1,98 @@
+#sequence-editor {
+
+
+  hi[rend="bold"] {
+    font-weight: bold;
+  }
+  
+  .btn {
+    margin-bottom: 5px; 
+  }
+  
+  .sequence-editor-toolbar {
+    padding: 5px;
+    padding-top: 10px;
+    padding-left: 15px;
+    background: #e6e6e6;
+    border-bottom: 1px solid gray;
+  }
+
+  #sequence-grid {
+    padding: 5px;
+    overflow-y: scroll;
+
+    .step-column {
+      width: 300px;
+    }
+
+    .step-number {
+      float: right;
+      padding-right: 10px;
+    }
+
+    .narrative-column {
+      width: 300px;
+    }
+
+    .read-only {
+      background: #DAECFB;
+    }
+  }
+  
+  .zone-link {
+    color: white;
+    background: blue;
+    border: 1px solid gray;
+    cursor: pointer;
+  }
+
+  .broken-zone-link {
+    color: white;
+    background: red;
+    border: 1px solid gray;
+  }
+
+  .status-message {
+    display: inline;
+    margin-left: 20px;
+    height: 20px;
+  }
+  
+  .scrollable-menu {
+      height: auto;
+      max-height: 200px;
+      overflow-x: hidden;
+  }    
+  
+  .read-only {
+    background: #DAECFB;
+  }
+  
+  .readonly-bar {
+    button {
+      float: right;
+    }
+  }
+  
+  .room-for-action-menu {
+    width: 130px;
+  }
+  
+  .room-for-action-and-publish {
+    width: 220px;
+  }
+  
+  .room-for-return-button {
+    width: 330px;    
+  }
+  
+  .actions {        
+    button {
+      margin-left: 5px;
+    }
+    .hidden {
+      display: none;
+    }
+    float: right;
+  }
+}

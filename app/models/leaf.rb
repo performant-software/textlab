@@ -3,6 +3,7 @@ class Leaf < ActiveRecord::Base
   has_many :zones, dependent: :destroy
   has_many :zone_links, dependent: :destroy
   has_many :transcriptions, dependent: :destroy
+  has_many :sequences, dependent: :destroy
   belongs_to :document
   has_one :document_node, dependent: :destroy
   
@@ -15,6 +16,22 @@ class Leaf < ActiveRecord::Base
       end
     }
     transcriptions
+  end
+
+  def get_sequence_objs( user_id )
+    project_owner = self.document.is_owner?(user_id)
+    sequences = []
+    self.sequences.each { |s|      
+      if user_id == s.user_id || s.shared || (s.submitted and project_owner)
+        sequences << s.obj(user_id)
+      end
+    }
+    sequences
+  end
+
+  def published_sequence_objs
+    seqs = self.sequences.where( published: true )
+    seqs.map { |s| s.list_obj }
   end
 
   def published_transcription
@@ -30,8 +47,16 @@ class Leaf < ActiveRecord::Base
     document_node.save!    
     position + 1 
   end
+
+  def secondary_enabled(current_user_id)
+    # locate the transcription for this leaf that is published
+    transcription = self.transcriptions.find_by(published: true)
+
+    # if there is one, secondary is enabled if we are owner or it is shared
+    !transcription.nil? && (transcription.shared || transcription.user_id == current_user_id)
+  end
   
-  def obj
+  def obj(current_user_id)
     
     zonesJSON = self.zones.map { |zone| zone.obj }
     
@@ -42,6 +67,7 @@ class Leaf < ActiveRecord::Base
       xml_id: self.xml_id,
       tile_source: self.tile_source,
       next_zone_label: self.next_zone_label,
+      secondary_enabled: secondary_enabled(current_user_id),
       zones: zonesJSON
     }
   end

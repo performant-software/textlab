@@ -1,5 +1,5 @@
 class TranscriptionsController < ApplicationController
-  before_action :set_transcription, only: [:show, :update, :destroy]
+  before_action :set_transcription, except: [ :index, :create ]
   before_action :authenticate_user!, except: :show
 
   def index
@@ -18,8 +18,9 @@ class TranscriptionsController < ApplicationController
     
     respond_to do |format|
       format.html {
-        @transcription.diplo.destroy if !@transcription.diplo.nil?
-        @transcription.diplo = Diplo.create_diplo!( @transcription )
+        if @transcription.diplo.nil?
+          @transcription.diplo = Diplo.create_diplo!( @transcription ) 
+        end 
         
         if @transcription.diplo.nil?
           render 'no_leaf'
@@ -44,8 +45,10 @@ class TranscriptionsController < ApplicationController
         
         unless @transcription.leaf.nil?
           @leaf = { 
+            xml_id: @transcription.leaf.xml_id,
             zones: @transcription.leaf.zones.map { |zone| zone.obj },
-            tile_source: @transcription.leaf.tile_source          
+            tile_source: @transcription.leaf.tile_source,
+            sequences: @transcription.leaf.published_sequence_objs          
           }
         else
           @leaf = { 
@@ -84,7 +87,10 @@ class TranscriptionsController < ApplicationController
     # clear cached diplo when editing transcription
     @transcription.diplo.delete if @transcription.diplo
     
-    if @transcription.update(transcription_params)
+    # excludes fields the user isn't authorized to edit
+    filtered_params = @transcription.filter_by_permissions(transcription_params, current_user.id)
+
+    if @transcription.update(filtered_params)
       render json: @transcription.obj(current_user.id) 
     else
       render json: @transcription.errors, status: :unprocessable_entity
@@ -106,8 +112,7 @@ class TranscriptionsController < ApplicationController
       @transcription = Transcription.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def transcription_params
-      params.permit( :name, :content, :shared, :submitted, :published, :leaf_id, :document_id, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
     end
 end
