@@ -100,7 +100,7 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
       });
     });
 
-    editSettingsModal.modal('show');
+    editSettingsModal.modal({ backdrop: false });
   } 
     
 });

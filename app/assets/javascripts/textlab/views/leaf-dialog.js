@@ -70,7 +70,7 @@ TextLab.LeafDialog = Backbone.View.extend({
       });
     })
 
-    leafModal.modal('show');
+    leafModal.modal({ backdrop: false });
   } 
     
 });

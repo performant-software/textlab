@@ -59,7 +59,18 @@ TextLab.NarrativeStepDialog = Backbone.View.extend({
       mode: this.mode 
     }));    
     $('#modal-container').html(this.$el);
-    $('#step-modal').modal('show');
+
+
+    var stepModal = $('#step-modal');
+    
+    // add dragging behavior when shown
+    stepModal.on('shown.bs.modal', function (e) {
+      stepModal.draggable({
+       handle: ".modal-header"
+      });
+    })
+
+    stepModal.modal({ backdrop: false });
 
     // set up summernote text fields
     var toolbarConfig = [['style', ['bold', 'italic', 'underline', 'strikethrough', 'clear']]];

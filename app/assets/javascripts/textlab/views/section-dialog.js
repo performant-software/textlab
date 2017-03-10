@@ -78,7 +78,7 @@ TextLab.SectionDialog = Backbone.View.extend({
       });
     });
 
-    sectionModal.modal('show');
+    sectionModal.modal({ backdrop: false });
   } 
     
 });

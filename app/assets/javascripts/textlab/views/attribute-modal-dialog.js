@@ -148,7 +148,7 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
       });
     });
 
-    attributeModal.modal('show');
+    attributeModal.modal({ backdrop: false });
   } 
     
 });
