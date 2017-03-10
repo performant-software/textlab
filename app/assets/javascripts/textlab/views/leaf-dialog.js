@@ -60,7 +60,17 @@ TextLab.LeafDialog = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template({ leaf: this.model, partials: this.partials, mode: this.mode }));    
     $('#modal-container').html(this.$el);
-    $('#leaf-modal').modal('show');
+
+    var leafModal = $('#leaf-modal');
+    
+    // add dragging behavior when shown
+    leafModal.on('shown.bs.modal', function (e) {
+      leafModal.draggable({
+       handle: ".modal-header"
+      });
+    })
+
+    leafModal.modal('show');
   } 
     
 });

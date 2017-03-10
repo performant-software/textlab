@@ -90,7 +90,17 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
     this.$("#"+this.membersPanel.id).replaceWith(this.membersPanel.$el);
     
     $('#modal-container').html(this.$el);
-    $('#edit-settings-modal').modal('show');
+
+    var editSettingsModal = $('#edit-settings-modal');
+
+    // add dragging behavior when shown
+    editSettingsModal.on('shown.bs.modal', function (e) {
+      editSettingsModal.draggable({
+       handle: ".modal-header"
+      });
+    });
+
+    editSettingsModal.modal('show');
   } 
     
 });

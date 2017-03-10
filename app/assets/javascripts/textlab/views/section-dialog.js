@@ -68,7 +68,17 @@ TextLab.SectionDialog = Backbone.View.extend({
     }
 
     $('#modal-container').html(this.$el);
-    $('#section-modal').modal('show');
+
+    var sectionModal = $('#section-modal');
+
+    // add dragging behavior when shown
+    sectionModal.on('shown.bs.modal', function (e) {
+      sectionModal.draggable({
+       handle: ".modal-header"
+      });
+    });
+
+    sectionModal.modal('show');
   } 
     
 });

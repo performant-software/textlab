@@ -138,7 +138,17 @@ TextLab.AttributeModalDialog = Backbone.View.extend({
     }));
 
     $('#modal-container').html(this.$el);
-    $('#attributes-modal').modal('show');
+
+    var attributeModal = $('#attributes-modal');
+
+    // add dragging behavior when shown
+    attributeModal.on('shown.bs.modal', function (e) {
+      attributeModal.draggable({
+       handle: ".modal-header"
+      });
+    });
+
+    attributeModal.modal('show');
   } 
     
 });
