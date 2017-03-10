@@ -12,7 +12,7 @@ class LeafsController < ApplicationController
     @leaf = Leaf.new(leaf_params)
 
     if @leaf.save
-      render json: @leaf.obj
+      render json: @leaf.obj(current_user.id)
     else
       render json: @leaf.errors, status: :unprocessable_entity
     end
@@ -21,7 +21,7 @@ class LeafsController < ApplicationController
   # PATCH/PUT /leafs/1.json
   def update    
     if @leaf.update(leaf_params)
-      render json: @leaf.obj
+      render json: @leaf.obj(current_user.id)
     else
       render json: @leaf.errors, status: :unprocessable_entity
     end
