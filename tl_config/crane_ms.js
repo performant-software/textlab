@@ -1,11 +1,11 @@
 {
-  "name": "Crane Draft",
-  "description": "Project configuration for Red Badge of Courage Draft.",
-  "version": "3",
+  "name": "Crane MS",
+  "description": "Project configuration for Red Badge of Courage Manuscript.",
+  "version": "1",
 
   "vocabs": {
     "place": [  
-      { "value": "inline", "text": "inline" }, 
+      { "value": "inline", "text": "inline" },
       { "value": "above", "text": "Superlinear (above)" }, 
       { "value": "below", "text": "Sublinear (below)" }, 
       { "value": "margin-left", "text": "Left margin" },
@@ -19,27 +19,32 @@
      ],
     "renderType": [ 
       { "value": "ink", "text": "Black ink" }, 
-      { "value": "pencil", "text": "Pencil" }
+      { "value": "pencil", "text": "Pencil" },
+      { "value": "bluepencil", "text": "Blue pencil" }
     ],
     "hand": [
       { "value": "#SC", "text": "Stephen Crane" },
+      { "value": "#HG", "text": "Hamlin Garland" },
       { "value": "#unattributed", "text": "Unattributed" }
     ],
     "stage": [ 
-      { "value": "dStA", "text":"Draft base inscription" },
-      { "value": "dStB", "text":"Draft current alterations" },
-      { "value": "dStC", "text":"Draft review alterations" },
-      { "value": "dstX", "text":"Undetermined draft stage" }
+      { "value": "mStA", "text":"Manuscript base inscription" },
+      { "value": "mStB", "text":"Manuscript current alterations" },
+      { "value": "mStC", "text":"Manuscript preliminary revisions" },
+      { "value": "mStD", "text":"Manuscript Hamlin Garland edits" },      
+      { "value": "mStE", "text":"Manuscript general revisions" },
+      { "value": "mstX", "text":"Undetermined manuscript stage" }
     ],
     "deletionRendered": [
       { "value": "strikethrough", "text": "Strikethrough" },
       { "value": "doublestrikethrough", "text": "Doublestrikethrough" },
       { "value": "multistrikethrough", "text": "Multistrikethrough" },
       { "value": "overwrite", "text": "Overwrite" },
-      { "value": "erasure", "text": "Erasure" }
+      { "value": "erasure", "text": "Erasure" },
+      { "value": "inkblot", "text": "Ink blot" }
     ],
     "metamark": [
-      { "value": "foliation", "text": "foliation" },
+      { "value": "foliation", "text": "Foliation" },
       { "value": "caret", "text": "Caret" },
       { "value": "paraph", "text": "Paragraph symbol" },
       { "value": "placemark", "text": "Placemark" }
@@ -59,14 +64,14 @@
       "attributes": {
         "place": { 
           "displayName": "Place",
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "defaultValue": "above",
           "instructions": "",
           "vocab": "place" 
         },
         "rend": { 
           "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "defaultValue": "no-caret",
           "instructions": "",
           "vocab": "rendered" 

@@ -6,6 +6,7 @@ namespace :project_config do
 	task :load => :environment do
 		ProjectConfigLoader.load_config('tl_config/mel.js', true)
 		ProjectConfigLoader.load_config('tl_config/crane.js')
+		ProjectConfigLoader.load_config('tl_config/crane_ms.js')
 	end
 
 end
