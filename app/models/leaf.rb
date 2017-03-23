@@ -55,6 +55,15 @@ class Leaf < ActiveRecord::Base
     # if there is one, secondary is enabled if we are owner or it is shared
     !transcription.nil? && (transcription.shared || transcription.user_id == current_user_id)
   end
+
+  def export_obj
+    { 
+      id: self.id,
+      image_url: self.tile_source,
+      leaf_url: "#",
+      base_text: "this is a test."
+    }
+  end
   
   def obj(current_user_id)
     

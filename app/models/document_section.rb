@@ -31,6 +31,19 @@ class DocumentSection < ActiveRecord::Base
     diplo_url = "/transcriptions/#{transcription.id}.html"
     "<a href='#{diplo_url}'><img class='thumb' src='#{thumb_url}'/></a>"
   end
+
+  def export_obj
+    
+    # ignore any subsections beneath this level and just return leaves in this section
+    leafs = self.document_node.child_nodes.order(:position).map { |node|
+      node.leaf.export_obj unless node.leaf.nil?
+    }.compact
+
+    {
+      name: self.name,
+      leafs: leafs
+    }
+  end
   
   def obj    
     { 

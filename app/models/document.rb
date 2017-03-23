@@ -105,6 +105,31 @@ class Document < ActiveRecord::Base
       published: self.published
     }
   end
+
+  def self.export_list_obj
+    Document.where( published: true ).map { |document|
+      { 
+        id: document.id,
+        name: document.name,
+        description: document.description
+      }
+    }
+  end
+
+  def export_obj
+
+    sections = self.root_node.child_nodes.order(:position).map { |node|
+      node.document_section.export_obj unless node.document_section.nil?
+    }.compact
+    
+    { 
+      id: self.id,
+      name: self.name,
+      description: self.description,
+      sections: sections
+    }
+  end
+
   
   def obj(current_user_id=nil)
     leafsJSON = self.leafs.map { |leaf| leaf.obj(current_user_id) }

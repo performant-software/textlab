@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   
   resources :diplos, only: [ :show, :update, :create, :destroy ]
   resources :documents, only: [ :index, :show, :update, :create, :destroy ]
+  resources :document_exports, only: [ :index, :show ]
   resources :document_nodes, only: [ :show, :update, :create, :destroy ]
   resources :document_sections, only: [ :show, :update, :create, :destroy ]
   resources :leafs, only: [ :show, :update, :create, :destroy ]
