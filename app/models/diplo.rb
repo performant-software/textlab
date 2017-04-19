@@ -55,13 +55,13 @@ class Diplo < ActiveRecord::Base
       br_node.replace(node)
     }
 
-    # remove all excess whitespace and put in newlines for sentinels
+    # remove all excess whitespace and put whitespace for sentinels
     text_nodes = html_doc.xpath("//*[text()]")
     text_nodes.each { |text_node|
       revised_content = text_node.content.tr("\n","") 
       revised_content.tr!("\t","")
       revised_content = revised_content.split.join(" ")
-      revised_content.tr!("π","\n") 
+      revised_content.tr!("π"," ") 
       text_node.content = revised_content 
     }
 
