@@ -56,12 +56,30 @@ class Leaf < ActiveRecord::Base
     !transcription.nil? && (transcription.shared || transcription.user_id == current_user_id)
   end
 
+  def thumb_url
+    # IIIF format {scheme}://{server}{/prefix}/{identifier}/{region}/{size}/{rotation}/{quality}.{format}            
+     "#{self.tile_source}/full/150,/0/default.jpg" 
+  end
+
   def export_obj
+    # retrieve the published transcription
+    transcription = self.transcriptions.where(published:true).first
+    Diplo.create_diplo!( transcription ) unless transcription.nil? or transcription.diplo
+    
+    # if the diplo rendered correctly, get the base text
+    if !transcription.nil? and transcription.diplo and !transcription.diplo.error
+      base_text = transcription.diplo.base_text 
+    else
+      base_text = ""
+    end
+
+    # leaf_url is where it is published on textlab.. should be a path?
+
     { 
       id: self.id,
       image_url: self.tile_source,
       leaf_url: "#",
-      base_text: "this is a test."
+      base_text: base_text
     }
   end
   

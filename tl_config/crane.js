@@ -1,7 +1,7 @@
 {
-  "name": "Crane Draft",
+  "name": "Crane",
   "description": "Project configuration for Red Badge of Courage Draft.",
-  "version": "3",
+  "version": "4",
 
   "vocabs": {
     "place": [  
@@ -293,12 +293,6 @@
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "metamark" 
-        },
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
-          "instructions": "",
-          "vocab": "rendered" 
         },
         "rendType": { 
           "displayName": "Render Type", 

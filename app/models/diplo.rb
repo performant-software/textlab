@@ -40,6 +40,34 @@ class Diplo < ActiveRecord::Base
     diplo        
   end
 
+  def base_text
+    html_doc = Nokogiri::HTML("<html><body>#{self.html_content}</body></html>")
+
+    # remove dels and metamarks
+    html_doc.search('.metamark,.del').each { |metamark| 
+      metamark.remove
+    }
+
+    # add sentinels where there are brs
+    html_doc.search("br").each { |br_node|
+      node = Nokogiri::XML::Node.new('span',html_doc)
+      node.content = "π"
+      br_node.replace(node)
+    }
+
+    # remove all excess whitespace and put in newlines for sentinels
+    text_nodes = html_doc.xpath("//*[text()]")
+    text_nodes.each { |text_node|
+      revised_content = text_node.content.tr("\n","") 
+      revised_content.tr!("\t","")
+      revised_content = revised_content.split.join(" ")
+      revised_content.tr!("π","\n") 
+      text_node.content = revised_content 
+    }
+
+    html_doc.root.to_str
+  end
+
   def create_tei_document()
    tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
    tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"

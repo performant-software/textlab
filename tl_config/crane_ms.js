@@ -1,7 +1,7 @@
 {
   "name": "Crane MS",
   "description": "Project configuration for Red Badge of Courage Manuscript.",
-  "version": "1",
+  "version": "2",
 
   "vocabs": {
     "place": [  
@@ -298,12 +298,6 @@
           "fieldType": "dropdown", 
           "instructions": "",
           "vocab": "metamark" 
-        },
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
-          "instructions": "",
-          "vocab": "rendered" 
         },
         "rendType": { 
           "displayName": "Render Type", 
