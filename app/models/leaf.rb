@@ -69,17 +69,16 @@ class Leaf < ActiveRecord::Base
     # if the diplo rendered correctly, get the base text
     if !transcription.nil? and transcription.diplo and !transcription.diplo.error
       base_text = transcription.diplo.base_text 
+      transcription_id = transcription.id
     else
       base_text = ""
+      transcription_id = ""
     end
-
-    # leaf_url is where it is published on textlab.. should be a path?
-    
     
     { 
       id: self.id,
       image_url: self.tile_source,
-      leaf_url: "#",
+      transcription_id: transcription_id,
       base_text: base_text
     }
   end
