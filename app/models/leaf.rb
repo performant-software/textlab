@@ -74,7 +74,8 @@ class Leaf < ActiveRecord::Base
     end
 
     # leaf_url is where it is published on textlab.. should be a path?
-
+    
+    
     { 
       id: self.id,
       image_url: self.tile_source,

@@ -34,7 +34,7 @@ class DocumentSection < ActiveRecord::Base
     
     # ignore any subsections beneath this level and just return leaves in this section
     leafs = self.document_node.child_nodes.order(:position).map { |node|
-      node.leaf.export_obj unless node.leaf.nil?
+      node.leaf.export_obj unless node.leaf.nil? or node.leaf.tile_source.nil?
     }.compact
 
     {
