@@ -1,7 +1,7 @@
 {
   "name": "Crane MS",
   "description": "Project configuration for Red Badge of Courage Manuscript.",
-  "version": "2",
+  "version": "3",
 
   "vocabs": {
     "place": [  
@@ -33,6 +33,7 @@
       { "value": "mStC", "text":"Manuscript preliminary revisions" },
       { "value": "mStD", "text":"Manuscript Hamlin Garland edits" },      
       { "value": "mStE", "text":"Manuscript general revisions" },
+      { "value": "mStF", "text":"Manuscript final preparation" },
       { "value": "mstX", "text":"Undetermined manuscript stage" }
     ],
     "deletionRendered": [
@@ -56,6 +57,45 @@
     "ab": {
       "tag": "ab",
       "empty": false
+    },
+
+    "add_subst": {
+      "tag": "add",
+      "empty": false,
+      "omitFromMenu": true,
+      "attributes": {
+        "place": { 
+          "displayName": "Place",
+          "fieldType": "dropdown",
+          "defaultValue": "inline",
+          "instructions": "",
+          "vocab": "place" 
+        },
+        "rend": { 
+          "displayName": "Render Type", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "renderType" 
+        },
+        "hand": { 
+          "displayName": "Hand", 
+          "fieldType": "dropdown", 
+          "defaultValue": "#SC", 
+          "instructions": "",
+          "vocab": "hand" 
+        },
+        "change": {
+          "displayName": "Stage", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "stage" 
+        },
+        "facs": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }    
     },
     
     "add": {
@@ -181,6 +221,46 @@
           "displayName": "Rendered", 
           "fieldType": "dropdown", 
           "instructions": "",
+          "vocab": "deletionRendered" 
+        },
+        "rendType": { 
+          "displayName": "Render Type", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "appendTo": "rend",
+          "vocab": "renderType" 
+        },
+        "hand": { 
+          "displayName": "Hand", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "defaultValue": "#SC", 
+          "vocab": "hand" 
+        },
+        "change": {
+          "displayName": "Stage", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "stage" 
+        },
+        "facs": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }    
+    },
+
+    "del_subst": {
+      "tag": "del",
+      "empty": false,
+      "omitFromMenu": true,
+      "attributes": {
+        "rend": { 
+          "displayName": "Rendered", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "defaultValue": "overwrite",
           "vocab": "deletionRendered" 
         },
         "rendType": { 
@@ -398,7 +478,7 @@
       "tag": "subst",
       "empty": false,
       "instructions": "",
-      "elements": [ "del", "add" ],
+      "elements": [ "del_subst", "add_subst" ],
       "attributes": {
         "facs": {
           "displayName": "Zone",

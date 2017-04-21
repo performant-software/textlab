@@ -455,9 +455,16 @@ TextLab.XMLEditor = Backbone.View.extend({
     if( showReturnButton ) {
       actionWidthClass = 'room-for-return-button';
     }
+
+    var dropDownTags = [];
+    _.each( this.config.tags, function( tag, key ) {
+      if( tag.omitFromMenu != true ) {
+        dropDownTags.push( key );
+      }
+    });
               
     this.$el.html(this.template({ 
-      tags: _.keys( this.config.tags ),   
+      tags: dropDownTags,   
       showPublishButton: showPublishButton,
       showSubmitButton: showSubmitButton,
       showReturnButton: showReturnButton,

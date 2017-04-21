@@ -11,7 +11,8 @@ class DocumentsController < ApplicationController
   # GET /documents/1.json
   def show
     respond_to do |format|
-      format.json { render json: @document.obj(current_user.id) }
+      user_id = current_user.nil? ? nil : current_user.id
+      format.json { render json: @document.obj(user_id) }
     end
   end
 

@@ -23,18 +23,18 @@
       { "value": "patch", "text": "Patch" }
      ],
     "renderType": [ 
-      { "value": "inkG", "text": "Indeterminate ink color" }, 
-      { "value": "ink1", "text": "Black ink" }, 
-      { "value": "ink2", "text": "Blue ink" }, 
-      { "value": "ink3", "text": "Brown ink" }, 
-      { "value": "ink4", "text": "Blue-gray ink" }, 
-      { "value": "ink5", "text": "Charcoal-gray ink" }, 
-      { "value": "HMp", "text": "Pencil" }, 
-      { "value": "Cg", "text": "Green crayon folio" }, 
-      { "value": "Cr", "text": "Red crayon folio" }, 
-      { "value": "Co", "text": "Orange crayon folio" }, 
-      { "value": "Cbl", "text": "Blue crayon folio" }, 
-      { "value": "Cbr", "text": "Brown crayon folio" }
+      { "value": "_inkG", "text": "Indeterminate ink color" }, 
+      { "value": "_ink1", "text": "Black ink" }, 
+      { "value": "_ink2", "text": "Blue ink" }, 
+      { "value": "_ink3", "text": "Brown ink" }, 
+      { "value": "_ink4", "text": "Blue-gray ink" }, 
+      { "value": "_ink5", "text": "Charcoal-gray ink" }, 
+      { "value": "_HMp", "text": "Pencil" }, 
+      { "value": "_Cg", "text": "Green crayon folio" }, 
+      { "value": "_Cr", "text": "Red crayon folio" }, 
+      { "value": "_Co", "text": "Orange crayon folio" }, 
+      { "value": "_Cbl", "text": "Blue crayon folio" }, 
+      { "value": "_Cbr", "text": "Brown crayon folio" }
     ],
     "hand": [
       { "value": "#HM", "text": "Herman Melville" },

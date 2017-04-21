@@ -1,7 +1,7 @@
 {
   "name": "Crane",
   "description": "Project configuration for Red Badge of Courage Draft.",
-  "version": "4",
+  "version": "5",
 
   "vocabs": {
     "place": [  
@@ -53,6 +53,45 @@
       "empty": false
     },
     
+    "add_subst": {
+      "tag": "add",
+      "empty": false,
+      "omitFromMenu": true,
+      "attributes": {
+        "place": { 
+          "displayName": "Place",
+          "fieldType": "dropdown",
+          "defaultValue": "inline",
+          "instructions": "",
+          "vocab": "place" 
+        },
+        "rend": { 
+          "displayName": "Render Type", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "renderType" 
+        },
+        "hand": { 
+          "displayName": "Hand", 
+          "fieldType": "dropdown", 
+          "defaultValue": "#SC", 
+          "instructions": "",
+          "vocab": "hand" 
+        },
+        "change": {
+          "displayName": "Stage", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "stage" 
+        },
+        "facs": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }    
+    },
+
     "add": {
       "tag": "add",
       "empty": false,
@@ -183,6 +222,45 @@
           "fieldType": "dropdown", 
           "instructions": "",
           "appendTo": "rend",
+          "vocab": "renderType" 
+        },
+        "hand": { 
+          "displayName": "Hand", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "defaultValue": "#SC", 
+          "vocab": "hand" 
+        },
+        "change": {
+          "displayName": "Stage", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "vocab": "stage" 
+        },
+        "facs": {
+          "displayName": "Zone",
+          "instructions": "",
+          "fieldType": "zone"
+        }
+      }    
+    },
+
+    "del_subst": {
+      "tag": "del",
+      "empty": false,
+      "omitFromMenu": true,
+      "attributes": {
+        "rend": { 
+          "displayName": "Rendered", 
+          "fieldType": "dropdown", 
+          "instructions": "",
+          "defaultValue": "overwrite",
+          "vocab": "deletionRendered" 
+        },
+        "rend": { 
+          "displayName": "Render Type", 
+          "fieldType": "dropdown", 
+          "instructions": "",
           "vocab": "renderType" 
         },
         "hand": { 
@@ -393,7 +471,7 @@
       "tag": "subst",
       "empty": false,
       "instructions": "",
-      "elements": [ "del", "add" ],
+      "elements": [ "del_subst", "add_subst" ],
       "attributes": {
         "facs": {
           "displayName": "Zone",
