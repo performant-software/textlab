@@ -44,7 +44,7 @@ class TlTranscription < ActiveRecord::Base
 
   def img_url(manuscript_guid,image_source_id)
     if BILLY_BUDD_GUID == manuscript_guid      
-      "http://mel-iip.performantsoftware.com/iipsrv/iipsrv.fcgi?IIIF=billy/modbm_ms_am_188_363_#{image_source_id}.tif"
+      "http://iip.textlab.org/?IIIF=mel/billybudd/modbm_ms_am_188_363_#{image_source_id}.tif"
     else
       # TODO determine URLs for other manuscripts
       ""  
