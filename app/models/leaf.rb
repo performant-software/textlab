@@ -6,7 +6,25 @@ class Leaf < ActiveRecord::Base
   has_many :sequences, dependent: :destroy
   belongs_to :document
   has_one :document_node, dependent: :destroy
-  
+
+  def change_image_source_domain( target_domain, mel=false )
+    return false if self.tile_source.nil? or self.tile_source == ""
+    iiif_regex = /IIIF=(.*)/
+    match = iiif_regex.match(self.tile_source)
+    return false if match.nil?
+    iiif_string = match[0]
+
+    # TODO remove - special one time processing for mel..
+    if mel
+      mel_regex = /billy\/(.*)/
+      filename = mel_regex.match(iiif_string)[1]
+      iiif_string = "IIIF=mel/billybudd/#{filename}"
+    end
+
+    self.tile_source = "#{target_domain}/?#{iiif_string}"
+    return true
+  end
+
   def get_transcription_objs( user_id )
     project_owner = self.document.is_owner?(user_id)
     transcriptions = []

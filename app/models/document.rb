@@ -34,6 +34,14 @@ class Document < ActiveRecord::Base
    
   end
 
+  def change_image_source_domain!( domain, mel=false )
+    leafs.each { |leaf|
+      if leaf.change_image_source_domain( domain, mel )
+        leaf.save!
+      end
+    }
+  end
+
   def self.import_manifest(leaf_manifest, parent_node)
     position = 0
     manifest = JSON.parse(leaf_manifest)
