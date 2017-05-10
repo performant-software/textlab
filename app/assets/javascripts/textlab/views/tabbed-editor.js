@@ -36,9 +36,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
       if(this.transcriptions.models.length == 0) {
         var transcription = TextLab.Transcription.newTranscription(this.model);
         this.transcriptions.add( transcription );
+        // save it immediately
+        transcription.save(null, { success: callback, error: TextLab.Routes.routes.onError });
+      } else {
+        callback();
       }
     
-      callback();
     },this) );
   },
   
