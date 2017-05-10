@@ -253,8 +253,9 @@ TextLab.SurfaceView = Backbone.View.extend({
     var popOverHTML = this.zonePopoverTemplate({ editMode: editMode, secondaryEnabled: secondaryEnabled });
     
     // anchor popoover at that point
-    this.popOver = this.$('.popover-anchor');
-    this.popOver.offset({ left: position.x+215, top: position.y+55 });
+    this.popOver = $('.popover-anchor');
+    this.popOver.offset({ left: position.x-360, top: position.y+55 });
+
     this.popOver.popover( {
       title: 'Zone '+zone.get("zone_label"),
       placement: 'bottom',
@@ -383,7 +384,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   },
       
   render: function() {        
-    this.$el.html(this.template({ canEditLeafInfo: this.owner })); 
+    this.$el.html(this.template({ canEditLeafInfo: this.owner }));
   },
   
   toggleZoneLink: function( zoneLabel, state ) {
