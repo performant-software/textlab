@@ -62,7 +62,7 @@ TextLab.TabDialog = Backbone.View.extend({
       { value: 'transcription', text: 'Transcription' }
     ];
 
-    if( this.leaf.get('secondary_enabled') ) {
+    if( !this.model && this.leaf.get('secondary_enabled') ) {
       editorTypeList.push( { value: 'sequence', text: 'Sequence' } );
     }
 

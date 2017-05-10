@@ -94,47 +94,6 @@ ActiveRecord::Schema.define(version: 20170131193302) do
     t.boolean "published"
   end
 
-  create_table "tl_folders", id: :bigserial, force: :cascade do |t|
-    t.text "name",          null: false
-    t.text "manuscript_id", null: false
-    t.text "folder_type"
-  end
-
-  create_table "tl_leafs", id: false, force: :cascade do |t|
-    t.text     "leaf_guid",                   default: "0", null: false
-    t.text     "name",                                      null: false
-    t.text     "manuscriptid",                default: "0", null: false
-    t.integer  "orderno",           limit: 8
-    t.text     "createdby"
-    t.datetime "createdon",                                 null: false
-    t.text     "lastupdatedby"
-    t.datetime "lastupdatedon"
-    t.text     "imageid"
-    t.integer  "chapterid",         limit: 8
-    t.text     "publishedbasetext"
-  end
-
-  create_table "tl_revision_sites", id: false, force: :cascade do |t|
-    t.text    "id",                null: false
-    t.text    "polygon"
-    t.text    "leafid"
-    t.integer "sitenum", limit: 8
-  end
-
-  create_table "tl_transcriptions", id: false, force: :cascade do |t|
-    t.text     "id",                           null: false
-    t.text     "manuscriptid",                 null: false
-    t.text     "ownedby"
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "publishedon"
-    t.datetime "sharedon"
-    t.text     "transcriptiontext"
-    t.integer  "tl_folder_id",       limit: 8
-    t.text     "transcription_type"
-  end
-
   create_table "transcriptions", force: :cascade do |t|
     t.string   "name"
     t.text     "content"
