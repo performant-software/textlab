@@ -3,6 +3,8 @@ require 'saxon-xslt'
 class Diplo < ActiveRecord::Base
   
   belongs_to :transcription
+
+  attr_accessor :raw_xhtml
   
   def self.create_diplo!( transcription )
     
@@ -27,8 +29,8 @@ class Diplo < ActiveRecord::Base
         # TODO these options don't work, is there a way to config Saxon from here?
         options = { "indent" => "'no'", "encoding" => "'utf-8'" } 
                
-        xhtml = xslt.transform(doc,options).to_s    
-        diplo.html_content = self.get_page(xhtml, transcription.leaf.xml_id )
+        diplo.raw_xhtml = xslt.transform(doc,options).to_s    
+        diplo.html_content = self.get_page(diplo.raw_xhtml, transcription.leaf.xml_id )
         diplo.error = false
       rescue Exception => e
         diplo.error = true
