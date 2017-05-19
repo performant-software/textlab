@@ -9,7 +9,6 @@ TextLab.SurfaceView = Backbone.View.extend({
     'click #add-mode-button': 'addMode',
     'click #nav-mode-button': 'navMode',
     'click #toggle-zones-button': 'toggleZones',
-    'click .popover-button': 'onPopoverButton',
     'click #edit-info-button': 'onEditInfo'
   },
   
@@ -17,7 +16,7 @@ TextLab.SurfaceView = Backbone.View.extend({
   unSelectedOpacity: 0.25,
             	
 	initialize: function(options) {
-    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved", "leafSaved" );
+    _.bindAll( this, "onDrag", "onDragEnd", "onDragStart", "renderZone", "zoneSaved", "leafSaved", "onPopoverButton" );
     this.mainViewport = options.mainViewport;
     this.tabbedEditor = options.tabbedEditor;
     this.documentTree = options.documentTree;
@@ -265,6 +264,7 @@ TextLab.SurfaceView = Backbone.View.extend({
     
     this.viewer.setMouseNavEnabled(false);
     this.popOver.popover('show');
+    $('.popover-button').click(this.onPopoverButton);
   },
   
   whichZone: function(item) {
