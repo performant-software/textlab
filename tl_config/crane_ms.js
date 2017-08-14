@@ -1,7 +1,7 @@
 {
   "name": "Crane MS",
   "description": "Project configuration for Red Badge of Courage Manuscript.",
-  "version": "3",
+  "version": "4",
 
   "vocabs": {
     "place": [  
@@ -28,12 +28,12 @@
       { "value": "#unattributed", "text": "Unattributed" }
     ],
     "stage": [ 
-      { "value": "mStA", "text":"Manuscript base inscription" },
-      { "value": "mStB", "text":"Manuscript current alterations" },
-      { "value": "mStC", "text":"Manuscript preliminary revisions" },
-      { "value": "mStD", "text":"Manuscript Hamlin Garland edits" },      
-      { "value": "mStE", "text":"Manuscript general revisions" },
-      { "value": "mStF", "text":"Manuscript final preparation" },
+      { "value": "mStA", "text":"Base inscription" },
+      { "value": "mStB", "text":"Current alterations" },
+      { "value": "mStC", "text":"Preliminary revisions" },
+      { "value": "mStD", "text":"Hamlin Garland edits" },      
+      { "value": "mStE", "text":"General revisions" },
+      { "value": "mStF", "text":"Final preparation" },
       { "value": "mstX", "text":"Undetermined manuscript stage" }
     ],
     "deletionRendered": [

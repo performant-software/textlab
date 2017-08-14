@@ -1,7 +1,7 @@
 {
   "name": "Crane",
   "description": "Project configuration for Red Badge of Courage Draft.",
-  "version": "5",
+  "version": "6",
 
   "vocabs": {
     "place": [  
@@ -26,9 +26,9 @@
       { "value": "#unattributed", "text": "Unattributed" }
     ],
     "stage": [ 
-      { "value": "dStA", "text":"Draft base inscription" },
-      { "value": "dStB", "text":"Draft current alterations" },
-      { "value": "dStC", "text":"Draft review alterations" },
+      { "value": "dStA", "text":"Base inscription" },
+      { "value": "dStB", "text":"Current alterations" },
+      { "value": "dStC", "text":"Review alterations" },
       { "value": "dstX", "text":"Undetermined draft stage" }
     ],
     "deletionRendered": [
