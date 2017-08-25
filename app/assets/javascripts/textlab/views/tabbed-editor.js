@@ -4,7 +4,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
   
   id: 'tabbed-editor',
   
-  maxStartingTabs: 3,
+  maxStartingTabs: 5,
   
 	partials: {
 		tab: JST['textlab/templates/common/tab'],
