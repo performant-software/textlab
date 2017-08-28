@@ -2,8 +2,8 @@ class Membership < ActiveRecord::Base
   belongs_to :document
   belongs_to :user
     
-  def email=(invite_email)
-    self.user = User.where( email: invite_email ).first
+  def username=(invite_username)
+    self.user = User.where( username: invite_username ).first
   end
   
   def obj

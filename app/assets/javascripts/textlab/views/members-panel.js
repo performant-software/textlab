@@ -16,9 +16,9 @@ TextLab.MembersPanel = Backbone.View.extend({
   
   onInviteUser: function() {
     // try to create a new membership 
-    var email = this.$("#invite-user-email").val();
+    var username = this.$("#invite-username").val();
     var membership = new TextLab.Membership({
-      email: email, 
+      username: username, 
       document_id: this.collection.document.id, 
       primary_editor: true,
       secondary_editor: false }
