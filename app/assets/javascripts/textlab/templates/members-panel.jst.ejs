@@ -4,8 +4,7 @@
     <% if(members.length > 0) { %>
       <% _.each( members, function(member) { %>
           <div class='member-row'>
-            <span class='email'><%= member.email %></span>
-            <span class='permissions'> Primary Editor </span>
+            <span class='display-name'><%= member.first_name + ' ' + member.last_name + ' (' +member.username + ')' %></span>
             <div class='row-actions'>
               <% if( member.accepted ) { %> 
                 <button class="btn btn-xs btn-danger remove-member-button" data-member-id="<%= member.id %>">Remove</button> 
@@ -23,7 +22,7 @@
 
 <!--input member -->
 <div class='invite-member'>
-  <p>Enter a user's email address below to invite them to this project:</p>
+  <p>Enter a user name below to invite them to this project:</p>
   <input type="text" class="form-control" id="invite-user-email" value="">
   <button class="btn btn-sm btn-primary invite-user-button">Invite User</button>
 </div>

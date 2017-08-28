@@ -10,6 +10,21 @@
         <%= f.label :email %>
         <%= f.email_field :email, autofocus: true, required: true, class: "form-control" %>
       </div>
+
+      <div class="field">
+        <%= f.label :username %>
+        <%= f.text_field :username, required: true, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :first_name %>
+        <%= f.text_field :first_name, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :last_name %>
+        <%= f.text_field :last_name, class: "form-control" %>
+      </div>
             
       <div class="field">
         <%= f.label :password %>
