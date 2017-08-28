@@ -379,11 +379,10 @@
           "instructions": "",
           "vocab": "metamark" 
         },
-        "rendType": { 
+        "rend": { 
           "displayName": "Render Type", 
           "fieldType": "dropdown", 
           "instructions": "",
-          "appendTo": "rend",
           "vocab": "renderType" 
         },    
         "change": {
