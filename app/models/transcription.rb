@@ -54,7 +54,8 @@ class Transcription < ActiveRecord::Base
       shared: self.shared,
       submitted: self.submitted,
       published: self.published,
-      owner: owner
+      owner: owner,
+      owner_name: self.user.display_name
     }
   end
     

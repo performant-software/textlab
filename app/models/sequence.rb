@@ -41,7 +41,8 @@ class Sequence < ActiveRecord::Base
       submitted: self.submitted,
       published: self.published,
       narrative_steps: steps,
-      owner: owner
+      owner: owner,
+      owner_name: self.user.display_name
     }
   end
     

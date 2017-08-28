@@ -6,11 +6,15 @@ class User < ActiveRecord::Base
          
  has_many :memberships
   
-   def admin?
-     true
-   end
+  def display_name
+    "#{first_name} #{last_name} (#{username})"
+  end
 
-   def enabled?
-     true
-   end
+  def admin?
+   true
+  end
+
+  def enabled?
+   true
+  end
 end
