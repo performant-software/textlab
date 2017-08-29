@@ -2,6 +2,8 @@
   <div class="panel-body">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
 
+      <%= devise_error_messages! %>
+
       <div class="field">
         <%= f.label :first_name %>
         <%= f.text_field :first_name, class: "form-control" %>
