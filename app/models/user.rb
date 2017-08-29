@@ -16,6 +16,10 @@ class User < ActiveRecord::Base
     "#{first_name} #{last_name} (#{username})"
   end
 
+  def attribution_name
+    "#{first_name} #{last_name}"
+  end
+
   def admin?
    true
   end
