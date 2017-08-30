@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.3', :engine => 'jruby', :engine_version => '9.0.5.0'
+ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
 
 # Core
 gem 'rails', '4.2.9'

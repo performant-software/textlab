@@ -227,7 +227,7 @@ DEPENDENCIES
   underscore-rails
 
 RUBY VERSION
-   ruby 2.2.3p0 (jruby 9.0.5.0)
+   ruby 2.3.3p0 (jruby 9.1.12.0)
 
 BUNDLED WITH
-   1.13.2
+   1.15.4
