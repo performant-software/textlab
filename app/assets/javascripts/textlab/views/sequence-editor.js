@@ -306,7 +306,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var statusMessage = "";
     if( this.model.get('submitted') ) {
       if( this.tabbedEditor.projectOwner ) {
-        statusMessage = "Sequence submitted by: username."
+        statusMessage = "Sequence submitted by: "+this.model.get('owner_name');
       } else {
         statusMessage = "Sequence submitted for publication."
       }
