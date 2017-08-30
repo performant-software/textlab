@@ -20,8 +20,6 @@ gem 'nokogiri'
 # Asset Pipeline
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
-gem 'therubyrhino'
-gem "less-rails"
 gem 'font-awesome-sass'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
