@@ -12,7 +12,7 @@ class MembershipsController < ApplicationController
     @membership = Membership.new(membership_params)
 
     if @membership.user.nil?
-      validation_message = "Unable to find #{membership_params[:username]}."
+      validation_message = "Unable to find #{membership_params[:email]}."
     elsif @membership.user.id == current_user.id
       @membership.user = nil 
       validation_message = "Can't add project owner to team."
@@ -56,6 +56,6 @@ class MembershipsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def membership_params
-      params.permit( :username, :primary_editor, :secondary_editor, :document_id, :accepted )
+      params.permit( :email, :primary_editor, :secondary_editor, :document_id, :accepted )
     end
 end

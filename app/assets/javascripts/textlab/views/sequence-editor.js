@@ -306,12 +306,12 @@ TextLab.SequenceEditor = Backbone.View.extend({
     var statusMessage = "";
     if( this.model.get('submitted') ) {
       if( this.tabbedEditor.projectOwner ) {
-        statusMessage = "Sequence submitted by: "++this.model.get('owner_name');
+        statusMessage = "Sequence submitted by: username."
       } else {
         statusMessage = "Sequence submitted for publication."
       }
     } else if( this.model.get('shared') && readOnly ) {
-      statusMessage = "Sequence shared by: "+this.model.get('owner_name');
+      statusMessage = "Sequence shared by: username";
     }
 
     var actionWidthClass = '';

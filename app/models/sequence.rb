@@ -15,8 +15,7 @@ class Sequence < ActiveRecord::Base
   def list_obj
     {
       id: self.id,
-      name: self.name,
-      owner_name: self.user.attribution_name
+      name: self.name
     }
   end
 
@@ -42,8 +41,7 @@ class Sequence < ActiveRecord::Base
       submitted: self.submitted,
       published: self.published,
       narrative_steps: steps,
-      owner: owner,
-      owner_name: self.user.display_name
+      owner: owner
     }
   end
     
