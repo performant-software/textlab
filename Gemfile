@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.2.3', :engine => 'jruby', :engine_version => '9.0.5.0'
 
 # Core
-gem 'rails', '4.2.4'
+gem 'rails', '4.2.9'
 gem 'activerecord-jdbcpostgresql-adapter'
 
 # Heroku
