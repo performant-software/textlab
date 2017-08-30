@@ -1,7 +1,7 @@
 <div id='textlab-header'>
   <a class="navbar-brand" href="#">TextLab</a>
   <div class='right'>
-    <span>signed in as <%= current_user.email %> | </span>
+    <span>signed in as <%= link_to current_user.username, edit_user_registration_path %> | </span>
     <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
   </div>
 </div>

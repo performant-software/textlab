@@ -95,7 +95,7 @@ class Document < ActiveRecord::Base
       id: self.id,
       name: self.name,
       description: self.description,
-      owner_name: self.user.email,
+      owner_name: self.user.display_name,
       membership_id: membership.id,
       accepted: membership.accepted,
       root_node: root_node.document_section_id,

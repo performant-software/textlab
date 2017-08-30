@@ -436,12 +436,12 @@ TextLab.XMLEditor = Backbone.View.extend({
     var statusMessage = "";
     if( this.model.get('submitted') ) {
       if( this.tabbedEditor.projectOwner ) {
-        statusMessage = "Transcription submitted by: username."
+        statusMessage = "Transcription submitted by: "+this.model.get('owner_name');
       } else {
         statusMessage = "Transcription submitted for publication."
       }
     } else if( this.model.get('shared') && this.model.isReadOnly() ) {
-      statusMessage = "Transcription shared by: username";
+      statusMessage = "Transcription shared by: "+this.model.get('owner_name');
     }
 
     var actionWidthClass = '';
