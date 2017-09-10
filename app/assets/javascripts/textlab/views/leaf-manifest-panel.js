@@ -20,6 +20,39 @@ TextLab.LeafManifestPanel = Backbone.View.extend({
     
   },
 
+  parseIIIFManifest: function(manifestJSON) {
+
+    var manifest = JSON.parse(manifestJSON);
+
+    if( manifest == null ) {
+      return [];
+    }
+
+    // IIIF presentation 2.0
+    // manifest["sequences"][n]["canvases"][n]["images"][n]["resource"]["service"]["@id"]
+
+    var leafs = [];
+
+    sequence = _.first(manifest.sequences);
+    if( sequence != null && sequence.canvases != null ) {
+      leafs = _.map( sequence.canvases, function(canvas) {
+        var image = _.first( canvas.images );
+
+        if( image != null && 
+            image.resource != null &&
+            image.resource.service != null ) {
+            return {
+              name: canvas.label,
+              xml_id: image.resource.service["@id"],
+              tile_source: image.resource.service["@id"]
+            };
+        }
+      }); 
+    }
+
+    return leafs;
+  },
+
   parseLeafManifest: function(leafManifest) {
 
     // read this text a line at a time, create a JSON representation of it to send to server.
@@ -63,17 +96,32 @@ TextLab.LeafManifestPanel = Backbone.View.extend({
     var files = evt.dataTransfer.files;
     var reader = new FileReader();
 
+    var success = _.bind( function(leafs) {
+      $('.import-message').html(this.importMessageTemplate({count: leafs.length}));
+      this.$('.drop-zone-message').html(this.dropZoneMessageTemplate({count: leafs.length}));
+      this.model.set('leaf_manifest', JSON.stringify(leafs) );
+    }, this);
+
+    var error = _.bind( function() {
+      $('.import-message').html(this.importErrorMessage);
+      this.$('.drop-zone-message').html(this.dropZoneInstructions);
+      this.model.set('leaf_manifest', null );
+    }, this);
+
     // parse the leaf manifest
     reader.onload = _.bind( function(e) {
       var leafs = this.parseLeafManifest(reader.result);
       if( leafs.length > 0 ) {
-        $('.import-message').html(this.importMessageTemplate({count: leafs.length}));
-        this.$('.drop-zone-message').html(this.dropZoneMessageTemplate({count: leafs.length}));
-        this.model.set('leaf_manifest', JSON.stringify(leafs) );
+        success(leafs);
       } else {
-        $('.import-message').html(this.importErrorMessage);
-        this.$('.drop-zone-message').html(this.dropZoneInstructions);
-        this.model.set('leaf_manifest', null );
+        // try to parse this as a IIIF Manifest
+        leafs = this.parseIIIFManifest(reader.result);
+        if( leafs.length > 0 ) {
+          success(leafs);
+        }
+        else {
+          error();
+        }
       }
     }, this);
 
