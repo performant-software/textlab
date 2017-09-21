@@ -26,11 +26,19 @@ namespace :import do
 	desc "Publish all official TEI transcriptions"
 	task :publish => :environment do
 		Document.all.each { |document|
-			Transcription.where(document_id: document.id, name: "Official TEI", user_id: document.user_id ).each { |transcription| 
-				transcription.published = true
-				transcription.shared = true
-				Diplo.create_diplo!( transcription ) unless transcription.diplo
-				transcription.save! 
+			Transcription.where(document_id: document.id, user_id: document.user_id ).each { |transcription|
+				# does the name of this transcription match the name of the parent folder of this leaf?
+				node = transcription.leaf.document_node
+				unless node.parent_node.nil? or node.parent_node.document_section.nil?
+					folder_name = node.parent_node.document_section.name
+					if folder_name == transcription.name
+						# if name matches, publish this transcription.
+						transcription.published = true
+						transcription.shared = true
+						Diplo.create_diplo!( transcription ) unless transcription.diplo
+						transcription.save! 
+					end
+				end
 			}
 		}
 	end

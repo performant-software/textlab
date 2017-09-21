@@ -14,9 +14,14 @@ class TlManuscript < ActiveRecord::Base
 		manuscript_guid = self.id
 
 		owner = User.find_by( username: self.userid )
+		project_config = ProjectConfig.find_by( name: 'MEL' )
+
+		# if we can't find the owner, don't import it.
+		return if owner.nil?
 
 		document = Document.new({
 			name: self.name,
+			project_config: project_config,
 			user: owner
 		})
 

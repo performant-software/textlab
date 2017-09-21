@@ -23,6 +23,12 @@ class TlUser < ActiveRecord::Base
 			})
 
 			user.save
+		else
+			# if the account already exists, make sure Tl2 username == Tl1 username
+			unless user.username == self.username
+				user.username = self.username
+				user.save
+			end 
 		end
 
 	end
