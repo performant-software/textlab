@@ -1,39 +1,27 @@
-source 'https://rubygems.org'
-ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
+source "https://rubygems.org"
 
-# Core
-gem 'rails', '4.2.9'
-gem 'activerecord-jdbcpostgresql-adapter'
+# Hello! This is where you manage which Jekyll version is used to run.
+# When you want to use a different version, change it below, save the
+# file and run `bundle install`. Run Jekyll with `bundle exec`, like so:
+#
+#     bundle exec jekyll serve
+#
+# This will help ensure the proper Jekyll version is running.
+# Happy Jekylling!
+gem "jekyll", "3.5.1"
 
-# Heroku
-gem 'rails_12factor', group: :production
-gem 'puma', group: :production
+# This is the default theme for new Jekyll sites. You may change this to anything you like.
+gem "minima", "~> 2.0"
 
-# Ruby Gems
-gem 'jbuilder', '~> 2.0'
-gem 'exception_notification'
-gem 'devise'
-gem 'devise-encryptable'
-gem 'saxon-xslt', '~> 0.7.2'
-gem 'nokogiri'
+# If you want to use GitHub Pages, remove the "gem "jekyll"" above and
+# uncomment the line below. To upgrade, run `bundle update github-pages`.
+# gem "github-pages", group: :jekyll_plugins
 
-# Asset Pipeline
-gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3.5'
-gem 'font-awesome-sass'
-gem 'uglifier', '>= 1.3.0'
-gem 'therubyrhino'  
-gem "less-rails"  
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
-gem 'jquery-ui-sass-rails'
+# If you have any plugins, put them here!
+group :jekyll_plugins do
+   gem "jekyll-feed", "~> 0.6"
+end
 
-gem 'rails-backbone'
-gem 'underscore-rails'
-
-# Testing
-gem 'factory_girl_rails'
-
-# Docs
-gem 'sdoc', '~> 0.4.0', group: :doc
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 

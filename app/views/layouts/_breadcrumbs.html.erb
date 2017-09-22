@@ -1,6 +1,0 @@
-<ol class="breadcrumb">
-  <% @ancestor_nodes.reverse.each { |a| %> 
-	  <li><a href="<%= url_for a.document_section %>"><%= a.document_section.name %></a></li>
-  <% } unless @ancestor_nodes.nil? %>
-  <li class="active"><%= @node_title %></li>
-</ol>
