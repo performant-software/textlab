@@ -20,3 +20,4 @@
 jruby-bundle.sh 
 
 /.idea
+.env
