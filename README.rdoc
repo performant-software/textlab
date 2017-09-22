@@ -14,5 +14,3 @@ You can install TextLab just as you would any Ruby on Rails application. If you 
 
 Configuration is accomplished via ENV variables. See the file config/settings.yml to understand which variables you need to set. TextLab utilizes an SMTP mail server.
 
-If you want to load configuration variables from a YML file instead of from ENV variables, create the file config/secrets_dev.yml , using config/secrets.yml as a guide. 
-
