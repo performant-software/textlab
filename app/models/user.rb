@@ -29,13 +29,17 @@ class User < ActiveRecord::Base
   end
 
   def self.get_all
-    User.all.order('username').map { |user| user.obj }
+    users = User.all.map { |user| user.obj }
+    users.sort { |x,y| x[:full_name].downcase <=> y[:full_name].downcase }
   end
 
   def obj
     {
       id: self.id,
       username: self.username,
+      full_name: "#{self.last_name}, #{self.first_name}",
+      first_name: self.first_name,
+      last_name: self.last_name,
       email: self.email,
       user_type: self.user_type
     }
