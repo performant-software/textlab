@@ -18,6 +18,7 @@ class SitesController < ApplicationController
   # POST /sites.json
   def create
     @site = Site.new(site_params)
+    @site.max_accounts = 30
 
     if @site.save
       render json: @site.obj
@@ -37,7 +38,7 @@ class SitesController < ApplicationController
 
   # PATCH/PUT /sites/1.json
   def update
-    if @site.update(user_params)
+    if @site.update(site_params)
       render json: @site.obj
     else
       render json: @site.errors, status: :unprocessable_entity
@@ -46,11 +47,11 @@ class SitesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_site
-    @user = Site.find(params[:id])
+    @site = Site.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
-  def user_params
+  def site_params
     params.permit( :name, :max_accounts )
   end
 end
