@@ -1,0 +1,18 @@
+<div id="modal-container"></div>
+
+<h2>Sites</h2>
+
+<button class="btn btn-primary new-site-button">New Site</button>
+
+<table class="table table-striped">
+  <tr>
+    <th>Name</th>
+    <th>Max Accounts</th>
+  </tr>
+  <% _.each( sites, function(site) { %> 
+    <tr>
+      <td><%= site.full_name %></td>
+      <td><%= site.max_accounts %></td>
+    </tr>
+  <% }); %>
+</table>
