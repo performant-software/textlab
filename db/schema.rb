@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170131193302) do
+ActiveRecord::Schema.define(version: 20171017135414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,6 +94,85 @@ ActiveRecord::Schema.define(version: 20170131193302) do
     t.boolean "published"
   end
 
+  create_table "tl_folders", id: :bigserial, force: :cascade do |t|
+    t.string "name",          limit: 45, null: false
+    t.string "manuscript_id", limit: 36, null: false
+    t.text   "folder_type"
+  end
+
+  create_table "tl_leafs", primary_key: "leaf_guid", force: :cascade do |t|
+    t.string   "name",              limit: 255,               null: false
+    t.string   "manuscriptid",      limit: 36,  default: "0", null: false
+    t.integer  "orderno",           limit: 8
+    t.string   "createdby",         limit: 45
+    t.datetime "createdon",                                   null: false
+    t.string   "lastupdatedby",     limit: 45
+    t.datetime "lastupdatedon"
+    t.string   "imageid",           limit: 75
+    t.integer  "chapterid",         limit: 8
+    t.text     "publishedbasetext"
+  end
+
+  add_index "tl_leafs", ["manuscriptid"], name: "idx_347180_manuscriptid", using: :btree
+  add_index "tl_leafs", ["orderno"], name: "idx_347180_orderno", using: :btree
+
+  create_table "tl_manuscripts", force: :cascade do |t|
+    t.string   "name",          limit: 75,  null: false
+    t.string   "userid",        limit: 45
+    t.datetime "datecreated",               null: false
+    t.string   "author",        limit: 100, null: false
+    t.datetime "datepublished"
+    t.string   "catalogsource", limit: 64
+    t.integer  "readingtextid", limit: 8
+  end
+
+  create_table "tl_revision_sites", force: :cascade do |t|
+    t.string  "polygon", limit: 512
+    t.string  "leafid",  limit: 36
+    t.integer "sitenum", limit: 8
+  end
+
+  add_index "tl_revision_sites", ["leafid"], name: "idx_347240_leafid", using: :btree
+
+  create_table "tl_sequences", primary_key: "sequence_guid", force: :cascade do |t|
+    t.string   "manuscriptid",  limit: 36,  null: false
+    t.string   "ownedby",       limit: 45
+    t.string   "name",          limit: 256
+    t.datetime "createdon"
+    t.datetime "lastupdatedon"
+    t.datetime "publishedon"
+    t.datetime "sharedon"
+    t.text     "sequencexml"
+    t.integer  "parent_folder", limit: 8
+    t.string   "guid",          limit: 36
+  end
+
+  add_index "tl_sequences", ["manuscriptid", "ownedby"], name: "idx_347252_manuscriptidusername", using: :btree
+
+  create_table "tl_transcriptions", force: :cascade do |t|
+    t.string   "manuscriptid",       limit: 36,  null: false
+    t.string   "ownedby",            limit: 45
+    t.string   "name",               limit: 256
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.datetime "publishedon"
+    t.datetime "sharedon"
+    t.text     "transcriptiontext"
+    t.integer  "tl_folder_id",       limit: 8
+    t.text     "transcription_type"
+  end
+
+  add_index "tl_transcriptions", ["manuscriptid", "ownedby"], name: "idx_347279_manuscriptidusername", using: :btree
+
+  create_table "tl_users", primary_key: "username", force: :cascade do |t|
+    t.string   "firstname",   limit: 45,   null: false
+    t.string   "lastname",    limit: 45,   null: false
+    t.string   "email",       limit: 150,  null: false
+    t.string   "password",    limit: 1024, null: false
+    t.boolean  "disabled",                 null: false
+    t.datetime "datecreated",              null: false
+  end
+
   create_table "transcriptions", force: :cascade do |t|
     t.string   "name"
     t.text     "content"
@@ -123,6 +202,7 @@ ActiveRecord::Schema.define(version: 20170131193302) do
     t.string   "username"
     t.string   "first_name"
     t.string   "last_name"
+    t.string   "user_type"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

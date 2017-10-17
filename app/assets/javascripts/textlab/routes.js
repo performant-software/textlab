@@ -3,7 +3,8 @@ TextLab.Routes = Backbone.Router.extend({
 
   routes: {
     "" : "documentListView",
-    "documents/:id" : "documentEditView"
+    "documents/:id" : "documentEditView",
+    "admin" : "adminView"
   },
     
   initialize: function(options) {
@@ -32,6 +33,14 @@ TextLab.Routes = Backbone.Router.extend({
       primaryEditingView.postRender();
     }, error: this.onError });    
   },
+
+  adminView: function() {
+    this.loadUsers( _.bind( function(users) {
+      var userListView = new TextLab.UserListView( { collection: users });
+      userListView.render();
+      $(".textlab-app").html(userListView.$el);      
+    }, this));     
+  },
       
   /////////////////////////
   
@@ -39,6 +48,11 @@ TextLab.Routes = Backbone.Router.extend({
     var documents = new TextLab.DocumentCollection();
     documents.fetch( { success: initView, error: this.onError } );
   },  
+
+  loadUsers: function( initView ) {
+    var users = new TextLab.UserCollection();
+    users.fetch( { success: initView, error: this.onError } );
+  }, 
   
   onError: function( collection, response, options ) {
     console.log( "Server Error: \n"+response );

@@ -21,10 +21,23 @@ class User < ActiveRecord::Base
   end
 
   def admin?
-   true
+   self.user_type == 'admin'
   end
 
   def enabled?
    true
+  end
+
+  def self.get_all
+    User.all.order('username').map { |user| user.obj }
+  end
+
+  def obj
+    {
+      id: self.id,
+      username: self.username,
+      email: self.email,
+      user_type: self.user_type
+    }
   end
 end
