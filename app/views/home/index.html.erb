@@ -4,6 +4,8 @@
 
 // Global settings for the app from the server
 var TextLabSettings = {
+	user_type: '<%= current_user.user_type %>',
+	site_name: '<%= current_user.site.nil? ? "" : current_user.site.name %>'
 };
 
 </script>

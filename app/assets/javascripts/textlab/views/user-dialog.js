@@ -24,6 +24,7 @@ TextLab.UserDialog = Backbone.View.extend({
     this.callback = options.callback;
     this.sites = options.sites;
     this.mode = options.mode;
+    this.isAdmin = options.isAdmin;
   },
   
   onOK: function() {    
@@ -71,7 +72,8 @@ TextLab.UserDialog = Backbone.View.extend({
       user: this.model, 
       sites: siteList, 
       userTypes: this.userTypes, 
-      partials: this.partials 
+      partials: this.partials,
+      isAdmin: this.isAdmin
     })); 
 
     $('#modal-container').html(this.$el);

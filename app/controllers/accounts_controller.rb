@@ -31,7 +31,9 @@ class AccountsController < ApplicationController
   private
 
   def check_privs
+    # normal users can only edit their own accounts
     redirect_to root_path if current_user.user_type == 'user' && @user.id != current_user.id
+    # site admins can edit site member's accounts
     redirect_to root_path if current_user.user_type == 'site_admin' && @user.site_id != @user.site_id
   end
 
@@ -42,6 +44,11 @@ class AccountsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.permit( :username, :first_name, :last_name, :email, :user_type, :site_id )
+    # only admins can change user_type and site_id
+    if current_user.admin?
+      params.permit( :username, :first_name, :last_name, :email, :user_type, :site_id )
+    else
+      params.permit( :username, :first_name, :last_name, :email )
+    end
   end
 end

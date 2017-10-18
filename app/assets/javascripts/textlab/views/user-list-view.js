@@ -9,6 +9,8 @@ TextLab.UserListView = Backbone.View.extend({
   },
             	
 	initialize: function(options) {
+    this.isAdmin = (TextLabSettings.user_type == 'admin');
+    this.siteName = TextLabSettings.site_name;
   },
   
   onEditUser: function(e) {     
@@ -31,7 +33,8 @@ TextLab.UserListView = Backbone.View.extend({
       var userDialog = new TextLab.UserDialog( { 
         model: user, 
         callback: callback,
-        sites: sites
+        sites: sites,
+        isAdmin: this.isAdmin
       });
       userDialog.render();   
     }, this));          
@@ -40,7 +43,11 @@ TextLab.UserListView = Backbone.View.extend({
   },
   
   render: function() {                      
-    this.$el.html(this.template({ users: this.collection.toJSON() }));
+    this.$el.html(this.template({ 
+      users: this.collection.toJSON(), 
+      isAdmin: this.isAdmin,
+      siteName: this.siteName 
+    }));
   }
   
 });

@@ -1,8 +1,12 @@
 <div id="modal-container"></div>
 
-<h2>User Accounts</h2>
 
-<p><a href='#sites'>Manage Sites</a></p>
+<% if( isAdmin ) { %> 
+  <h2>User Accounts</h2>
+  <p><a href='#sites'>Manage Sites</a></p>
+<% } else { %>
+  <h2><%= siteName %> - User Accounts</h2>
+<% } %>
 
 <table class="table table-striped">
   <tr>

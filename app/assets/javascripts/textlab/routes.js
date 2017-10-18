@@ -36,6 +36,8 @@ TextLab.Routes = Backbone.Router.extend({
   },
 
   adminView: function() {
+    if( TextLabSettings.user_type == 'user' ) return;
+    
     this.loadUsers( _.bind( function(users) {
       var userListView = new TextLab.UserListView( { collection: users });
       userListView.render();
@@ -44,6 +46,8 @@ TextLab.Routes = Backbone.Router.extend({
   },
 
   siteListView: function() {
+    if( TextLabSettings.user_type == 'user' ) return;
+    
     this.loadSites( _.bind( function(sites) {
       var siteListView = new TextLab.SiteListView( { collection: sites });
       siteListView.render();

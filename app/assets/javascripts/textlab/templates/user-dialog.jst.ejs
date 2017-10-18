@@ -34,24 +34,26 @@
           field_instructions: "Please enter a email for this account.",
           error: false 
         }) %>
-        <%= partials.dropdownInput( { 
-          field_name: 'site', 
-          field_title: 'Site', 
-          field_value: user.get('site_id'), 
-          field_instructions: 'Site for this account.', 
-          no_blank: false,
-          options: sites,
-          error: false 
-        }) %>  
-        <%= partials.dropdownInput( { 
-          field_name: 'user_type', 
-          field_title: 'User Type', 
-          field_value: user.get('user_type'), 
-          field_instructions: 'User Type for this account.', 
-          no_blank: true,
-          options: userTypes,
-          error: false 
-        }) %>  
+        <% if( isAdmin ) { %> 
+          <%= partials.dropdownInput( { 
+            field_name: 'site', 
+            field_title: 'Site', 
+            field_value: user.get('site_id'), 
+            field_instructions: 'Site for this account.', 
+            no_blank: false,
+            options: sites,
+            error: false 
+          }) %>  
+          <%= partials.dropdownInput( { 
+            field_name: 'user_type', 
+            field_title: 'User Type', 
+            field_value: user.get('user_type'), 
+            field_instructions: 'User Type for this account.', 
+            no_blank: true,
+            options: userTypes,
+            error: false 
+          }) %>  
+        <% } %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
