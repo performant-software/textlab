@@ -7,13 +7,13 @@
 <table class="table table-striped">
   <tr>
     <th>Name</th>
-    <th>Max Accounts</th>
+    <th>Number of Accounts</th>
     <th>Actions</th>
   </tr>
   <% _.each( sites, function(site) { %> 
     <tr>
       <td><%= site.name %></td>
-      <td><%= site.max_accounts %></td>
+      <td><%= site.account_count %> / <%= site.max_accounts %></td>
       <td><button data-id="<%= site.id %>" class="btn btn-default btn-sm edit-site-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
     </tr>
   <% }); %>

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
                        :uniqueness => true
          
  has_many :memberships
+ belongs_to :site
   
   def display_name
     "#{first_name} #{last_name} (#{username})"
@@ -40,6 +41,8 @@ class User < ActiveRecord::Base
       full_name: "#{self.last_name}, #{self.first_name}",
       first_name: self.first_name,
       last_name: self.last_name,
+      site_id: self.site.nil? ? nil : self.site.id,
+      site_name: self.site.nil? ? '' : self.site.name,
       email: self.email,
       user_type: self.user_type
     }

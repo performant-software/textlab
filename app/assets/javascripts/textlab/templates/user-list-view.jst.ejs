@@ -9,6 +9,7 @@
     <th>Full Name</th>
     <th>Username</th>
     <th>Email</th> 
+    <th>Site Name</th> 
     <th>User Type</th>
   </tr>
   <% _.each( users, function(user) { %> 
@@ -16,6 +17,7 @@
       <td><%= user.full_name %></td>
       <td><%= user.username %></td>
       <td><%= user.email %></td>
+      <td><%= user.site_name %></td>
       <td><%= user.user_type %></td>
     </tr>
   <% }); %>
