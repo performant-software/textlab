@@ -1,5 +1,6 @@
 class SitesController < ApplicationController
   before_action :set_site, only: [:show, :update, :destroy]
+  before_action :check_privs
   before_action :authenticate_user!
 
   # GET /sites.json
@@ -43,6 +44,12 @@ class SitesController < ApplicationController
     else
       render json: @site.errors, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def check_privs
+    redirect_to root_path unless current_user.admin?
   end
 
   # Use callbacks to share common setup or constraints between actions.

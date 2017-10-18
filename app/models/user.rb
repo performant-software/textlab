@@ -29,9 +29,15 @@ class User < ActiveRecord::Base
    true
   end
 
-  def self.get_all
-    users = User.all.map { |user| user.obj }
-    users.sort { |x,y| x[:full_name].downcase <=> y[:full_name].downcase }
+  def self.get_all( current_user )
+    if current_user.user_type == 'admin'
+      users = User.all.map 
+    else
+      users = current_user.site.users
+    end
+
+    user_objs = users.map { |user| user.obj }
+    user_objs.sort { |x,y| x[:full_name].downcase <=> y[:full_name].downcase }
   end
 
   def obj

@@ -1,10 +1,14 @@
 class AccountsController < ApplicationController
   before_action :set_user, only: [:show, :update]
+  before_action :check_privs, only: [:show, :update]
   before_action :authenticate_user!
 
   # GET /accounts.json
   def index
-    @users = User.get_all
+    # normal users can't access other folks account 
+    redirect_to root_path if current_user.user_type == 'user'
+
+    @users = User.get_all(current_user)
     render json: @users.to_json
   end
 
@@ -22,6 +26,13 @@ class AccountsController < ApplicationController
     else
       render json: @user.errors, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def check_privs
+    redirect_to root_path if current_user.user_type == 'user' && @user.id != current_user.id
+    redirect_to root_path if current_user.user_type == 'site_admin' && @user.site_id != @user.site_id
   end
 
   # Use callbacks to share common setup or constraints between actions.
