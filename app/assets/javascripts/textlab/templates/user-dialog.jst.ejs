@@ -9,31 +9,40 @@
         <%= partials.stringInput( { 
           field_name: 'first_name', 
           field_title: "First Name",
-          field_value: site.get('first_name'), 
+          field_value: user.get('first_name'), 
           field_instructions: "Please enter a first name for this account.",
           error: false 
         }) %>
         <%= partials.stringInput( { 
           field_name: 'last_name', 
           field_title: "Last Name",
-          field_value: site.get('last_name'), 
+          field_value: user.get('last_name'), 
           field_instructions: "Please enter a last name for this account.",
           error: false 
         }) %>
         <%= partials.stringInput( { 
           field_name: 'username', 
           field_title: "Username",
-          field_value: site.get('username'), 
+          field_value: user.get('username'), 
           field_instructions: "Please enter a username for this account.",
           error: false 
         }) %>
         <%= partials.stringInput( { 
           field_name: 'email', 
           field_title: "Email",
-          field_value: site.get('email'), 
+          field_value: user.get('email'), 
           field_instructions: "Please enter a email for this account.",
           error: false 
         }) %>
+        <%= partials.dropdownInput( { 
+          field_name: 'site', 
+          field_title: 'Site', 
+          field_value: user.get('site_id'), 
+          field_instructions: 'Site for this account.', 
+          no_blank: false,
+          options: sites,
+          error: false 
+        }) %>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>

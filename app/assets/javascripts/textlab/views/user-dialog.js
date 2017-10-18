@@ -5,7 +5,8 @@ TextLab.UserDialog = Backbone.View.extend({
   id: 'user-dialog-container',
   
 	partials: {
-		stringInput: JST['textlab/templates/common/string-input']
+		stringInput: JST['textlab/templates/common/string-input'],
+    dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
   
   events: {
@@ -15,7 +16,7 @@ TextLab.UserDialog = Backbone.View.extend({
             	
 	initialize: function(options) {
     this.callback = options.callback;
-    this.deleteCallback = options.deleteCallback;
+    this.sites = options.sites;
     this.mode = options.mode;
   },
   
@@ -25,7 +26,8 @@ TextLab.UserDialog = Backbone.View.extend({
         username: this.$('#username').val(),
         first_name: this.$('#first_name').val(),
         last_name: this.$('#last_name').val(),
-        email: this.$('#email').val()  
+        email: this.$('#email').val(),
+        site_id: this.$('#site').val(),  
       });
       this.callback(this.model);
     }, this));
@@ -50,7 +52,15 @@ TextLab.UserDialog = Backbone.View.extend({
   },
   
   render: function() {
-    this.$el.html(this.template({ site: this.model, partials: this.partials })); 
+
+    var siteList = _.map( this.sites.models, function(site) { 
+      return { 
+        value: site.id, 
+        text: site.get('name'),
+      }; 
+    });
+
+    this.$el.html(this.template({ user: this.model, sites: siteList, partials: this.partials })); 
 
     $('#modal-container').html(this.$el);
 

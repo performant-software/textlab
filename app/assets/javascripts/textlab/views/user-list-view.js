@@ -25,12 +25,17 @@ TextLab.UserListView = Backbone.View.extend({
     }, this);
  
     var user = this.collection.get(userID);
-          
-    var userDialog = new TextLab.UserDialog( { 
-      model: user, 
-      callback: callback
-    });
-    userDialog.render();     
+
+    // load sites before we display dialog
+    this.collection.getSites( _.bind(function( sites ) {
+      var userDialog = new TextLab.UserDialog( { 
+        model: user, 
+        callback: callback,
+        sites: sites
+      });
+      userDialog.render();   
+    }, this));          
+      
     return false;
   },
   

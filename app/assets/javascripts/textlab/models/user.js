@@ -27,5 +27,10 @@ TextLab.User = Backbone.Model.extend({
 
 TextLab.UserCollection = Backbone.Collection.extend({
   model: TextLab.User,
-  url: "accounts"
+  url: "accounts",
+
+  getSites: function( callback ) {
+    var sites = new TextLab.SiteCollection();
+    sites.fetch( { success: callback, error: TextLab.Routes.routes.onError } );
+  }
 }); 
