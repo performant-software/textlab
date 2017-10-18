@@ -1,0 +1,44 @@
+<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="userModal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="userModal">Edit User Account</h4>
+      </div>
+      <div class="modal-body">
+        <%= partials.stringInput( { 
+          field_name: 'first_name', 
+          field_title: "First Name",
+          field_value: site.get('first_name'), 
+          field_instructions: "Please enter a first name for this account.",
+          error: false 
+        }) %>
+        <%= partials.stringInput( { 
+          field_name: 'last_name', 
+          field_title: "Last Name",
+          field_value: site.get('last_name'), 
+          field_instructions: "Please enter a last name for this account.",
+          error: false 
+        }) %>
+        <%= partials.stringInput( { 
+          field_name: 'username', 
+          field_title: "Username",
+          field_value: site.get('username'), 
+          field_instructions: "Please enter a username for this account.",
+          error: false 
+        }) %>
+        <%= partials.stringInput( { 
+          field_name: 'email', 
+          field_title: "Email",
+          field_value: site.get('email'), 
+          field_instructions: "Please enter a email for this account.",
+          error: false 
+        }) %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default cancel-button">Cancel</button>
+        <button type="button" class="btn btn-primary ok-button">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

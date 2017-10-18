@@ -11,6 +11,7 @@
     <th>Email</th> 
     <th>Site Name</th> 
     <th>User Type</th>
+    <th>Actions</th>
   </tr>
   <% _.each( users, function(user) { %> 
     <tr>
@@ -19,6 +20,7 @@
       <td><%= user.email %></td>
       <td><%= user.site_name %></td>
       <td><%= user.user_type %></td>
+      <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
     </tr>
   <% }); %>
 </table>
