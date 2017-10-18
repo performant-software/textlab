@@ -3,6 +3,12 @@ TextLab.UserDialog = Backbone.View.extend({
 	template: JST['textlab/templates/user-dialog'],
   
   id: 'user-dialog-container',
+
+  userTypes: [ 
+    { value: 'user', text: 'User' },
+    { value: 'site_admin', text: 'Site Admin' },
+    { value: 'admin', text: 'TextLab Admin' } 
+  ],
   
 	partials: {
 		stringInput: JST['textlab/templates/common/string-input'],
@@ -28,6 +34,7 @@ TextLab.UserDialog = Backbone.View.extend({
         last_name: this.$('#last_name').val(),
         email: this.$('#email').val(),
         site_id: this.$('#site').val(),  
+        user_type: this.$('#user_type').val()  
       });
       this.callback(this.model);
     }, this));
@@ -60,7 +67,12 @@ TextLab.UserDialog = Backbone.View.extend({
       }; 
     });
 
-    this.$el.html(this.template({ user: this.model, sites: siteList, partials: this.partials })); 
+    this.$el.html(this.template({ 
+      user: this.model, 
+      sites: siteList, 
+      userTypes: this.userTypes, 
+      partials: this.partials 
+    })); 
 
     $('#modal-container').html(this.$el);
 

@@ -43,6 +43,15 @@
           options: sites,
           error: false 
         }) %>  
+        <%= partials.dropdownInput( { 
+          field_name: 'user_type', 
+          field_title: 'User Type', 
+          field_value: user.get('user_type'), 
+          field_instructions: 'User Type for this account.', 
+          no_blank: true,
+          options: userTypes,
+          error: false 
+        }) %>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
