@@ -8,29 +8,48 @@
   <h2><%= siteName %> - User Accounts (<%= users.length %>)</h2>
 <% } %>
 
-<table class="table table-striped">
-  <tr>
-    <th>Full Name</th>
-    <th>Username</th>
-    <th>Email</th> 
-    <% if( isAdmin ) { %> 
-      <th>Site Name</th> 
-      <th>User Type</th>
-    <% } %>
-    <th>Status</th> 
-    <th>Actions</th>
-  </tr>
-  <% _.each( users, function(user) { %> 
+<div class='filter-panel'>
+  <%= partials.dropdownInput( { 
+    field_name: 'statusFilter', 
+    field_title: 'Filter', 
+    field_instructions: '',
+    field_value: statusFilter, 
+    no_blank: true,
+    options: accountFilterTypes,
+    error: false 
+  }) %> 
+</div>
+
+<% if( users.length == 0 ) { %> 
+  <div class='no-users-panel'>
+    No users of this type were found.
+  </div>
+<% } else { %>
+  <table class="table table-striped">
     <tr>
-      <td><%= user.full_name %></td>
-      <td><%= user.username %></td>
-      <td><%= user.email %></td>
+      <th>Full Name</th>
+      <th>Username</th>
+      <th>Email</th> 
       <% if( isAdmin ) { %> 
-        <td><%= user.site_name %></td> 
-        <td><%= user.user_type %></td> 
+        <th>Site Name</th> 
+        <th>User Type</th>
       <% } %>
-      <td><%= user.account_status %></td>
-      <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
+      <th>Status</th> 
+      <th>Actions</th>
     </tr>
-  <% }); %>
-</table>
+    <% _.each( users, function(user) { %> 
+      <tr>
+        <td><%= user.full_name %></td>
+        <td><%= user.username %></td>
+        <td><%= user.email %></td>
+        <% if( isAdmin ) { %> 
+          <td><%= user.site_name %></td> 
+          <td><%= user.user_type %></td> 
+        <% } %>
+        <td><%= user.account_status %></td>
+        <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
+      </tr>
+    <% }); %>
+  </table>
+<% } %>
+

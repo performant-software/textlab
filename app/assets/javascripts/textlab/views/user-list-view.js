@@ -5,12 +5,25 @@ TextLab.UserListView = Backbone.View.extend({
   id: 'user-list-view',
   
   events: {
-    'click .edit-user-button': "onEditUser"
+    'click .edit-user-button': "onEditUser",
+    'change #statusFilter': "onFilterSelect"
+  },
+
+  accountFilterTypes: [ 
+    { value: 'all', text: 'No Filter' },
+    { value: 'pending', text: 'Pending Status' },
+    { value: 'active', text: 'Active Status' },
+    { value: 'archived', text: 'Archived Status' } 
+  ],
+
+  partials: {
+    dropdownInput: JST['textlab/templates/common/dropdown-input']
   },
             	
 	initialize: function(options) {
     this.isAdmin = (TextLabSettings.user_type == 'admin');
     this.siteName = TextLabSettings.site_name;
+    this.statusFilter = 'all';
   },
   
   onEditUser: function(e) {     
@@ -41,12 +54,30 @@ TextLab.UserListView = Backbone.View.extend({
       
     return false;
   },
+
+  onFilterSelect: function() {
+    this.statusFilter = this.$('#statusFilter').val();
+    this.render();
+  },
   
-  render: function() {                      
+  render: function() {    
+
+    var users;
+    if( this.statusFilter == 'all') {
+      users = this.collection.toJSON();
+    } else {
+      users = _.filter( this.collection.toJSON(), function(user) {
+        return user.account_status == this.statusFilter;
+      }, this);      
+    }
+
     this.$el.html(this.template({ 
-      users: this.collection.toJSON(), 
+      users: users, 
       isAdmin: this.isAdmin,
-      siteName: this.siteName 
+      siteName: this.siteName, 
+      partials: this.partials,
+      accountFilterTypes: this.accountFilterTypes,
+      statusFilter: this.statusFilter
     }));
   }
   
