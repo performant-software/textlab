@@ -54,6 +54,15 @@
             error: false 
           }) %>  
         <% } %>
+        <%= partials.dropdownInput( { 
+            field_name: 'account_status', 
+            field_title: 'Account Status', 
+            field_value: user.get('account_status'), 
+            field_instructions: 'Status of this account.', 
+            no_blank: true,
+            options: accountStatusTypes,
+            error: false 
+        }) %>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default cancel-button">Cancel</button>

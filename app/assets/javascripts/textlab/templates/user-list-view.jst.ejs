@@ -17,6 +17,7 @@
       <th>Site Name</th> 
       <th>User Type</th>
     <% } %>
+    <th>Status</th> 
     <th>Actions</th>
   </tr>
   <% _.each( users, function(user) { %> 
@@ -28,6 +29,7 @@
         <td><%= user.site_name %></td> 
         <td><%= user.user_type %></td> 
       <% } %>
+      <td><%= user.account_status %></td>
       <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
     </tr>
   <% }); %>

@@ -50,7 +50,8 @@ class User < ActiveRecord::Base
       site_id: self.site.nil? ? nil : self.site.id,
       site_name: self.site.nil? ? '' : self.site.name,
       email: self.email,
-      user_type: self.user_type
+      user_type: self.user_type,
+      account_status: self.account_status
     }
   end
 end

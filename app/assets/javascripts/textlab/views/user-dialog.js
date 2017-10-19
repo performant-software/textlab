@@ -10,6 +10,12 @@ TextLab.UserDialog = Backbone.View.extend({
     { value: 'admin', text: 'TextLab Admin' } 
   ],
   
+  accountStatusTypes: [ 
+    { value: 'pending', text: 'Pending' },
+    { value: 'active', text: 'Active' },
+    { value: 'archived', text: 'Archived' } 
+  ],
+
 	partials: {
 		stringInput: JST['textlab/templates/common/string-input'],
     dropdownInput: JST['textlab/templates/common/dropdown-input']
@@ -35,7 +41,8 @@ TextLab.UserDialog = Backbone.View.extend({
         last_name: this.$('#last_name').val(),
         email: this.$('#email').val(),
         site_id: this.$('#site').val(),  
-        user_type: this.$('#user_type').val()  
+        user_type: this.$('#user_type').val(),
+        account_status: this.$('#account_status').val()    
       });
       this.callback(this.model);
     }, this));
@@ -72,6 +79,7 @@ TextLab.UserDialog = Backbone.View.extend({
       user: this.model, 
       sites: siteList, 
       userTypes: this.userTypes, 
+      accountStatusTypes: this.accountStatusTypes,
       partials: this.partials,
       isAdmin: this.isAdmin
     })); 
