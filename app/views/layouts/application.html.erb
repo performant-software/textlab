@@ -9,7 +9,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if user_signed_in? && current_user.enabled? %>
+  <% if user_signed_in? && current_user.account_status == 'active' %>
     <%= render partial: 'layouts/header' %>
   <% end %>
   <div class="content">

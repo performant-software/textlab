@@ -23,7 +23,7 @@ TextLab.UserListView = Backbone.View.extend({
 	initialize: function(options) {
     this.isAdmin = (TextLabSettings.user_type == 'admin');
     this.siteName = TextLabSettings.site_name;
-    this.statusFilter = 'all';
+    this.statusFilter = 'active';
   },
   
   onEditUser: function(e) {     
