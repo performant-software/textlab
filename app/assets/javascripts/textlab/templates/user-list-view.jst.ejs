@@ -5,7 +5,7 @@
   <h2>User Accounts</h2>
   <p><a href='#sites'>Manage Sites</a></p>
 <% } else { %>
-  <h2><%= siteName %> - User Accounts</h2>
+  <h2><%= siteName %> - User Accounts (<%= users.length %>)</h2>
 <% } %>
 
 <table class="table table-striped">
@@ -13,8 +13,10 @@
     <th>Full Name</th>
     <th>Username</th>
     <th>Email</th> 
-    <th>Site Name</th> 
-    <th>User Type</th>
+    <% if( isAdmin ) { %> 
+      <th>Site Name</th> 
+      <th>User Type</th>
+    <% } %>
     <th>Actions</th>
   </tr>
   <% _.each( users, function(user) { %> 
@@ -22,8 +24,10 @@
       <td><%= user.full_name %></td>
       <td><%= user.username %></td>
       <td><%= user.email %></td>
-      <td><%= user.site_name %></td>
-      <td><%= user.user_type %></td>
+      <% if( isAdmin ) { %> 
+        <td><%= user.site_name %></td> 
+        <td><%= user.user_type %></td> 
+      <% } %>
       <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
     </tr>
   <% }); %>
