@@ -53,18 +53,12 @@
             options: userTypes,
             error: false 
           }) %>  
-        <% } %>
-        <%= partials.dropdownInput( { 
-            field_name: 'account_status', 
-            field_title: 'Account Status', 
-            field_value: user.get('account_status'), 
-            field_instructions: 'Status of this account.', 
-            no_blank: true,
-            options: accountStatusTypes,
-            error: false 
-        }) %>  
+        <% } %> 
       </div>
       <div class="modal-footer">
+        <% if( user.get('account_status') != 'archived' ) { %> 
+          <button data-id="<%= user.id %>" class="btn btn-danger btn-sm archive-user-button"><i class="fa fa-archive fa-lg"></i> Archive</button>
+        <% } %>
         <button type="button" class="btn btn-default cancel-button">Cancel</button>
         <button type="button" class="btn btn-primary ok-button">OK</button>
       </div>

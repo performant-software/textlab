@@ -46,8 +46,22 @@
           <td><%= user.site_name %></td> 
           <td><%= user.user_type %></td> 
         <% } %>
-        <td><%= user.account_status %></td>
-        <td><button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button></td>
+        <td>
+          <% if( user.account_status == 'active' ) { %>
+            <span class="label label-success">active</span>
+          <% } else if( user.account_status == 'pending' ) { %>
+            <span class="label label-warning">pending</span>
+          <% } else { %>
+            <span class="label label-default">archived</span>
+          <% } %>
+        </td>
+        <td>
+          <button data-id="<%= user.id %>" class="btn btn-default btn-sm edit-user-button"><i class="fa fa-pencil fa-lg"></i> Edit</button>
+          <% if( user.account_status == 'pending' || 
+                 user.account_status == 'archived'    ) { %> 
+            <button data-id="<%= user.id %>" class="btn btn-success btn-sm activate-user-button"><i class="fa fa-check fa-lg"></i> Activate</button>
+          <% } %>
+        </td>
       </tr>
     <% }); %>
   </table>

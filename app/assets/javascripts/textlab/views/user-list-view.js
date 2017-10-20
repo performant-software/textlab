@@ -5,6 +5,7 @@ TextLab.UserListView = Backbone.View.extend({
   id: 'user-list-view',
   
   events: {
+    'click .activate-user-button': "onActivateUser",
     'click .edit-user-button': "onEditUser",
     'change #statusFilter': "onFilterSelect"
   },
@@ -53,6 +54,26 @@ TextLab.UserListView = Backbone.View.extend({
     }, this));          
       
     return false;
+  },
+
+  onActivateUser: function(e) {
+
+    var activateButton = $(e.currentTarget);
+    var userID = parseInt(activateButton.attr("data-id")); 
+    var user = this.collection.get(userID);
+    user.set( 'requested_status', 'active' );
+
+    user.save(null, { 
+      success: _.bind( function( user ) {  
+        this.render();
+        if( user.get('account_status') != 'active' ) {
+          alert('Unable to activate user, insufficient accounts available.')          
+        }
+      },this),      
+      error: TextLab.Routes.routes.onError 
+    });
+      
+    return false;    
   },
 
   onFilterSelect: function() {

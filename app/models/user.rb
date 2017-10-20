@@ -25,8 +25,22 @@ class User < ActiveRecord::Base
    self.user_type == 'admin'
   end
 
-  def enabled?
-   true
+  def requested_status=( status )
+    # filter out bad requests
+    return false if status.nil? || 
+       status == self.account_status ||
+       ( status != 'active' && status != 'archived' )
+
+    if status == 'active'
+      # if active, check for available space 
+      return false unless self.site.accounts_available?
+      self.account_status = 'active'
+    else
+      # if not active, must be archived.
+      self.account_status = 'archived'
+    end
+
+    return true
   end
 
   def self.get_all( current_user )

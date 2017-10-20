@@ -7,7 +7,11 @@ class Site < ActiveRecord::Base
   end
 
   def account_count
-    self.users.length
+    self.users.where(account_status: 'active').length
+  end
+
+  def accounts_available?
+    ( account_count < self.max_accounts )
   end
 
   def obj

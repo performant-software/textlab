@@ -46,9 +46,9 @@ class AccountsController < ApplicationController
   def user_params
     # only admins can change user_type and site_id
     if current_user.admin?
-      params.permit( :username, :first_name, :last_name, :email, :user_type, :site_id, :account_status )
+      params.permit( :username, :first_name, :last_name, :email, :user_type, :site_id, :requested_status )
     else
-      params.permit( :username, :first_name, :last_name, :email, :account_status )
+      params.permit( :username, :first_name, :last_name, :email, :requested_status )
     end
   end
 end
