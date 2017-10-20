@@ -22,6 +22,7 @@ TextLab.UserDialog = Backbone.View.extend({
 	},
   
   events: {
+    'click .archive-user-button': 'onArchive',
     'click .ok-button': 'onOK',
     'click .cancel-button': 'onCancel'
   },
@@ -43,6 +44,13 @@ TextLab.UserDialog = Backbone.View.extend({
         site_id: this.$('#site').val(),  
         user_type: this.$('#user_type').val()  
       });
+      this.callback(this.model);
+    }, this));
+  },
+
+  onArchive: function() {
+    this.close( _.bind( function() {            
+      this.model.set( 'requested_status', 'archived' );
       this.callback(this.model);
     }, this));
   },
