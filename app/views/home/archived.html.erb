@@ -1,3 +1,6 @@
 
-<p>Your account has been archived.</p>
-<p><%= link_to "Log Out", destroy_user_session_path, method: :delete %></p>
+<div id='account-pending-panel' class="jumbotron">
+  <h1>Your account is archived.</h1>
+  <p>The site administrator has archived your account. Please contact your site administrator if you feel you have reached this page in error.</p>
+  <p><%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-primary btn-lg', method: :delete %></p>
+</div>

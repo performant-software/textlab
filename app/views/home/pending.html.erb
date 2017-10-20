@@ -1,3 +1,6 @@
 
-<p>Your account is pending approval.</p>
-<p><%= link_to "Log Out", destroy_user_session_path, method: :delete %></p>
+<div id='account-pending-panel' class="jumbotron">
+  <h1>Your account has been created.</h1>
+  <p>The site administrator has been notified and your account is pending approval. You will be notified via email when your account is approved.</p>
+  <p><%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-primary btn-lg', method: :delete %></p>
+</div>
