@@ -12,6 +12,10 @@ class User < ActiveRecord::Base
          
  has_many :memberships
  belongs_to :site
+
+  before_create do
+    self.account_status = 'pending'
+  end 
   
   def display_name
     "#{first_name} #{last_name} (#{username})"
