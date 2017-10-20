@@ -1,0 +1,21 @@
+---
+layout: post
+title:  "TextLab 2.0"
+date:   2017-10-13 09:53:49 -0400
+categories: release
+---
+
+A warm welcome scholars from the Melville Electronic Library (MEL) at Hofstra University and to the students and faculty at the United States Air Force Academy (USAFA)!
+
+
+USAFA Access Instructions
+=========
+
+If your access to TextLab is sponsored by USAFA, you may create a new account by clicking on the login link above and then click on "Sign Up". When creating your account, be sure to select "United States Air Force Academy" as your institution. After you create your account, you will need to wait for your site admin to approve your access. 
+
+MEL Access Instructions
+=========
+
+If you have an account from TextLab 1.0 (mel.hofstra.edu) then your account has been migrated to TextLab 2.0. However, since we can't move your password from one server to another, in order to login you will need to reset your password. To do this, click on the Login button and then click on "Forgot My Password". The system will send you a link to reset your password.
+
+
