@@ -1,13 +1,13 @@
 #tabbed-editor {
-  
+
   margin-top: 5px;
-  position: fixed;
-  
+  //position: fixed;
+
   .tab-button {
     margin-right: 5px;
     float: right;
   }
-    
+
   ul.tabs {
     background:  #e6e6e6;
     list-style-type: none;
@@ -40,11 +40,11 @@
   .clr {
     clear: both;
   }
-  
+
   .close-x {
     margin-top: 2px;
     margin-left: 10px;
     float: right;
   }
-    
+
 }
