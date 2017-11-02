@@ -1,7 +1,13 @@
-#tabbed-editor {
+#editor_buttons{
+	position:absolute;
+	top:5px;
+	right:1px;
+	min-width:12rem;
+}
 
-  margin-top: 5px;
-  //position: fixed;
+#tabbed-editor {
+	padding: 30px 0 0 0;
+    height: 100%;
 
   .tab-button {
     margin-right: 5px;
