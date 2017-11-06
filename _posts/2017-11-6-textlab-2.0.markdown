@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  "TextLab 2.0"
-date:   2017-10-13 09:53:49 -0400
+title:  "Welcome to TextLab!"
+date:   2017-11-6 09:53:49 -0400
 categories: release
 ---
 
