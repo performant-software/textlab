@@ -2,8 +2,10 @@ source 'https://rubygems.org'
 ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
 
 # Core
+require 'ejs'
 gem 'rails', '4.2.9'
 gem 'activerecord-jdbcpostgresql-adapter'
+gem 'sprockets-rails', '2.1.4'
 
 # Heroku
 gem 'rails_12factor', group: :production
@@ -23,7 +25,7 @@ gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass'
 gem 'uglifier', '>= 1.3.0'
 gem 'therubyrhino'
-gem "less-rails"
+gem "less-rails", '2.6.0'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-sass-rails'
@@ -32,7 +34,7 @@ gem 'rails-backbone'
 gem 'underscore-rails'
 
 # Testing
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 # Docs
 gem 'sdoc', '~> 0.4.0', group: :doc
