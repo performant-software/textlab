@@ -71,10 +71,10 @@ GEM
       actionmailer (>= 4.0, < 6)
       activesupport (>= 4.0, < 6)
     execjs (2.7.0)
-    factory_girl (4.8.0)
+    factory_bot (4.8.2)
       activesupport (>= 3.0.0)
-    factory_girl_rails (4.8.0)
-      factory_girl (~> 4.8.0)
+    factory_bot_rails (4.8.2)
+      factory_bot (~> 4.8.2)
       railties (>= 3.0.0)
     ffi (1.9.18-java)
     font-awesome-sass (4.7.0)
@@ -207,7 +207,7 @@ DEPENDENCIES
   devise
   devise-encryptable
   exception_notification
-  factory_girl_rails
+  factory_bot_rails
   font-awesome-sass
   jbuilder (~> 2.0)
   jquery-rails
@@ -230,4 +230,4 @@ RUBY VERSION
    ruby 2.3.3p0 (jruby 9.1.12.0)
 
 BUNDLED WITH
-   1.15.2
+   1.16.0

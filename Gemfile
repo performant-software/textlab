@@ -22,8 +22,8 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass'
 gem 'uglifier', '>= 1.3.0'
-gem 'therubyrhino'  
-gem "less-rails"  
+gem 'therubyrhino'
+gem "less-rails"
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'jquery-ui-sass-rails'
@@ -32,8 +32,7 @@ gem 'rails-backbone'
 gem 'underscore-rails'
 
 # Testing
-gem 'factory_girl_rails'
+gem 'factory_bot_rails'
 
 # Docs
 gem 'sdoc', '~> 0.4.0', group: :doc
-
