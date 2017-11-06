@@ -16,6 +16,6 @@
 
 # just for my local
 jruby-bundle.sh 
-.sass-cache
+
 /.idea
 .env
