@@ -208,7 +208,6 @@ DEPENDENCIES
   bootstrap-sass (~> 3.3.5)
   devise
   devise-encryptable
-  ejs
   exception_notification
   factory_bot_rails
   font-awesome-sass
