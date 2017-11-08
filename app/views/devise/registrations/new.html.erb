@@ -29,6 +29,19 @@
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: "form-control" %>
       </div>
+	  
+	  <div class="field">
+        <%= f.label :password %>
+        <% if @minimum_password_length %>
+        <em>(<%= @minimum_password_length %> characters minimum)</em>
+        <% end %><br />
+        <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.label :password_confirmation %><br />
+        <%= f.password_field :password_confirmation, autocomplete: "off", required: true, class: "form-control" %>
+      </div>
 
       <div class="field">
         <%= f.label :site_id, 'Institutional Sponsor' %><br />
