@@ -18,7 +18,6 @@ gem 'saxon-xslt', '~> 0.7.2'
 gem 'nokogiri'
 
 # Asset Pipeline
-gem 'sass'
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.3.5'
 gem 'font-awesome-sass'
