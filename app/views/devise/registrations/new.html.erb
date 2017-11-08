@@ -2,11 +2,11 @@
   <div class="panel-body">
     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-signup'}) do |f| %>
       <h2 class="form-signup-heading">Sign up for TextLab</h2>
+	  A confirmation link will be emailed to you to complete the signup process.
+      <br/><br/>
 
-      <br/>
-      
       <%= devise_error_messages! %>
-      
+
 		  <div class="devise-notice"><%= notice %></div>
 		  <div class="devise-alert"><%= alert %></div>
 
@@ -29,26 +29,13 @@
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: "form-control" %>
       </div>
-            
-      <div class="field">
-        <%= f.label :password %>
-        <% if @minimum_password_length %>
-        <em>(<%= @minimum_password_length %> characters minimum)</em>
-        <% end %><br />
-        <%= f.password_field :password, autocomplete: "off", required: true, class: "form-control" %>
-      </div>
-
-      <div class="field">
-        <%= f.label :password_confirmation %><br />
-        <%= f.password_field :password_confirmation, autocomplete: "off", required: true, class: "form-control" %>
-      </div>
 
       <div class="field">
         <%= f.label :site_id, 'Institutional Sponsor' %><br />
-        <%= f.collection_select :site_id, 
+        <%= f.collection_select :site_id,
               Site.all.order('name'),
               :id,
-              :name, 
+              :name,
               include_blank: false
         %>
       </div>
@@ -58,4 +45,4 @@
       </div>
     <% end %>
   </div>
-</div>      
+</div>
