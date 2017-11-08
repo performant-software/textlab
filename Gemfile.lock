@@ -214,8 +214,7 @@ DEPENDENCIES
   rails (= 4.2.9)
   rails-backbone
   rails_12factor
-  sass (= 3.4.25)
-  sass-rails (~> 5.0)
+  sass-rails (~> 5.0.6)
   saxon-xslt (~> 0.7.2)
   sdoc (~> 0.4.0)
   therubyrhino
