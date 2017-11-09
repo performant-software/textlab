@@ -1,6 +1,9 @@
 
 <div id='account-pending-panel' class="jumbotron">
-  <h1>Your account is archived.</h1>
-  <p>The site administrator has archived your account. Please contact your site administrator if you feel you have reached this page in error.</p>
-  <p><%= link_to "Log Out", destroy_user_session_path, class: 'btn btn-primary btn-lg', method: :delete %></p>
+  <h1>This account is not active.</h1>
+  <p>To use this account, it needs to be activated by a site administrator.</p>
+
+	  <p>If you have recently signed up, this account has probably not been activated yet. If this is an older account, it may have been archived by the site administrator.
+	  Please contact your site administrator if you feel you have reached this page in error.</p>
+  <p><%= link_to "Ok", destroy_user_session_path, class: 'btn btn-primary btn-lg', method: :delete %></p>
 </div>

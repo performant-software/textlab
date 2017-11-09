@@ -29,7 +29,7 @@
         <%= f.label :last_name %>
         <%= f.text_field :last_name, class: "form-control" %>
       </div>
-	  
+
 	  <div class="field">
         <%= f.label :password %>
         <% if @minimum_password_length %>
@@ -52,10 +52,11 @@
               include_blank: false
         %>
       </div>
-
-      <div class="actions">
-        <%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %>
-      </div>
+	  <center>
+      	<div class="actions">
+        	<%= f.submit "Sign up", class: "btn btn-lg btn-primary btn-block" %>
+      	</div>
+		</center>
     <% end %>
   </div>
 </div>
