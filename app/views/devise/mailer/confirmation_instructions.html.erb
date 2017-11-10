@@ -3,3 +3,6 @@
 <p>You can confirm your account email through the link below:</p>
 
 <p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+
+If you're having trouble, please cut and paste the following link into your browser:
+<%= confirmation_url(@resource, confirmation_token: @token) %>
