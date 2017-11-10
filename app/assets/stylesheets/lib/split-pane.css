@@ -89,13 +89,17 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
 .split-pane.fixed-left > .split-pane-divider > .split-pane-divider-inner,
 .split-pane.fixed-right > .split-pane-divider > .split-pane-divider-inner,
 .split-pane.vertical-percent > .split-pane-divider > .split-pane-divider-inner {
-	position: absolute;
-	top: 0;
-	left: -5px;
-	box-sizing: content-box;
-	width: 100%;
+	/* position: absolute; */
+	/* top: 0; */
+	/* left: -5px; */
+	/* box-sizing: content-box; */
+	/* width: .1rem; */
 	height: 100%;
-	padding: 0 5px;
+	/* padding: 0 5px; */
+	/* z-index: 50000; */
+	background-color: #F4E2D4;
+	/* border: 1px solid black; */
+	/* width: 1px !important; */
 }
 
 .split-pane-resize-shim {
