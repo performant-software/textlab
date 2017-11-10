@@ -1,0 +1,28 @@
+/* line 3, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel hi[rend="bold"] {
+  font-weight: bold;
+}
+/* line 7, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel table.table, #sequence-panel table.table td {
+  border: none;
+}
+/* line 11, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel table.table tr {
+  border: solid 1px #D3D3D3;
+}
+/* line 15, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel .actions {
+  float: right;
+}
+/* line 19, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel #sequence-grid {
+  padding: 5px;
+}
+/* line 23, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel #sequence-grid .step-column {
+  width: 300px;
+}
+/* line 27, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/sequence-panel.scss */
+#sequence-panel #sequence-grid .narrative-column {
+  width: 300px;
+}

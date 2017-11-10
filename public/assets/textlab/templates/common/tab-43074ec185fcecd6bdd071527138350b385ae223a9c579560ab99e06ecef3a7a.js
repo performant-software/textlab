@@ -1,0 +1,2 @@
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/common/tab"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<li class=\'doc-tab\' id=\'',  id ,'\' >\n\t<span>\n\t\t<i class="accept-star ',  star ? 'fa fa-star' : '' ,'"></i> \n\t\t<i class="',  icon ,'"></i> \n\t\t<span class=\'name\'>',  name ,'</span>\n\t</span> \n\t<div class="close-x fa fa-times-circle" data-tab-id="',  id ,'"></div>\n</li>\n');}return __p.join('');};
+}).call(this);

@@ -1,0 +1,21 @@
+/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/user-list-view.scss */
+#user-list-view {
+  margin: 20px;
+}
+/* line 3, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/user-list-view.scss */
+#user-list-view h2 {
+  margin-bottom: 50px;
+}
+/* line 8, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/user-list-view.scss */
+#user-list-view .filter-panel {
+  width: 300px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* line 14, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/user-list-view.scss */
+#user-list-view .no-users-panel {
+  width: 400px;
+  margin-top: 100px;
+  padding: 20px;
+  border: dashed 1px gray;
+}

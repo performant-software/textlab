@@ -1,0 +1,16 @@
+/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/section-viewer.scss */
+#section-viewer {
+  margin: 20px;
+}
+/* line 4, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/section-viewer.scss */
+#section-viewer h2 {
+  margin-bottom: 50px;
+}
+/* line 8, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/section-viewer.scss */
+#section-viewer .thumb {
+  float: left;
+}
+/* line 12, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/section-viewer.scss */
+#section-viewer .transcription {
+  margin-left: 240px;
+}

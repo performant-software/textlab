@@ -1,0 +1,46 @@
+/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer {
+  margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  line-height: 3.2em;
+}
+/* line 8, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer #openseadragon {
+  width: 490px;
+  height: 550px;
+  margin: 20px;
+  border: 1px solid black;
+}
+/* line 15, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer #diplomatic-panel {
+  width: 490px;
+  height: 550px;
+  margin: 20px;
+  border: 1px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+/* line 24, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer #base-panel {
+  width: 490px;
+  height: 550px;
+  margin: 20px;
+  border: 1px solid black;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+/* line 33, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer .nav-actions {
+  padding-top: 10px;
+  padding-left: 150px;
+}
+/* line 37, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer .nav-actions .next-leaf-button {
+  padding-left: 30px;
+}
+/* line 42, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/tl-viewer/leaf-viewer.scss */
+#leaf-viewer .seq-highlight {
+  color: white;
+  background: blue;
+}
