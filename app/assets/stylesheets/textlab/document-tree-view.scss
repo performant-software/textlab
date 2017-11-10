@@ -1,19 +1,19 @@
 #document-tree-view {
-  
-  position: fixed;
+
+  //position: fixed;
 
   #document-toolbar {
     padding: 5px;
   	border-bottom: 1px solid gray;
   	background: #e6e6e6;
   }
-  
+
   #tree-container {
     padding: 5px;
     overflow-y: scroll;
-    width: 95%;
+    width: 100%;;
   }
-    
+
 }
 
 ul.fancytree-container {
