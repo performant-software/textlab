@@ -94598,7 +94598,7 @@ TextLab.Routes = Backbone.Router.extend({
             error: false 
           }) ,'    \n      </div>      \n      <div class="modal-footer">\n        <button type="button" class="btn btn-default cancel-button">Cancel</button>\n        <button type="button" class="btn btn-primary ok-button">OK</button>\n      </div>\n    </div>\n  </div>\n</div>\n');}return __p.join('');};
 }).call(this);
-(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/primary-editing-view"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class=\'popover-anchor\'></div>\n<div id="modal-container"></div>\n<div class="pretty-split-pane-frame">\n\t<div class="split-pane fixed-left">\n\t\t<div class="split-pane-component" id="document-tree-panel">\n\t\t\t<div class="pretty-split-pane-component-inner">\n        <div id=\'document-tree-view\'></div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="split-pane-divider" id="my-divider"></div>\n\t\t<div class="split-pane-component" id="right-component">\n      <!-- Editor View -->\n        <div class="split-pane horizontal-percent editor-view">\n  \t\t\t\t<div class="split-pane-component" id="surface-view-panel">\n  \t\t\t\t\t<div class="pretty-split-pane-component-inner">\n              <div id=\'surface-view\'></div>\n  \t\t\t\t\t</div>\n  \t\t\t\t</div>\n  \t\t\t\t<div class="split-pane-divider editor-view" id="horizontal-divider2"></div>\n  \t\t\t\t<div class="split-pane-component editor-view" id="xml-editor-panel">\n  \t\t\t\t\t<div class="pretty-split-pane-component-inner">\n              <div id=\'tabbed-editor\'></div>\n  \t\t\t\t\t</div>\n  \t\t\t\t</div>\n  \t\t\t </div>\n      <!--  Explorer View -->\n      <div class="pretty-split-pane-component-inner explorer-view">\n        <div id=\'document-explorer\'></div>\n      </div>\n\t\t</div>\n\t</div>\n</div>\n');}return __p.join('');};
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/primary-editing-view"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class=\'popover-anchor\'></div>\n<div id="modal-container"></div>\n<div class="pretty-split-pane-frame">\n\n\t<div class="split-pane fixed-left">\n\t\t<div class="split-pane-component" id="document-tree-panel">\n\t\t\t<div class="pretty-split-pane-component-inner">\n\t\t\t\t<div id=\'document-tree-view\'></div>\n\t\t\t</div>\n\t\t</div>\n\t\t<div class="split-pane-divider" id="vertical-divider"></div>\n\t\t<div class="split-pane-component" id="right-component">\n\t\t\t<!-- Editor View -->\n\t\t\t<div class="split-pane horizontal-percent editor-view">\n\t\t\t\t<div class="split-pane-component" id="surface-view-panel">\n\t\t\t\t\t<div class="pretty-split-pane-component-inner">\n\t\t\t\t\t\t<div id=\'surface-view\'></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t\t<div class="split-pane-divider editor-view" id="horizontal-divider2"></div>\n\t\t\t\t<div class="split-pane-component editor-view" id="xml-editor-panel">\n\t\t\t\t\t<div class="pretty-split-pane-component-inner">\n\t\t\t\t\t\t<div id=\'tabbed-editor\'></div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<!--  Explorer View -->\n\t\t\t<div class="pretty-split-pane-component-inner explorer-view">\n\t\t\t\t<div id=\'document-explorer\'></div>\n\t\t\t</div>\n\t\t</div>\n\t</div>\n\n</div>\n');}return __p.join('');};
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/section-dialog"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class="modal fade" id="section-modal" tabindex="-1" role="dialog" aria-labelledby="sectionModal">\n  <div class="modal-dialog" role="document">\n    <div class="modal-content">\n      <div class="modal-header">\n        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title" id="sectionModal">',  (mode=='edit'? 'Edit' : 'New') ,' Section</h4>\n      </div>\n      <div class="modal-body">\n        ',  partials.stringInput( { 
             field_name: 'name', 
@@ -94640,7 +94640,7 @@ TextLab.Routes = Backbone.Router.extend({
               error: false 
             }) ,'  \n        ');  } ; __p.push('\n      </div>\n      <div class="modal-footer">\n        <button type="button" class="btn btn-default cancel-button">Cancel</button>\n        <button type="button" class="btn btn-primary ok-button">OK</button>\n      </div>\n    </div>\n  </div>\n</div>\n');}return __p.join('');};
 }).call(this);
-(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/tabbed-editor"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<button class=\'btn btn-default btn-xs tab-button open-tab-button\'><i class="fa fa-pencil"></i> Open</button>\n<button class=\'btn btn-default btn-xs tab-button new-tab-button\'><i class="fa fa-plus"></i> New</button>\n<ul class="tabs">\n</ul>\n<div class="clr"></div>\n<div class="tab-panes">\n</div>\n');}return __p.join('');};
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/tabbed-editor"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div id="editor_buttons">\n\t<button class=\'btn btn-default btn-xs tab-button open-tab-button\'><i class="fa fa-pencil"></i> Open</button>\n\t<button class=\'btn btn-default btn-xs tab-button new-tab-button\'><i class="fa fa-plus"></i> New</button>\n</div>\n<ul class="tabs">\n</ul>\n<div class="clr"></div>\n<div class="tab-panes">\n</div>\n');}return __p.join('');};
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/user-dialog"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class="modal fade" id="user-modal" tabindex="-1" role="dialog" aria-labelledby="userModal">\n  <div class="modal-dialog" role="document">\n    <div class="modal-content">\n      <div class="modal-header">\n        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title" id="userModal">Edit User Account</h4>\n      </div>\n      <div class="modal-body">\n        ',  partials.stringInput( { 
             field_name: 'first_name', 
@@ -97891,87 +97891,87 @@ TextLab.UserDialog = Backbone.View.extend({
 TextLab.UserListView = Backbone.View.extend({
 
 	template: JST['textlab/templates/user-list-view'],
-    
+
   id: 'user-list-view',
-  
+
   events: {
     'click .activate-user-button': "onActivateUser",
     'click .edit-user-button': "onEditUser",
     'change #statusFilter': "onFilterSelect"
   },
 
-  accountFilterTypes: [ 
+  accountFilterTypes: [
     { value: 'all', text: 'No Filter' },
     { value: 'pending', text: 'Pending Status' },
     { value: 'active', text: 'Active Status' },
-    { value: 'archived', text: 'Archived Status' } 
+    { value: 'archived', text: 'Archived Status' }
   ],
 
   partials: {
     dropdownInput: JST['textlab/templates/common/dropdown-input']
   },
-            	
+
 	initialize: function(options) {
     this.isAdmin = (TextLabSettings.user_type == 'admin');
     this.siteName = TextLabSettings.site_name;
     this.statusFilter = 'active';
   },
-  
-  onEditUser: function(e) {     
+
+  onEditUser: function(e) {
     var editButton = $(e.currentTarget);
     var userID = parseInt(editButton.attr("data-id"));
 
     var callback = _.bind(function(site) {
-      site.save(null, { 
-        success: _.bind( function( site ) {  
+      site.save(null, {
+        success: _.bind( function( site ) {
           this.render();
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
     }, this);
- 
+
     var user = this.collection.get(userID);
 
     // load sites before we display dialog
     this.collection.getSites( _.bind(function( sites ) {
-      var userDialog = new TextLab.UserDialog( { 
-        model: user, 
+      var userDialog = new TextLab.UserDialog( {
+        model: user,
         callback: callback,
         sites: sites,
         isAdmin: this.isAdmin
       });
-      userDialog.render();   
-    }, this));          
-      
+      userDialog.render();
+    }, this));
+
     return false;
   },
 
   onActivateUser: function(e) {
 
     var activateButton = $(e.currentTarget);
-    var userID = parseInt(activateButton.attr("data-id")); 
+    var userID = parseInt(activateButton.attr("data-id"));
     var user = this.collection.get(userID);
     user.set( 'requested_status', 'active' );
 
-    user.save(null, { 
-      success: _.bind( function( user ) {  
+    user.save(null, {
+      success: _.bind( function( user ) {
         this.render();
         if( user.get('account_status') != 'active' ) {
-          alert('Unable to activate user, insufficient accounts available.')          
+          alert('Unable to activate user, insufficient accounts available.')
         }
-      },this),      
-      error: TextLab.Routes.routes.onError 
+      },this),
+      error: TextLab.Routes.routes.onError
     });
-      
-    return false;    
+
+    return false;
   },
 
   onFilterSelect: function() {
     this.statusFilter = this.$('#statusFilter').val();
     this.render();
   },
-  
-  render: function() {    
+
+  render: function() {
 
     var users;
     if( this.statusFilter == 'all') {
@@ -97979,19 +97979,19 @@ TextLab.UserListView = Backbone.View.extend({
     } else {
       users = _.filter( this.collection.toJSON(), function(user) {
         return user.account_status == this.statusFilter;
-      }, this);      
+      }, this);
     }
 
-    this.$el.html(this.template({ 
-      users: users, 
+    this.$el.html(this.template({
+      users: users,
       isAdmin: this.isAdmin,
-      siteName: this.siteName, 
+      siteName: this.siteName,
       partials: this.partials,
       accountFilterTypes: this.accountFilterTypes,
       statusFilter: this.statusFilter
     }));
   }
-  
+
 });
 TextLab.XMLEditor = Backbone.View.extend({
     

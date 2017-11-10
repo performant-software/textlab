@@ -12658,10 +12658,6 @@ button.close {
   padding-top: 8px;
 }
 
-/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-tree-view.scss */
-#document-tree-view {
-  position: fixed;
-}
 /* line 5, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-tree-view.scss */
 #document-tree-view #document-toolbar {
   padding: 5px;
@@ -12672,7 +12668,7 @@ button.close {
 #document-tree-view #tree-container {
   padding: 5px;
   overflow-y: scroll;
-  width: 95%;
+  width: 100%;
 }
 
 /* line 19, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-tree-view.scss */
@@ -12780,19 +12776,19 @@ ul.fancytree-container {
 
 /* line 4, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view .pretty-split-pane-frame {
-  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding: 5px;
   padding-top: 5px;
-  background: #F4E2D4;
+  background-color: #F4E2D4;
+  z-index: 5000 !important;
 }
-/* line 13, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 14, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view .pretty-split-pane-frame .split-pane > .split-pane-divider.dragged.touch {
   background: blue;
   opacity: 0.25;
 }
-/* line 18, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 19, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view .pretty-split-pane-component-inner {
   box-sizing: border-box;
   border: 1px solid gray;
@@ -12801,41 +12797,42 @@ ul.fancytree-container {
   height: 100%;
   overflow: hidden;
 }
-/* line 27, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 28, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #horizontal-divider {
   bottom: 20em;
   height: 5px;
 }
-/* line 32, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 33, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #horizontal-divider2 {
   bottom: 50%;
   height: 5px;
 }
-/* line 37, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 38, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #vertical-divider {
-  left: 10em;
+  left: 25em;
+  /* needs to be the same as document-tree-panel width */
   width: 5px;
 }
-/* line 42, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 43, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #document-tree-panel {
   width: 25em;
 }
-/* line 46, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 47, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #right-component {
   left: 25em;
   margin-left: 5px;
   overflow-y: hidden;
 }
-/* line 52, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 53, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #surface-view-panel {
   bottom: 50%;
   margin-bottom: 5px;
 }
-/* line 57, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 58, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view #xml-editor-panel {
   height: 50%;
 }
-/* line 61, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
+/* line 62, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/primary-editing-view.scss */
 #primary-editing-view .explorer-view {
   overflow-y: scroll;
 }
@@ -12980,23 +12977,31 @@ ul.fancytree-container {
 }
 
 /* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
-#tabbed-editor {
-  margin-top: 5px;
-  position: fixed;
+#editor_buttons {
+  position: absolute;
+  top: 5px;
+  right: 1px;
+  min-width: 12rem;
 }
-/* line 6, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+
+/* line 8, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+#tabbed-editor {
+  padding: 30px 0 0 0;
+  height: 100%;
+}
+/* line 12, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor .tab-button {
   margin-right: 5px;
   float: right;
 }
-/* line 11, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 17, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor ul.tabs {
   background: #e6e6e6;
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-/* line 17, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 23, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor ul.tabs li {
   min-width: 100px;
   background: white;
@@ -13007,27 +13012,27 @@ ul.fancytree-container {
   padding: .25em .5em;
   height: 30px;
 }
-/* line 27, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 33, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor ul.tabs li span {
   /*font-size: 10pt;*/
   color: black;
   text-decoration: none;
 }
-/* line 32, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 38, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor ul.tabs li.active {
   color: black;
   background: #e6e6e6;
 }
-/* line 36, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 42, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor ul.tabs li.active span {
   color: black;
   font-weight: bold;
 }
-/* line 40, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 46, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor .clr {
   clear: both;
 }
-/* line 44, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
+/* line 50, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/tabbed-editor.scss */
 #tabbed-editor .close-x {
   margin-top: 2px;
   margin-left: 10px;
@@ -13063,73 +13068,71 @@ ul.fancytree-container {
 
 /* line 3, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .xml-editor-toolbar {
-  padding: 5px;
-  padding-top: 10px;
-  padding-left: 15px;
+  padding: 20px 5px 20px 15px;
   background: #e6e6e6;
   border-bottom: 1px solid gray;
 }
-/* line 11, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 9, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .zone-link {
   color: white;
   background: blue;
   border: 1px solid gray;
   cursor: pointer;
 }
-/* line 18, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 16, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .broken-zone-link {
   color: white;
   background: red;
   border: 1px solid gray;
 }
-/* line 24, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 22, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .error-message {
   color: red;
   margin-left: 20px;
   margin-top: 5px;
   float: right;
 }
-/* line 31, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 29, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .status-message {
   display: inline;
   margin-left: 20px;
   height: 20px;
 }
-/* line 37, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 35, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .scrollable-menu {
   height: auto;
   max-height: 200px;
   overflow-x: hidden;
 }
-/* line 43, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 41, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .read-only {
   background: #DAECFB;
 }
-/* line 48, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 46, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .readonly-bar button {
   float: right;
 }
-/* line 53, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 51, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .room-for-action-menu {
   width: 130px;
 }
-/* line 57, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 55, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .room-for-action-and-publish {
   width: 220px;
 }
-/* line 61, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 59, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .room-for-return-button {
   width: 330px;
 }
-/* line 65, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 63, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .actions {
   float: right;
 }
-/* line 66, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 64, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .actions button {
   margin-left: 5px;
 }
-/* line 69, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
+/* line 67, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/xml-editor.scss */
 #xml-editor .actions .hidden {
   display: none;
 }
