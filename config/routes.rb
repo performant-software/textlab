@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
-  
+
   root 'home#index'
-  
+
   resources :diplos, only: [ :show, :update, :create, :destroy ]
   resources :documents, only: [ :index, :show, :update, :create, :destroy ]
   resources :document_exports, only: [ :index, :show ]
@@ -18,5 +18,5 @@ Rails.application.routes.draw do
   resources :zone_links, only: [ :show, :update, :create, :destroy ]
   resources :accounts, only: [ :index, :show, :update ]
   resources :sites, only: [ :index, :show, :update, :create, :destroy ]
-   
+
 end
