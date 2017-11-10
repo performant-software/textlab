@@ -30,6 +30,10 @@ class User < ActiveRecord::Base
    self.user_type == 'admin'
   end
 
+  def site_admin?
+   self.user_type == 'site_admin'
+  end
+
   def requested_status=( status )
     # filter out bad requests
     return false if status.nil? ||
