@@ -1,0 +1,12 @@
+/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/site-list-view.scss */
+#site-list-view {
+  margin: 20px;
+}
+/* line 5, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/site-list-view.scss */
+#site-list-view h2 {
+  margin-bottom: 50px;
+}
+/* line 9, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/site-list-view.scss */
+#site-list-view .new-site-button {
+  margin-bottom: 20px;
+}

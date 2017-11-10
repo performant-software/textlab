@@ -1,0 +1,12 @@
+/* line 1, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/header.scss */
+#textlab-header {
+  background: #F4E2D4;
+  height: 50px;
+  padding-right: 10px;
+}
+/* line 6, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/header.scss */
+#textlab-header .right {
+  padding-top: 15px;
+  padding-right: 10px;
+  float: right;
+}

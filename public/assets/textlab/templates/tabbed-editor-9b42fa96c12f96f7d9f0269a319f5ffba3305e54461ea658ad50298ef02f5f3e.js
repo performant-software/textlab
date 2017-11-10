@@ -1,0 +1,2 @@
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/tabbed-editor"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div id="editor_buttons">\n\t<button class=\'btn btn-default btn-xs tab-button open-tab-button\'><i class="fa fa-pencil"></i> Open</button>\n\t<button class=\'btn btn-default btn-xs tab-button new-tab-button\'><i class="fa fa-plus"></i> New</button>\n</div>\n<ul class="tabs">\n</ul>\n<div class="clr"></div>\n<div class="tab-panes">\n</div>\n');}return __p.join('');};
+}).call(this);

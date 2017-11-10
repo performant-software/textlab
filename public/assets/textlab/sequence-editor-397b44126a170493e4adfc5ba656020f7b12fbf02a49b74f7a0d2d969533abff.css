@@ -1,0 +1,95 @@
+/* line 4, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor hi[rend="bold"] {
+  font-weight: bold;
+}
+/* line 8, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .btn {
+  margin-bottom: 5px;
+}
+/* line 12, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .sequence-editor-toolbar {
+  padding: 5px;
+  padding-top: 10px;
+  padding-left: 15px;
+  background: #e6e6e6;
+  border-bottom: 1px solid gray;
+}
+/* line 20, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor #sequence-grid {
+  padding: 5px;
+  overflow-y: scroll;
+}
+/* line 24, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor #sequence-grid .step-column {
+  width: 300px;
+}
+/* line 28, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor #sequence-grid .step-number {
+  float: right;
+  padding-right: 10px;
+}
+/* line 33, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor #sequence-grid .narrative-column {
+  width: 300px;
+}
+/* line 37, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor #sequence-grid .read-only {
+  background: #DAECFB;
+}
+/* line 42, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .zone-link {
+  color: white;
+  background: blue;
+  border: 1px solid gray;
+  cursor: pointer;
+}
+/* line 49, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .broken-zone-link {
+  color: white;
+  background: red;
+  border: 1px solid gray;
+}
+/* line 55, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .status-message {
+  display: inline;
+  margin-left: 20px;
+  height: 20px;
+}
+/* line 61, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .scrollable-menu {
+  height: auto;
+  max-height: 200px;
+  overflow-x: hidden;
+}
+/* line 67, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .read-only {
+  background: #DAECFB;
+}
+/* line 72, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .readonly-bar button {
+  float: right;
+}
+/* line 77, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .room-for-action-menu {
+  width: 130px;
+}
+/* line 81, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .room-for-action-and-publish {
+  width: 220px;
+}
+/* line 85, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .room-for-return-button {
+  width: 330px;
+}
+/* line 89, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .actions {
+  float: right;
+}
+/* line 90, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .actions button {
+  margin-left: 5px;
+}
+/* line 93, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/sequence-editor.scss */
+#sequence-editor .actions .hidden {
+  display: none;
+}

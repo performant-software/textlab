@@ -1,0 +1,14 @@
+/* line 3, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-modal-dialog.scss */
+#document-dialog-container .instructions {
+  padding-top: 2px;
+  padding-left: 4px;
+  padding-bottom: 20px;
+}
+/* line 9, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-modal-dialog.scss */
+#document-dialog-container .modal-body {
+  margin-top: 20px;
+}
+/* line 13, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/app/assets/stylesheets/textlab/document-modal-dialog.scss */
+#document-dialog-container .control-label {
+  padding-top: 8px;
+}

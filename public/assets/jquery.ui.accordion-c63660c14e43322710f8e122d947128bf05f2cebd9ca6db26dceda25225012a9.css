@@ -1,0 +1,50 @@
+/*!
+ * jQuery UI Accordion 1.10.3
+ * http://jqueryui.com
+ *
+ * Copyright 2013 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Accordion#theming
+ */
+/* line 13, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-header {
+  display: block;
+  cursor: pointer;
+  position: relative;
+  margin-top: 2px;
+  padding: .5em .5em .5em .7em;
+  min-height: 0;
+  /* support: IE7 */
+}
+
+/* line 21, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+
+/* line 24, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-noicons {
+  padding-left: .7em;
+}
+
+/* line 27, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-icons .ui-accordion-icons {
+  padding-left: 2.2em;
+}
+
+/* line 30, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-header .ui-accordion-header-icon {
+  position: absolute;
+  left: .5em;
+  top: 50%;
+  margin-top: -8px;
+}
+
+/* line 36, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.accordion.css.scss */
+.ui-accordion .ui-accordion-content {
+  padding: 1em 2.2em;
+  border-top: 0;
+  overflow: auto;
+}

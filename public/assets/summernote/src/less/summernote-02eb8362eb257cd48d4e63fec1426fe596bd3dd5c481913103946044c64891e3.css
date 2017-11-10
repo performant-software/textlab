@@ -1,0 +1,490 @@
+/*---------------------------------------------------
+    LESS Elements 0.9
+  ---------------------------------------------------
+    A set of useful LESS mixins
+    More info at: http://lesselements.com
+  ---------------------------------------------------*/
+/* Theme Variables
+ ------------------------------------------*/
+/* Layout
+ ------------------------------------------*/
+/* line 10, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor {
+  position: relative;
+  /* dropzone */
+}
+/* line 16, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-dropzone {
+  position: absolute;
+  display: none;
+  z-index: 100;
+  color: lightskyblue;
+  background-color: white;
+  opacity: 0.95;
+}
+/* line 24, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-dropzone .note-dropzone-message {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+}
+/* line 32, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-dropzone.hover {
+  color: #098ddf;
+}
+/* line 37, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.dragover .note-dropzone {
+  display: table;
+}
+/* line 41, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-editing-area {
+  position: relative;
+}
+/* line 44, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-editing-area .note-editable {
+  outline: none;
+}
+/* line 47, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-editing-area .note-editable sup {
+  vertical-align: super;
+}
+/* line 51, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor .note-editing-area .note-editable sub {
+  vertical-align: sub;
+}
+
+/* Frame mode layout
+------------------------------------------*/
+/* line 60, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame {
+  border: 1px solid #a9a9a9;
+  /* codeview mode */
+  /* fullscreen mode */
+  /* statusbar */
+}
+/* line 66, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame.codeview .note-editing-area .note-editable {
+  display: none;
+}
+/* line 69, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame.codeview .note-editing-area .note-codable {
+  display: block;
+}
+/* line 75, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-editing-area {
+  overflow: hidden;
+  /* editable */
+  /* codeable */
+}
+/* line 79, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-editing-area .note-editable {
+  background-color: #fff;
+  color: #000;
+  padding: 10px;
+  overflow: auto;
+}
+/* line 85, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-editing-area .note-editable[contenteditable="false"] {
+  background-color: #e5e5e5;
+}
+/* line 91, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-editing-area .note-codable {
+  display: none;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  box-shadow: none;
+  font-family: Menlo, Monaco, monospace, sans-serif;
+  font-size: 14px;
+  color: #ccc;
+  background-color: #222;
+  resize: none;
+  /* override BS2 default style */
+  -ms-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+/* line 111, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  z-index: 1050;
+  /* bs3 modal-backdrop: 1030, bs2: 1040 */
+}
+/* line 117, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame.fullscreen .note-editable {
+  background-color: white;
+}
+/* line 120, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame.fullscreen .note-resizebar {
+  display: none;
+}
+/* line 126, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-statusbar {
+  background-color: #f5f5f5;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+/* line 130, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-statusbar .note-resizebar {
+  padding-top: 1px;
+  height: 8px;
+  width: 100%;
+  cursor: ns-resize;
+}
+/* line 135, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-statusbar .note-resizebar .note-icon-bar {
+  width: 20px;
+  margin: 1px auto;
+  border-top: 1px solid #a9a9a9;
+}
+/* line 142, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-editor.note-frame .note-placeholder {
+  padding: 10px;
+}
+
+/* Popover
+------------------------------------------*/
+/* line 149, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover.popover {
+  max-width: none;
+}
+/* line 152, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover.popover .popover-content a {
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  /* for FF */
+  vertical-align: middle;
+  /* for FF */
+}
+/* line 161, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover.popover .arrow {
+  left: 20px !important;
+}
+
+/* Popover and Toolbar (Button container)
+------------------------------------------*/
+/* line 168, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content, .panel-heading.note-toolbar {
+  margin: 0;
+  padding: 0 0 5px 5px;
+  /* dropdown-menu for toolbar and popover */
+  /* color palette for toolbar and popover */
+}
+/* line 172, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content > .btn-group, .panel-heading.note-toolbar > .btn-group {
+  margin-top: 5px;
+  margin-left: 0;
+  margin-right: 5px;
+}
+/* line 179, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .btn-group .note-table, .panel-heading.note-toolbar .btn-group .note-table {
+  min-width: 0;
+  padding: 5px;
+}
+/* line 182, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .btn-group .note-table .note-dimension-picker, .panel-heading.note-toolbar .btn-group .note-table .note-dimension-picker {
+  font-size: 18px;
+}
+/* line 184, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .btn-group .note-table .note-dimension-picker .note-dimension-picker-mousecatcher, .panel-heading.note-toolbar .btn-group .note-table .note-dimension-picker .note-dimension-picker-mousecatcher {
+  position: absolute !important;
+  z-index: 3;
+  width: 10em;
+  height: 10em;
+  cursor: pointer;
+}
+/* line 191, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .btn-group .note-table .note-dimension-picker .note-dimension-picker-unhighlighted, .panel-heading.note-toolbar .btn-group .note-table .note-dimension-picker .note-dimension-picker-unhighlighted {
+  position: relative !important;
+  z-index: 1;
+  width: 5em;
+  height: 5em;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASAgMAAAAroGbEAAAACVBMVEUAAIj4+Pjp6ekKlAqjAAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfYAR0BKhmnaJzPAAAAG0lEQVQI12NgAAOtVatWMTCohoaGUY+EmIkEAEruEzK2J7tvAAAAAElFTkSuQmCC") repeat;
+}
+/* line 198, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .btn-group .note-table .note-dimension-picker .note-dimension-picker-highlighted, .panel-heading.note-toolbar .btn-group .note-table .note-dimension-picker .note-dimension-picker-highlighted {
+  position: absolute !important;
+  z-index: 2;
+  width: 1em;
+  height: 1em;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASAgMAAAAroGbEAAAACVBMVEUAAIjd6vvD2f9LKLW+AAAAAXRSTlMAQObYZgAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfYAR0BKwNDEVT0AAAAG0lEQVQI12NgAAOtVatWMTCohoaGUY+EmIkEAEruEzK2J7tvAAAAAElFTkSuQmCC") repeat;
+}
+/* line 210, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-style h1, .note-popover .popover-content .note-style h2, .note-popover .popover-content .note-style h3, .note-popover .popover-content .note-style h4, .note-popover .popover-content .note-style h5, .note-popover .popover-content .note-style h6, .note-popover .popover-content .note-style blockquote, .panel-heading.note-toolbar .note-style h1, .panel-heading.note-toolbar .note-style h2, .panel-heading.note-toolbar .note-style h3, .panel-heading.note-toolbar .note-style h4, .panel-heading.note-toolbar .note-style h5, .panel-heading.note-toolbar .note-style h6, .panel-heading.note-toolbar .note-style blockquote {
+  margin: 0;
+}
+/* line 216, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-toggle, .panel-heading.note-toolbar .note-color .dropdown-toggle {
+  width: 20px;
+  padding-left: 5px;
+}
+/* line 220, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu, .panel-heading.note-toolbar .note-color .dropdown-menu {
+  min-width: 340px;
+}
+/* line 222, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group {
+  margin: 0;
+}
+/* line 224, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group:first-child, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group:first-child {
+  margin: 0 5px;
+}
+/* line 228, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group .note-palette-title, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group .note-palette-title {
+  font-size: 12px;
+  margin: 2px 7px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+/* line 235, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group .note-color-reset, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group .note-color-reset {
+  font-size: 11px;
+  margin: 3px;
+  padding: 0 3px;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+/* line 243, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group .note-color-row, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group .note-color-row {
+  height: 20px;
+}
+/* line 247, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color .dropdown-menu .btn-group .note-color-reset:hover, .panel-heading.note-toolbar .note-color .dropdown-menu .btn-group .note-color-reset:hover {
+  background: #eee;
+}
+/* line 255, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-para .dropdown-menu, .panel-heading.note-toolbar .note-para .dropdown-menu {
+  min-width: 216px;
+  padding: 5px;
+}
+/* line 258, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-para .dropdown-menu > div:first-child, .panel-heading.note-toolbar .note-para .dropdown-menu > div:first-child {
+  margin-right: 5px;
+}
+/* line 265, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu, .panel-heading.note-toolbar .dropdown-menu {
+  min-width: 90px;
+  /* dropdown-menu right position */
+  /* http://forrst.com/posts/Bootstrap_right_positioned_dropdown-2KB */
+  /* dropdown-menu for selectbox */
+}
+/* line 270, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu.right, .panel-heading.note-toolbar .dropdown-menu.right {
+  right: 0;
+  left: auto;
+}
+/* line 273, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu.right::before, .panel-heading.note-toolbar .dropdown-menu.right::before {
+  right: 9px;
+  left: auto !important;
+}
+/* line 274, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu.right::after, .panel-heading.note-toolbar .dropdown-menu.right::after {
+  right: 10px;
+  left: auto !important;
+}
+/* line 278, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu.note-check li a i, .panel-heading.note-toolbar .dropdown-menu.note-check li a i {
+  color: deepskyblue;
+  visibility: hidden;
+}
+/* line 282, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .dropdown-menu.note-check li a.checked i, .panel-heading.note-toolbar .dropdown-menu.note-check li a.checked i {
+  visibility: visible;
+}
+/* line 289, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-fontsize-10, .panel-heading.note-toolbar .note-fontsize-10 {
+  font-size: 10px;
+}
+/* line 294, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color-palette, .panel-heading.note-toolbar .note-color-palette {
+  line-height: 1;
+}
+/* line 297, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color-palette div .note-color-btn, .panel-heading.note-toolbar .note-color-palette div .note-color-btn {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #fff;
+}
+/* line 304, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-popover .popover-content .note-color-palette div .note-color-btn:hover, .panel-heading.note-toolbar .note-color-palette div .note-color-btn:hover {
+  border: 1px solid #000;
+}
+
+/* Dialog
+------------------------------------------*/
+/* line 314, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-dialog > div {
+  display: none;
+  /* BS2's hide pacth. */
+}
+/* line 317, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-dialog .form-group {
+  /* overwrite BS's form-horizontal minus margins */
+  margin-left: 0;
+  margin-right: 0;
+}
+/* line 321, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-dialog .note-modal-form {
+  margin: 0;
+  /* overwrite BS2's form margin bottom */
+}
+/* line 325, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-dialog .note-image-dialog .note-dropzone {
+  min-height: 100px;
+  font-size: 30px;
+  line-height: 4;
+  /* vertical-align */
+  color: lightgray;
+  text-align: center;
+  border: 4px dashed lightgray;
+  margin-bottom: 10px;
+}
+
+/* Placeholder
+------------------------------------------*/
+/* line 339, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-placeholder {
+  position: absolute;
+  display: none;
+  color: gray;
+}
+
+/* Handle
+------------------------------------------*/
+/* line 347, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle {
+  /* control selection */
+}
+/* line 349, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection {
+  position: absolute;
+  display: none;
+  border: 1px solid black;
+}
+/* line 353, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection > div {
+  position: absolute;
+}
+/* line 355, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-selection-bg {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  -webkit-opacity: 0.3;
+  -khtml-opacity: 0.3;
+  -moz-opacity: 0.3;
+  opacity: 0.3;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=30);
+  filter: alpha(opacity=30);
+}
+/* line 362, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-handle, .note-handle .note-control-selection .note-control-holder, .note-handle .note-control-selection .note-control-sizing {
+  width: 7px;
+  height: 7px;
+  border: 1px solid black;
+}
+/* line 372, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-sizing {
+  background-color: white;
+}
+/* line 377, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-nw {
+  top: -5px;
+  left: -5px;
+  border-right: none;
+  border-bottom: none;
+}
+/* line 384, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-ne {
+  top: -5px;
+  right: -5px;
+  border-bottom: none;
+  border-left: none;
+}
+/* line 391, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-sw {
+  bottom: -5px;
+  left: -5px;
+  border-top: none;
+  border-right: none;
+}
+/* line 398, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-se {
+  right: -5px;
+  bottom: -5px;
+  cursor: se-resize;
+}
+/* line 404, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-se.note-control-holder {
+  cursor: default;
+  border-top: none;
+  border-left: none;
+}
+/* line 410, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-handle .note-control-selection .note-control-selection-info {
+  right: 0;
+  bottom: 0;
+  padding: 5px;
+  margin: 5px;
+  color: white;
+  background-color: black;
+  font-size: 12px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-opacity: 0.7;
+  -khtml-opacity: 0.7;
+  -moz-opacity: 0.7;
+  opacity: 0.7;
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
+  filter: alpha(opacity=70);
+}
+
+/* line 424, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-hint-popover {
+  min-width: 100px;
+  padding: 2px;
+}
+/* line 428, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-hint-popover .popover-content {
+  padding: 3px;
+  max-height: 150px;
+  overflow: auto;
+}
+/* line 434, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-hint-popover .popover-content .note-hint-group .note-hint-item {
+  display: block !important;
+  padding: 3px;
+}
+/* line 438, /Users/andrew/Dropbox/Code/Performant/RoR/textlab/vendor/assets/components/summernote/src/less/summernote.scss */
+.note-hint-popover .popover-content .note-hint-group .note-hint-item.active, .note-hint-popover .popover-content .note-hint-group .note-hint-item:hover {
+  display: block;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.4;
+  color: white;
+  white-space: nowrap;
+  text-decoration: none;
+  background-color: #428bca;
+  outline: 0;
+  cursor: pointer;
+}

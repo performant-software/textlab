@@ -1,0 +1,104 @@
+/*!
+ * jQuery UI CSS Framework 1.10.0
+ * http://jqueryui.com
+ *
+ * Copyright 2013 jQuery Foundation and other contributors
+ * Released under the MIT license.
+ * http://jquery.org/license
+ *
+ * http://docs.jquery.com/UI/Theming/API
+ */
+/* Layout helpers
+----------------------------------*/
+/* line 15, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-hidden {
+  display: none;
+}
+
+/* line 18, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+/* line 28, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-reset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  line-height: 1.3;
+  text-decoration: none;
+  font-size: 100%;
+  list-style: none;
+}
+
+/* line 38, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-clearfix:before,
+.ui-helper-clearfix:after {
+  content: "";
+  display: table;
+}
+
+/* line 43, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-clearfix:after {
+  clear: both;
+}
+
+/* line 46, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-clearfix {
+  min-height: 0;
+  /* support: IE7 */
+}
+
+/* line 49, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-helper-zfix {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: absolute;
+  opacity: 0;
+  filter: Alpha(Opacity=0);
+}
+
+/* line 59, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-front {
+  z-index: 100;
+}
+
+/* Interaction Cues
+----------------------------------*/
+/* line 66, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-state-disabled {
+  cursor: default !important;
+}
+
+/* Icons
+----------------------------------*/
+/* states and images */
+/* line 75, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-icon {
+  display: block;
+  text-indent: -99999px;
+  overflow: hidden;
+  background-repeat: no-repeat;
+}
+
+/* Misc visuals
+----------------------------------*/
+/* Overlays */
+/* line 87, /Users/andrew/.rvm/gems/jruby-9.1.12.0/gems/jquery-ui-sass-rails-4.0.3.0/app/assets/stylesheets/jquery.ui.core.css.scss */
+.ui-widget-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
