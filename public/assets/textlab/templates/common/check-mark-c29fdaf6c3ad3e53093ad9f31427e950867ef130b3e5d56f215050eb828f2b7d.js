@@ -1,2 +1,0 @@
-(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/common/check-mark"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class="row ',  (error) ? 'has-error' : '' ,'">\n  <div class="col-sm-9 field-wrapper">\n\t  <input type="checkbox" id="',  field_name ,'" ',  field_value ? ' checked ' : '' ,'/><span> ',  field_title ,'</span>\n  </div>\n</div>\n');}return __p.join('');};
-}).call(this);
