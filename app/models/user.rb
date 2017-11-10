@@ -21,13 +21,26 @@ class User < ActiveRecord::Base
         "#{first_name} #{last_name} (#{username})"
       end
 
-      def attribution_name
-        "#{first_name} #{last_name}"
-      end
+  def site_admin?
+   self.user_type == 'site_admin'
+  end
 
-      def admin?
-       self.user_type == 'admin'
-      end
+  def requested_status=( status )
+    # filter out bad requests
+    return false if status.nil? ||
+       status == self.account_status ||
+       ( status != 'active' && status != 'archived' )
+
+    if status == 'active'
+      # if active, check for available space
+      return false unless self.site.accounts_available?
+	  # Set account active and default user to 'user'
+      self.account_status = 'active'
+	  self.user_type = 'user'
+    else
+      # if not active, must be archived.
+      self.account_status = 'archived'
+    end
 
       def requested_status=( status )
         # filter out bad requests
