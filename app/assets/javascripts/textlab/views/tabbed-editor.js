@@ -335,7 +335,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     var tabPaneID = tab.id+'-pane';
     this.$(".tabs").append( this.partials.tab(tab) );
-    this.$(".tab - panes").append( this.partials.tabPane({ id: tabPaneID }) );
+    this.$(".tab-panes").append( this.partials.tabPane({ id: tabPaneID }) );
 
     var tabPaneEl = this.$("#"+tabPaneID);
     tabPaneEl.append( xmlEditor.$el );

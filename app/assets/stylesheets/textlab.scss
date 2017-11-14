@@ -1,8 +1,11 @@
-/*
- * This is a manifest file that'll be compiled into textlab.css, which will include all the files
- * listed below.
- *
- */
+/* textlab.css
+*
+* This is a manifest file that'll be compiled into textlab.css, which will include all the files
+* listed below.
+*
+*/
+// = require_tree ./lib
+// = require_self
 
 // Libraries
 @import "jquery.ui.all";
@@ -11,11 +14,6 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-@import "./lib/codemirror.css";
-@import "./lib/split-pane.css";
-@import "jquery.fancytree/dist/skin-bootstrap/ui.fancytree.css";
-
-@import "summernote/dist/summernote.css";
-
 // Application Folder
+@import "public/*";
 @import "textlab/*";
