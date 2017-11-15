@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     unauthenticated do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
+
+	get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
 
