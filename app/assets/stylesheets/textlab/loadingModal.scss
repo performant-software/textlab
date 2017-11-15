@@ -7,8 +7,8 @@
 	Then fade #loadingStateModal in and out as needed
 */
 #loadingStateModal {
-	
-	position: absolute;
+
+	position: fixed;
 	z-index: 9000;
 	background-color: rgba(0, 0, 0, 0.48);
 	width: 100vw;
