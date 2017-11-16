@@ -1,8 +1,8 @@
 TextLab.DocumentTreeView = Backbone.View.extend({
 
 	template: JST['textlab/templates/document-tree-view'],
-    
-  id: 'document-tree-view',
+
+    id: 'document-tree-view',
 
 	glyphConfig: {
       map: {
@@ -13,18 +13,19 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         dropMarker: "glyphicon glyphicon-arrow-right",
       }
 	},
-  
+
   events: {
     'click .add-leaf-button' : 'onAddLeaf',
-    'click .add-section-button' : 'onAddSection',  
-    'click .edit-settings-button' : 'onEditProjectSettings'    
+    'click .add-section-button' : 'onAddSection',
+    'click .edit-settings-button' : 'onEditProjectSettings'
   },
-              	
-	initialize: function(options) {
+
+  initialize: function(options) {
     this.mainViewport = options.mainViewport;
+	this.readOnly = options.readOnly;
     _.bindAll( this, "onNodeSelected", "onDragEnter", "onDragDrop" );
   },
-  
+
   insertAt: function() {
     var selectedNode = this.getSelectedNode();
 
@@ -37,23 +38,23 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       return { parent: selectedNode.getParent(), position: selectedNode.get('position') };
     }
   },
-  
-  addDocumentNode: function( documentNode ) { 
- 
+
+  addDocumentNode: function( documentNode ) {
+
     var insertAt = documentNode.get('position');
     var parentNode = this.model.documentNodes.findWhere({id: documentNode.get('document_node_id') });
     var children = _.sortBy( parentNode.getChildren(), function(child) { return child.get('position') } );
     var step = insertAt + 1;
     var leafManifestProvided = (documentNode.get('leaf_manifest') != null );
-    
+
     // re-order the sibliings as necessary
     _.each( children, function( child ) {
       if( child.get('position') >= insertAt ) {
         child.set('position', step );
         step = step + 1;
-      }        
+      }
     });
-    
+
     // server version in DocumentNode.rb
     //
     //   insert_at = document_node.position
@@ -66,24 +67,24 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     //       child.save
     //     end
     //   end
-      
+
     var onSuccess = _.bind( function() {
 
       if( leafManifestProvided ) {
         // need to reload model in this case
         location.reload();
-      } else {        
+      } else {
        this.render();
        this.mainViewport.onDocumentTreeChanged();
       }
 
-      console.log('update tree success')      
+      console.log('update tree success')
     }, this);
 
     this.model.documentNodes.add( documentNode );
     documentNode.save( null, { success: onSuccess, error: TextLab.Routes.routes.onError });
   },
-  
+
   deleteLeafNode: function( leaf ) {
     var documentNodes = this.model.documentNodes;
     var leafNode = documentNodes.findWhere({ leaf_id: leaf.id });
@@ -98,63 +99,63 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     documentNodes.remove( sectionNode );
     this.render();
   },
-  
+
   onAddLeaf: function() {
     var onCreateCallback = _.bind(function(leaf) {
       this.model.addLeaf(leaf);
-      leaf.save(null, { 
-        success: _.bind( function( leaf ) {  
+      leaf.save(null, {
+        success: _.bind( function( leaf ) {
           var insertPoint = this.insertAt();
-          var leafNode = new TextLab.DocumentNode({ 
-            document_node_id: insertPoint.parent.id, 
+          var leafNode = new TextLab.DocumentNode({
+            document_node_id: insertPoint.parent.id,
             position: insertPoint.position,
-            leaf_id: leaf.id, 
-            document_id: this.model.id  
+            leaf_id: leaf.id,
+            document_id: this.model.id
           });
           this.addDocumentNode(leafNode);
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);          
+    }, this);
 
     var leaf = new TextLab.Leaf();
     var leafDialog = new TextLab.LeafDialog( { model: leaf, callback: onCreateCallback } );
-    leafDialog.render();    
+    leafDialog.render();
   },
-  
-  onAddSection: function() {    
+
+  onAddSection: function() {
     var onCreateCallback = _.bind(function(section) {
-      
+
       // store this for when we create the document node
       var leafManifest = section.get('leaf_manifest');
       section.unset('leaf_manifest');
 
       this.model.addSection(section);
-      section.save(null, { 
-        success: _.bind( function( section ) {  
+      section.save(null, {
+        success: _.bind( function( section ) {
           var insertPoint = this.insertAt();
-          var sectionNode = new TextLab.DocumentNode({ 
-            document_node_id: insertPoint.parent.id, 
+          var sectionNode = new TextLab.DocumentNode({
+            document_node_id: insertPoint.parent.id,
             position: insertPoint.position,
-            document_section_id: section.id, 
+            document_section_id: section.id,
             document_id: this.model.id,
-            leaf_manifest: leafManifest  
+            leaf_manifest: leafManifest
           });
           this.addDocumentNode(sectionNode);
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);  
-    
+    }, this);
+
     var section = new TextLab.DocumentSection();
     var sectionDialog = new TextLab.SectionDialog( { model: section, callback: onCreateCallback } );
-    sectionDialog.render();    
+    sectionDialog.render();
   },
-  
+
   onEditProjectSettings: function() {
     var onUpdateCallback = _.bind(function(doc,configChanged) {
-      doc.save(null, { 
-        success: _.bind( function() {  
+      doc.save(null, {
+        success: _.bind( function() {
           var docName = doc.get('name');
           var rootNode = doc.getRootNode();
           var rootSection = rootNode.getSection();
@@ -164,34 +165,34 @@ TextLab.DocumentTreeView = Backbone.View.extend({
             rootSection.set('name', docName);
             rootSection.save( null, { success: _.bind( function() {
               this.render();
-            }, this), 
+            }, this),
             error: TextLab.Routes.routes.onError } );
           }
           if( configChanged ) {
             this.mainViewport.onConfigChanged(this.model.config);
           }
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);          
+    }, this);
 
     // load project configs before we display dialog
     this.model.getProjectConfigs( _.bind(function( projectConfigs ) {
-      var editSettingsDialog = new TextLab.EditSettingsDialog({ 
-        model: this.model, 
-        projectConfigs: projectConfigs, 
-        callback: onUpdateCallback 
+      var editSettingsDialog = new TextLab.EditSettingsDialog({
+        model: this.model,
+        projectConfigs: projectConfigs,
+        callback: onUpdateCallback
       });
 
-      editSettingsDialog.render();    
+      editSettingsDialog.render();
     }, this));
 
     return false;
   },
-    
-  onNodeSelected: function(e, data) {    
+
+  onNodeSelected: function(e, data) {
     var docNode = data.node.data.docNode;
-    
+
     if( docNode.isLeaf() ) {
       var leaf = docNode.getLeaf();
       this.mainViewport.selectLeaf(leaf);
@@ -207,10 +208,10 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
   onDragEnter: function(node, data) {
     var documentNode = node.data.docNode;
-    if( documentNode.isRoot() ) {
+    if( documentNode.isRoot() || this.readOnly ) {
       return [ ];
     } else {
-      return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after']; 
+      return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after'];
     }
   },
 
@@ -218,18 +219,18 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var draggedNode = data.otherNode;
 
     var previousParent = draggedNode.parent;
-    draggedNode.moveTo(node, data.hitMode);        
+    draggedNode.moveTo(node, data.hitMode);
     var newParent = draggedNode.parent;
 
     // update position numbers and parent ids in domain model
     var renumberNodes = function( parentNode ) {
       var siblingNodes = parentNode.children;
-      var parentID = parentNode.data.docNode.id;      
+      var parentID = parentNode.data.docNode.id;
       var count = 0;
       _.each( siblingNodes, function(sibling) {
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
-        docNode.set('document_node_id', parentID ); 
+        docNode.set('document_node_id', parentID );
         docNode.save({ error: TextLab.Routes.onError });
       });
     };
@@ -238,13 +239,13 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     renumberNodes( newParent );
     this.mainViewport.onDocumentTreeChanged();
   },
-  
+
   getSelectedNode: function() {
     var treeNode = this.fancyTree.getActiveNode();
-    return ( treeNode ) ? treeNode.data.docNode : this.model.getRootNode(); 
+    return ( treeNode ) ? treeNode.data.docNode : this.model.getRootNode();
   },
 
-  generateTreeNode: function(node) {    
+  generateTreeNode: function(node) {
     var children;
     if( node.isRoot() ) {
        children = _.map( node.getChildren(), function( childNode ) {
@@ -262,31 +263,31 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       }
     }
   },
-  
+
   generateLeafNode: function(documentNode) {
     var leaf = documentNode.getLeaf();
-    return { 
-      key: documentNode.id, 
-      title: leaf.get('name'), 
-      docNode: documentNode, 
-      children: [], 
-      icon: 'fa fa-file-o fa-lg' 
-    };    
-  },  
-  
+    return {
+      key: documentNode.id,
+      title: leaf.get('name'),
+      docNode: documentNode,
+      children: [],
+      icon: 'fa fa-file-o fa-lg'
+    };
+  },
+
   generateSectionNode: function( documentNode, children ) {
     var section = documentNode.getSection();
     var sortedChildren = _.sortBy(children, function( child ) { return child.docNode.get('position') } );
-		return { 
-      key: documentNode.id, 
+		return {
+      key: documentNode.id,
 		  title: section.get('name'),
-      docNode: documentNode, 
+      docNode: documentNode,
       expanded: false,
       children: sortedChildren,
       icon: 'fa fa-lg fa-folder'
     };
   },
-  
+
   generateRootNode: function( documentNode, children ) {
     var rootNode = this.generateSectionNode(documentNode, children);
     rootNode.key = "root";
@@ -294,26 +295,26 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     rootNode.icon = 'fa fa-lg fa-book';
     return [ rootNode ];
   },
-  
+
 	generateTreeModel: function() {
     var rootNode = this.model.getRootNode();
     return this.generateTreeNode(rootNode);
 	},
-  
-  render: function() {      
-    
+
+  render: function() {
+
 		var documentTreeModel = this.generateTreeModel();
-					
+
 		if( !this.fancyTree ) {
 			this.$el.html(this.template({ owner: this.model.get('owner') }));
 
-			var documentTree = this.$('#document-tree');		
-			documentTree.fancytree({ source: documentTreeModel, 
+			var documentTree = this.$('#document-tree');
+			documentTree.fancytree({ source: documentTreeModel,
   		  click: this.onNodeSelected,
   		  selectMode: 2,
         aria: true,
         extensions: [ 'dnd', 'glyph', 'clones' ],
-        glyph: this.glyphConfig, 
+        glyph: this.glyphConfig,
         dnd: {
           focusOnClick: true,
           dragStart: function() { return true; },
@@ -321,11 +322,11 @@ TextLab.DocumentTreeView = Backbone.View.extend({
           dragDrop: this.onDragDrop
         }
       });
-			
+
 			this.fancyTree = documentTree.fancytree("getTree");
 		} else {
 			this.fancyTree.reload(documentTreeModel);
 		}
   }
-  
+
 });
