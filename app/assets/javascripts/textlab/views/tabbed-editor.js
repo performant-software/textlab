@@ -32,6 +32,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
   initTranscriptions: function( callback ) {
     if( !this.model ) return;
 
+	// Clear the ajax cache, cancels any outstanding requests
+	ajaxRequestQueue_cancelQueue();
+
+
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
       this.transcriptions = transcriptions;
       this.transcriptions.models = _.sortBy( this.transcriptions.models, function(t) { t.get('name') });
@@ -51,6 +55,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
   initSequences: function( callback ) {
     if( !this.model ) return;
+
+	// Clear the ajax cache, cancels any outstanding requests
+	ajaxRequestQueue_cancelQueue();
 
     this.model.getSequences( _.bind( function( sequences ) {
       this.sequences = sequences;

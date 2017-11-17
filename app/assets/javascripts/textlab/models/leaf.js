@@ -66,8 +66,6 @@ TextLab.Leaf = Backbone.Model.extend({
 
 	// Make the request
 	var thisID = this.id;
-	console.log("Adding: "+thisID);
-
     var request = $.ajax({
       url: transcriptionsURL( { leafID: thisID }),
       dataType: 'json',
@@ -76,27 +74,29 @@ TextLab.Leaf = Backbone.Model.extend({
         var transcriptionCollection = new TextLab.TranscriptionCollection( transcriptions );
         callback(transcriptionCollection);
 
-		// Pop the request on success
-		ajaxRequestQueue_cancelQueue();
       }
     });
 
 	// Push the request onto the queue
 	window.ajaxRequestQueue.push(request);
-	console.log("Outstanding Requests: "+window.ajaxRequestQueue.length);
+
   },
 
   getSequences: function( callback ) {
     var sequencesURL = _.template("/sequences?leaf_id=<%= leafID %>");
 
-    $.ajax({
-      url: sequencesURL( { leafID: this.id }),
+	var thisID = this.id;
+	var request =$.ajax({
+      url: sequencesURL( { leafID: thisID }),
       dataType: 'json',
       success: function( sequences ) {
         var sequenceCollection = new TextLab.SequenceCollection( sequences );
         callback( sequenceCollection );
       }
     });
+
+	// Push the request onto the queue
+	window.ajaxRequestQueue.push(request);
   },
 
   getZoneLabelPrefix: function() {
