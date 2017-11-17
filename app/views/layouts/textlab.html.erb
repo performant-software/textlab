@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="utf-8"> 
-  <title>TextLab</title>
-  <%= stylesheet_link_tag    'textlab', media: 'all' %>
-  <%= javascript_include_tag 'textlab' %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <% if user_signed_in? %>
-    <%= render partial: 'layouts/header' %>
-  <% end %>
-  <div class="content">
-      <%= yield %>
-  </div>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title>TextLab</title>
+		<%= stylesheet_link_tag 'textlab', media: 'all' %>
+		<%= javascript_include_tag 'textlab' %>
+		<%= csrf_meta_tags %>
+	</head>
+	<body>
+		<!-- Div for loading modal -->
+		<div id="loadingStateModal"><div id="loadingStateModal_spinner"></div></div>
+
+		<% if user_signed_in? %>
+			<%= render partial: 'layouts/header' %>
+		<% end %>
+		<div class="content">
+			<%= yield %>
+		</div>
+	</body>
 </html>
