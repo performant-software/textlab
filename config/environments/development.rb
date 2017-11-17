@@ -39,7 +39,7 @@ Rails.application.configure do
   # Fallback to assets pipeline if a precompiled asset is missed.
   # Minification: config.assets.compress = false
   config.assets.compile = true
-
+config.sass.inline_source_maps = true
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
