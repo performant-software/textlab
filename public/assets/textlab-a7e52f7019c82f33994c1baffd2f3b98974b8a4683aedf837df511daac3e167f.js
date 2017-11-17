@@ -93783,6 +93783,15 @@ $(document).ready(function() {
   Backbone.history.start();
   
 });
+function loadingModal_start(){
+	$("#loadingStateModal").fadeIn("fast");
+	console.log('Start spinner');
+}
+function loadingModal_stop(){
+	$("#loadingStateModal").fadeOut("fast");
+	console.log('End spinner');
+}
+;
 TextLab.Config = Backbone.Model.extend({
   urlRoot: "project_configs"
   
@@ -94501,7 +94510,7 @@ TextLab.Routes = Backbone.Router.extend({
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/document-explorer"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class=\'top-bar\'>\n\t');  if( canEditSection ) { ; __p.push(' \n\t\t<a class=\'btn btn-sm btn-default\' id=\'edit-info-button\' href=\'#\'>\n\t\t\t<span class="fa fa-file-o" aria-hidden="true"></span> Edit Section\n\t\t</a>\n\t');  } ; __p.push('\n\t<ol class="breadcrumb">\n\t  ');  _.each( ancestors, function(a) { ; __p.push(' \n\t\t  <li><a class=\'breadcrumb\' data-id="',  a.id ,'">',  a.name ,'</a></li>\n\t  ');  }) ; __p.push('\n\t  <li class="active">',  name ,'</li>\n\t</ol>\n\n</div>\n\n');  if( items.length == 0 ) { ; __p.push(' \n\t<div class=\'no-leaf\'>\n\t  <h2><i class="fa fa-folder-o fa-5x"></i><span class=\'message\'>This section is empty.</span>\n\t</div>\n');  } else { ; __p.push('\n\n\t<div class="thumb-container">\n\t');  _.each( items, function( item ) { ; __p.push('\n\n\t\t');  if( item.nodeType == 'thumb' ) { ; __p.push(' \n\t\t\t<div class=\'document-node\' data-id=\'',  item.id ,'\' >\n\t\t\t\t<img class=\'thumb\' src=\'',  item.imgSrc ,'\'/>\n\t\t\t\t<div class=\'thumb-label\' >',  item.name ,'</div>\n\t\t\t</div>\n\t\t');  } ; __p.push('\n\t\t\n\t\t');  if( item.nodeType == 'blank-thumb' ) { ; __p.push(' \n\t\t\t<div class=\'document-node\' data-id=\'',  item.id ,'\' >\n\t\t\t\t<i class="fa fa-file-o fa-5x thumb-icon"></i>\n\t\t\t\t<div class=\'thumb-label\' >',  item.name ,'</div>\n\t\t\t</div>\n\t\t');  } ; __p.push('\n\n\t\t');  if( item.nodeType == 'section' ) { ; __p.push(' \n\t\t\t<div class=\'document-node\' data-id=\'',  item.id ,'\' >\n\t\t\t\t<i class="fa fa-folder fa-5x thumb-icon"></i>\n\t\t\t\t<div class=\'thumb-label\' >',  item.name ,'</div>\n\t\t\t</div>\n\t\t');  } ; __p.push('\n\n\t');  }); ; __p.push('\n\t</div>\n\n');  } ; __p.push('\n');}return __p.join('');};
 }).call(this);
-(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/document-list-view"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div id="modal-container"></div>\n\n<h2>My Projects</h2>\n\n');  _.each( documents, function(document) { ; __p.push('\n  <div class="panel panel-default project">\n    <div class="panel-body">\n\n      <div class=\'info\'>\n        <div class=\'icon\'><span class=\'fa fa-4x fa-book\'></span></div>\n        ');  if( !document.owner && !document.accepted ) { ; __p.push('\n          <h4>',  document.name ,'</h4>    \n        ');  } else { ; __p.push('\n          <h4><a href=\'#documents/',  document.id ,'\'>',  document.name ,'</a></h4>    \n        ');  } ; __p.push('\n        <p class="description">',  document.description ,'</p>\n      </div>\n        <div class=\'actions\'>\n          <a href=\'#documents/',  document.id ,'\' class="btn btn-sm btn-default">Edit</a>          <a href="/document_sections/',  document.root_node ,'.html" target="_blank" class="btn btn-sm btn-default">View</a>\n          ');  if( document.owner ) { ; __p.push(' \n            <button class="btn btn-sm btn-danger delete-document-button" data-title="Delete this Project?" data-doc-id="',  document.id ,'">Delete</button>\n          ');  } ; __p.push('\n        </div>\n      \n      ');  if( !document.owner && !document.accepted ) { ; __p.push('\n        <div class=\'actions\'>\n          <button class="btn btn-sm btn-success yes-button" data-doc-id="',  document.id ,'">Join Project</button>        \n          <button class="btn btn-sm btn-default no-button" data-doc-id="',  document.id ,'">Decline</button>        \n        </div>\n      ');  } ; __p.push('\n      \n      ');  if( !document.owner ) { ; __p.push(' \n        <div class=\'owner-name\'><i>\n        ');  if( !document.accepted ) { ; __p.push('\n          ',  document.owner_name ,' has invited you to join this project.\n        ');  } else { ; __p.push('\n          shared by: ',  document.owner_name ,'\n        ');  } ; __p.push('\n        </i></div>\n      ');  } ; __p.push('\n            \n    </div>\n  </div>\n');  }); __p.push('\n\n<button class="btn btn-primary new-document-button">New Project</button>\n');}return __p.join('');};
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/document-list-view"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<!-- Stop the loading modal -->\n<script>$( document ).ready(function() {loadingModal_stop();});</script>\n\n<!-- Project listing -->\n<div id="modal-container"></div>\n\n<h2>My Projects</h2>\n\n');  _.each( documents, function(document) { ; __p.push('\n  <div class="panel panel-default project">\n    <div class="panel-body">\n\n      <div class=\'info\'>\n        <div class=\'icon\'><span class=\'fa fa-4x fa-book\'></span></div>\n        ');  if( !document.owner && !document.accepted ) { ; __p.push('\n          <h4>',  document.name ,'</h4>\n        ');  } else { ; __p.push('\n          <h4><a onClick="loadingModal_start()" href=\'#documents/',  document.id ,'\'>',  document.name ,'</a></h4>\n        ');  } ; __p.push('\n        <p class="description">',  document.description ,'</p>\n      </div>\n        <div class=\'actions\'>\n          <a onClick="loadingModal_start()" href=\'#documents/',  document.id ,'\' class="btn btn-sm btn-default">Edit</a>\n\t\t  <a href="/document_sections/',  document.root_node ,'.html" target="_blank" class="btn btn-sm btn-default">View</a>\n          ');  if( document.owner ) { ; __p.push('\n            <button class="btn btn-sm btn-danger delete-document-button" data-title="Delete this Project?" data-doc-id="',  document.id ,'">Delete</button>\n          ');  } ; __p.push('\n        </div>\n\n      ');  if( !document.owner && !document.accepted ) { ; __p.push('\n        <div class=\'actions\'>\n          <button class="btn btn-sm btn-success yes-button" data-doc-id="',  document.id ,'">Join Project</button>\n          <button class="btn btn-sm btn-default no-button" data-doc-id="',  document.id ,'">Decline</button>\n        </div>\n      ');  } ; __p.push('\n\n      ');  if( !document.owner ) { ; __p.push('\n        <div class=\'owner-name\'><i>\n        ');  if( !document.accepted ) { ; __p.push('\n          ',  document.owner_name ,' has invited you to join this project.\n        ');  } else { ; __p.push('\n          shared by: ',  document.owner_name ,'\n        ');  } ; __p.push('\n        </i></div>\n      ');  } ; __p.push('\n\n    </div>\n  </div>\n');  }); __p.push('\n\n<button class="btn btn-primary new-document-button">New Project</button>\n');}return __p.join('');};
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/document-tree-view"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('');  if( owner ) { ; __p.push(' \n  <div id="document-toolbar">\n    <button class=\'btn btn-default btn-sm add-leaf-button\'><i class="fa fa-file-o fa-lg"></i> Add Leaf</button>\n    <button class=\'btn btn-default btn-sm add-section-button\'><i class="fa fa-folder fa-lg"></i> Add Section</button>\n    <button class="btn btn-default btn-sm edit-settings-button"><i class="fa fa-cog fa-lg"></i> Edit Settings</button>\n  </div>\n');  } ; __p.push('\n<div id="tree-container">\n  <div id="document-tree"></div>\n</div>\n');}return __p.join('');};
 }).call(this);
@@ -95079,7 +95088,7 @@ TextLab.DocumentListView = Backbone.View.extend({
 TextLab.DocumentTreeView = Backbone.View.extend({
 
 	template: JST['textlab/templates/document-tree-view'],
-    
+
   id: 'document-tree-view',
 
 	glyphConfig: {
@@ -95091,18 +95100,18 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         dropMarker: "glyphicon glyphicon-arrow-right",
       }
 	},
-  
+
   events: {
     'click .add-leaf-button' : 'onAddLeaf',
-    'click .add-section-button' : 'onAddSection',  
-    'click .edit-settings-button' : 'onEditProjectSettings'    
+    'click .add-section-button' : 'onAddSection',
+    'click .edit-settings-button' : 'onEditProjectSettings'
   },
-              	
+
 	initialize: function(options) {
     this.mainViewport = options.mainViewport;
     _.bindAll( this, "onNodeSelected", "onDragEnter", "onDragDrop" );
   },
-  
+
   insertAt: function() {
     var selectedNode = this.getSelectedNode();
 
@@ -95115,23 +95124,23 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       return { parent: selectedNode.getParent(), position: selectedNode.get('position') };
     }
   },
-  
-  addDocumentNode: function( documentNode ) { 
- 
+
+  addDocumentNode: function( documentNode ) {
+
     var insertAt = documentNode.get('position');
     var parentNode = this.model.documentNodes.findWhere({id: documentNode.get('document_node_id') });
     var children = _.sortBy( parentNode.getChildren(), function(child) { return child.get('position') } );
     var step = insertAt + 1;
     var leafManifestProvided = (documentNode.get('leaf_manifest') != null );
-    
+
     // re-order the sibliings as necessary
     _.each( children, function( child ) {
       if( child.get('position') >= insertAt ) {
         child.set('position', step );
         step = step + 1;
-      }        
+      }
     });
-    
+
     // server version in DocumentNode.rb
     //
     //   insert_at = document_node.position
@@ -95144,24 +95153,24 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     //       child.save
     //     end
     //   end
-      
+
     var onSuccess = _.bind( function() {
 
       if( leafManifestProvided ) {
         // need to reload model in this case
         location.reload();
-      } else {        
+      } else {
        this.render();
        this.mainViewport.onDocumentTreeChanged();
       }
 
-      console.log('update tree success')      
+      console.log('update tree success')
     }, this);
 
     this.model.documentNodes.add( documentNode );
     documentNode.save( null, { success: onSuccess, error: TextLab.Routes.routes.onError });
   },
-  
+
   deleteLeafNode: function( leaf ) {
     var documentNodes = this.model.documentNodes;
     var leafNode = documentNodes.findWhere({ leaf_id: leaf.id });
@@ -95176,63 +95185,63 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     documentNodes.remove( sectionNode );
     this.render();
   },
-  
+
   onAddLeaf: function() {
     var onCreateCallback = _.bind(function(leaf) {
       this.model.addLeaf(leaf);
-      leaf.save(null, { 
-        success: _.bind( function( leaf ) {  
+      leaf.save(null, {
+        success: _.bind( function( leaf ) {
           var insertPoint = this.insertAt();
-          var leafNode = new TextLab.DocumentNode({ 
-            document_node_id: insertPoint.parent.id, 
+          var leafNode = new TextLab.DocumentNode({
+            document_node_id: insertPoint.parent.id,
             position: insertPoint.position,
-            leaf_id: leaf.id, 
-            document_id: this.model.id  
+            leaf_id: leaf.id,
+            document_id: this.model.id
           });
           this.addDocumentNode(leafNode);
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);          
+    }, this);
 
     var leaf = new TextLab.Leaf();
     var leafDialog = new TextLab.LeafDialog( { model: leaf, callback: onCreateCallback } );
-    leafDialog.render();    
+    leafDialog.render();
   },
-  
-  onAddSection: function() {    
+
+  onAddSection: function() {
     var onCreateCallback = _.bind(function(section) {
-      
+
       // store this for when we create the document node
       var leafManifest = section.get('leaf_manifest');
       section.unset('leaf_manifest');
 
       this.model.addSection(section);
-      section.save(null, { 
-        success: _.bind( function( section ) {  
+      section.save(null, {
+        success: _.bind( function( section ) {
           var insertPoint = this.insertAt();
-          var sectionNode = new TextLab.DocumentNode({ 
-            document_node_id: insertPoint.parent.id, 
+          var sectionNode = new TextLab.DocumentNode({
+            document_node_id: insertPoint.parent.id,
             position: insertPoint.position,
-            document_section_id: section.id, 
+            document_section_id: section.id,
             document_id: this.model.id,
-            leaf_manifest: leafManifest  
+            leaf_manifest: leafManifest
           });
           this.addDocumentNode(sectionNode);
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);  
-    
+    }, this);
+
     var section = new TextLab.DocumentSection();
     var sectionDialog = new TextLab.SectionDialog( { model: section, callback: onCreateCallback } );
-    sectionDialog.render();    
+    sectionDialog.render();
   },
-  
+
   onEditProjectSettings: function() {
     var onUpdateCallback = _.bind(function(doc,configChanged) {
-      doc.save(null, { 
-        success: _.bind( function() {  
+      doc.save(null, {
+        success: _.bind( function() {
           var docName = doc.get('name');
           var rootNode = doc.getRootNode();
           var rootSection = rootNode.getSection();
@@ -95242,34 +95251,34 @@ TextLab.DocumentTreeView = Backbone.View.extend({
             rootSection.set('name', docName);
             rootSection.save( null, { success: _.bind( function() {
               this.render();
-            }, this), 
+            }, this),
             error: TextLab.Routes.routes.onError } );
           }
           if( configChanged ) {
             this.mainViewport.onConfigChanged(this.model.config);
           }
-        },this),      
-        error: TextLab.Routes.routes.onError 
+        },this),
+        error: TextLab.Routes.routes.onError
       });
-    }, this);          
+    }, this);
 
     // load project configs before we display dialog
     this.model.getProjectConfigs( _.bind(function( projectConfigs ) {
-      var editSettingsDialog = new TextLab.EditSettingsDialog({ 
-        model: this.model, 
-        projectConfigs: projectConfigs, 
-        callback: onUpdateCallback 
+      var editSettingsDialog = new TextLab.EditSettingsDialog({
+        model: this.model,
+        projectConfigs: projectConfigs,
+        callback: onUpdateCallback
       });
 
-      editSettingsDialog.render();    
+      editSettingsDialog.render();
     }, this));
 
     return false;
   },
-    
-  onNodeSelected: function(e, data) {    
+
+  onNodeSelected: function(e, data) {
     var docNode = data.node.data.docNode;
-    
+
     if( docNode.isLeaf() ) {
       var leaf = docNode.getLeaf();
       this.mainViewport.selectLeaf(leaf);
@@ -95284,11 +95293,12 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
 
   onDragEnter: function(node, data) {
+	  console.log("Drag enter");
     var documentNode = node.data.docNode;
     if( documentNode.isRoot() ) {
       return [ ];
     } else {
-      return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after']; 
+      return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after'];
     }
   },
 
@@ -95296,18 +95306,18 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var draggedNode = data.otherNode;
 
     var previousParent = draggedNode.parent;
-    draggedNode.moveTo(node, data.hitMode);        
+    draggedNode.moveTo(node, data.hitMode);
     var newParent = draggedNode.parent;
 
     // update position numbers and parent ids in domain model
     var renumberNodes = function( parentNode ) {
       var siblingNodes = parentNode.children;
-      var parentID = parentNode.data.docNode.id;      
+      var parentID = parentNode.data.docNode.id;
       var count = 0;
       _.each( siblingNodes, function(sibling) {
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
-        docNode.set('document_node_id', parentID ); 
+        docNode.set('document_node_id', parentID );
         docNode.save({ error: TextLab.Routes.onError });
       });
     };
@@ -95316,13 +95326,13 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     renumberNodes( newParent );
     this.mainViewport.onDocumentTreeChanged();
   },
-  
+
   getSelectedNode: function() {
     var treeNode = this.fancyTree.getActiveNode();
-    return ( treeNode ) ? treeNode.data.docNode : this.model.getRootNode(); 
+    return ( treeNode ) ? treeNode.data.docNode : this.model.getRootNode();
   },
 
-  generateTreeNode: function(node) {    
+  generateTreeNode: function(node) {
     var children;
     if( node.isRoot() ) {
        children = _.map( node.getChildren(), function( childNode ) {
@@ -95340,31 +95350,31 @@ TextLab.DocumentTreeView = Backbone.View.extend({
       }
     }
   },
-  
+
   generateLeafNode: function(documentNode) {
     var leaf = documentNode.getLeaf();
-    return { 
-      key: documentNode.id, 
-      title: leaf.get('name'), 
-      docNode: documentNode, 
-      children: [], 
-      icon: 'fa fa-file-o fa-lg' 
-    };    
-  },  
-  
+    return {
+      key: documentNode.id,
+      title: leaf.get('name'),
+      docNode: documentNode,
+      children: [],
+      icon: 'fa fa-file-o fa-lg'
+    };
+  },
+
   generateSectionNode: function( documentNode, children ) {
     var section = documentNode.getSection();
     var sortedChildren = _.sortBy(children, function( child ) { return child.docNode.get('position') } );
-		return { 
-      key: documentNode.id, 
+		return {
+      key: documentNode.id,
 		  title: section.get('name'),
-      docNode: documentNode, 
+      docNode: documentNode,
       expanded: false,
       children: sortedChildren,
       icon: 'fa fa-lg fa-folder'
     };
   },
-  
+
   generateRootNode: function( documentNode, children ) {
     var rootNode = this.generateSectionNode(documentNode, children);
     rootNode.key = "root";
@@ -95372,26 +95382,26 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     rootNode.icon = 'fa fa-lg fa-book';
     return [ rootNode ];
   },
-  
+
 	generateTreeModel: function() {
     var rootNode = this.model.getRootNode();
     return this.generateTreeNode(rootNode);
 	},
-  
-  render: function() {      
-    
+
+  render: function() {
+
 		var documentTreeModel = this.generateTreeModel();
-					
+
 		if( !this.fancyTree ) {
 			this.$el.html(this.template({ owner: this.model.get('owner') }));
 
-			var documentTree = this.$('#document-tree');		
-			documentTree.fancytree({ source: documentTreeModel, 
+			var documentTree = this.$('#document-tree');
+			documentTree.fancytree({ source: documentTreeModel,
   		  click: this.onNodeSelected,
   		  selectMode: 2,
         aria: true,
         extensions: [ 'dnd', 'glyph', 'clones' ],
-        glyph: this.glyphConfig, 
+        glyph: this.glyphConfig,
         dnd: {
           focusOnClick: true,
           dragStart: function() { return true; },
@@ -95399,13 +95409,13 @@ TextLab.DocumentTreeView = Backbone.View.extend({
           dragDrop: this.onDragDrop
         }
       });
-			
+
 			this.fancyTree = documentTree.fancytree("getTree");
 		} else {
 			this.fancyTree.reload(documentTreeModel);
 		}
   }
-  
+
 });
 TextLab.EditSettingsDialog = Backbone.View.extend({
     
@@ -97371,39 +97381,43 @@ TextLab.TabDialog = Backbone.View.extend({
     
 });
 TextLab.TabbedEditor = Backbone.View.extend({
-    
-	template: JST['textlab/templates/tabbed-editor'],
-  
+
+  template: JST['textlab/templates/tabbed-editor'],
+
   id: 'tabbed-editor',
-  
+
   maxStartingTabs: 5,
-  
+
 	partials: {
 		tab: JST['textlab/templates/common/tab'],
 		tabPane: JST['textlab/templates/common/tab-pane']
 	},
-  
+
   events: {
     'click .doc-tab': 'onSelectTab',
     'click .close-x': 'onClose',
     'click .new-tab-button': 'onNew',
     'click .open-tab-button': 'onOpen'
   },
-                	
+
 	initialize: function(options) {
     this.parentPanel = options.parentPanel;
     this.projectOwner = options.projectOwner;
     this.config = options.config;
     _.bindAll( this, "initTranscriptions" );
+
+	// If there are no tabs, close the spinner
+	loadingModal_stop();
+
   },
-  
-  initTranscriptions: function( callback ) {   
+
+  initTranscriptions: function( callback ) {
     if( !this.model ) return;
-     
+
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
       this.transcriptions = transcriptions;
       this.transcriptions.models = _.sortBy( this.transcriptions.models, function(t) { t.get('name') });
-      
+
       // if there are no transcriptions, create a blank one
       if(this.transcriptions.models.length == 0) {
         var transcription = TextLab.Transcription.newTranscription(this.model);
@@ -97413,13 +97427,13 @@ TextLab.TabbedEditor = Backbone.View.extend({
       } else {
         callback();
       }
-    
+
     },this) );
   },
-  
-  initSequences: function( callback ) {   
+
+  initSequences: function( callback ) {
     if( !this.model ) return;
-     
+
     this.model.getSequences( _.bind( function( sequences ) {
       this.sequences = sequences;
       this.sequences.models = _.sortBy( this.sequences.models, function(t) { t.get('name') });
@@ -97431,7 +97445,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.model = leaf;
     this.render();
   },
-    
+
   onSelectTab: function(event) {
     var tabID = event.currentTarget.id;
     var tab = _.find( this.tabs, function(tab) { return tab.id == tabID });
@@ -97452,14 +97466,14 @@ TextLab.TabbedEditor = Backbone.View.extend({
     this.closeTab(tab);
     return false;
   },
-  
+
   deleteTab: function( tabType, editorModel ) {
     var tab = this.getTab( tabType, editorModel.id );
     editorModel.destroy({ success: _.bind( function() {
       this.closeTab(tab,true);
     }, this)});
   },
-  
+
   submitTab: function( tabType, editorModel ) {
     var tab = this.getTab( tabType, editorModel.id );
     editorModel.set( 'submitted', true );
@@ -97472,8 +97486,8 @@ TextLab.TabbedEditor = Backbone.View.extend({
     editorModel.set( 'published', false );   // returning always unpublishes
     this.closeTab(tab);
   },
-  
-  onNew: function() {    
+
+  onNew: function() {
     var onCreateCallback = _.bind(function(editorModel, editorType) {
       if( editorType == 'transcription' ) {
         this.transcriptions.add(editorModel);
@@ -97488,10 +97502,10 @@ TextLab.TabbedEditor = Backbone.View.extend({
           this.selectTab(tab);
         }, this) });
       }
-    }, this);  
-    
+    }, this);
+
     var tabDialog = new TextLab.TabDialog( { leaf: this.model, callback: onCreateCallback } );
-    tabDialog.render();   
+    tabDialog.render();
   },
 
   quickSequence: function( firstStep, zone_id ) {
@@ -97504,18 +97518,18 @@ TextLab.TabbedEditor = Backbone.View.extend({
     }, this) });
   },
 
-  onOpen: function() {    
+  onOpen: function() {
     var onSelectCallback = _.bind( function(tabModel,tabType) {
       var tab = ( tabType == 'transcription') ? this.openXMLEditorTab(tabModel) : this.openSequenceEditorTab(tabModel);
       this.selectTab(tab);
-    }, this);  
-    
+    }, this);
+
     // make a list of the unopened transcriptions
     var loadingComplete = _.bind( function() {
 
-      var availableTranscriptions = _.map( this.transcriptions.models, function( transcription ) { 
-        var found = _.find( this.tabs, function(tab) { 
-          return tab.transcription && (tab.transcription.id == transcription.id ); 
+      var availableTranscriptions = _.map( this.transcriptions.models, function( transcription ) {
+        var found = _.find( this.tabs, function(tab) {
+          return tab.transcription && (tab.transcription.id == transcription.id );
         });
 
         return (found) ? null : transcription;
@@ -97524,36 +97538,36 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
       var availableSequences;
       if( this.model.get('secondary_enabled') ) {
-        availableSequences = _.map( this.sequences.models, function( sequence ) { 
-          var found = _.find( this.tabs, function(tab) { 
-            return tab.sequence && (tab.sequence.id == sequence.id ); 
+        availableSequences = _.map( this.sequences.models, function( sequence ) {
+          var found = _.find( this.tabs, function(tab) {
+            return tab.sequence && (tab.sequence.id == sequence.id );
           });
           return (found) ? null : sequence;
         },this);
-        availableSequences = _.compact( availableSequences );        
+        availableSequences = _.compact( availableSequences );
       } else {
         availableSequences = [];
       }
-      
-      var openTabDialog = new TextLab.OpenTabDialog( { 
-        transcriptions: availableTranscriptions, 
-        sequences: availableSequences, 
-        callback: onSelectCallback 
+
+      var openTabDialog = new TextLab.OpenTabDialog( {
+        transcriptions: availableTranscriptions,
+        sequences: availableSequences,
+        callback: onSelectCallback
       });
-      openTabDialog.render();   
+      openTabDialog.render();
     }, this);
 
     // reload the transcriptions and sequences before opening the dialog
     this.initTranscriptions( _.bind( this.initSequences, this, loadingComplete ) );
 
   },
-  
-  resizeActivePanel: function() {    
+
+  resizeActivePanel: function() {
     if( this.activeTab && this.parentPanel ) {
       if(  this.activeTab.xmlEditor ) {
         var xmlEditorToolbar = this.$(".xml-editor-toolbar");
         this.activeTab.xmlEditor.editor.setSize( this.parentPanel.width(), this.parentPanel.height() - xmlEditorToolbar.height() - 100 );
-        this.activeTab.xmlEditor.editor.refresh();        
+        this.activeTab.xmlEditor.editor.refresh();
       } else {
         var sequenceEditorToolbar = this.activeTab.sequenceEditor.$(".sequence-editor-toolbar");
         var sequenceEditor = this.activeTab.sequenceEditor.$("#sequence-grid");
@@ -97562,32 +97576,32 @@ TextLab.TabbedEditor = Backbone.View.extend({
       }
     }
   },
-  
+
   selectTab: function(tab) {
-    
+
     if( this.activeTab ) {
-      var prevTabEl = this.$("#"+this.activeTab.id);  
+      var prevTabEl = this.$("#"+this.activeTab.id);
       var prevTabPaneEl = this.$("#"+this.activeTab.id+'-pane');
 
       prevTabEl.removeClass('active');
       prevTabPaneEl.hide();
     }
-    
-    var tabEl = this.$("#"+tab.id);  
+
+    var tabEl = this.$("#"+tab.id);
     var tabPaneEl = this.$("#"+tab.id+'-pane');
-    
+
     tabEl.addClass('active');
     tabPaneEl.show();
-    
+
     // update surface view
     if( tab.transcription ) {
       this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
     }
-    
+
     this.activeTab = tab;
     this.resizeActivePanel();
   },
-  
+
   starTab: function( tabType, modelID ) {
 
     if( tabType == 'transcription' ) {
@@ -97596,20 +97610,20 @@ TextLab.TabbedEditor = Backbone.View.extend({
           var published = ( tab.transcription.id == modelID );
           tab.transcription.set('published', published);
           tab.xmlEditor.save( _.bind( function() {
-            this.updateTabStar(tab, published);  
+            this.updateTabStar(tab, published);
           }, this));
         }
       }, this);
-      this.model.set('secondary_enabled', true);      
+      this.model.set('secondary_enabled', true);
     } else {
       var tab = this.getTab( tabType, modelID );
       tab.sequence.set('published', true);
       tab.sequenceEditor.save( _.bind( function() {
-        this.updateTabStar(tab, true);        
+        this.updateTabStar(tab, true);
       }, this));
     }
   },
-  
+
   unStarTab: function( tabType, modelID ) {
 
     if( tabType == 'transcription') {
@@ -97617,27 +97631,27 @@ TextLab.TabbedEditor = Backbone.View.extend({
       if( tab.transcription ) {
         tab.transcription.set('published', false );
         tab.xmlEditor.save( _.bind( function() {
-          this.updateTabStar(tab, false);        
-        }, this)); 
-      }   
-      this.model.set('secondary_enabled', false);      
+          this.updateTabStar(tab, false);
+        }, this));
+      }
+      this.model.set('secondary_enabled', false);
     } else {
       var tab = this.getTab( tabType, modelID );
       tab.sequence.set('published', false);
       tab.sequenceEditor.save( _.bind( function() {
-        this.updateTabStar(tab, false);        
+        this.updateTabStar(tab, false);
       }, this));
     }
   },
-  
+
   renameTab: function( tabType, modelID, newName ) {
     var tab = this.getTab( tabType, modelID );
     var nameSpan = this.$("#"+tab.id+' .name');
     nameSpan.html(newName);
   },
-  
+
   updateTabStar: function(tab, published) {
-    var starEl = this.$("#"+tab.id+" .accept-star"); 
+    var starEl = this.$("#"+tab.id+" .accept-star");
     var editor = tab.xmlEditor ? tab.xmlEditor : tab.sequenceEditor;
     if( published ) {
       starEl.addClass('fa fa-star');
@@ -97645,16 +97659,16 @@ TextLab.TabbedEditor = Backbone.View.extend({
     } else {
       starEl.removeClass('fa fa-star');
       editor.togglePublishButton(true);
-    }    
+    }
   },
-    
+
   closeTab: function(tab, dontSave ) {
-    
+
     var closeTab = _.bind( function() {
 
-      this.tabs = _.without(this.tabs, tab);      
+      this.tabs = _.without(this.tabs, tab);
 
-      // if we're on the closing tab, switch tabs 
+      // if we're on the closing tab, switch tabs
       if( this.activeTab == tab ) {
         if( this.tabs.length > 0 ) {
           this.selectTab(_.first(this.tabs));
@@ -97667,12 +97681,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
       this.$("#"+tab.id+'-pane').detach();
 
     }, this);
-    
+
     if( dontSave ) {
       closeTab();
     } else {
       if( tab.xmlEditor ) {
-        tab.xmlEditor.save( closeTab );        
+        tab.xmlEditor.save( closeTab );
       } else {
         tab.sequenceEditor.save( closeTab );
       }
@@ -97687,27 +97701,27 @@ TextLab.TabbedEditor = Backbone.View.extend({
     var tabID = tabType+'-tab-'+id;
     return _.find( this.tabs, function(tab) { return tab.id == tabID; });
   },
-    
-  openXMLEditorTab: function(transcription) {    
+
+  openXMLEditorTab: function(transcription) {
     var xmlEditor = new TextLab.XMLEditor({ model: transcription, leaf: this.model, config: this.config, tabbedEditor: this });
     xmlEditor.render();
 
-    var tab = { 
-      id: 'transcription-tab-'+transcription.id, 
+    var tab = {
+      id: 'transcription-tab-'+transcription.id,
       name: transcription.get('name'),
       star: transcription.get('published'),
       xmlEditor: xmlEditor,
       transcription: transcription,
       icon: 'fa fa-file-text-o'
     };
-    
+
     var tabPaneID = tab.id+'-pane';
     this.$(".tabs").append( this.partials.tab(tab) );
     this.$(".tab-panes").append( this.partials.tabPane({ id: tabPaneID }) );
-    
+
     var tabPaneEl = this.$("#"+tabPaneID);
     tabPaneEl.append( xmlEditor.$el );
-    
+
     tab.xmlEditor.initEditor();
     tab.xmlEditor.setSurfaceView(this.surfaceView);
 
@@ -97715,49 +97729,49 @@ TextLab.TabbedEditor = Backbone.View.extend({
     tabPaneEl.hide();
 
     this.tabs.push(tab);
-    
+
     return tab;
   },
 
   openSequenceEditorTab: function(sequence) {
-    var sequenceEditor = new TextLab.SequenceEditor({ 
-      model: sequence, 
-      leaf: this.model, 
+    var sequenceEditor = new TextLab.SequenceEditor({
+      model: sequence,
+      leaf: this.model,
       tabbedEditor: this,
       surfaceView: this.surfaceView,
     });
     sequenceEditor.render();
 
-    var tab = { 
-      id: 'sequence-tab-'+sequence.id, 
+    var tab = {
+      id: 'sequence-tab-'+sequence.id,
       name: sequence.get('name'),
       star: sequence.get('published'),
       sequenceEditor: sequenceEditor,
       sequence: sequence,
       icon: 'fa fa-list-ol'
     };
-    
+
     var tabPaneID = tab.id+'-pane';
     this.$(".tabs").append( this.partials.tab(tab) );
     this.$(".tab-panes").append( this.partials.tabPane({ id: tabPaneID }) );
-    
+
     var tabPaneEl = this.$("#"+tabPaneID);
     tabPaneEl.append( sequenceEditor.$el );
-    
+
     // it isn't visible by default
     tabPaneEl.hide();
 
     this.tabs.push(tab);
-    
+
     return tab;
   },
-      
+
   render: function() {
-    
+
     this.tabs = [];
-    
+
     // TODO start with loading spinner active
-    this.$el.html(this.template()); 
+    this.$el.html(this.template());
 
     var loadingComplete = _.bind( function() {
       _.each( _.first( this.transcriptions.models, this.maxStartingTabs), function( transcription ) {
@@ -97768,18 +97782,19 @@ TextLab.TabbedEditor = Backbone.View.extend({
       if( this.tabs.length > 0 ) {
         this.selectTab(_.first(this.tabs));
       }
+
     }, this );
-    
+
     // after init transcriptions, init sequences, then loading complete
     this.initTranscriptions( _.bind( this.initSequences, this, loadingComplete ) );
 
   },
-  
+
   postRender: function(surfaceView) {
     this.surfaceView = surfaceView;
   }
-  
-  
+
+
 });
 TextLab.UserDialog = Backbone.View.extend({
     
@@ -97994,16 +98009,16 @@ TextLab.UserListView = Backbone.View.extend({
 
 });
 TextLab.XMLEditor = Backbone.View.extend({
-    
+
 	template: JST['textlab/templates/xml-editor'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
   openTagTemplate: _.template("<<%= tag %><%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),
   emptyTagTemplate: _.template("<<%= tag %><%= attributes %>/>"),
   pbTagAttrTemplate: _.template(" facs='#<%= xml_id %>'" ),
-  
+
   id: 'xml-editor',
-  
+
   events: {
     'click .lb-mode-button': 'onClicklbMode',
     'click .pb-button': 'onClickpbMode',
@@ -98019,10 +98034,10 @@ TextLab.XMLEditor = Backbone.View.extend({
     'click .rename-button': 'onClickRename',
     'click .delete-button': 'onClickDelete'
   },
-  
+
 	autoSaveDelay: 1000,
-  
-            	
+
+
 	initialize: function(options) {
     _.bindAll( this, "onEnter", "requestAutosave", "save", "onDrop");
     this.lbEnabled = false;
@@ -98061,29 +98076,29 @@ TextLab.XMLEditor = Backbone.View.extend({
   activateTagDialog: function( tagID, zone ) {
 
     var tag = this.config.tags[tagID];
-        
-    if( tag.attributes ) {    
+
+    if( tag.attributes ) {
       var onCreateCallback = _.bind(function(attributes, children) {
         this.generateTag(tag,attributes,children);
       }, this);
-            
-      var attributeModalDialog = new TextLab.AttributeModalDialog({ 
-        model: this.leaf, 
-        config: this.config, 
-        zone: zone, 
-        tag: tag, 
-        callback: onCreateCallback 
+
+      var attributeModalDialog = new TextLab.AttributeModalDialog({
+        model: this.leaf,
+        config: this.config,
+        zone: zone,
+        tag: tag,
+        callback: onCreateCallback
       });
       attributeModalDialog.render();
     } else {
       this.generateTag(tag);
-    }     
+    }
 
   },
-  
+
   onClickTagMenuItem: function(event) {
-    var target = $(event.currentTarget); 
-    var tagID = target.attr("data-tag-id");   
+    var target = $(event.currentTarget);
+    var tagID = target.attr("data-tag-id");
 
     // are we coming from drop down? if so, hide it
     if( !target.hasClass('toolbar-button')) {
@@ -98094,22 +98109,22 @@ TextLab.XMLEditor = Backbone.View.extend({
 
     return false;
   },
-  
-  onClicklbMode: function() { 
+
+  onClicklbMode: function() {
     var lbModeButton = this.$('.lb-mode-button');
 
     if( this.lbEnabled ) {
       lbModeButton.removeClass('active');
-      this.lbEnabled = false;      
+      this.lbEnabled = false;
     } else {
       lbModeButton.addClass('active');
       this.lbEnabled = true
-    }    
+    }
     this.editor.focus();
     return false;
   },
-  
-  onClickpbMode: function() { 
+
+  onClickpbMode: function() {
     if( this.pbTag ) {
       var attrString = this.pbTagAttrTemplate({ xml_id: this.leaf.get('xml_id') });
       var attributes = { attrString: attrString };
@@ -98117,7 +98132,7 @@ TextLab.XMLEditor = Backbone.View.extend({
       return false;
     }
   },
-  
+
   onClickPreview: function() {
     if( this.model.id ) {
       window.open("/transcriptions/"+this.model.id,'_blank');
@@ -98125,25 +98140,25 @@ TextLab.XMLEditor = Backbone.View.extend({
       alert( "This transcription is blank or could not be saved, unable to preview.")
     }
   },
-  
+
   onClickPublish: function() {
     this.tabbedEditor.starTab( 'transcription', this.model.id );
   },
-  
+
   onClickUnPublish: function() {
     this.tabbedEditor.unStarTab( 'transcription', this.model.id );
   },
-  
+
   onClickShare: function() {
     this.updateSharing( true );
     return false;
   },
-  
+
   onClickStopSharing: function() {
     this.updateSharing( false );
     return false;
   },
-  
+
   onConfigChanged: function(config) {
     this.config = config;
   },
@@ -98151,69 +98166,69 @@ TextLab.XMLEditor = Backbone.View.extend({
   updateSharing: function( shared ) {
     this.$('#action-dropdown').dropdown('toggle');
     this.model.set('shared', shared );
-    
+
     this.save( _.bind( function() {
       var shareButton = this.$('.share-button');
       var stopShareButton = this.$('.stop-sharing-button');
-      
+
       if( shared ) {
         shareButton.addClass('hidden');
         stopShareButton.removeClass('hidden');
       } else {
         stopShareButton.addClass('hidden');
         shareButton.removeClass('hidden');
-      }      
-    }, this));    
+      }
+    }, this));
   },
 
-  onClickSubmit: function() {    
+  onClickSubmit: function() {
     this.$('#action-dropdown').dropdown('toggle');
 
     var submitConfirmed = confirm("Do you wish to submit this transcription for publication?");
-    
+
     if( submitConfirmed ) {
       this.tabbedEditor.submitTab( 'transcription', this.model );
     }
-    
+
     return false;
   },
-  
+
   onClickReturn: function() {
     this.$('#action-dropdown').dropdown('toggle');
 
     var returnConfirmed = confirm("Do you wish to return this transcription to its owner?");
-    
+
     if( returnConfirmed ) {
       this.tabbedEditor.returnTab( 'transcription', this.model );
     }
-    
+
     return false;
   },
-  
+
   onClickRename: function() {
     var onUpdateCallback = _.bind(function() {
       this.save( _.bind( function() {
-        this.tabbedEditor.renameTab( 'transcription', this.model.id, this.model.get('name'));        
+        this.tabbedEditor.renameTab( 'transcription', this.model.id, this.model.get('name'));
       }, this));
-    }, this);  
-    
+    }, this);
+
     var transcriptionDialog = new TextLab.TabDialog( { model: this.model, callback: onUpdateCallback, mode: 'edit' } );
-    transcriptionDialog.render();    
-    return false;   
+    transcriptionDialog.render();
+    return false;
   },
 
   onClickDelete: function() {
     this.$('#action-dropdown').dropdown('toggle');
-    
+
     var deleteConfirmed = confirm("Do you wish to delete the transcription titled '"+this.model.get('name')+"'? ");
-    
+
     if( deleteConfirmed ) {
       this.tabbedEditor.deleteTab( 'transcription', this.model );
     }
-    
+
     return false;
   },
-  
+
   togglePublishButton: function( buttonState ) {
     if( buttonState ) {
       this.$('.unpublish-button').addClass('hidden');
@@ -98223,15 +98238,15 @@ TextLab.XMLEditor = Backbone.View.extend({
       this.$('.unpublish-button').removeClass('hidden');
     }
   },
-  
+
   onEnter: function() {
     if( this.lbEnabled && this.lbTag ) {
       this.generateTag(this.lbTag);
-    }    
+    }
   },
-    
+
   save: function( callback ) {
-    var doc = this.editor.getDoc();    
+    var doc = this.editor.getDoc();
     var marks = doc.getAllMarks();
 
     // convert marks into zone links
@@ -98239,11 +98254,11 @@ TextLab.XMLEditor = Backbone.View.extend({
       var markRange = mark.find();
       var xmlZoneLabel = doc.getRange(markRange.from, markRange.to);
       var offset = doc.indexFromPos( markRange.from );
-      var zoneLink = new TextLab.ZoneLink({ 
-        offset: offset, 
-        zone_label: this.leaf.removeZoneLabelPrefix(xmlZoneLabel), 
-        transcription_id: this.model.id, 
-        leaf_id: this.leaf.id 
+      var zoneLink = new TextLab.ZoneLink({
+        offset: offset,
+        zone_label: this.leaf.removeZoneLabelPrefix(xmlZoneLabel),
+        transcription_id: this.model.id,
+        leaf_id: this.leaf.id
       });
       return zoneLink;
     }, this));
@@ -98251,36 +98266,36 @@ TextLab.XMLEditor = Backbone.View.extend({
     // reset to latest zone links
     this.model.zoneLinks.reset(zoneLinks);
     this.model.set("content",doc.getValue());
-    
-    
+
+
     var onError = function() {
       $('.error-message').html('ERROR: Unable to save changes.');
       TextLab.Routes.routes.onError();
     };
-  
+
     var onSuccess = function() {
       $('.error-message').html('');
       if( callback ) {
         callback();
       }
     };
-    
+
     this.model.save(null, { success: onSuccess, error: onError });
-  },  
-  
+  },
+
 	startAutosaveTimer: function() {
 		// start a timer
 		this.autoSaveTimerID = window.setTimeout( this.save, this.autoSaveDelay );
 	},
-	
+
 	requestAutosave: function() {
 		this.stopAutosaveTimer();
-		this.startAutosaveTimer();	
+		this.startAutosaveTimer();
 	},
-	
+
 	stopAutosaveTimer: function() {
-		// clear the current timer 		
-		window.clearTimeout( this.autoSaveTimerID );	
+		// clear the current timer
+		window.clearTimeout( this.autoSaveTimerID );
 	},
 
   getSelection: function() {
@@ -98316,7 +98331,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     var insertion;
     var doc =  this.editor.getDoc();
     var attrString = attributes ? attributes.attrString : "";
-    
+
     if( tag.empty ) {
       insertion = this.emptyTagTemplate({ tag: tag.tag, attributes: attrString });
     } else {
@@ -98330,18 +98345,18 @@ TextLab.XMLEditor = Backbone.View.extend({
           var markPos = existingMark.find();
           return doc.indexFromPos(markPos.from) + openTag.length;
         }, this );
-      } 
+      }
       var closeTag = this.closeTagTemplate(tag);
       insertion = openTag + body + closeTag;
     }
-    
+
     // if a range is selected, replace it. Otherwise, insert at caret.
     doc.replaceRange(insertion, from, to);
-    
-    // need to know insertion point + offset into insertion where link appears. 
+
+    // need to know insertion point + offset into insertion where link appears.
     if( attributes && attributes.zoneOffset ) {
       var elementStart = "<"+tag.tag;
-      var offset = doc.indexFromPos(from) + elementStart.length + attributes.zoneOffset;      
+      var offset = doc.indexFromPos(from) + elementStart.length + attributes.zoneOffset;
       var zoneMark = this.markZoneLink(offset);
       var markRange = zoneMark.find();
       var zoneLabel = doc.getRange(markRange.from, markRange.to);
@@ -98352,15 +98367,15 @@ TextLab.XMLEditor = Backbone.View.extend({
     _.each( existingMarkOffsets, function( existingMarkOffset ) {
       this.markZoneLink(existingMarkOffset);
     }, this);
-    
+
     var endIndex = doc.indexFromPos(from) + insertion.length;
     return doc.posFromIndex(endIndex);
   },
-  
+
   removeZoneLink: function( removedZone ) {
-    var doc = this.editor.getDoc();    
+    var doc = this.editor.getDoc();
     var marks = doc.getAllMarks();
-    
+
     _.each( marks, _.bind(function(mark) {
       var markRange = mark.find();
       var zoneLabel = doc.getRange(markRange.from, markRange.to);
@@ -98372,11 +98387,11 @@ TextLab.XMLEditor = Backbone.View.extend({
       }
     }, this));
   },
-  
+
   setSurfaceView: function( surfaceView ) {
-    var doc = this.editor.getDoc();    
+    var doc = this.editor.getDoc();
     var marks = doc.getAllMarks();
-    
+
     // convert marks into zone links
     var zoneLinks = _.map( marks, _.bind(function(mark) {
       var markRange = mark.find();
@@ -98391,10 +98406,10 @@ TextLab.XMLEditor = Backbone.View.extend({
       },this));
 
     }, this));
-    
-    this.surfaceView = surfaceView;          
+
+    this.surfaceView = surfaceView;
   },
-  
+
   markZoneLink: function( offset, broken ) {
     var labelPrefix = this.leaf.getZoneLabelPrefix();
     var endIndex = offset + labelPrefix.length + 4; // format is always four chars long
@@ -98402,9 +98417,9 @@ TextLab.XMLEditor = Backbone.View.extend({
     var position = doc.posFromIndex(offset);
     var endPos = doc.posFromIndex(endIndex);
     var cssClass = broken ? 'broken-zone-link' : 'zone-link';
-    return doc.markText( position, endPos, { className: cssClass, atomic: true } ); 
+    return doc.markText( position, endPos, { className: cssClass, atomic: true } );
   },
-  
+
   onClickZoneLink: function(e) {
     var xmlZoneLabel = $(e.currentTarget).html();
     var zoneLabel = this.leaf.removeZoneLabelPrefix(xmlZoneLabel);
@@ -98412,22 +98427,22 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.surfaceView.selectZone( zone );
     return false;
   },
-  
+
   initZoneLinks: function() {
     _.each( this.model.zoneLinks.models, function( zoneLink ) {
       var broken = this.leaf.isZoneLinkBroken(zoneLink);
       this.markZoneLink(zoneLink.get('offset'), broken);
-    }, this);  
+    }, this);
   },
-      
+
   render: function() {
-    
+
     var showPublishButton = this.tabbedEditor.projectOwner;
     var showSubmitButton = !this.tabbedEditor.projectOwner;
     var showReturnButton = (this.tabbedEditor.projectOwner && this.model.get('submitted'));
     var showActionMenu = (this.model.get('owner') && !this.model.get('submitted'));
-    var showTags = !this.model.isReadOnly(this.tabbedEditor.projectOwner);    
-    
+    var showTags = !this.model.isReadOnly(this.tabbedEditor.projectOwner);
+
     var statusMessage = "";
     if( this.model.get('submitted') ) {
       if( this.tabbedEditor.projectOwner ) {
@@ -98457,61 +98472,67 @@ TextLab.XMLEditor = Backbone.View.extend({
         dropDownTags.push( key );
       }
     });
-              
-    this.$el.html(this.template({ 
-      tags: dropDownTags,   
+
+    this.$el.html(this.template({
+      tags: dropDownTags,
       showPublishButton: showPublishButton,
       showSubmitButton: showSubmitButton,
       showReturnButton: showReturnButton,
-      showActionMenu: showActionMenu, 
+      showActionMenu: showActionMenu,
       published: this.model.get('published'),
       submitted: this.model.get('submitted'),
       shared: this.model.get('shared'),
       showTags: showTags,
       statusMessage: statusMessage,
       actionWidthClass: actionWidthClass
-    })); 
+    }));
   },
-  
+
   initEditor: function() {
-    
+
     var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var editorEl = this.$("#codemirror").get(0);
-		this.editor = CodeMirror.fromTextArea( editorEl, {
-        mode: "xml",
-        lineNumbers: true,
-        lineWrapping: true,
-        readOnly: readOnly
-		});    
-    
+
+
+	// Load editor, callbacks for loading modal
+	// This gets called once per editor tab (not editor window)
+	this.editor = CodeMirror.fromTextArea(
+			editorEl, {
+				mode: "xml",
+				lineNumbers: true,
+				lineWrapping: true,
+				readOnly: readOnly
+			});
+
+
     if( readOnly ) {
       this.$(".CodeMirror").addClass('read-only');
       this.$(".CodeMirror-gutters").addClass('read-only');
     }
-    
-    var doc = this.editor.getDoc();    
+
+    var doc = this.editor.getDoc();
     if( this.model && this.model.get('content')  ) {
       doc.setValue( this.model.get('content') );
     }
-    
+
     if( this.model ) {
       this.initZoneLinks();
     }
 		doc.clearHistory();
-    
+
     this.$el.keydown( _.bind( function (e){
-        if(e.keyCode == 13) { 
+        if(e.keyCode == 13) {
           this.onEnter();
         }
     }, this));
 
     this.editor.on('drop', this.onDrop );
-    
+
     // save as we go
     this.editor.on( "change", this.requestAutosave );
-        
-  }  
-  
+
+  }
+
 });
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
@@ -98525,7 +98546,7 @@ TextLab.XMLEditor = Backbone.View.extend({
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-  
+
 
 
 
