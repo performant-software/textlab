@@ -35,14 +35,10 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
-<<<<<<< HEAD
   # Force rails to compile all the assets (should never be true on production)
   # Fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
-=======
-  # DO fallback to assets pipeline if a precompiled asset is missed. (ok for dev, not production)
   config.assets.compile = true
->>>>>>> Fixed popover issue, need to handle resize case
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true

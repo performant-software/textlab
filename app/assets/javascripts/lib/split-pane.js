@@ -108,6 +108,12 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
 			$splitPane.trigger('dividerdragend', [ getComponentsSizes($splitPane) ]);
 		});
 		$splitPane.trigger('dividerdragstart', [ getComponentsSizes($splitPane) ]);
+
+		// When the resize divider is dragged, fire a window resize event so
+		// the rest of the code can properly handle resizes
+		window.dispatchEvent(new Event('resize'));
+
+
 	}
 
 	function getComponentsSizes($splitPane) {
@@ -132,6 +138,7 @@ https://raw.github.com/shagstrom/split-pane/master/LICENSE
 	}
 
 	function createParentresizeHandler($splitPane) {
+
 		var components = getComponents($splitPane);
 		if ($splitPane.is('.fixed-top')) {
 			return function(event) {
