@@ -400,6 +400,7 @@ TextLab.XMLEditor = Backbone.View.extend({
     this.surfaceView = surfaceView;
   },
 
+  // Add a link between XML and zones (boxes on leaf editor)
   markZoneLink: function( offset, broken ) {
     var labelPrefix = this.leaf.getZoneLabelPrefix();
     var endIndex = offset + labelPrefix.length + 4; // format is always four chars long
@@ -520,6 +521,22 @@ TextLab.XMLEditor = Backbone.View.extend({
 
     // save as we go
     this.editor.on( "change", this.requestAutosave );
+	var editor=this.editor;
+	this.editor.on( "change", function(cm,change,editor){
+		if (change.origin != "paste") return;
+  		cm.operation(function(editor) {
+			var contents = cm.getValue();
+			// apply regular expression
+			cm.setValue(contents);
+			console.log(contents);
+    		//for (var line = change.from.line, end = CodeMirror.changeEnd(change).line; line < end; ++line)
+			//console.log("Parse paste content");
+			editor.initZoneLinks();
+
+  		});
+	});
+
+
 
   }
 
