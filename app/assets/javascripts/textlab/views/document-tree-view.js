@@ -207,6 +207,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
 
   onDragEnter: function(node, data) {
+	  console.log("Drag enter");
     var documentNode = node.data.docNode;
     if( documentNode.isRoot() || this.readOnly ) {
       return [ ];

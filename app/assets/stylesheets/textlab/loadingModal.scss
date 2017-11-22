@@ -1,0 +1,38 @@
+/*
+	The "loading" modal
+
+	Put this somewhere on the page:
+	<div id="loadingStateModal"><div id="loadingStateModal_spinner"></div></div>
+
+	Then fade #loadingStateModal in and out as needed
+*/
+#loadingStateModal {
+
+	position: fixed;
+	z-index: 9000;
+	background-color: rgba(0, 0, 0, 0.48);
+	width: 100vw;
+	height: 100vh;
+}
+
+#loadingStateModal_spinner {
+	position: fixed;
+	top: 50vh;
+	left: 50vw;
+	margin: auto;
+	border: 1rem dotted #ffffff;
+	border-top: 1rem;
+	border-radius: 50%;
+	width: 5rem;
+	height: 5rem;
+	animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+	0% {
+		transform: rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
