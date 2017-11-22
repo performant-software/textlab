@@ -94619,7 +94619,7 @@ TextLab.Routes = Backbone.Router.extend({
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/sequence-editor"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class=\'btn-toolbar sequence-editor-toolbar\'>\n  \n  ');  if( showAddStep ) { ; __p.push(' \n    <button class=\'add-step-button toolbar-button btn btn-sm btn-default\' href=\'#\' >Add Step</button>\n  ');  } ; __p.push(' \n\n  <div class="status-message">',  statusMessage ,'</div> \n\n  <div class=\'actions ',  actionWidthClass ,'\' >    \n    ');  if( showPublishButton ) { ; __p.push(' \n      <button class=\'toolbar-button btn btn-sm btn-default publish-button ',  published ? 'hidden' : '' ,'\' href=\'#\' ><i class="fa fa-star" aria-hidden="true"></i> Accept</button>\n      <button class=\'toolbar-button btn btn-sm btn-default unpublish-button ',  published ? '' : 'hidden' ,'\' href=\'#\' ><i class="fa fa-star-o" aria-hidden="true"></i> Return</button>          \n    ');  }; __p.push('\n\n    ');  if( showReturnButton ) { ; __p.push('\n      <button class=\'toolbar-button btn btn-sm btn-default return-button ',  submitted ? '' : 'hidden' ,'\' href=\'#\' ><i class="fa fa-send-o" aria-hidden="true"></i> Return to Sender</button>         \n    ');  } ; __p.push('\n\n    ');  if( showActionMenu ) { ; __p.push(' \n      <div class="dropdown">\n        <button id="action-dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">\n          <i class="fa fa-bars" aria-hidden="true"></i>\n        </button>\n        <ul class="dropdown-menu">\n          ');  if( showSubmitButton ) { ; __p.push('\n            <li><a class=\'submit-button ',  submitted ? 'hidden' : '' ,'\' href="#"><i class="fa fa-send" aria-hidden="true"></i> Submit</a></li>\n          ');  } ; __p.push('\n          <li><a class=\'share-button ',  shared ? 'hidden' : '' ,'\' href="#"><i class="fa fa-share-square" aria-hidden="true"></i> Share</a></li>\n          <li><a class=\'stop-sharing-button ',  shared ? '' : 'hidden' ,'\' href="#"><i class="fa fa-share-square-o" aria-hidden="true"></i> Stop Sharing</a></li>\n          <li><a class=\'rename-button\' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Rename</a></li>\n          <li><a class=\'delete-button\' href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a></li>\n        </ul>\n      </div>\n    ');  } ; __p.push('\n    \n  </div>\n  \n</div>\n\n<div id=\'sequence-grid\'></div>\n\n\n');}return __p.join('');};
 }).call(this);
-(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/sequence-grid"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<h4>Revision Sequence</h4>\n<table class="table table-striped">\n  <tr>\n    <th>Step Order</th>\n    <th>Zone</th> \n    <th>Step</th>\n    <th>Narrative</th>\n    ');  if( !readOnly ) { ; __p.push(' \n      <th>Actions</th>\n    ');  } ; __p.push('\n  </tr>\n  ');  _.each( narrativeSteps, function(narrativeStep) { ; __p.push(' \n    <tr>\n      <td>\n        <span class=\'arrows\'>\n          ');  if( narrativeStep.step_number > 0 ) { ; __p.push(' \n            <a class=\'btn btn-xs btn-default up-step-button arrow-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a> \n          ');  } ; __p.push('\n          ');  if( narrativeStep.step_number < narrativeSteps.length-1 ) { ; __p.push(' \n            <a class=\'btn btn-xs btn-default down-step-button arrow-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>        \n          ');  } ; __p.push('\n        </span>\n      <td>\n        <a href="#" class="zone-link" data-zone-id="',  narrativeStep.zone_id ,'">\n          ',  narrativeStep.zoneLabel ,'\n        </a>\n      </td> \n      <td class=\'step-column\'>',  narrativeStep.step ,'</td>\n      <td class=\'narrative-column\'>',  narrativeStep.narrative ,'</td>\n      ');  if( !readOnly ) { ; __p.push(' \n        <td>\n          <a class=\'btn btn-xs btn-default edit-step-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>\n          <a class=\'btn btn-xs btn-danger delete-step-button\' data-step-id=\'',  narrativeStep.id ,'\' data-title="Delete this Step?" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>\n        </td>\n      ');  } ; __p.push('\n    </tr>\n  ');  }); ; __p.push('\n</table>\n');}return __p.join('');};
+(function() { this.JST || (this.JST = {}); this.JST["textlab/templates/sequence-grid"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<h4>Revision Sequence</h4>\n<table class="table table-striped">\n\t<tr>\n\t\t');  if( !readOnly ) { ; __p.push('<th>Step Order</th>');  } ; __p.push('\n\t\t<th>Zone</th>\n\t\t<th>Step</th>\n\t\t<th>Narrative</th>\n\t\t');  if( !readOnly ) { ; __p.push('\n\t\t\t<th>Actions</th>\n\t\t\t');  } ; __p.push('\n\t</tr>\n\t');  _.each( narrativeSteps, function(narrativeStep) { ; __p.push('\n\t\t<tr>\n\t\t\t<td>\n\t\t\t\t');  if( !readOnly ) { ; __p.push('\n\t\t\t\t\t<span class=\'arrows\'>\n\n\t\t\t          ');  if( narrativeStep.step_number > 0 ) { ; __p.push('\n\t\t\t            <a class=\'btn btn-xs btn-default up-step-button arrow-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>\n\t\t\t          ');  } ; __p.push('\n\t\t\t          ');  if( narrativeStep.step_number < narrativeSteps.length-1 ) { ; __p.push('\n\t\t\t            <a class=\'btn btn-xs btn-default down-step-button arrow-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>\n\t\t\t          ');  } ; __p.push('\n\t\t        \t</span>\n\t\t\t\t');  } ; __p.push('\n\t\t\t\t<td>\n\t\t\t\t\t<a href="#" class="zone-link" data-zone-id="',  narrativeStep.zone_id ,'">\n\t\t\t\t\t\t',  narrativeStep.zoneLabel ,'\n\t\t\t\t\t</a>\n\t\t\t\t</td>\n\t\t\t\t<td class=\'step-column\'>\n\t\t\t\t\t',  narrativeStep.step ,'\n\t\t\t\t</td>\n\t\t\t\t<td class=\'narrative-column\'>\n\t\t\t\t\t',  narrativeStep.narrative ,'\n\t\t\t\t</td>\n\t\t\t\t');  if( !readOnly ) { ; __p.push('\n\t\t\t\t\t<td>\n\t\t\t\t\t\t<a class=\'btn btn-xs btn-default edit-step-button\' data-step-id=\'',  narrativeStep.id ,'\' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>\n\t\t\t\t\t\t<a class=\'btn btn-xs btn-danger delete-step-button\' data-step-id=\'',  narrativeStep.id ,'\' data-title="Delete this Step?" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>\n\t\t\t\t\t</td>\n\t\t\t\t\t');  } ; __p.push('\n\t\t</tr>\n\t\t');  }); ; __p.push('\n</table>\n');}return __p.join('');};
 }).call(this);
 (function() { this.JST || (this.JST = {}); this.JST["textlab/templates/site-dialog"] = function(obj){var __p=[],print=function(){__p.push.apply(__p,arguments);};with(obj||{}){__p.push('<div class="modal fade" id="site-modal" tabindex="-1" role="dialog" aria-labelledby="siteModal">\n  <div class="modal-dialog" role="document">\n    <div class="modal-content">\n      <div class="modal-header">\n        <button type="button" class="close cancel-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>\n        <h4 class="modal-title" id="sectionModal">',  (mode=='edit'? 'Edit' : 'New') ,' Site</h4>\n      </div>\n      <div class="modal-body">\n        ',  partials.stringInput( { 
             field_name: 'name', 
@@ -95089,7 +95089,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
 	template: JST['textlab/templates/document-tree-view'],
 
-  id: 'document-tree-view',
+    id: 'document-tree-view',
 
 	glyphConfig: {
       map: {
@@ -95107,8 +95107,9 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     'click .edit-settings-button' : 'onEditProjectSettings'
   },
 
-	initialize: function(options) {
+  initialize: function(options) {
     this.mainViewport = options.mainViewport;
+	this.readOnly = options.readOnly;
     _.bindAll( this, "onNodeSelected", "onDragEnter", "onDragDrop" );
   },
 
@@ -95295,7 +95296,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   onDragEnter: function(node, data) {
 	  console.log("Drag enter");
     var documentNode = node.data.docNode;
-    if( documentNode.isRoot() ) {
+    if( documentNode.isRoot() || this.readOnly ) {
       return [ ];
     } else {
       return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after'];
@@ -96046,15 +96047,15 @@ TextLab.OpenTabDialog = Backbone.View.extend({
 TextLab.PrimaryEditingView = Backbone.View.extend({
 
 	template: JST['textlab/templates/primary-editing-view'],
-  
+
   id: 'primary-editing-view',
-            	
+
 	initialize: function(options) {
-    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );    
+    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );
   },
-  
+
   onWindowResize: function() {
-    var window$ = $(window);      
+    var window$ = $(window);
 		var windowHeight = window$.height();
 		var windowWidth = window$.width();
 
@@ -96065,39 +96066,39 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
 		var viewportWidth = windowWidth - editorLeft;
 
     // resize editing view to take up whole window
-		this.$el.height(viewportHeight);				
-		this.$el.width(viewportWidth);	
-    
-    this.onSplitPaneResize();				
+		this.$el.height(viewportHeight);
+		this.$el.width(viewportWidth);
+
+    this.onSplitPaneResize();
 	},
-  
-  onSplitPaneResize: function() {    
-    
+
+  onSplitPaneResize: function() {
+
     // resize the leaf image viewport
     var surfaceViewPanel = this.$("#surface-view-panel");
     var seaDragonViewport = this.$("#openseadragon");
-		seaDragonViewport.height(surfaceViewPanel.height());				
-    seaDragonViewport.width(surfaceViewPanel.width());	
+		seaDragonViewport.height(surfaceViewPanel.height());
+    seaDragonViewport.width(surfaceViewPanel.width());
 
     var documentTreePanel = this.$("#document-tree-panel");
     var documentTree = this.$("#document-tree");
     var documentToolbar = this.$("#document-toolbar");
-		documentTree.height(documentTreePanel.height() - documentToolbar.height() - 25);				
-    documentTree.width(documentTreePanel.width());	
+		documentTree.height(documentTreePanel.height() - documentToolbar.height() - 25);
+    documentTree.width(documentTreePanel.width());
 
     var explorerView = this.$("#explorer-view");
     var documentExplorer = this.$("#document-explorer");
     documentExplorer.height(explorerView.height());
     documentExplorer.width(explorerView.width());
-    
+
     this.tabbedEditor.resizeActivePanel();
-    
+
     // tell open sea dragon overlay to resize
     if( this.surfaceView.viewReady ) {
-      var overlay = this.surfaceView.overlay;    
+      var overlay = this.surfaceView.overlay;
       overlay.resize();
-      overlay.resizecanvas();     
-    } 
+      overlay.resizecanvas();
+    }
   },
 
   onDocumentTreeChanged: function() {
@@ -96109,7 +96110,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       this.tabbedEditor.onConfigChanged(config);
     }
   },
-    
+
   selectSection: function( sectionNode ) {
 
     var node = ( sectionNode == null ) ? this.model.getRootNode() : sectionNode;
@@ -96119,7 +96120,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.documentExplorer.selectSection( node );
     this.$('.explorer-view').show();
   },
-  
+
   selectLeaf: function(leaf) {
     this.$('.explorer-view').hide();
     this.$('.editor-view').show();
@@ -96127,59 +96128,67 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     this.tabbedEditor.selectLeaf(leaf);
     this.surfaceView.selectLeaf(leaf);
   },
-      
-  render: function() {      
-          
-    this.$el.html(this.template());  
-    
-		this.$('div.split-pane').splitPane();
-    
-    this.documentTreeView = new TextLab.DocumentTreeView({ model: this.model, mainViewport: this });
+
+  render: function() {
+
+
+	if( !this.selectedLeaf ) {
+		this.selectedLeaf = _.first( this.model.leafs.models );
+	}
+
+    this.$el.html(this.template());
+	this.$('div.split-pane').splitPane();
+
+
+	this.documentTreeView = new TextLab.DocumentTreeView({
+		model: this.model,
+		mainViewport: this,
+		// If the user is not the owner, they can't alter the order of leaves
+		readOnly: !(this.model.get('owner'))
+	});
     this.documentTreeView.render();
     this.$("#"+this.documentTreeView.id).replaceWith(this.documentTreeView.$el);
 
-    if( !this.selectedLeaf ) {
-      this.selectedLeaf = _.first( this.model.leafs.models );
-    }
+
 
     var xmlEditorPanel = this.$("#xml-editor-panel");
-    this.tabbedEditor = new TextLab.TabbedEditor({ 
-      model: this.selectedLeaf, 
-      config: this.model.config, 
-      parentPanel: xmlEditorPanel, 
-      projectOwner: this.model.get('owner') 
+    this.tabbedEditor = new TextLab.TabbedEditor({
+      model: this.selectedLeaf,
+      config: this.model.config,
+      parentPanel: xmlEditorPanel,
+      projectOwner: this.model.get('owner')
     });
     this.tabbedEditor.render();
     this.$("#"+this.tabbedEditor.id).replaceWith(this.tabbedEditor.$el);
-    
-    this.surfaceView = new TextLab.SurfaceView({ 
-      model: this.selectedLeaf, 
+
+    this.surfaceView = new TextLab.SurfaceView({
+      model: this.selectedLeaf,
       owner: this.model.get('owner'),
-      tabbedEditor: this.tabbedEditor, 
+      tabbedEditor: this.tabbedEditor,
       documentTree: this.documentTreeView,
       mainViewport: this });
-    this.surfaceView.render();    
-    this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);   
-    
-    this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model, 
-      mainViewport: this, 
-      documentTree: this.documentTreeView 
+    this.surfaceView.render();
+    this.$("#"+this.surfaceView.id).replaceWith(this.surfaceView.$el);
+
+    this.documentExplorer = new TextLab.DocumentExplorer({ model: this.model,
+      mainViewport: this,
+      documentTree: this.documentTreeView
     });
     this.documentExplorer.render();
     var documentExplorerEl = this.$("#"+this.documentExplorer.id);
-    documentExplorerEl.replaceWith(this.documentExplorer.$el);   
+    documentExplorerEl.replaceWith(this.documentExplorer.$el);
   },
-    
+
   postRender: function() {
     // viewer and editor must be initialized after they are in the DOM
     this.surfaceView.initViewer();
     this.tabbedEditor.postRender(this.surfaceView);
-        
+
     // resize listeners
     $(window).resize(this.onWindowResize);
     $('div.split-pane').on('dividerdragend', this.onSplitPaneResize );
   }
-  
+
 });
 TextLab.SectionDialog = Backbone.View.extend({
     
@@ -98010,7 +98019,7 @@ TextLab.UserListView = Backbone.View.extend({
 });
 TextLab.XMLEditor = Backbone.View.extend({
 
-	template: JST['textlab/templates/xml-editor'],
+  template: JST['textlab/templates/xml-editor'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
   openTagTemplate: _.template("<<%= tag %><%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),
