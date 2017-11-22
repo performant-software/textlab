@@ -482,12 +482,18 @@ TextLab.XMLEditor = Backbone.View.extend({
 
     var readOnly = this.model.isReadOnly(this.tabbedEditor.projectOwner);
     var editorEl = this.$("#codemirror").get(0);
-		this.editor = CodeMirror.fromTextArea( editorEl, {
-        mode: "xml",
-        lineNumbers: true,
-        lineWrapping: true,
-        readOnly: readOnly
-		});
+
+
+	// Load editor, callbacks for loading modal
+	// This gets called once per editor tab (not editor window)
+	this.editor = CodeMirror.fromTextArea(
+			editorEl, {
+				mode: "xml",
+				lineNumbers: true,
+				lineWrapping: true,
+				readOnly: readOnly
+			});
+
 
     if( readOnly ) {
       this.$(".CodeMirror").addClass('read-only');

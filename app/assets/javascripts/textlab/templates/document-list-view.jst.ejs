@@ -1,3 +1,7 @@
+<!-- Stop the loading modal -->
+<script>$( document ).ready(function() {loadingModal_stop();});</script>
+
+<!-- Project listing -->
 <div id="modal-container"></div>
 
 <h2>My Projects</h2>
@@ -9,27 +13,28 @@
       <div class='info'>
         <div class='icon'><span class='fa fa-4x fa-book'></span></div>
         <% if( !document.owner && !document.accepted ) { %>
-          <h4><%= document.name %></h4>    
+          <h4><%= document.name %></h4>
         <% } else { %>
-          <h4><a href='#documents/<%= document.id %>'><%= document.name %></a></h4>    
+          <h4><a onClick="loadingModal_start()" href='#documents/<%= document.id %>'><%= document.name %></a></h4>
         <% } %>
         <p class="description"><%= document.description %></p>
       </div>
         <div class='actions'>
-          <a href='#documents/<%= document.id %>' class="btn btn-sm btn-default">Edit</a>          <a href="/document_sections/<%= document.root_node %>.html" target="_blank" class="btn btn-sm btn-default">View</a>
-          <% if( document.owner ) { %> 
+          <a onClick="loadingModal_start()" href='#documents/<%= document.id %>' class="btn btn-sm btn-default">Edit</a>
+		  <a href="/document_sections/<%= document.root_node %>.html" target="_blank" class="btn btn-sm btn-default">View</a>
+          <% if( document.owner ) { %>
             <button class="btn btn-sm btn-danger delete-document-button" data-title="Delete this Project?" data-doc-id="<%= document.id %>">Delete</button>
           <% } %>
         </div>
-      
+
       <% if( !document.owner && !document.accepted ) { %>
         <div class='actions'>
-          <button class="btn btn-sm btn-success yes-button" data-doc-id="<%= document.id %>">Join Project</button>        
-          <button class="btn btn-sm btn-default no-button" data-doc-id="<%= document.id %>">Decline</button>        
+          <button class="btn btn-sm btn-success yes-button" data-doc-id="<%= document.id %>">Join Project</button>
+          <button class="btn btn-sm btn-default no-button" data-doc-id="<%= document.id %>">Decline</button>
         </div>
       <% } %>
-      
-      <% if( !document.owner ) { %> 
+
+      <% if( !document.owner ) { %>
         <div class='owner-name'><i>
         <% if( !document.accepted ) { %>
           <%= document.owner_name %> has invited you to join this project.
@@ -38,7 +43,7 @@
         <% } %>
         </i></div>
       <% } %>
-            
+
     </div>
   </div>
 <% })%>
