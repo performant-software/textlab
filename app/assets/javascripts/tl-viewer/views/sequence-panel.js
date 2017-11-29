@@ -1,13 +1,13 @@
 TextLab.SequencePanel = Backbone.View.extend({
 
-	stepSequencePanelTemplate: JST['tl-viewer/templates/step-sequence-panel'],
+  stepSequencePanelTemplate: JST['tl-viewer/templates/step-sequence-panel'],
   sequenceGridPanelTemplate: JST['tl-viewer/templates/sequence-grid-panel'],
   emptySequencePanelTemplate: JST['tl-viewer/templates/empty-sequence-panel'],
 
   facsSelectorTemplate: _.template( "span[facs='#<%= leafID %>-<%= zoneLabel %>']" ),
 
   id: 'sequence-panel',
-  
+
   events: {
     'click .toggle-grid-button': "onToggleGrid",
     'click .next-step-button': "onNextStep",
@@ -15,15 +15,15 @@ TextLab.SequencePanel = Backbone.View.extend({
     'click .prev-step-button': "onPrevStep",
     'click .back-to-list-link': "onBackToList"
   },
-            	
-	initialize: function(options) {
+
+  initialize: function(options) {
     this.sequenceListPanel = options.sequenceListPanel;
     this.leafViewer = options.leafViewer;
     this.showGrid = false;
     this.gotoFirstStep();
   },
 
-  onToggleGrid: function() {    
+  onToggleGrid: function() {
     this.showGrid = !this.showGrid;
 
     if(!this.showGrid) {
@@ -38,26 +38,26 @@ TextLab.SequencePanel = Backbone.View.extend({
     return false;
   },
 
-  onNextStep: function() {   
+  onNextStep: function() {
     var maxSteps = this.model.narrativeSteps.models.length;
 
     if( this.stepNumber < maxSteps-1 ) {
       var nextStep = this.stepNumber + 1;
       this.setCurrentStep(nextStep);
-      this.render();      
+      this.render();
     }
     return false;
   },
 
   onGotoStep: function(event) {
     var gotoButton = $(event.currentTarget);
-    var stepNumber = parseInt(gotoButton.attr("data-step-number"));   
+    var stepNumber = parseInt(gotoButton.attr("data-step-number"));
     this.setCurrentStep(stepNumber);
-    this.render();   
+    this.render();
     return false;
   },
 
-  onPrevStep: function() {    
+  onPrevStep: function() {
     if( this.stepNumber > 0 ) {
       var nextStep = this.stepNumber - 1;
       this.setCurrentStep(nextStep);
@@ -83,20 +83,20 @@ TextLab.SequencePanel = Backbone.View.extend({
     if( this.currentStep ) {
       var currentZoneLabel = this.currentStep.get('zone_label');
 
-      if( currentZoneLabel && currentZoneLabel != "" ) {        
+      if( currentZoneLabel && currentZoneLabel != "" ) {
         this.leafViewer.highlightZone( currentZoneLabel, false );
         this.hightlightSpan( currentZoneLabel, false );
       }
     }
 
-    if( nextStepNumber != null && this.model.narrativeSteps && 
+    if( nextStepNumber != null && this.model.narrativeSteps &&
         this.model.narrativeSteps.models.length > 0 ) {
       var nextStep = this.model.narrativeSteps.models[nextStepNumber];
       var nextZoneLabel = nextStep.get('zone_label');
 
       if( nextZoneLabel && nextZoneLabel != "" ) {
         this.leafViewer.highlightZone( nextZoneLabel, true );
-        this.hightlightSpan( nextZoneLabel, true );              
+        this.hightlightSpan( nextZoneLabel, true );
       }
     } else {
       nextStep = null;
@@ -108,8 +108,8 @@ TextLab.SequencePanel = Backbone.View.extend({
 
   hightlightSpan: function( zoneLabel, state ) {
     var leafID = this.leafViewer.model.xml_id;
-    var facsSelector = this.facsSelectorTemplate({ 
-      leafID: leafID, 
+    var facsSelector = this.facsSelectorTemplate({
+      leafID: leafID,
       zoneLabel: zoneLabel
     });
     var facsSpan = this.leafViewer.$(facsSelector);
@@ -120,27 +120,27 @@ TextLab.SequencePanel = Backbone.View.extend({
       facsSpan.removeClass('seq-highlight');
     }
   },
-    
-  render: function() {    
+
+  render: function() {
     if( this.showGrid ) {
-      this.$el.html(this.sequenceGridPanelTemplate({ 
-        name: this.model.get('name'), 
+      this.$el.html(this.sequenceGridPanelTemplate({
+        name: this.model.get('name'),
         steps: this.model.narrativeSteps.toJSON()
       }));
     } else {
       if( this.currentStep != null ) {
-        this.$el.html(this.stepSequencePanelTemplate({ 
-          name: this.model.get('name'), 
+        this.$el.html(this.stepSequencePanelTemplate({
+          name: this.model.get('name'),
           stepNumber: this.stepNumber,
           maxSteps: this.model.narrativeSteps.models.length,
           step: this.currentStep.toJSON()
-        }));          
+        }));
       } else {
-        this.$el.html(this.emptySequencePanelTemplate({ 
+        this.$el.html(this.emptySequencePanelTemplate({
           name: this.model.get('name')
-        })); 
+        }));
       }
     }
   }
-  
-});  
+
+});
