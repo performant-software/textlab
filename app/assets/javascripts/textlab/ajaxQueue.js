@@ -17,10 +17,12 @@ if(!window.ajaxRequestQueue){
 function ajaxRequestQueue_cancelQueue(){
 	for(var x=0;x<window.ajaxRequestQueue.length;x++){
 		var data = window.ajaxRequestQueue[x].responseText;
-		var requestObj = JSON.parse(data);
-		requestObj=requestObj[0];
-		console.log('Canceling: '+ requestObj.id);
-		window.ajaxRequestQueue[x].abort();
+		if(data.length > 0){
+			var requestObj = JSON.parse(data);
+			requestObj=requestObj[0];
+			console.log('Canceling: '+ requestObj.id);
+			window.ajaxRequestQueue[x].abort();
+		}
 	}
 	window.ajaxRequestQueue.length=0;
 }
