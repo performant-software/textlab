@@ -1,6 +1,6 @@
 TextLab.XMLEditor = Backbone.View.extend({
 
-	template: JST['textlab/templates/xml-editor'],
+  template: JST['textlab/templates/xml-editor'],
   facsTemplate: _.template("<span class='facs-ref' id='<%= id %>'><%= name %></span>"),
   openTagTemplate: _.template("<<%= tag %><%= attributes %>>"),
   closeTagTemplate: _.template("</<%= tag %>>"),

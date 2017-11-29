@@ -2,7 +2,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 
 	template: JST['textlab/templates/document-tree-view'],
 
-  id: 'document-tree-view',
+    id: 'document-tree-view',
 
 	glyphConfig: {
       map: {
@@ -20,8 +20,9 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     'click .edit-settings-button' : 'onEditProjectSettings'
   },
 
-	initialize: function(options) {
+  initialize: function(options) {
     this.mainViewport = options.mainViewport;
+	this.readOnly = options.readOnly;
     _.bindAll( this, "onNodeSelected", "onDragEnter", "onDragDrop" );
   },
 
@@ -208,7 +209,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   onDragEnter: function(node, data) {
 	  console.log("Drag enter");
     var documentNode = node.data.docNode;
-    if( documentNode.isRoot() ) {
+    if( documentNode.isRoot() || this.readOnly ) {
       return [ ];
     } else {
       return ( documentNode.isSection() ) ? ['before', 'after', 'over'] : ['before', 'after'];
