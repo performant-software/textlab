@@ -38,8 +38,8 @@ Rails.application.configure do
   # Force rails to compile all the assets (should never be true on production)
   # Fallback to assets pipeline if a precompiled asset is missed.
   # Minification: config.assets.compress = false
-  config.assets.compile = true
-config.sass.inline_source_maps = true
+  config.assets.compile = false
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end
