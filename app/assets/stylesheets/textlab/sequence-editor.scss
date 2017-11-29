@@ -4,11 +4,11 @@
   hi[rend="bold"] {
     font-weight: bold;
   }
-  
+
   .btn {
-    margin-bottom: 5px; 
+    margin-bottom: 5px;
   }
-  
+
   .sequence-editor-toolbar {
     padding: 5px;
     padding-top: 10px;
@@ -38,7 +38,7 @@
       background: #DAECFB;
     }
   }
-  
+
   .zone-link {
     color: white;
     background: blue;
@@ -57,36 +57,36 @@
     margin-left: 20px;
     height: 20px;
   }
-  
+
   .scrollable-menu {
       height: auto;
       max-height: 200px;
       overflow-x: hidden;
-  }    
-  
+  }
+
   .read-only {
     background: #DAECFB;
   }
-  
+
   .readonly-bar {
     button {
       float: right;
     }
   }
-  
+
   .room-for-action-menu {
     width: 130px;
   }
-  
+
   .room-for-action-and-publish {
-    width: 220px;
+    width: 280px;
   }
-  
+
   .room-for-return-button {
-    width: 330px;    
+    width: 330px;
   }
-  
-  .actions {        
+
+  .actions {
     button {
       margin-left: 5px;
     }
