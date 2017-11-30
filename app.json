@@ -2,7 +2,13 @@
   "name": "tl2",
   "scripts": {
   },
+  "scripts": {
+    "postdeploy": "pg_dump $STAGING_DATABASE_URL | psql $DATABASE_URL && bundle exec rake db:migrate"
+  },
   "env": {
+	"STAGING_DATABASE_URL": {
+  	  "required": true
+	},
     "EMAIL_ADDRESS": {
       "required": true
     },
@@ -68,7 +74,7 @@
     }
   },
   "addons": [
-    "heroku-postgresql:hobby-basic"
+    "heroku-postgresql:hobby-dev"
   ],
   "buildpacks": [
     {
