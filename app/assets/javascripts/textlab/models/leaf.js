@@ -77,8 +77,6 @@ TextLab.Leaf = Backbone.Model.extend({
       }
     });
 
-	// Push the request onto the queue
-	window.ajaxRequestQueue.push(request);
 
   },
 
@@ -95,8 +93,6 @@ TextLab.Leaf = Backbone.Model.extend({
       }
     });
 
-	// Push the request onto the queue
-	window.ajaxRequestQueue.push(request);
   },
 
   getZoneLabelPrefix: function() {
