@@ -32,18 +32,24 @@ TextLab.TabbedEditor = Backbone.View.extend({
   initTranscriptions: function( callback ) {
     if( !this.model ) return;
 
-
     this.model.getTranscriptions( _.bind( function( transcriptions ) {
       this.transcriptions = transcriptions;
-      this.transcriptions.models = _.sortBy( this.transcriptions.models, function(t) { t.get('name') });
+      this.transcriptions.models = _.sortBy( this.transcriptions.models,
+		  _.bind( function(t) {
+		  	t.get('name');
+			t.requestedAt = this.model.requestedAt;
+		  	//console.log("INIT Transcription: " +t.get('name')+ " Req for:"+ this.model.requestedAt);
+	  	  }, this)
+  	  );
 
       // if there are no transcriptions, create a blank one
       if(this.transcriptions.models.length == 0) {
         var transcription = TextLab.Transcription.newTranscription(this.model);
+		transcription.requestedAt = this.model.requestedAt;
         this.transcriptions.add( transcription );
         // save it immediately
         transcription.save(null, { success: callback, error: TextLab.Routes.routes.onError });
-      } else {
+	  } else {
         callback();
       }
 
@@ -57,13 +63,24 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     this.model.getSequences( _.bind( function( sequences ) {
       this.sequences = sequences;
-      this.sequences.models = _.sortBy( this.sequences.models, function(t) { t.get('name') });
+      this.sequences.models = _.sortBy( this.sequences.models,
+		  _.bind( function(t) {
+			t.get('name');
+			t.requestedAt = this.model.requestedAt;
+			//console.log("INIT Seq: " +t.get('name')+ " Req for:"+ this.model.requestedAt);
+		  }, this)
+	  );
       callback();
     },this) );
   },
 
   selectLeaf: function(leaf) {
+	// Register what time the leaf was requested
     this.model = leaf;
+	var requestTime = Date.now();
+	window.lastLeafReset=requestTime;
+	//console.log("Init LEAF:"+requestTime);
+	this.model.requestedAt=requestTime;
     this.render();
   },
 
@@ -144,6 +161,7 @@ TextLab.TabbedEditor = Backbone.View.extend({
       var tab = ( tabType == 'transcription') ? this.openXMLEditorTab(tabModel) : this.openSequenceEditorTab(tabModel);
       this.selectTab(tab);
     }, this);
+
 
     // make a list of the unopened transcriptions
     var loadingComplete = _.bind( function() {
@@ -396,7 +414,14 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     var loadingComplete = _.bind( function() {
       _.each( _.first( this.transcriptions.models, this.maxStartingTabs), function( transcription ) {
-        this.openXMLEditorTab(transcription);
+
+		  	// If I'm being asked to open a tab not associated with the current leaf, just refuse to load it
+			if(window.lastLeafReset == transcription.requestedAt){
+		  		this.openXMLEditorTab(transcription);
+				//console.log("TAB: "+transcription.requestedAt+" - "+transcription.attributes["name"]);
+			}else{
+				//console.log("BLOCKING: "+transcription.requestedAt+" - "+transcription.attributes["name"]);
+			}
       }, this );
 
       // select the first tab initially
