@@ -20,10 +20,30 @@ class DocumentNodesController < ApplicationController
 
   # PATCH/PUT /document_nodes/1.json
   def update
-    if @document_node.update(document_node_params)
-      render json: @document_node.obj
+    document_node_collection = document_node_params.collection
+    if document_node_collection.nil?
+      # single node update
+      if @document_node.update(document_node_params)
+        render json: @document_node.obj
+      else
+        render json: @document_node.errors, status: :unprocessable_entity
+      end
     else
-      render json: @document_node.errors, status: :unprocessable_entity
+      # update a collection of nodes
+      error = false
+      @document_nodes = document_node_collection.map { |document_obj|
+        if document_node.update(document_node_params(document_obj))
+          document_node.obj
+        else
+          document_node.errors
+          error = true
+        end
+      }
+      if error
+        render json: @document_nodes, status: :unprocessable_entity
+      else
+        render json: @document_nodes
+      end
     end
   end
 
@@ -43,7 +63,8 @@ class DocumentNodesController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def document_node_params
-      params.permit( :name, :document_section_id, :leaf_id, :position, :document_node_id, :document_id, :leaf_manifest )
+    def document_node_params( param_obj=nil )
+      param_obj = param_obj.nil? params : param_obj
+      param_obj.permit( :name, :document_section_id, :leaf_id, :position, :document_node_id, :document_id, :leaf_manifest, :collection )
     end
 end

@@ -224,22 +224,38 @@ TextLab.DocumentTreeView = Backbone.View.extend({
     var newParent = draggedNode.parent;
 
     // update position numbers and parent ids in domain model
-    var renumberNodes = function( parentNode ) {
+    var renumberNodes = _.bind( function( parentNode, callback ) {
       var siblingNodes = parentNode.children;
       var parentID = parentNode.data.docNode.id;
       var count = 0;
-      _.each( siblingNodes, function(sibling) {
+
+			// rather than saving these off individual, need to
+			// push a collection of them
+      var nodes = _.map( siblingNodes, function(sibling) {
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
         docNode.set('document_node_id', parentID );
-        docNode.save({ error: TextLab.Routes.onError });
       });
-    };
+			this.updateDocumentNodes( nodes, callback );
+    }, this);
 
-    renumberNodes( previousParent );
-    renumberNodes( newParent );
-    this.mainViewport.onDocumentTreeChanged();
+		// don't repaint display until everything is done
+    renumberNodes( previousParent, function() {
+			renumberNodes( newParent, function() {
+				this.mainViewport.onDocumentTreeChanged();
+			} );
+		} );
+
   },
+
+	updateDocumentNodes: function( documentNodes ) {
+		docNode.saveSet({ error: TextLab.Routes.onError });
+
+	},
+
+	canDrag: function() {
+		return this.dndEnabled;
+	},
 
   getSelectedNode: function() {
     var treeNode = this.fancyTree.getActiveNode();
@@ -318,7 +334,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         glyph: this.glyphConfig,
         dnd: {
           focusOnClick: true,
-          dragStart: function() { return true; },
+          dragStart: this.canDrag,
           dragEnter: this.onDragEnter,
           dragDrop: this.onDragDrop
         }
