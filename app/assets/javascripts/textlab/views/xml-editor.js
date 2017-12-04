@@ -302,6 +302,11 @@ save: function(callback) {
 		}
 	};
 
+	// FIXME: This updates the model with the contents of the editor and THEN saves
+	// Leaving for now, but we should consider moving the model update to onchange so that any future functions
+	// which expect the model to be up to date don't fall through the autosave timing cracks
+	var doc = this.editor.getDoc();
+	this.model.set("content",doc.getValue());
 	this.model.save(null, {
 		success: onSuccess,
 		error: onError
@@ -573,8 +578,6 @@ initEditor: function() {
 		// Exit if change isn't paste
 		if (change.origin != "paste") return;
 		this.onClickRelink();
-
-
 
 	}, this));
 }
