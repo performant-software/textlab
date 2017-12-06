@@ -1,35 +1,35 @@
 require 'saxon-xslt'
 
 class Diplo < ActiveRecord::Base
-  
+
   belongs_to :transcription
 
   attr_accessor :raw_xhtml
-  
+
   def self.create_diplo!( transcription )
-    
-    diplo = Diplo.new()    
+
+    diplo = Diplo.new()
     diplo.transcription = transcription
-    
+
     tei_document = diplo.create_tei_document()
 
-    syntax_errors = self.validate_tei( tei_document )  
+    syntax_errors = self.validate_tei( tei_document )
 
     if syntax_errors and syntax_errors.length > 0
       diplo.error = true
       diplo.html_content = "<ul>"
       syntax_errors.each { |error|
-        diplo.html_content << "<li>#{error}</li>"      
+        diplo.html_content << "<li>#{error}</li>"
       }
       diplo.html_content << "</ul>"
     else
       begin
-        doc   = Saxon.XML(tei_document)    
+        doc   = Saxon.XML(tei_document)
         xslt  = Saxon.XSLT(File.read('tei-xsl/xml/tei/stylesheet/html5/tei.xsl'))
         # TODO these options don't work, is there a way to config Saxon from here?
-        options = { "indent" => "'no'", "encoding" => "'utf-8'" } 
-               
-        diplo.raw_xhtml = xslt.transform(doc,options).to_s    
+        options = { "indent" => "'no'", "encoding" => "'utf-8'" }
+
+        diplo.raw_xhtml = xslt.transform(doc,options).to_s
         diplo.html_content = self.get_page(diplo.raw_xhtml, transcription.leaf.xml_id )
         diplo.error = false
       rescue Exception => e
@@ -37,17 +37,36 @@ class Diplo < ActiveRecord::Base
         diplo.html_content = e.to_s
       end
     end
-    
+
     diplo.save!
-    diplo        
+    diplo
   end
 
   def base_text
     html_doc = Nokogiri::HTML("<html><body>#{self.html_content}</body></html>")
 
-    # remove dels and metamarks
-    html_doc.search('.metamark,.del').each { |metamark| 
+    # remove metamarks
+    html_doc.search('.metamark').each { |metamark|
       metamark.remove
+    }
+
+    # remove dels except those with restore tags as immediate parent
+    #
+    # example XML:
+    # <restore change="StDa" hand="#HM" facs="#img_7-0016" >
+    #   <del rend="single-stroke _HMp" hand="#HM" change="StDa" facs="#img_7-0016" >lesser</del>
+    # </restore>
+    #
+    # HTML:
+    # <span class="restore" facs="#img_7-0016">
+    #    <span class="del" facs="#img_7-0016">
+    #       <span class="single-stroke _HMp">lesser</span>
+    #    </span>
+    # </span>
+    html_doc.search('.del').each { |del|
+      unless del.matches?('.restore > .del')
+        del.remove
+      end
     }
 
     # add sentinels where there are brs
@@ -60,11 +79,11 @@ class Diplo < ActiveRecord::Base
     # remove all excess whitespace and put whitespace for sentinels
     text_nodes = html_doc.xpath("//*[text()]")
     text_nodes.each { |text_node|
-      revised_content = text_node.content.tr("\n","") 
+      revised_content = text_node.content.tr("\n","")
       revised_content.tr!("\t","")
       revised_content = revised_content.split.join(" ")
-      revised_content.tr!("π"," ") 
-      text_node.content = revised_content 
+      revised_content.tr!("π"," ")
+      text_node.content = revised_content
     }
 
     html_doc.root.to_str
@@ -94,20 +113,20 @@ class Diplo < ActiveRecord::Base
    tei_xml << "</TEI>"
    tei_xml
   end
-  
+
   def self.get_page( xhtml, leaf_xml_id )
     # extract: <span class="ab"> .. <div class="stdfooter"> or notes or pb
     start_match = xhtml.match(/<span class=\"ab\">/)
-    
+
     if start_match
       end_match = xhtml.match(/<div class="(stdfooter|notes|pb)">/)
       if end_match
         start_pos = start_match.begin(0)
-        length = end_match.begin(0) - start_pos    
+        length = end_match.begin(0) - start_pos
         return "<div class='transcription' id='#{leaf_xml_id}'>#{xhtml.slice(start_pos,length)}"
       end
-    end        
-    
+    end
+
     return nil
   end
 
@@ -116,12 +135,12 @@ class Diplo < ActiveRecord::Base
     doc = Nokogiri::XML(tei_document)
     return xsd.validate(doc)
   end
-    
+
   def obj
-    { 
+    {
       id: self.id,
       html_content: self.html_content
     }
   end
-  
+
 end
