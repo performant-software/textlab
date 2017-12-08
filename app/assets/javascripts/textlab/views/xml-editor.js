@@ -132,30 +132,41 @@ onClickpbMode: function() {
 // Handle relinking
 onClickRelink: function(){
 	this.relinkZones();
-	$('#buttonRelink').button('toggle');
+	document.activeElement.blur();
 },
 relinkZones: function(){
-
 	// Start the load modal
 	window.loadingModal_start();
 
 
 	// Look for 'facs' and re-mark them as needed
 	contents = this.editor.getValue();
-	const regex = /(#img_\d*-\d+)/g;
+	const regex = /facs=["|'](#.+?_\d*-?\d*["|'])/g;
+
+	// Add mark
 	while ((match = regex.exec(contents)) != null) {
 
-		// Add mark, defaults to not broken (corrected later)
+		// If this match is a pb link, don't bother
 		var labelPrefix = this.leaf.getZoneLabelPrefix();
-		var endIndex = match.index + labelPrefix.length + 4; // format is always four chars long
-		var doc = this.editor.getDoc();
-		var position = doc.posFromIndex(match.index);
-		var endPos = doc.posFromIndex(endIndex);
-		var cssClass = 'zone-link';
-		doc.markText(position, endPos, {
-			className: cssClass,
-			atomic: true
-		});
+		var hasID = match[0].split(labelPrefix);
+		if(hasID.length > 1){
+			// Defaults to not broken (corrected later)
+			var cssClass = 'zone-link';
+
+			// We add 6 because the match includes prefix: facs=["|']
+			var startIndex = match.index+6;
+
+			// Match[1] is actual match, so that forms our end
+			var endIndex = (match.index + match[0].length)-1;
+
+			var doc = this.editor.getDoc();
+			var position = doc.posFromIndex(startIndex);
+			var endPos = doc.posFromIndex(endIndex);
+			doc.markText(position, endPos, {
+				className: cssClass,
+				atomic: true
+			});
+		}
 	}
 
 	// convert marks into zone links
@@ -178,23 +189,27 @@ relinkZones: function(){
 	this.model.zoneLinks.reset(zoneLinks);
 	this.model.set("content", doc.getValue());
 
+
 	// Re-check to see which ones are valid now
 	_.each(this.model.zoneLinks.models, function(zoneLink) {
+		console.log("hello");
 		var broken = this.leaf.isZoneLinkBroken(zoneLink);
 		var offsetPos = zoneLink.get('offset');
 
-		// Add mark, defaults to not broken (corrected later)
+		var cssClass = broken ? 'broken-zone-link' : 'zone-link';
 		var labelPrefix = this.leaf.getZoneLabelPrefix();
 		var endIndex = offsetPos + labelPrefix.length + 4; // format is always four chars long
+
 		var doc = this.editor.getDoc();
 		var position = doc.posFromIndex(offsetPos);
 		var endPos = doc.posFromIndex(endIndex);
-		var cssClass = broken ? 'broken-zone-link' : 'zone-link';
 		doc.markText(position, endPos, {
 			className: cssClass,
 			atomic: true
 		});
+
 	}, this);
+
 
 	// Stop the load modal
 	window.loadingModal_stop();
