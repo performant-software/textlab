@@ -192,7 +192,6 @@ relinkZones: function(){
 
 	// Re-check to see which ones are valid now
 	_.each(this.model.zoneLinks.models, function(zoneLink) {
-		console.log("hello");
 		var broken = this.leaf.isZoneLinkBroken(zoneLink);
 		var offsetPos = zoneLink.get('offset');
 
