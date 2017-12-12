@@ -131,16 +131,42 @@ onClickpbMode: function() {
 
 // Handle relinking
 onClickRelink: function(){
-
+	this.relinkZones();
+	document.activeElement.blur();
+},
+relinkZones: function(){
+	// Start the load modal
 	window.loadingModal_start();
-	$('#buttonRelink').button('toggle');
+
 
 	// Look for 'facs' and re-mark them as needed
 	contents = this.editor.getValue();
-	const regex = /(#img_\d*-\d+)/g;
+	const regex = /facs=["|'](#.+?_\d*-?\d*["|'])/g;
+
+	// Add mark
 	while ((match = regex.exec(contents)) != null) {
-		// Add mark, defaults to not broken (corrected later)
-		this.markZoneLink(match.index, false);
+
+		// If this match is a pb link, don't bother
+		var labelPrefix = this.leaf.getZoneLabelPrefix();
+		var hasID = match[0].split(labelPrefix);
+		if(hasID.length > 1){
+			// Defaults to not broken (corrected later)
+			var cssClass = 'zone-link';
+
+			// We add 6 because the match includes prefix: facs=["|']
+			var startIndex = match.index+6;
+
+			// Match[1] is actual match, so that forms our end
+			var endIndex = (match.index + match[0].length)-1;
+
+			var doc = this.editor.getDoc();
+			var position = doc.posFromIndex(startIndex);
+			var endPos = doc.posFromIndex(endIndex);
+			doc.markText(position, endPos, {
+				className: cssClass,
+				atomic: true
+			});
+		}
 	}
 
 	// convert marks into zone links
@@ -163,12 +189,28 @@ onClickRelink: function(){
 	this.model.zoneLinks.reset(zoneLinks);
 	this.model.set("content", doc.getValue());
 
+
 	// Re-check to see which ones are valid now
 	_.each(this.model.zoneLinks.models, function(zoneLink) {
 		var broken = this.leaf.isZoneLinkBroken(zoneLink);
 		var offsetPos = zoneLink.get('offset');
-		this.markZoneLink(offsetPos, broken);
+
+		var cssClass = broken ? 'broken-zone-link' : 'zone-link';
+		var labelPrefix = this.leaf.getZoneLabelPrefix();
+		var endIndex = offsetPos + labelPrefix.length + 4; // format is always four chars long
+
+		var doc = this.editor.getDoc();
+		var position = doc.posFromIndex(offsetPos);
+		var endPos = doc.posFromIndex(endIndex);
+		doc.markText(position, endPos, {
+			className: cssClass,
+			atomic: true
+		});
+
 	}, this);
+
+
+	// Stop the load modal
 	window.loadingModal_stop();
 },
 
@@ -296,15 +338,14 @@ save: function(callback) {
 	};
 
 	var onSuccess = function() {
+		console.log("Saving...");
 		$('.error-message').html('');
 		if (callback) {
 			callback();
 		}
 	};
 
-	// FIXME: This updates the model with the contents of the editor and THEN saves
-	// Leaving for now, but we should consider moving the model update to onchange so that any future functions
-	// which expect the model to be up to date don't fall through the autosave timing cracks
+	// Update the model with the contents of the editor and then save it
 	var doc = this.editor.getDoc();
 	this.model.set("content",doc.getValue());
 	this.model.save(null, {
@@ -389,76 +430,25 @@ generateSingleTag: function(tag, attributes, from, to) {
 	// if a range is selected, replace it. Otherwise, insert at caret.
 	doc.replaceRange(insertion, from, to);
 
-	// need to know insertion point + offset into insertion where link appears.
-	if (attributes && attributes.zoneOffset) {
-		var elementStart = "<" + tag.tag;
-		var offset = doc.indexFromPos(from) + elementStart.length + attributes.zoneOffset;
-		var zoneMark = this.markZoneLink(offset);
-		var markRange = zoneMark.find();
-		var zoneLabel = doc.getRange(markRange.from, markRange.to);
-		this.surfaceView.toggleZoneLink(zoneLabel, true);
-	}
-
-	// repair any existing marks
-	_.each(existingMarkOffsets, function(existingMarkOffset) {
-		this.markZoneLink(existingMarkOffset);
-	}, this);
+	// Relink the zones
+	this.relinkZones();
 
 	var endIndex = doc.indexFromPos(from) + insertion.length;
 	return doc.posFromIndex(endIndex);
 },
 
+// A zonelink has been deleted from the leaf
 removeZoneLink: function(removedZone) {
-	var doc = this.editor.getDoc();
-	var marks = doc.getAllMarks();
-
-	_.each(marks, _.bind(function(mark) {
-		var markRange = mark.find();
-		var zoneLabel = doc.getRange(markRange.from, markRange.to);
-		if (zoneLabel == removedZone) {
-			// clear the old one and add a new one that's red.
-			var delOffset = doc.indexFromPos(markRange.from);
-			mark.clear();
-			this.markZoneLink(delOffset, true);
-		}
-	}, this));
+	// Relink zones
+	this.relinkZones();
 },
 
 setSurfaceView: function(surfaceView) {
-	var doc = this.editor.getDoc();
-	var marks = doc.getAllMarks();
+	// Relink zones
+	this.relinkZones();
 
-	// convert marks into zone links
-	var zoneLinks = _.map(marks, _.bind(function(mark) {
-		var markRange = mark.find();
-		var zoneLabel = doc.getRange(markRange.from, markRange.to);
-
-		mark.on('hide', _.bind(function() {
-			this.surfaceView.toggleZoneLink(zoneLabel, false);
-		}, this));
-
-		mark.on('unhide', _.bind(function() {
-			this.surfaceView.toggleZoneLink(zoneLabel, true);
-		}, this));
-
-	}, this));
-
+	// Set the surface view
 	this.surfaceView = surfaceView;
-},
-
-// Add a link between XML and zones (boxes on leaf editor)
-markZoneLink: function(offset, broken) {
-	var labelPrefix = this.leaf.getZoneLabelPrefix();
-	var endIndex = offset + labelPrefix.length + 4; // format is always four chars long
-	var doc = this.editor.getDoc();
-	var position = doc.posFromIndex(offset);
-	var endPos = doc.posFromIndex(endIndex);
-	var cssClass = broken ? 'broken-zone-link' : 'zone-link';
-
-	return doc.markText(position, endPos, {
-		className: cssClass,
-		atomic: true
-	});
 },
 
 onClickZoneLink: function(e) {
@@ -470,10 +460,8 @@ onClickZoneLink: function(e) {
 },
 
 initZoneLinks: function() {
-	_.each(this.model.zoneLinks.models, function(zoneLink) {
-		var broken = this.leaf.isZoneLinkBroken(zoneLink);
-		this.markZoneLink(zoneLink.get('offset'), broken);
-	}, this);
+	// Relink the zones
+	this.relinkZones();
 },
 
 render: function() {
@@ -574,10 +562,11 @@ initEditor: function() {
 
 	// Handle paste operations
 	this.editor.on("change", _.bind(function(cm, change) {
-
 		// Exit if change isn't paste
 		if (change.origin != "paste") return;
-		this.onClickRelink();
+
+		// Relink zones
+		this.relinkZones();
 
 	}, this));
 }
