@@ -1,30 +1,35 @@
 TextLab.BasePanel = Backbone.View.extend({
-      
+
   id: 'base-panel',
-  
-  render: function() {    
+
+  render: function() {
     this.deleteDels();
     this.fixCarets();
   },
-  
+
   fixCarets: function() {
     // since we don't use caret class for formatting, remove it. conflicts with Twitter Bootstrap
     var spans = this.$('span');
     _.each( spans, function( span ) {
       $(span).removeClass('caret');
-    });    
+    });
   },
-  
+
   deleteDels: function() {
     // delete the dels
-    var delSpans = this.$('.del, .metamark');
+    var metaSpans = this.$('.metamark');
+    _.each( metaSpans, function(metaSpan) {
+          $(metaSpan).detach();
+    })
+
+    // delete the dels that aren't restored
+    var delSpans = this.$('.del');
+    var restoredDels = this.$('.restore > .del');
     _.each( delSpans, function(delSpan) {
-      $(delSpan).detach();  
-    })    
+        if( !_.contains(restoredDels, delSpan) ) {
+          $(delSpan).detach();
+        }
+    });
   }
 
 });
-
-
-
-
