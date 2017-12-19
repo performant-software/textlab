@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   resources :diplos, only: [ :show, :update, :create, :destroy ]
   resources :documents, only: [ :index, :show, :update, :create, :destroy ]
   resources :document_exports, only: [ :index, :show ]
+  put "document_nodes/update_set" => "document_nodes#update_set"
   resources :document_nodes, only: [ :show, :update, :create, :destroy ]
   resources :document_sections, only: [ :show, :update, :create, :destroy ]
   resources :leafs, only: [ :show, :update, :create, :destroy ]
@@ -30,5 +31,6 @@ Rails.application.routes.draw do
   resources :zone_links, only: [ :show, :update, :create, :destroy ]
   resources :accounts, only: [ :index, :show, :update ]
   resources :sites, only: [ :index, :show, :update, :create, :destroy ]
+
 
 end
