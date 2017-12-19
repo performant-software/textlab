@@ -22,13 +22,16 @@ class DocumentNodesController < ApplicationController
   def update_set
     # update a collection of nodes
     error = false
-    @document_nodes = params.map { |document_obj|
-      document_node = Document.find(document_obj['id'].to_i)
-      if document_node.update(document_node_params(document_obj))
+    nodes = JSON.parse( params['nodes'] )
+    @document_nodes = nodes.map { |node|
+      document_node = DocumentNode.find(node['id'])
+      # validates params from json obj before update
+      node_params = ActionController::Parameters.new(node)
+      if document_node.update(document_node_params(node_params))
         document_node.obj
       else
-        document_node.errors
         error = true
+        document_node.errors
       end
     }
     if error

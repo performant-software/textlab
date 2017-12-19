@@ -228,7 +228,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
         docNode.set('document_node_id', parentID );
-				return docNode;
+				return docNode.toJSON();
       });
 
 			return nodes;
@@ -246,7 +246,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
 		$.ajax( {
 			method: 'PUT',
 			url: '/document_nodes/update_set',
-			data: nodes,
+			data: { nodes: JSON.stringify(nodes) },
 			success: this.mainViewport.onDocumentTreeChanged,
 			error: TextLab.Routes.onError
 		});
