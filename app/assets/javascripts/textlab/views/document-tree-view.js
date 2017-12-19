@@ -217,29 +217,45 @@ TextLab.DocumentTreeView = Backbone.View.extend({
   },
 
   onDragDrop: function(node, data) {
-    var draggedNode = data.otherNode;
-
-    var previousParent = draggedNode.parent;
-    draggedNode.moveTo(node, data.hitMode);
-    var newParent = draggedNode.parent;
 
     // update position numbers and parent ids in domain model
     var renumberNodes = function( parentNode ) {
       var siblingNodes = parentNode.children;
       var parentID = parentNode.data.docNode.id;
       var count = 0;
-      _.each( siblingNodes, function(sibling) {
+
+      var nodes = _.map( siblingNodes, function(sibling) {
         var docNode = sibling.data.docNode;
         docNode.set('position', count++ );
         docNode.set('document_node_id', parentID );
-        docNode.save({ error: TextLab.Routes.onError });
+				return docNode.toJSON();
       });
+
+			return nodes;
     };
 
-    renumberNodes( previousParent );
-    renumberNodes( newParent );
-    this.mainViewport.onDocumentTreeChanged();
+		var draggedNode = data.otherNode;
+    var previousParent = draggedNode.parent;
+    draggedNode.moveTo(node, data.hitMode);
+    var newParent = draggedNode.parent;
+
+		// all the nodes effected by this move
+		var nodes = _.union( renumberNodes( previousParent ), renumberNodes( newParent ) );
+
+		// send nodes to server and update tree on success
+		$.ajax( {
+			method: 'PUT',
+			url: '/document_nodes/update_set',
+			data: { nodes: JSON.stringify(nodes) },
+			success: this.mainViewport.onDocumentTreeChanged,
+			error: TextLab.Routes.onError
+		});
+
   },
+
+	canDrag: function() {
+		return this.dndEnabled;
+	},
 
   getSelectedNode: function() {
     var treeNode = this.fancyTree.getActiveNode();
@@ -318,7 +334,7 @@ TextLab.DocumentTreeView = Backbone.View.extend({
         glyph: this.glyphConfig,
         dnd: {
           focusOnClick: true,
-          dragStart: function() { return true; },
+          dragStart: this.canDrag,
           dragEnter: this.onDragEnter,
           dragDrop: this.onDragDrop
         }
