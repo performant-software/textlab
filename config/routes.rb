@@ -28,7 +28,6 @@ Rails.application.routes.draw do
   resources :sequences, only: [ :index, :show, :update, :create, :destroy ]
   resources :transcriptions, only: [ :index, :show, :update, :create, :destroy ]
   resources :zones, only: [ :show, :update, :create, :destroy ]
-  resources :zone_links, only: [ :show, :update, :create, :destroy ]
   resources :accounts, only: [ :index, :show, :update ]
   resources :sites, only: [ :index, :show, :update, :create, :destroy ]
 
