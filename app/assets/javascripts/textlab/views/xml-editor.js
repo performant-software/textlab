@@ -176,20 +176,15 @@ relinkZones: function(){
 		var markRange = mark.find();
 		var xmlZoneLabel = doc.getRange(markRange.from, markRange.to);
 		var offset = doc.indexFromPos(markRange.from);
-		var zoneLink = new TextLab.ZoneLink({
-			offset: offset,
-			zone_label: this.leaf.removeZoneLabelPrefix(xmlZoneLabel),
-			transcription_id: this.model.id,
-			leaf_id: this.leaf.id
-		});
-		return zoneLink;
+
 	}, this));
 
 	// reset to latest zone links
-	this.model.zoneLinks.reset(zoneLinks);
+	// ZONELINK: this.model.zoneLinks.reset(zoneLinks);
 	this.model.set("content", doc.getValue());
 
-
+	// ZONELINK:
+	/*
 	// Re-check to see which ones are valid now
 	_.each(this.model.zoneLinks.models, function(zoneLink) {
 		var broken = this.leaf.isZoneLinkBroken(zoneLink);
@@ -208,7 +203,7 @@ relinkZones: function(){
 		});
 
 	}, this);
-
+	*/
 
 	// Stop the load modal
 	window.loadingModal_stop();
@@ -338,7 +333,7 @@ save: function(callback) {
 	};
 
 	var onSuccess = function() {
-		console.log("Saving...");
+		//console.log("Saving...");
 		$('.error-message').html('');
 		if (callback) {
 			callback();

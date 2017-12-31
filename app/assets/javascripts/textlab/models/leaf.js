@@ -46,7 +46,7 @@ TextLab.Leaf = Backbone.Model.extend({
     zone.generateZoneLabel(zoneID);
     this.zones.add( zone );
   },
-
+  /*
   addZoneLink: function( zoneLink ) {
     zoneLink.set("leaf_id", this.id );
     this.zoneLinks.add( zoneLink );
@@ -59,7 +59,7 @@ TextLab.Leaf = Backbone.Model.extend({
 
     return zone == null;
   },
-
+ */
   getTranscriptions: function( callback ) {
     var transcriptionsURL = _.template("/transcriptions?leaf_id=<%= leafID %>");
 

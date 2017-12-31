@@ -2,9 +2,8 @@ TextLab.Transcription = Backbone.Model.extend({
   urlRoot: "transcriptions",
 
   initialize: function( attributes, options ) {
-    this.afterLoad( attributes );
   },
-  
+
   isReadOnly: function( isProjectOwner ) {
     var owner = this.get('owner');
     var shared = this.get('shared');
