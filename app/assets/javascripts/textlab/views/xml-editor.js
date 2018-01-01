@@ -143,6 +143,15 @@ relinkZones: function(){
 	contents = this.editor.getValue();
 	const regex = /facs=["|'](#.+?_\d*-?\d*["|'])/g;
 
+	// Build a LUT of valid possible zoneLinks
+	var validZonelinks = [];
+	var leafID=this.leaf.attributes.xml_id;
+	for(var key in this.leaf.zones._byId) {
+		var zoneLabel = this.leaf.zones._byId[key].attributes.zone_label;
+		var thisID = leafID+"-"+zoneLabel;
+		validZonelinks.push(thisID);
+    }
+
 	// Add mark
 	while ((match = regex.exec(contents)) != null) {
 
@@ -150,8 +159,11 @@ relinkZones: function(){
 		var labelPrefix = this.leaf.getZoneLabelPrefix();
 		var hasID = match[0].split(labelPrefix);
 		if(hasID.length > 1){
-			// Defaults to not broken (corrected later)
-			var cssClass = 'zone-link';
+
+			// Check if valid
+			var zonelinkID=match[1].split("#")[1].slice(0, -1);
+			//console.log("Validating: " + zonelinkID + (zonelinkID in validZonelinks));
+			var cssClass = (validZonelinks.indexOf(zonelinkID)>-1) ? 'zone-link':'broken-zone-link';
 
 			// We add 6 because the match includes prefix: facs=["|']
 			var startIndex = match.index+6;
@@ -168,42 +180,6 @@ relinkZones: function(){
 			});
 		}
 	}
-
-	// convert marks into zone links
-	var doc = this.editor.getDoc();
-	var marks = doc.getAllMarks();
-	var zoneLinks = _.map(marks, _.bind(function(mark) {
-		var markRange = mark.find();
-		var xmlZoneLabel = doc.getRange(markRange.from, markRange.to);
-		var offset = doc.indexFromPos(markRange.from);
-
-	}, this));
-
-	// reset to latest zone links
-	// ZONELINK: this.model.zoneLinks.reset(zoneLinks);
-	this.model.set("content", doc.getValue());
-
-	// ZONELINK:
-	/*
-	// Re-check to see which ones are valid now
-	_.each(this.model.zoneLinks.models, function(zoneLink) {
-		var broken = this.leaf.isZoneLinkBroken(zoneLink);
-		var offsetPos = zoneLink.get('offset');
-
-		var cssClass = broken ? 'broken-zone-link' : 'zone-link';
-		var labelPrefix = this.leaf.getZoneLabelPrefix();
-		var endIndex = offsetPos + labelPrefix.length + 4; // format is always four chars long
-
-		var doc = this.editor.getDoc();
-		var position = doc.posFromIndex(offsetPos);
-		var endPos = doc.posFromIndex(endIndex);
-		doc.markText(position, endPos, {
-			className: cssClass,
-			atomic: true
-		});
-
-	}, this);
-	*/
 
 	// Stop the load modal
 	window.loadingModal_stop();

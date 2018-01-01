@@ -147,7 +147,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 	},
 
 	onWindowResize: function() {
-		console.log('Resize...');
+		//console.log('Resize...');
 		this.hidePopOverMenu();
 	},
 
