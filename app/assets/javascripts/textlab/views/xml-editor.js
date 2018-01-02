@@ -135,9 +135,6 @@ onClickRelink: function(){
 	document.activeElement.blur();
 },
 relinkZones: function(){
-	// Start the load modal
-	window.loadingModal_start();
-
 
 	// Look for 'facs' and re-mark them as needed
 	contents = this.editor.getValue();
@@ -181,8 +178,6 @@ relinkZones: function(){
 		}
 	}
 
-	// Stop the load modal
-	window.loadingModal_stop();
 },
 
 onClickPreview: function() {
