@@ -187,7 +187,6 @@ relinkZones: function(){
 	// This used to be syncZoneLinks: from surface-view.js
 	_.each(paper.project.activeLayer.children, function(item) {
 		if (item.data.zone) {
-			console.log("here");
 			var zoneRect = item.children['zoneRect'];
 			var dashPattern = [50, 10];
 			var thisZoneRectLinkID = zoneRect.parent.data.zone.attributes.zone_label;
