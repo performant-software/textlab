@@ -150,6 +150,7 @@ relinkZones: function(){
     }
 
 	// Add mark
+	var validLinksInText = [];
 	while ((match = regex.exec(contents)) != null) {
 
 		// If this match is a pb link, don't bother
@@ -158,9 +159,12 @@ relinkZones: function(){
 		if(hasID.length > 1){
 
 			// Check if valid
+			var cssClass = 'broken-zone-link';
 			var zonelinkID=match[1].split("#")[1].slice(0, -1);
-			//console.log("Validating: " + zonelinkID + (zonelinkID in validZonelinks));
-			var cssClass = (validZonelinks.indexOf(zonelinkID)>-1) ? 'zone-link':'broken-zone-link';
+			if(validZonelinks.indexOf(zonelinkID)>-1){
+				validLinksInText.push(zonelinkID.split("-")[1]);
+				cssClass = 'zone-link';
+			}
 
 			// We add 6 because the match includes prefix: facs=["|']
 			var startIndex = match.index+6;
@@ -177,6 +181,20 @@ relinkZones: function(){
 			});
 		}
 	}
+
+
+	// Finally, adjust the leaf representation of the link (dashed or dotted) and redraw paper
+	// This used to be syncZoneLinks: from surface-view.js
+	_.each(paper.project.activeLayer.children, function(item) {
+		if (item.data.zone) {
+			console.log("here");
+			var zoneRect = item.children['zoneRect'];
+			var dashPattern = [50, 10];
+			var thisZoneRectLinkID = zoneRect.parent.data.zone.attributes.zone_label;
+			zoneRect.dashArray = (validLinksInText.indexOf(thisZoneRectLinkID)>-1) ? '' : dashPattern;
+		}
+	}, this);
+	paper.view.draw();
 
 },
 
