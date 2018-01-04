@@ -135,23 +135,36 @@ onClickRelink: function(){
 	document.activeElement.blur();
 },
 relinkZones: function(){
-	// Start the load modal
-	window.loadingModal_start();
-
 
 	// Look for 'facs' and re-mark them as needed
 	contents = this.editor.getValue();
 	const regex = /facs=["|'](#.+?_\d*-?\d*["|'])/g;
 
+	// Build a LUT of valid possible zoneLinks
+	var validZonelinks = [];
+	var leafID=this.leaf.attributes.xml_id;
+	for(var key in this.leaf.zones._byId) {
+		var zoneLabel = this.leaf.zones._byId[key].attributes.zone_label;
+		var thisID = leafID+"-"+zoneLabel;
+		validZonelinks.push(thisID);
+    }
+
 	// Add mark
+	var validLinksInText = [];
 	while ((match = regex.exec(contents)) != null) {
 
 		// If this match is a pb link, don't bother
 		var labelPrefix = this.leaf.getZoneLabelPrefix();
 		var hasID = match[0].split(labelPrefix);
 		if(hasID.length > 1){
-			// Defaults to not broken (corrected later)
-			var cssClass = 'zone-link';
+
+			// Check if valid
+			var cssClass = 'broken-zone-link';
+			var zonelinkID=match[1].split("#")[1].slice(0, -1);
+			if(validZonelinks.indexOf(zonelinkID)>-1){
+				validLinksInText.push(zonelinkID.split("-")[1]);
+				cssClass = 'zone-link';
+			}
 
 			// We add 6 because the match includes prefix: facs=["|']
 			var startIndex = match.index+6;
@@ -169,49 +182,19 @@ relinkZones: function(){
 		}
 	}
 
-	// convert marks into zone links
-	var doc = this.editor.getDoc();
-	var marks = doc.getAllMarks();
-	var zoneLinks = _.map(marks, _.bind(function(mark) {
-		var markRange = mark.find();
-		var xmlZoneLabel = doc.getRange(markRange.from, markRange.to);
-		var offset = doc.indexFromPos(markRange.from);
-		var zoneLink = new TextLab.ZoneLink({
-			offset: offset,
-			zone_label: this.leaf.removeZoneLabelPrefix(xmlZoneLabel),
-			transcription_id: this.model.id,
-			leaf_id: this.leaf.id
-		});
-		return zoneLink;
-	}, this));
 
-	// reset to latest zone links
-	this.model.zoneLinks.reset(zoneLinks);
-	this.model.set("content", doc.getValue());
-
-
-	// Re-check to see which ones are valid now
-	_.each(this.model.zoneLinks.models, function(zoneLink) {
-		var broken = this.leaf.isZoneLinkBroken(zoneLink);
-		var offsetPos = zoneLink.get('offset');
-
-		var cssClass = broken ? 'broken-zone-link' : 'zone-link';
-		var labelPrefix = this.leaf.getZoneLabelPrefix();
-		var endIndex = offsetPos + labelPrefix.length + 4; // format is always four chars long
-
-		var doc = this.editor.getDoc();
-		var position = doc.posFromIndex(offsetPos);
-		var endPos = doc.posFromIndex(endIndex);
-		doc.markText(position, endPos, {
-			className: cssClass,
-			atomic: true
-		});
-
+	// Finally, adjust the leaf representation of the link (dashed or dotted) and redraw paper
+	// This used to be syncZoneLinks: from surface-view.js
+	_.each(paper.project.activeLayer.children, function(item) {
+		if (item.data.zone) {
+			var zoneRect = item.children['zoneRect'];
+			var dashPattern = [50, 10];
+			var thisZoneRectLinkID = zoneRect.parent.data.zone.attributes.zone_label;
+			zoneRect.dashArray = (validLinksInText.indexOf(thisZoneRectLinkID)>-1) ? '' : dashPattern;
+		}
 	}, this);
+	paper.view.draw();
 
-
-	// Stop the load modal
-	window.loadingModal_stop();
 },
 
 onClickPreview: function() {
@@ -338,7 +321,7 @@ save: function(callback) {
 	};
 
 	var onSuccess = function() {
-		console.log("Saving...");
+		//console.log("Saving...");
 		$('.error-message').html('');
 		if (callback) {
 			callback();

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171108172336) do
+ActiveRecord::Schema.define(version: 20171231213953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,8 +120,8 @@ ActiveRecord::Schema.define(version: 20171108172336) do
     t.text     "publishedbasetext"
   end
 
-  add_index "tl_leafs", ["manuscriptid"], name: "idx_347180_manuscriptid", using: :btree
-  add_index "tl_leafs", ["orderno"], name: "idx_347180_orderno", using: :btree
+  add_index "tl_leafs", ["manuscriptid"], name: "idx_373216_manuscriptid", using: :btree
+  add_index "tl_leafs", ["orderno"], name: "idx_373216_orderno", using: :btree
 
   create_table "tl_manuscripts", force: :cascade do |t|
     t.string   "name",          limit: 75,  null: false
@@ -139,7 +139,7 @@ ActiveRecord::Schema.define(version: 20171108172336) do
     t.integer "sitenum", limit: 8
   end
 
-  add_index "tl_revision_sites", ["leafid"], name: "idx_347240_leafid", using: :btree
+  add_index "tl_revision_sites", ["leafid"], name: "idx_373276_leafid", using: :btree
 
   create_table "tl_sequences", primary_key: "sequence_guid", force: :cascade do |t|
     t.string   "manuscriptid",  limit: 36,  null: false
@@ -154,7 +154,7 @@ ActiveRecord::Schema.define(version: 20171108172336) do
     t.string   "guid",          limit: 36
   end
 
-  add_index "tl_sequences", ["manuscriptid", "ownedby"], name: "idx_347252_manuscriptidusername", using: :btree
+  add_index "tl_sequences", ["manuscriptid", "ownedby"], name: "idx_373288_manuscriptidusername", using: :btree
 
   create_table "tl_transcriptions", force: :cascade do |t|
     t.string   "manuscriptid",       limit: 36,  null: false
@@ -169,7 +169,7 @@ ActiveRecord::Schema.define(version: 20171108172336) do
     t.text     "transcription_type"
   end
 
-  add_index "tl_transcriptions", ["manuscriptid", "ownedby"], name: "idx_347279_manuscriptidusername", using: :btree
+  add_index "tl_transcriptions", ["manuscriptid", "ownedby"], name: "idx_373315_manuscriptidusername", using: :btree
 
   create_table "tl_users", primary_key: "username", force: :cascade do |t|
     t.string   "firstname",   limit: 45,   null: false
@@ -222,15 +222,6 @@ ActiveRecord::Schema.define(version: 20171108172336) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
-
-  create_table "zone_links", force: :cascade do |t|
-    t.string   "zone_label"
-    t.integer  "offset"
-    t.integer  "leaf_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
-    t.integer  "transcription_id"
-  end
 
   create_table "zones", force: :cascade do |t|
     t.integer  "ulx"

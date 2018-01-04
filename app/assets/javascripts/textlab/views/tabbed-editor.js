@@ -214,11 +214,6 @@ TextLab.TabbedEditor = Backbone.View.extend({
     tabEl.addClass('active');
     tabPaneEl.show();
 
-    // update surface view
-    if( tab.transcription ) {
-      this.surfaceView.syncZoneLinks( tab.transcription.zoneLinks.models );
-    }
-
     this.activeTab = tab;
     this.resizeActivePanel();
   },

@@ -12,51 +12,51 @@ class TranscriptionsController < ApplicationController
   # GET /transcriptions/1.json
   def show
     unless @transcription.document.can_view?( current_user )
-      redirect_to root_url 
+      redirect_to root_url
       return
     end
-    
+
     respond_to do |format|
       format.html {
         if @transcription.diplo.nil?
-          @transcription.diplo = Diplo.create_diplo!( @transcription ) 
-        end 
-        
+          @transcription.diplo = Diplo.create_diplo!( @transcription )
+        end
+
         if @transcription.diplo.nil?
           render 'no_leaf'
           return
-        end 
-        
+        end
+
         if @transcription.diplo.error
-          @error_message = @transcription.diplo.html_content   
-          @name = @transcription.name  
+          @error_message = @transcription.diplo.html_content
+          @name = @transcription.name
           render 'error', layout: 'tl_viewer'
           return
         end
-        
+
         @transcription.save!
-        @diplo_html = @transcription.diplo.html_content     
+        @diplo_html = @transcription.diplo.html_content
         @title = @transcription.document.name
         @document_node = @transcription.leaf.document_node
         @prev_leaf = @document_node.prev_leaf
         @next_leaf =  @document_node.next_leaf
         @ancestor_nodes = @document_node.ancestor_nodes
         @node_title = @transcription.leaf.name
-        
+
         unless @transcription.leaf.nil?
-          @leaf = { 
+          @leaf = {
             xml_id: @transcription.leaf.xml_id,
             zones: @transcription.leaf.zones.map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
-            sequences: @transcription.leaf.published_sequence_objs          
+            sequences: @transcription.leaf.published_sequence_objs
           }
         else
-          @leaf = { 
+          @leaf = {
             zones: [],
             tile_source: nil
           }
         end
-        
+
         render layout: 'tl_viewer'
       }
       format.json { render json: @transcription.obj(current_user.id) }
@@ -69,7 +69,7 @@ class TranscriptionsController < ApplicationController
     @transcription.user = current_user
 
     if @transcription.save
-      render json: @transcription.obj(current_user.id) 
+      render json: @transcription.obj(current_user.id)
     else
       render json: @transcription.errors, status: :unprocessable_entity
     end
@@ -77,21 +77,16 @@ class TranscriptionsController < ApplicationController
 
   # PATCH/PUT /transcriptions/1.json
   def update
-    
-    # rails deep munge substitutes [] with nil, but we always want 
-    # to keep this list in sync with editor
-    if transcription_params[:zone_links_json].nil?
-      @transcription.zone_links.clear
-    end
+
 
     # clear cached diplo when editing transcription
     @transcription.diplo.delete if @transcription.diplo
-    
+
     # excludes fields the user isn't authorized to edit
     filtered_params = @transcription.filter_by_permissions(transcription_params, current_user.id)
 
     if @transcription.update(filtered_params)
-      render json: @transcription.obj(current_user.id) 
+      render json: @transcription.obj(current_user.id)
     else
       render json: @transcription.errors, status: :unprocessable_entity
     end
@@ -113,6 +108,6 @@ class TranscriptionsController < ApplicationController
     end
 
     def transcription_params
-      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published, zone_links_json: [ :offset, :zone_label, :leaf_id ] )
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published )
     end
 end

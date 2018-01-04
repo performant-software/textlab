@@ -147,7 +147,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 	},
 
 	onWindowResize: function() {
-		console.log('Resize...');
+		//console.log('Resize...');
 		this.hidePopOverMenu();
 	},
 
@@ -438,22 +438,6 @@ TextLab.SurfaceView = Backbone.View.extend({
 		}
 	},
 
-	// sync the state of the zone rects with zoneLinks
-	syncZoneLinks: function(zoneLinks) {
-		_.each(paper.project.activeLayer.children, function(item) {
-			if (item.data.zone) {
-				var zoneLink = _.find(zoneLinks, function(zoneLink) {
-					return (zoneLink.get('zone_label') == item.data.zone.get('zone_label'));
-				});
-
-				// if we found a zone link, solid otherwise dashed rectangle
-				var zoneRect = item.children['zoneRect'];
-				zoneRect.dashArray = (zoneLink != null) ? '' : this.dashPattern;
-			}
-		}, this);
-
-		paper.view.draw();
-	},
 
 	renderZone: function(zone) {
 
@@ -463,12 +447,14 @@ TextLab.SurfaceView = Backbone.View.extend({
 		var zoneItem = new paper.Path.Rectangle(from, to);
 		var zoneBounds = zoneItem.bounds;
 
+		/* ZONELINK:
 		var zoneLinks;
 		if (this.tabbedEditor.activeTab && this.tabbedEditor.activeTab.transcription) {
 			zoneLinks = this.tabbedEditor.activeTab.transcription.getZoneLinks(zone);
 		} else {
 			zoneLinks = [];
 		}
+		*/zoneLinks = [];
 
 		zoneItem.strokeColor = 'blue';
 		zoneItem.strokeWidth = 12;
