@@ -1,5 +1,5 @@
 class Sequence < ActiveRecord::Base
-  
+
   include EditingPermissions
 
   belongs_to :document
@@ -20,21 +20,22 @@ class Sequence < ActiveRecord::Base
     }
   end
 
-  def published_obj 
-    steps = self.narrative_steps.map { |step| step.published_obj }
-    
+  def published_obj
+    steps = self.narrative_steps.order('step_number').map { |step| step.published_obj }
+
     {
       id: self.id,
       name: self.name,
+      owner_name: self.user.display_name,
       narrative_steps: steps
     }
   end
-   
+
   def obj(current_user_id=nil)
-    
+
     steps = self.narrative_steps.order('step_number').map { |step| step.obj }
-    owner = ( current_user_id == self.user_id ) 
-    
+    owner = ( current_user_id == self.user_id )
+
     {
       id: self.id,
       name: self.name,
@@ -46,5 +47,5 @@ class Sequence < ActiveRecord::Base
       owner_name: self.user.display_name
     }
   end
-    
+
 end

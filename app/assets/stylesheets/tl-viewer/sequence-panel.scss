@@ -11,7 +11,7 @@
   table.table tr {
     border: solid 1px #D3D3D3;
   }
-	
+
   .actions {
     float: right;
   }
@@ -19,6 +19,11 @@
   #sequence-grid {
 
     padding: 5px;
+
+    .step-number {
+      width: 35px;
+      text-align: center;
+    }
 
     .step-column {
       width: 300px;
