@@ -8,7 +8,14 @@
   </tr>
   <% _.each( steps, function(step) { %>
     <tr>
-      <td class='step-number'><a href=""><%= step.step_number + 1 %></a></td>
+      <td class='step-number'>
+        <button
+          data-step-number='<%= step.step_number %>'
+          class='btn btn-default goto-step-button <%= (step.step_number==currentStep) ? "active" : "" %>'
+          href='#' >
+            <%= step.step_number + 1 %>
+        </button>
+      </td>
       <td class='step-column'><%= step.step %></td>
       <td class='narrative-column'><%= step.narrative %></td>
     </tr>
