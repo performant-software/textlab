@@ -1,12 +1,21 @@
-<h4><a href="#" class='back-to-list-link'>Sequences for Leaf</a> / <%= name %> by username</h4>
+<h4><a href="#" class='back-to-list-link'>Sequences for Leaf</a> / <%= name %> by <%= owner %></h4>
 
 <table id="sequence-grid" class="table">
   <tr>
+    <th>Step #</th>
     <th>Step</th>
     <th>Narrative</th>
   </tr>
   <% _.each( steps, function(step) { %>
     <tr>
+      <td class='step-number'>
+        <button
+          data-step-number='<%= step.step_number %>'
+          class='btn btn-default goto-step-button <%= (step.step_number==currentStep) ? "active" : "" %>'
+          href='#' >
+            <%= step.step_number + 1 %>
+        </button>
+      </td>
       <td class='step-column'><%= step.step %></td>
       <td class='narrative-column'><%= step.narrative %></td>
     </tr>

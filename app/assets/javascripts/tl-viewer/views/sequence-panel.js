@@ -123,14 +123,18 @@ TextLab.SequencePanel = Backbone.View.extend({
 
   render: function() {
     if( this.showGrid ) {
+      var currentStepNumber = (this.currentStep != null) ? this.currentStep.get('step_number') : -1;
       this.$el.html(this.sequenceGridPanelTemplate({
         name: this.model.get('name'),
+        owner: this.model.get('owner_name'),
+        currentStep: currentStepNumber,
         steps: this.model.narrativeSteps.toJSON()
       }));
     } else {
       if( this.currentStep != null ) {
         this.$el.html(this.stepSequencePanelTemplate({
           name: this.model.get('name'),
+          owner: this.model.get('owner_name'),
           stepNumber: this.stepNumber,
           maxSteps: this.model.narrativeSteps.models.length,
           step: this.currentStep.toJSON()
