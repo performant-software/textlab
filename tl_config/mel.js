@@ -3,46 +3,46 @@
   "description": "Project configuration for Melville Electronic Library texts.",
 
   "vocabs": {
-    "place": [  
-      { "value": "inline", "text": "Inline" }, 
-      { "value": "above", "text": "Superlinear (above)" }, 
-      { "value": "below", "text": "Superlinear (below)" }, 
-      { "value": "margin(right)", "text": "Right Margin" }, 
-      { "value": "margin(left)", "text": "Left Margin" }, 
-      { "value": "margin(top)", "text": "Top Margin" }, 
-      { "value": "margin(bottom)", "text": "Bottom Margin" } 
+    "place": [
+      { "value": "inline", "text": "Inline" },
+      { "value": "above", "text": "Superlinear (above)" },
+      { "value": "below", "text": "Superlinear (below)" },
+      { "value": "margin(right)", "text": "Right Margin" },
+      { "value": "margin(left)", "text": "Left Margin" },
+      { "value": "margin(top)", "text": "Top Margin" },
+      { "value": "margin(bottom)", "text": "Bottom Margin" }
     ],
-    "rendered": [  
-      { "value": "caret", "text": "Caret" }, 
-      { "value": "no-caret", "text": "No Caret" }, 
-      { "value": "bubble", "text": "Bubble" }, 
-      { "value": "half-caret", "text": "Half Caret" }, 
-      { "value": "insertion-device", "text": "Insertion Device" }, 
-      { "value": "clip", "text": "Clip" }, 
-      { "value": "mount", "text": "Mount" }, 
+    "rendered": [
+      { "value": "caret", "text": "Caret" },
+      { "value": "no-caret", "text": "No Caret" },
+      { "value": "bubble", "text": "Bubble" },
+      { "value": "half-caret", "text": "Half Caret" },
+      { "value": "insertion-device", "text": "Insertion Device" },
+      { "value": "clip", "text": "Clip" },
+      { "value": "mount", "text": "Mount" },
       { "value": "patch", "text": "Patch" }
      ],
-    "renderType": [ 
-      { "value": "_inkG", "text": "Indeterminate ink color" }, 
-      { "value": "_ink1", "text": "Black ink" }, 
-      { "value": "_ink2", "text": "Blue ink" }, 
-      { "value": "_ink3", "text": "Brown ink" }, 
-      { "value": "_ink4", "text": "Blue-gray ink" }, 
-      { "value": "_ink5", "text": "Charcoal-gray ink" }, 
-      { "value": "_HMp", "text": "Pencil" }, 
-      { "value": "_Cg", "text": "Green crayon folio" }, 
-      { "value": "_Cr", "text": "Red crayon folio" }, 
-      { "value": "_Co", "text": "Orange crayon folio" }, 
-      { "value": "_Cbl", "text": "Blue crayon folio" }, 
+    "renderType": [
+      { "value": "_inkG", "text": "Indeterminate ink color" },
+      { "value": "_ink1", "text": "Black ink" },
+      { "value": "_ink2", "text": "Blue ink" },
+      { "value": "_ink3", "text": "Brown ink" },
+      { "value": "_ink4", "text": "Blue-gray ink" },
+      { "value": "_ink5", "text": "Charcoal-gray ink" },
+      { "value": "_HMp", "text": "Pencil" },
+      { "value": "_Cg", "text": "Green crayon folio" },
+      { "value": "_Cr", "text": "Red crayon folio" },
+      { "value": "_Co", "text": "Orange crayon folio" },
+      { "value": "_Cbl", "text": "Blue crayon folio" },
       { "value": "_Cbr", "text": "Brown crayon folio" }
     ],
     "hand": [
       { "value": "#HM", "text": "Herman Melville" },
       { "value": "#ESM", "text": "Elizabeth Shaw Melville" },
       { "value": "#RW", "text": "Raymond Weaver" },
-      { "value": "#HT", "text": " Houghton Library" } 
+      { "value": "#HT", "text": " Houghton Library" }
     ],
-    "stage": [ 
+    "stage": [
       { "value": "StA", "text":"StA: Earliest draftings before stage B, with only four pencil leaves extant" },
       { "value": "StB", "text":"StB: Fair-copy leaves designated by the MG (top margin green crayon) number set" },
       { "value": "StBa", "text":"StBa: Sub-stage of B designated by inscription with heavy black ink" },
@@ -96,7 +96,7 @@
       { "value": "caret", "text": "Caret" },
       { "value": "section-divider", "text": "Section Divider" },
       { "value": "insertion-device", "text": "Insertion Device" },
-      { "value": "composition-information", "text": "Composition Information" }      
+      { "value": "composition-information", "text": "Composition Information" }
     ]
   },
 
@@ -106,48 +106,48 @@
       "tag": "ab",
       "empty": false
     },
-    
+
     "add": {
       "tag": "add",
       "empty": false,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "rendered" 
+          "vocab": "rendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "addSpan": {
@@ -179,39 +179,39 @@
       "tag": "del",
       "empty": false,
       "attributes": {
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "deletionRendered" 
+          "vocab": "deletionRendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
-   
+
     "delSpan": {
       "tag": "delSpan",
       "empty": false
@@ -221,7 +221,7 @@
       "tag": "ex",
       "empty": false
     },
-    
+
     "expan": {
       "tag": "expan",
       "empty": false
@@ -232,10 +232,10 @@
       "empty": true,
       "attributes": {
         "reason": {
-          "displayName": "Reason", 
-          "fieldType": "string", 
+          "displayName": "Reason",
+          "fieldType": "string",
           "defaultvalue": "illegible",
-          "instructions": "Please specify the reason for a gap." 
+          "instructions": "Please specify the reason for a gap."
         }
       }
     },
@@ -244,16 +244,16 @@
       "tag": "handShift",
       "empty": true,
       "attributes": {
-        "new": { 
-          "displayName": "New Hand", 
-          "fieldType": "dropdown", 
-          "vocab": "hand", 
-          "instructions": "Please select the new writer." 
+        "new": {
+          "displayName": "New Hand",
+          "fieldType": "dropdown",
+          "vocab": "hand",
+          "instructions": "Please select the new writer."
         },
-        "medium": { 
-          "displayName": "Medium", 
-          "fieldType": "string", 
-          "instructions": "Please enter the medium used." 
+        "medium": {
+          "displayName": "Medium",
+          "fieldType": "string",
+          "instructions": "Please enter the medium used."
         }
       }
     },
@@ -262,22 +262,23 @@
       "tag": "hi",
       "empty": false,
       "attributes": {
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "vocab": [
             { "value": "bold", "text": "Bold" },
             { "value": "underline", "text": "Underline" },
             { "value": "italic", "text": "Italic" },
             { "value": "bubble", "text": "Bubble" }
-          ], 
-          "instructions": "Please select the render style." 
+          ],
+          "instructions": "Please select the render style."
         }
       }
     },
 
     "l": {
       "tag": "l",
+      "omitFromDiplo": true,
       "empty": false
     },
 
@@ -290,64 +291,64 @@
       "tag": "metamark",
       "empty": false,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
         "function": {
-          "displayName": "Function of metamark", 
-          "fieldType": "dropdown", 
+          "displayName": "Function of metamark",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "metamark" 
+          "vocab": "metamark"
         },
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "rendered" 
+          "vocab": "rendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
-   
+
     "milestone": {
       "tag": "milestone",
       "empty": true,
       "attributes": {
-        "n": { 
-          "displayName": "Number", 
-          "fieldType": "number", 
-          "instructions": "Please enter a number for this milestone." 
+        "n": {
+          "displayName": "Number",
+          "fieldType": "number",
+          "instructions": "Please enter a number for this milestone."
         },
-        "unit": { 
-          "displayName": "Unit", 
-          "fieldType": "dropdown", 
+        "unit": {
+          "displayName": "Unit",
+          "fieldType": "dropdown",
           "vocab": [
             { "value": "chapter", "text": "Chapter" },
             { "value": "clip", "text": "Clip" },
             { "value": "mount", "text": "Mount" },
             { "value": "leaf", "text": "Leaf" }
-          ], 
-          "instructions": "Please select the type of item being numbered." 
+          ],
+          "instructions": "Please select the type of item being numbered."
         }
       }
     },
@@ -366,11 +367,11 @@
       "tag": "rdg",
       "empty": false,
       "attributes": {
-        "resp": { 
-          "displayName": "Responsible persons", 
-          "fieldType": "string", 
+        "resp": {
+          "displayName": "Responsible persons",
+          "fieldType": "string",
           "defaultvalue": "#MEL",
-          "instructions": "Please enter the responsible person." 
+          "instructions": "Please enter the responsible person."
         }
       }
     },
@@ -380,23 +381,23 @@
       "empty": false,
       "attributes": {
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "sic": {
@@ -414,7 +415,7 @@
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
-        }      
+        }
       }
     },
 
@@ -443,7 +444,3 @@
 
   }
 }
-
-
-
-

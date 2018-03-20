@@ -11,7 +11,8 @@ class Diplo < ActiveRecord::Base
     diplo = Diplo.new()
     diplo.transcription = transcription
 
-    tei_document = diplo.create_tei_document()
+    xml_fragment = Diplo.remove_omitted_tags( transcription )
+    tei_document = Diplo.create_tei_document( xml_fragment )
 
     syntax_errors = self.validate_tei( tei_document )
 
@@ -89,7 +90,7 @@ class Diplo < ActiveRecord::Base
     html_doc.root.to_str
   end
 
-  def create_tei_document()
+  def self.create_tei_document( xml_fragment )
    tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
    tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"
    tei_xml << "<teiHeader><fileDesc>
@@ -109,9 +110,31 @@ class Diplo < ActiveRecord::Base
               <p/>
               </sourceDesc>
               </fileDesc></teiHeader>\n"
-   tei_xml <<  "<text><body>\n#{self.transcription.content}\n</body></text>\n"
+   tei_xml <<  "<text><body><ab>\n#{xml_fragment}\n</ab></body></text>\n"
    tei_xml << "</TEI>"
    tei_xml
+  end
+
+  def self.remove_omitted_tags( transcription )
+    omitted_tags = transcription.document.project_confg.omitted_tags
+
+    xml_fragment = transcription.content
+    omitted_tags.each { |omitted_tag|
+      xml_fragment = Diplo.remove_tag( xml_fragment, omitted_tag )
+    }
+    xml_fragment
+  end
+
+  def self.remove_tag( xml_fragment, tag )
+    regex = ''
+    result = xml_fragment
+    loop do
+      # find opening and closing tags of this element and remove them
+      parts = result.partition(/<[\/]?#{tag}[^>]*>/)
+      result = parts.first + parts.last
+      break if parts[1] == ""
+    end
+    result
   end
 
   def self.get_page( xhtml, leaf_xml_id )
