@@ -129,7 +129,7 @@ class Diplo < ActiveRecord::Base
     result = xml_fragment
     loop do
       # find opening and closing tags of this element and remove them
-      parts = result.partition(/<[\/]?#{tag}[\s.^>]*[\/]?>/)
+      parts = result.partition(/<[\/]?#{tag}(\s[^>]*>|[\/]?>)/)
       result = parts.first + parts.last
       break if parts[1] == ""
     end
