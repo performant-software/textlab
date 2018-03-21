@@ -1,9 +1,13 @@
 {
-  "name": "MEL",
-  "description": "Project configuration for Melville Electronic Library texts.",
-  "version": "2",
+  "name": "The Octoroon",
+  "description": "Project configuration for The Octoroon.",
+  "version": "1",
 
   "vocabs": {
+    "divType": [
+      { "value": "act", "text": "Act" },
+      { "value": "scene", "text": "Scene" }
+    ],
     "place": [
       { "value": "inline", "text": "Inline" },
       { "value": "above", "text": "Superlinear (above)" },
@@ -42,6 +46,9 @@
       { "value": "#ESM", "text": "Elizabeth Shaw Melville" },
       { "value": "#RW", "text": "Raymond Weaver" },
       { "value": "#HT", "text": " Houghton Library" }
+    ],
+    "roles": [
+      { "value": "#test", "text": "Test Role" }
     ],
     "stage": [
       { "value": "StA", "text":"StA: Earliest draftings before stage B, with only four pencil leaves extant" },
@@ -86,6 +93,9 @@
       { "value": "StGb", "text":"StGb: Sub-stage of F in same ink, with modified numbers" },
       { "value": "Stp", "text":"Stp: Late stage pencil revisions appearing on all leaves, sometimes preceding ink inscription, sometimes following" }
     ],
+    "stageDirection": [
+      { "value": "#stagetest", "text": "Stage Direction" }
+    ],
     "deletionRendered": [
       { "value": "single-stroke", "text": "Single Stroke" },
       { "value": "multi-stroke", "text": "Multi-stroke" },
@@ -105,6 +115,7 @@
 
     "ab": {
       "tag": "ab",
+      "omitFromDiplo": true,
       "empty": false
     },
 
@@ -166,6 +177,18 @@
       "empty": false
     },
 
+    "castItem": {
+      "tag": "castItem",
+      "empty": false,
+      "omitFromDiplo": true
+    },
+
+    "castList": {
+      "tag": "castList",
+      "empty": false,
+      "omitFromDiplo": true
+    },
+
     "choice": {
       "tag": "choice",
       "empty": false
@@ -218,6 +241,25 @@
       "empty": false
     },
 
+    "div": {
+      "tag": "div",
+      "empty": false,
+      "omitFromDiplo": true,
+      "attributes": {
+        "type": {
+          "displayName": "Type",
+          "fieldType": "dropdown",
+          "vocab": "divType",
+          "instructions": "Type of division."
+        },
+        "n": {
+          "displayName": "Sequence Number",
+          "fieldType": "number",
+          "instructions": "Number of this div in the sequence."
+        }
+      }
+    },
+
     "ex": {
       "tag": "ex",
       "empty": false
@@ -259,6 +301,12 @@
       }
     },
 
+    "head": {
+      "tag": "head",
+      "empty": false,
+      "omitFromDiplo": true
+    },
+
     "hi": {
       "tag": "hi",
       "empty": false,
@@ -286,6 +334,12 @@
     "lb": {
       "tag": "lb",
       "empty": true
+    },
+
+    "lg": {
+      "tag": "lg",
+      "empty": false,
+      "omitFromDiplo": true
     },
 
     "metamark": {
@@ -354,6 +408,12 @@
       }
     },
 
+    "p": {
+      "tag": "p",
+      "empty": false,
+      "omitFromDiplo": true
+    },
+
     "pb": {
       "tag": "pb",
       "empty": true,
@@ -401,9 +461,56 @@
       }
     },
 
+    "role": {
+      "tag": "role",
+      "empty": false,
+      "omitFromDiplo": true,
+      "attributes": {
+        "id": {
+          "displayName": "ID",
+          "fieldType": "string",
+          "instructions": "A unique ID for this role."
+        }
+      }
+    },
+
     "sic": {
       "tag": "sic",
       "empty": false
+    },
+
+    "sp": {
+      "tag": "sp",
+      "empty": false,
+      "omitFromDiplo": true,
+      "attributes": {
+        "who": {
+          "displayName": "Who",
+          "fieldType": "dropdown",
+          "instructions": "Identify who is speaking.",
+          "vocab": "roles"
+        }
+      }
+    },
+
+    "speaker": {
+      "tag": "speaker",
+      "empty": false,
+      "omitFromDiplo": true
+    },
+
+    "stage": {
+      "tag": "stage",
+      "empty": false,
+      "omitFromDiplo": true,
+      "attributes": {
+        "type": {
+          "displayName": "Type",
+          "fieldType": "dropdown",
+          "instructions": "Identify the type of stage direction given.",
+          "vocab": "stageDirection"
+        }
+      }
     },
 
     "subst": {

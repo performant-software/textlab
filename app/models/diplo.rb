@@ -116,7 +116,7 @@ class Diplo < ActiveRecord::Base
   end
 
   def self.remove_omitted_tags( transcription )
-    omitted_tags = transcription.document.project_confg.omitted_tags
+    omitted_tags = transcription.document.project_config.omitted_tags
 
     xml_fragment = transcription.content
     omitted_tags.each { |omitted_tag|
@@ -126,11 +126,10 @@ class Diplo < ActiveRecord::Base
   end
 
   def self.remove_tag( xml_fragment, tag )
-    regex = ''
     result = xml_fragment
     loop do
       # find opening and closing tags of this element and remove them
-      parts = result.partition(/<[\/]?#{tag}[^>]*>/)
+      parts = result.partition(/<[\/]?#{tag}[\s.^>]*[\/]?>/)
       result = parts.first + parts.last
       break if parts[1] == ""
     end

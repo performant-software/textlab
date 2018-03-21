@@ -17,7 +17,7 @@ class ProjectConfig < ActiveRecord::Base
 
     omitted = []
     tagsObj.keys.each { |key|
-      tag = tags[key]
+      tag = tagsObj[key]
       omitted.push(tag['tag']) if tag['omitFromDiplo'] == true
     }
     omitted
