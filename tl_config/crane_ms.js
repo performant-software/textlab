@@ -1,24 +1,24 @@
 {
   "name": "Crane MS",
   "description": "Project configuration for Red Badge of Courage Manuscript.",
-  "version": "4",
+  "version": "5",
 
   "vocabs": {
-    "place": [  
+    "place": [
       { "value": "inline", "text": "inline" },
-      { "value": "above", "text": "Superlinear (above)" }, 
-      { "value": "below", "text": "Sublinear (below)" }, 
+      { "value": "above", "text": "Superlinear (above)" },
+      { "value": "below", "text": "Sublinear (below)" },
       { "value": "margin-left", "text": "Left margin" },
       { "value": "margin-right", "text": "Right margin" },
       { "value": "margin-top", "text": "Top margin" },
       { "value": "margin-bottom", "text": "Bottom margin" }
     ],
-    "rendered": [  
-      { "value": "caret", "text": "Caret" }, 
+    "rendered": [
+      { "value": "caret", "text": "Caret" },
       { "value": "no-caret", "text": "No caret" }
      ],
-    "renderType": [ 
-      { "value": "ink", "text": "Black ink" }, 
+    "renderType": [
+      { "value": "ink", "text": "Black ink" },
       { "value": "pencil", "text": "Pencil" },
       { "value": "bluepencil", "text": "Blue pencil" }
     ],
@@ -27,11 +27,11 @@
       { "value": "#HG", "text": "Hamlin Garland" },
       { "value": "#unattributed", "text": "Unattributed" }
     ],
-    "stage": [ 
+    "stage": [
       { "value": "mStA", "text":"Base inscription" },
       { "value": "mStB", "text":"Current alterations" },
       { "value": "mStC", "text":"Preliminary revisions" },
-      { "value": "mStD", "text":"Hamlin Garland edits" },      
+      { "value": "mStD", "text":"Hamlin Garland edits" },
       { "value": "mStE", "text":"General revisions" },
       { "value": "mStF", "text":"Final preparation" },
       { "value": "mstX", "text":"Undetermined manuscript stage" }
@@ -53,9 +53,10 @@
   },
 
   "tags": {
-  
+
     "ab": {
       "tag": "ab",
+      "omitFromDiplo": true,
       "empty": false
     },
 
@@ -64,84 +65,84 @@
       "empty": false,
       "omitFromMenu": true,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
           "fieldType": "dropdown",
           "defaultValue": "inline",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
-        "rend": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
-          "defaultValue": "#SC", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
+          "defaultValue": "#SC",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
-    
+
     "add": {
       "tag": "add",
       "empty": false,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
           "fieldType": "dropdown",
           "defaultValue": "above",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
-        "rend": { 
-          "displayName": "Rendered", 
+        "rend": {
+          "displayName": "Rendered",
           "fieldType": "dropdown",
           "defaultValue": "no-caret",
           "instructions": "",
-          "vocab": "rendered" 
+          "vocab": "rendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
-          "defaultValue": "#SC", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
+          "defaultValue": "#SC",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "addSpan": {
@@ -163,44 +164,44 @@
       "tag": "calculations",
       "empty": false,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "rendered" 
+          "vocab": "rendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "defaultValue": "#SC", 
-          "vocab": "hand" 
+          "defaultValue": "#SC",
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "choice": {
@@ -217,38 +218,38 @@
       "tag": "del",
       "empty": false,
       "attributes": {
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "deletionRendered" 
+          "vocab": "deletionRendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "defaultValue": "#SC", 
-          "vocab": "hand" 
+          "defaultValue": "#SC",
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "del_subst": {
@@ -256,41 +257,41 @@
       "empty": false,
       "omitFromMenu": true,
       "attributes": {
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "instructions": "",
           "defaultValue": "overwrite",
-          "vocab": "deletionRendered" 
+          "vocab": "deletionRendered"
         },
-        "rendType": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rendType": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
           "appendTo": "rend",
-          "vocab": "renderType" 
+          "vocab": "renderType"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
           "instructions": "",
-          "defaultValue": "#SC", 
-          "vocab": "hand" 
+          "defaultValue": "#SC",
+          "vocab": "hand"
         },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
-   
+
     "delSpan": {
       "tag": "delSpan",
       "empty": false
@@ -300,7 +301,7 @@
       "tag": "ex",
       "empty": false
     },
-    
+
     "expan": {
       "tag": "expan",
       "empty": false
@@ -311,10 +312,10 @@
       "empty": true,
       "attributes": {
         "reason": {
-          "displayName": "Reason", 
-          "fieldType": "string", 
+          "displayName": "Reason",
+          "fieldType": "string",
           "defaultValue": "undeciphered",
-          "instructions": "Select the reason for a gap." 
+          "instructions": "Select the reason for a gap."
         }
       }
     },
@@ -323,16 +324,16 @@
       "tag": "handShift",
       "empty": true,
       "attributes": {
-        "new": { 
-          "displayName": "New Hand", 
-          "fieldType": "dropdown", 
-          "vocab": "hand", 
-          "instructions": "Select the new writer." 
+        "new": {
+          "displayName": "New Hand",
+          "fieldType": "dropdown",
+          "vocab": "hand",
+          "instructions": "Select the new writer."
         },
-        "medium": { 
-          "displayName": "Medium", 
-          "fieldType": "string", 
-          "instructions": "Enter the medium used." 
+        "medium": {
+          "displayName": "Medium",
+          "fieldType": "string",
+          "instructions": "Enter the medium used."
         }
       }
     },
@@ -341,14 +342,14 @@
       "tag": "hi",
       "empty": false,
       "attributes": {
-        "rend": { 
-          "displayName": "Rendered", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Rendered",
+          "fieldType": "dropdown",
           "vocab": [
             { "value": "underline", "text": "Underline" },
             { "value": "italic", "text": "Italic" }
-          ], 
-          "instructions": "Select the render style." 
+          ],
+          "instructions": "Select the render style."
         }
       }
     },
@@ -367,55 +368,55 @@
       "tag": "metamark",
       "empty": false,
       "attributes": {
-        "place": { 
+        "place": {
           "displayName": "Place",
-          "fieldType": "dropdown", 
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "place" 
+          "vocab": "place"
         },
         "function": {
-          "displayName": "Function of metamark", 
-          "fieldType": "dropdown", 
+          "displayName": "Function of metamark",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "metamark" 
+          "vocab": "metamark"
         },
-        "rend": { 
-          "displayName": "Render Type", 
-          "fieldType": "dropdown", 
+        "rend": {
+          "displayName": "Render Type",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "renderType" 
-        },    
+          "vocab": "renderType"
+        },
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
-   
+
     "milestone": {
       "tag": "milestone",
       "empty": true,
       "attributes": {
-        "n": { 
-          "displayName": "Number", 
-          "fieldType": "number", 
-          "instructions": "Enter a number for this milestone." 
+        "n": {
+          "displayName": "Number",
+          "fieldType": "number",
+          "instructions": "Enter a number for this milestone."
         },
-        "unit": { 
-          "displayName": "Unit", 
-          "fieldType": "dropdown", 
+        "unit": {
+          "displayName": "Unit",
+          "fieldType": "dropdown",
           "vocab": [
             { "value": "chapter", "text": "Chapter" },
             { "value": "leaf", "text": "Leaf" }
-          ], 
-          "instructions": "Select the type of item being numbered." 
+          ],
+          "instructions": "Select the type of item being numbered."
         }
       }
     },
@@ -434,11 +435,11 @@
       "tag": "rdg",
       "empty": false,
       "attributes": {
-        "resp": { 
-          "displayName": "Responsible persons", 
-          "fieldType": "string", 
+        "resp": {
+          "displayName": "Responsible persons",
+          "fieldType": "string",
           "defaultValue": "#SC",
-          "instructions": "Enter the responsible person." 
+          "instructions": "Enter the responsible person."
         }
       }
     },
@@ -448,24 +449,24 @@
       "empty": false,
       "attributes": {
         "change": {
-          "displayName": "Stage", 
-          "fieldType": "dropdown", 
+          "displayName": "Stage",
+          "fieldType": "dropdown",
           "instructions": "",
-          "vocab": "stage" 
+          "vocab": "stage"
         },
-        "hand": { 
-          "displayName": "Hand", 
-          "fieldType": "dropdown", 
-          "defaultValue": "#SC",  
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
+          "defaultValue": "#SC",
           "instructions": "",
-          "vocab": "hand" 
+          "vocab": "hand"
         },
         "facs": {
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
         }
-      }    
+      }
     },
 
     "sic": {
@@ -483,7 +484,7 @@
           "displayName": "Zone",
           "instructions": "",
           "fieldType": "zone"
-        }      
+        }
       }
     },
 

@@ -1,7 +1,7 @@
 {
   "name": "BIC",
   "description": "Project configuration for the Bow in the Cloud texts.",
-  "version": "3",
+  "version": "4",
 
   "vocabs": {
     "place": [
@@ -72,6 +72,7 @@
 
     "ab": {
       "tag": "ab",
+      "omitFromDiplo": true,
       "empty": false
     },
 

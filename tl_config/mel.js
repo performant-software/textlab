@@ -1,7 +1,7 @@
 {
   "name": "MEL",
   "description": "Project configuration for Melville Electronic Library texts.",
-  "version": "2",
+  "version": "3",
 
   "vocabs": {
     "place": [
@@ -105,6 +105,7 @@
 
     "ab": {
       "tag": "ab",
+      "omitFromDiplo": true,
       "empty": false
     },
 
