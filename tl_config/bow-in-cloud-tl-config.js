@@ -1,9 +1,12 @@
 {
   "name": "BIC",
   "description": "Project configuration for the Bow in the Cloud texts.",
-  "version": "4",
+  "version": "5",
 
   "vocabs": {
+    "divType": [
+      { "value": "letter", "text": "Letter" }
+    ],
     "place": [
       { "value": "inline", "text": "Inline" },
       { "value": "above", "text": "Superlinear (above)" },
@@ -186,6 +189,20 @@
       "empty": false
     },
 
+    "div": {
+      "tag": "div",
+      "empty": false,
+      "omitFromDiplo": true,
+      "attributes": {
+        "type": {
+          "displayName": "Type",
+          "fieldType": "dropdown",
+          "vocab": "divType",
+          "instructions": "Type of division."
+        }
+      }
+    },
+
     "ex": {
       "tag": "ex",
       "empty": false
@@ -238,7 +255,8 @@
             { "value": "bold", "text": "Bold" },
             { "value": "underline", "text": "Underline" },
             { "value": "italic", "text": "Italic" },
-            { "value": "bubble", "text": "Bubble" }
+            { "value": "bubble", "text": "Bubble" },
+            { "value": "superscript", "text": "Superscript" }
           ],
           "instructions": "Please select the render style."
         }
@@ -291,19 +309,25 @@
     },
 
     "closer": {
-      "tag": "salute",
+      "tag": "closer",
       "omitFromDiplo": true,
       "empty": false
     },
 
     "signed": {
-      "tag": "salute",
+      "tag": "signed",
       "omitFromDiplo": true,
       "empty": false
     },
 
     "name": {
       "tag": "name",
+      "omitFromDiplo": true,
+      "empty": false
+    },
+
+    "date": {
+      "tag": "date",
       "omitFromDiplo": true,
       "empty": false
     },
