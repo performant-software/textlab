@@ -358,6 +358,7 @@
     "pb": {
       "tag": "pb",
       "empty": true,
+      "omitFromDiplo": true,
       "atttributes": {
         "facs": {
           "fieldType": "leaf"
