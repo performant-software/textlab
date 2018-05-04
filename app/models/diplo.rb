@@ -6,6 +6,16 @@ class Diplo < ActiveRecord::Base
 
   attr_accessor :raw_xhtml
 
+  def self.regenerate_all_diplos!()
+    Transcription.where('document_id is not null').each { |transcription|
+      # only regenerate diplos that have been previously been generated
+      unless transcription.diplo.nil?
+        transcription.diplo.delete
+        Diplo.create_diplo!(transcription)
+      end
+    }
+  end
+
   def self.create_diplo!( transcription )
 
     diplo = Diplo.new()
@@ -121,7 +131,7 @@ class Diplo < ActiveRecord::Base
     xml_fragment = transcription.content
     omitted_tags.each { |omitted_tag|
       xml_fragment = Diplo.remove_tag( xml_fragment, omitted_tag )
-    }
+    } unless xml_fragment.blank?
     xml_fragment
   end
 
