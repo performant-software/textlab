@@ -11,7 +11,11 @@
       { "value": "margin(right)", "text": "Right Margin" },
       { "value": "margin(left)", "text": "Left Margin" },
       { "value": "margin(top)", "text": "Top Margin" },
-      { "value": "margin(bottom)", "text": "Bottom Margin" }
+      { "value": "margin(bottom)", "text": "Bottom Margin" },
+      { "value": "margin(top) margin(right)", "text": "Top Right Margin" },
+      { "value": "margin(bottom) margin(right)", "text": "Bottom Right Margin" },
+      { "value": "margin(top) margin(left)", "text": "Top Left Margin" },
+      { "value": "margin(bottom) margin(left)", "text": "Bottom Left Margin" }
     ],
     "rendered": [
       { "value": "caret", "text": "Caret" },
@@ -304,6 +308,12 @@
           "fieldType": "dropdown",
           "instructions": "",
           "vocab": "metamark"
+        },
+        "hand": {
+          "displayName": "Hand",
+          "fieldType": "dropdown",
+          "instructions": "",
+          "vocab": "hand"
         },
         "rend": {
           "displayName": "Rendered",
