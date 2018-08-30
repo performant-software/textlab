@@ -1,28 +1,26 @@
 <h4>Revision Sequence</h4>
 <table class="table table-striped">
 	<tr>
-		<% if( !readOnly ) { %><th>Step Order</th><% } %>
+		<th><% if( !readOnly ) { %>Step Order<% } %></th>
 		<th>Zone</th>
 		<th>Step</th>
 		<th>Narrative</th>
-		<% if( !readOnly ) { %>
-			<th>Actions</th>
-			<% } %>
+		<th><% if( !readOnly ) { %>Actions<% } %></th>
 	</tr>
 	<% _.each( narrativeSteps, function(narrativeStep) { %>
 		<tr>
 			<td>
 				<% if( !readOnly ) { %>
 					<span class='arrows'>
-
 			          <% if( narrativeStep.step_number > 0 ) { %>
 			            <a class='btn btn-xs btn-default up-step-button arrow-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-arrow-circle-up" aria-hidden="true"></i></a>
 			          <% } %>
 			          <% if( narrativeStep.step_number < narrativeSteps.length-1 ) { %>
 			            <a class='btn btn-xs btn-default down-step-button arrow-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-arrow-circle-down" aria-hidden="true"></i></a>
 			          <% } %>
-		        	</span>
+        	</span>
 				<% } %>
+		 	</td>
 				<td>
 					<a href="#" class="zone-link" data-zone-id="<%= narrativeStep.zone_id %>">
 						<%= narrativeStep.zoneLabel %>
@@ -34,12 +32,12 @@
 				<td class='narrative-column'>
 					<%= narrativeStep.narrative %>
 				</td>
+				<td>
 				<% if( !readOnly ) { %>
-					<td>
 						<a class='btn btn-xs btn-default edit-step-button' data-step-id='<%= narrativeStep.id %>' href="#"><i class="fa fa-pencil-square" aria-hidden="true"></i> Edit</a>
 						<a class='btn btn-xs btn-danger delete-step-button' data-step-id='<%= narrativeStep.id %>' data-title="Delete this Step?" href="#"><i class="fa fa-trash" aria-hidden="true"></i> Delete</a>
-					</td>
-					<% } %>
+				<% } %>
+				</td>
 		</tr>
 		<% }); %>
 </table>
