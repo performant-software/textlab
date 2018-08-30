@@ -5,7 +5,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
   id: 'primary-editing-view',
 
 	initialize: function(options) {
-    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize' );
+    _.bindAll( this, 'onWindowResize', 'onSplitPaneResize', 'supressBackspaceNav' );
   },
 
   onWindowResize: function() {
@@ -64,6 +64,18 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
       this.tabbedEditor.onConfigChanged(config);
     }
   },
+
+	supressBackspaceNav: function( event ) {
+		// if we're not in an input control, supress backspace nav (code mirror ignores this)
+		if (event.keyCode == 8) {
+				var activeEl$ = $(document.activeElement);
+				var isFormControl = activeEl$.hasClass('form-control');
+				var isSummerNoteEditor = activeEl$.hasClass('note-editable');
+				if( !isFormControl && !isSummerNoteEditor ) {
+					event.preventDefault();
+				}
+    }
+	},
 
   selectSection: function( sectionNode ) {
 
@@ -141,6 +153,7 @@ TextLab.PrimaryEditingView = Backbone.View.extend({
     // resize listeners
     $(window).resize(this.onWindowResize);
     $('div.split-pane').on('dividerdragend', this.onSplitPaneResize );
+		$(window).on('keydown', this.supressBackspaceNav );
   }
 
 });
