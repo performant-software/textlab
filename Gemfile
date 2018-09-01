@@ -1,13 +1,16 @@
 source 'https://rubygems.org'
-ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
+# ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
+ruby '2.5.0', :engine => 'jruby', :engine_version => '9.2.0'
 
 # Core
 gem 'rails', '4.2.9'
 gem 'activerecord-jdbcpostgresql-adapter'
 
 # Heroku
-gem 'rails_12factor', group: :production
-gem 'puma', group: :production
+# gem 'rails_12factor', group: :production
+# gem 'puma', group: :production
+
+gem 'puma'
 
 # Ruby Gems
 gem 'jbuilder', '~> 2.0'
