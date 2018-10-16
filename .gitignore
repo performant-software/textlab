@@ -15,7 +15,8 @@
 /tl_import/dmp
 
 # just for my local
-jruby-bundle.sh 
+jruby-bundle.sh
 
 /.idea
 .env
+docker.env

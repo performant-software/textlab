@@ -1,4 +1,4 @@
 #!/bin/sh
-
-source .env
+cd /app
+bundle exec rake assets:precompile
 bundle exec puma -C config/puma.rb

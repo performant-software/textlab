@@ -28,3 +28,12 @@ development:
 test:
   <<: *default
   database: tl_test
+
+production:
+  <<: *default
+  database: d2usarlhi36737
+  host: ec2-54-235-86-226.compute-1.amazonaws.com
+  port: 5432
+  username: kkmduxavtpjgyd
+  sslmode: require
+  password: 29ad771ac9a0a284a42485d52ffd197b10d37ccba8348c4a287341c4ba758e2f

@@ -1,0 +1,12 @@
+# Ignore all logfiles and tempfiles.
+log
+tmp
+.idea
+.git
+.env
+!log/.keep
+!tmp/.keep
+#client
+#!client/build
+node_modules/
+docker.env
