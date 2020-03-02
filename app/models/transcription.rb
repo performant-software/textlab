@@ -14,6 +14,26 @@ class Transcription < ActiveRecord::Base
     [ :name, :content ]
   end
 
+  def zones_hash
+    fragment = Nokogiri::XML.fragment(self.content)
+    zones_hash = {}
+    %w(metamark add del subst restore).each do |attrs|
+      fragment.xpath("//#{attrs}").each do |mark|
+        zone = mark.attributes["facs"].value.split("-").last
+        unless zones_hash.keys.include?(zone)
+          temp_hash = {}
+          %w(place function rend change facs hand).each do |attr|
+            if mark.attributes.keys.include?(attr)
+              temp_hash[attr] = mark.attributes[attr].value
+            end
+          end
+          zones_hash[zone] = temp_hash
+        end
+      end
+    end
+    zones_hash
+  end
+
 
 
 
@@ -29,7 +49,8 @@ class Transcription < ActiveRecord::Base
       submitted: self.submitted,
       published: self.published,
       owner: owner,
-      owner_name: self.user.display_name
+      owner_name: self.user.display_name,
+      zone_hash: zones_hash
     }
   end
 

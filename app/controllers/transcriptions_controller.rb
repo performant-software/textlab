@@ -15,6 +15,8 @@ class TranscriptionsController < ApplicationController
       redirect_to root_url
       return
     end
+    Rails.logger.info "******* The transcription obj is"
+    Rails.logger.info @transcription.obj.inspect
 
     respond_to do |format|
       format.html {
@@ -48,7 +50,8 @@ class TranscriptionsController < ApplicationController
             xml_id: @transcription.leaf.xml_id,
             zones: @transcription.leaf.zones.map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
-            sequences: @transcription.leaf.published_sequence_objs
+            sequences: @transcription.leaf.published_sequence_objs,
+            zone_hash: @transcription.zones_hash
           }
         else
           @leaf = {
