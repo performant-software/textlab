@@ -24,5 +24,7 @@ module Tl2
     config.active_record.raise_in_transactional_callbacks = true
     
     config.assets.paths << Rails.root.join('vendor', 'assets', 'components')
+    environment = Sprockets::Environment.new
+    environment.css_compressor = :sprockets_sass
   end
 end
