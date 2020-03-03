@@ -9,6 +9,7 @@ Rails.application.config.assets.version = '1.5'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 Rails.application.config.assets.precompile += %w( search.js )
+Rails.application.config.assets.precompile += %w(tl-viewer/leaf-viewer.js)
 
 Rails.application.config.assets.precompile += %w( textlab.js )
 Rails.application.config.assets.precompile += %w( textlab.js )
