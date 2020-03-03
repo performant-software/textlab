@@ -12,6 +12,6 @@ Rails.application.config.assets.version = '1.5'
 
 # Rails.application.config.assets.precompile += %w( textlab.js )
 # Rails.application.config.assets.precompile += %w( textlab.scss )
-#
-# Rails.application.config.assets.precompile += %w( tl-viewer.js )
+
+Rails.application.config.assets.precompile += %w( tl-viewer.js )
 # Rails.application.config.assets.precompile += %w( tl-viewer.scss )
