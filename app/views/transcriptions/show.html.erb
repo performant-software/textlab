@@ -1,6 +1,9 @@
+<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4.3.2/css/metro-all.min.css">
+<script src="https://cdn.metroui.org.ua/v4.3.2/js/metro.min.js"></script>
 <div id='leaf-viewer'>
   <div class="row">
-    <div class="col-md-5 left-col">
+<div data-role="splitter" class="row h-100">
+    <div class="col-md-5 left-col d-flex flex-justify-center flex-align-center">
 
       <div class='nav nav-actions'>
         <% unless @prev_leaf.nil? %>
@@ -17,17 +20,21 @@
 
 
     </div>
-    <div class="col-md-5 right-col">
       <ul class="nav nav-tabs nav-actions">
         <li role="presentation" class="active"><a href="#" class='tab-button' data-tab='diplo-pane'>Diplomatic</a></li>
         <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
       </ul>
-      <div class='tab-pane' id="diplo-pane", style="width:690px;height:550px;">
+      <div class="col-md-5 right-col d-flex flex-justify-center flex-align-center">
+    <div class='tab-pane' id="diplo-pane", style="width:690px;height:550px;">
         <%= render partial: 'diplo' %>
       </div>
-      <div class='tab-pane' id="base-pane">
+      </div>
+      <div class="col-md-5 right-col d-flex flex-justify-center flex-align-center">
+    <div class='tab-pane' id="base-pane">
         <%= render partial: 'base' %>
       </div>
+      </div>
+    </div>
     </div>
     <div class="row">
       <p>Transcribed by: <%= @transcription.user.attribution_name %></p>
