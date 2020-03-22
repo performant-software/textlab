@@ -34,6 +34,28 @@ class Document < ActiveRecord::Base
    
   end
 
+  def tei_xml
+    xml_string = ""
+    tei_xml = ""
+    self.leafs.each do |leaf|
+      transcription = Transcription.find_by(leaf_id: leaf.id)
+      if transcription.present?
+        if transcription.content.present?
+          xml_string = "#{xml_string}#{transcription.content}"
+        end
+      end
+    end
+    tei_xml << %q(<?xml version="1.0" encoding="UTF-8"?>)
+    tei_xml << %q(<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">")
+    tei_xml << %q(<xsl:template match="/">")
+    tei_xml << %q(<html>")
+    tei_xml <<   %q(<head><title>Producenter</title></head>")
+    tei_xml <<   %q(<body>")
+    tei_xml << "#{xml_string}"
+    tei_xml << %q(</body>")
+    tei_xml << %q(</html>")
+    tei_xml
+  end
   def change_image_source_domain!( domain, mel=false )
     leafs.each { |leaf|
       if leaf.change_image_source_domain( domain, mel )
@@ -46,7 +68,7 @@ class Document < ActiveRecord::Base
     position = 0
     manifest = JSON.parse(leaf_manifest)
     document = parent_node.document
-    
+
     manifest.each { |leaf_obj|
       leaf = Leaf.new({
         document: document,
@@ -54,7 +76,7 @@ class Document < ActiveRecord::Base
         xml_id: leaf_obj['xml_id'],
         tile_source: leaf_obj['tile_source']
       })
-      
+
       if leaf.save
         leaf_node = DocumentNode.new( {
           document: document,
