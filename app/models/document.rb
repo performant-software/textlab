@@ -37,14 +37,43 @@ class Document < ActiveRecord::Base
   def tei_xml
     xml_string = ""
     tei_xml = ""
-    self.leafs.each do |leaf|
-      transcription = Transcription.find_by(leaf_id: leaf.id)
-      if transcription.present?
-        if transcription.content.present?
-          xml_string = "#{xml_string}#{transcription.content}"
+    self.document_sections.each do |section|
+      if section.subsections.present?
+        section.subsections.each do |subsec|
+          if subsec.document_node.present?
+            if subsec.document_node.child_nodes.present?
+              subsec.document_node.child_nodes.order(:position).each do |child|
+                transcription = Transcription.find_by(leaf_id: child.leaf_id)
+                if transcription.present?
+                  if transcription.content.present?
+                    xml_string = "#{xml_string}#{transcription.content}"
+                  end
+                end
+              end
+            end
+          end
+        end
+      elsif section.document_node.present?
+        if section.document_node.child_nodes.present?
+          section.document_node.child_nodes.order(:position).each do |child|
+            transcription = Transcription.find_by(leaf_id: child.leaf_id)
+            if transcription.present?
+              if transcription.content.present?
+                xml_string = "#{xml_string}#{transcription.content}"
+              end
+            end
+          end
         end
       end
     end
+    # self.leafs.each do |leaf|
+    #   transcription = Transcription.find_by(leaf_id: leaf.id)
+    #   if transcription.present?
+    #     if transcription.content.present?
+    #       xml_string = "#{xml_string}#{transcription.content}"
+    #     end
+    #   end
+    # end
     tei_xml << %q(<?xml version="1.0" encoding="UTF-8"?>)
     tei_xml << %q(<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">")
     tei_xml << %q(<xsl:template match="/">")
