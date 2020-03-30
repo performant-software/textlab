@@ -66,24 +66,7 @@ class Document < ActiveRecord::Base
         end
       end
     end
-    # self.leafs.each do |leaf|
-    #   transcription = Transcription.find_by(leaf_id: leaf.id)
-    #   if transcription.present?
-    #     if transcription.content.present?
-    #       xml_string = "#{xml_string}#{transcription.content}"
-    #     end
-    #   end
-    # end
-    tei_xml << %q(<?xml version="1.0" encoding="UTF-8"?>)
-    tei_xml << %q(<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">")
-    tei_xml << %q(<xsl:template match="/">")
-    tei_xml << %q(<html>")
-    tei_xml <<   %q(<head><title>Producenter</title></head>")
-    tei_xml <<   %q(<body>")
-    tei_xml << "#{xml_string}"
-    tei_xml << %q(</body>")
-    tei_xml << %q(</html>")
-    tei_xml
+    Diplo.create_tei_document(xml_string)
   end
   def change_image_source_domain!( domain, mel=false )
     leafs.each { |leaf|
