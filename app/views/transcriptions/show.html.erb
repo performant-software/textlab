@@ -20,16 +20,16 @@
 
     </div>
 
-    
+
       <div class = "imageWrapper">
         <div data-role="splitter" class="h-100">
           <div class = "leftWrapper">
           <div class="d-flex flex-justify-center flex-align-center">
             <div id='openseadragon'></div>
-            <p id="zone_atts" style="display:none"></p>
+	    <p id="zone_atts" style="display:none"></p>
           </div>
         </div>
-  
+
         <div class = "rightWrapper">
           <div class="d-flex flex-justify-center flex-align-center">
             <div class='tab-pane' id="diplo-pane", style="width:690px;height:550px;">
@@ -60,11 +60,78 @@
 
 <style>
   .gutter{
-    height: 50vh;
     width: 11px !important;
   }
-</style>
+  .gutter:hover{
+          cursor: ew-resize;
+	  -webkit-touch-callout: none; /* iOS Safari */
+   	  -webkit-user-select: none; /* Safari */
+     	  -khtml-user-select: none; /* Konqueror HTML */
+       	  -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none;
+   }
+  .tab-pane {
+    width: 100% !important;
+    padding-right: 2rem;
+  }
 
+
+-viewer #diplomatic-panel {
+    width: 100% !important;
+  }
+
+.col-md-5{
+	display: flex;
+    	flex-direction: row;
+    	float: right;
+    	left: 17rem;
+}
+
+#leaf-viewer .nav-actions {
+	display: flex;
+       flex-direction: row;
+	width: 23rem;
+    	right: 16rem;
+ 	padding-left: 0px !important;
+}
+
+.prev-leaf-button{
+	width: 13rem;
+
+}
+
+next-leaf-button{
+	    width: 13rem;
+}
+
+#leaf-viewer .nav-actions .next-leaf-button {
+    width: 19rem;
+    padding-left: 0px !important;
+}
+.textfromleaf {
+    margin: 0px 20px 40px 20px;
+
+    width: 100%;
+}
+
+.rightWrapper{
+	min-width: 17rem;
+}
+
+.leftWrapper{
+	min-width: 18rem;
+	width: 34rem !important;;
+}
+
+#leaf-viewer #base-panel {
+	    width: 100% !important;
+}
+
+#leaf-viewer #diplomatic-panel {
+	width: 100% !important;
+}
+</style>
 <script>
 
   // application main
@@ -78,13 +145,5 @@
   });
     leafViewer.render();
   });
-
-
-
-
-
-
-
-
 
 </script>
