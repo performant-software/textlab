@@ -25,8 +25,10 @@
         <div data-role="splitter" class="h-100">
           <div class = "leftWrapper">
           <div class="d-flex flex-justify-center flex-align-center">
-            <div id='openseadragon'></div>
-	    <p id="zone_atts" style="display:none"></p>
+            <div id='openseadragon'>
+		<div id="zone_atts" style="display:none"></div>
+	    </div>
+
           </div>
         </div>
 
@@ -142,6 +144,23 @@ next-leaf-button{
     height: 580px;
     margin: 20px;
     border: 1px solid black;
+}
+
+#zone_atts{
+   	background: rgb(247, 243, 224);
+	position: absolute;
+	width: 15rem;
+	box-shadow: rgb(0, 0, 0) 0px 0px 5px 1px;
+	z-index: 5;
+	align-content: center;
+	border-radius: 4px;
+	border-width: 0px;
+	border-style: none solid solid;
+	border-color: black;
+	padding: 5px;
+	line-height: 28px;
+	right: 0rem;
+	display: none;
 }
 </style>
 <script>
