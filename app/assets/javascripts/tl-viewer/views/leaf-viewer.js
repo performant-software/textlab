@@ -75,33 +75,33 @@ TextLab.LeafViewer = Backbone.View.extend({
       var innerhtml = "";
       if(zone_obj.place) {
         var place = zone_obj.place;
-        innerhtml = innerhtml + "<span style='color:blue'>Place: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + place + "</span>";
+        innerhtml = innerhtml + "<p><b>Place: </b>";
+        innerhtml = innerhtml +  place + "</p>";
       };
       if(zone_obj.hand) {
         var hand = zone_obj.hand;
-        innerhtml = innerhtml + "<span style='color:blue'> Hand: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + hand + "</span>";
+        innerhtml = innerhtml + "<p><b> Hand: </b>";
+        innerhtml = innerhtml +  hand + "</p>";
       };
       if(zone_obj.facs) {
         var facs = zone_obj.facs;
-        innerhtml = innerhtml + "<span style='color:blue'> Facs: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + facs + "</span>";
+        innerhtml = innerhtml + "<p><b> Facs: </b>";
+        innerhtml = innerhtml +  facs + "</p>";
       };
       if(zone_obj["function"]) {
         var funct = zone_obj["function"];
-        innerhtml = innerhtml + "<span style='color:blue'> Function: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + funct + "</span>";
+        innerhtml = innerhtml + "<p><b> Function: </b>";
+        innerhtml = innerhtml +  funct + "</p>";
       };
       if(zone_obj.rend) {
         var rend = zone_obj.rend;
-        innerhtml = innerhtml + "<span style='color:blue'> Rend: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + rend + "</span>";
+        innerhtml = innerhtml + "<p><b> Rend: </b>";
+        innerhtml = innerhtml +  rend + "</p>";
       };
       if(zone_obj.change) {
         var change = zone_obj.change;
-        innerhtml = innerhtml + "<span style='color:blue'> Change: </span>";
-        innerhtml = innerhtml + "<span style='color:red'>" + change + "</span>";
+        innerhtml = innerhtml + "<p><b> Change: </b>";
+        innerhtml = innerhtml +  change + "</p>";
       };
       this.highlightZone(zoneLabel,true);
       document.getElementById("zone_atts").innerHTML = innerhtml;
