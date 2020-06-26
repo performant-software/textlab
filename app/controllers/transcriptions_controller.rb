@@ -44,14 +44,17 @@ class TranscriptionsController < ApplicationController
         @next_leaf =  @document_node.next_leaf
         @ancestor_nodes = @document_node.ancestor_nodes
         @node_title = @transcription.leaf.name
-
+        @stages = @transcription.stages_hash(params[:stage])
+        @all_stages_hash = JSON.parse(@transcription.document.project_config.vocabs.as_json)["stage"]
+        stage_vals = @transcription.zones_hash.keys.map {|stage| @transcription.zones_hash[stage]["change"]}.uniq
+        @filtered_stages_hash = @all_stages_hash.select {|stage| stage_vals.include?(stage["value"])}
         unless @transcription.leaf.nil?
           @leaf = {
             xml_id: @transcription.leaf.xml_id,
-            zones: @transcription.leaf.zones.map { |zone| zone.obj },
+            zones: @transcription.leaf.zones.where(zone_label: @stages.keys).map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
             sequences: @transcription.leaf.published_sequence_objs,
-            zone_hash: @transcription.zones_hash
+            zone_hash: @stages,
           }
         else
           @leaf = {
@@ -59,6 +62,7 @@ class TranscriptionsController < ApplicationController
             tile_source: nil
           }
         end
+        @irrelevant_zones = @transcription.leaf.zones.pluck(:zone_label) - @transcription.stages_hash(params[:stage]).keys
 
         render layout: 'tl_viewer'
       }

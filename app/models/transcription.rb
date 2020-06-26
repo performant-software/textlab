@@ -34,7 +34,16 @@ class Transcription < ActiveRecord::Base
     zones_hash
   end
 
-
+  def stages_hash(stage)
+    new_hash = {}
+    zones = self.zones_hash
+    zones.keys.each do |zone|
+      if zones[zone]["change"].present? && zones[zone]["change"] == stage
+        new_hash[zone] = zones[zone]
+      end
+    end
+    new_hash
+  end
 
 
   def obj(current_user_id=nil)

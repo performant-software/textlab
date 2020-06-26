@@ -13,7 +13,14 @@
 
       <div class="col-md-5 right-col">
         <ul class="nav nav-tabs nav-actions">
-          <li role="presentation" class="active"><a href="#" class='tab-button' data-tab='diplo-pane'>Diplomatic</a></li>
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+    <div class="dropdown-menu">
+    <% @filtered_stages_hash.each do |stage| %>
+      <a class="dropdown-item" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+    <% end %>
+    </div>
+  </li>
           <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
         </ul>
       </div>
@@ -167,14 +174,25 @@ next-leaf-button{
 
   // application main
   $(document).ready(function() {
+    var irrelevant_zones = <%= raw @irrelevant_zones.to_json %>
     var current_leaf = <%=raw @leaf.to_json %>
-    console.log('the leaf is');
-    console.log(current_leaf);
     var leafViewer = new TextLab.LeafViewer({
       el: $('#leaf-viewer'),
       model: <%=raw @leaf.to_json %>
   });
     leafViewer.render();
+    var facs = $('[facs]').get();
+
+    _.each(facs, function(fac) {
+      var fac_val = fac.attributes.facs.value;
+      var zoneLabel = fac_val.slice( fac_val.length-4 );
+      if (irrelevant_zones.includes(zoneLabel)) {
+        fac.style.display = "none";
+      }
+    });
+
   });
+
+
 
 </script>
