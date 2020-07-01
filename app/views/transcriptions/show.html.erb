@@ -17,8 +17,12 @@
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Diplomatic</a>
     <div class="dropdown-menu">
-    <% @filtered_stages_hash.each do |stage| %>
-      <a class="dropdown-item" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+      <% @filtered_stages_hash.each do |stage| %>
+        <% if params[:stage] == stage["value"] %>
+          <a class="dropdown-item" style="color:black" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+        <% else %>
+          <a class="dropdown-item" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+        <% end %>
       <hr>
     <% end %>
     </div>
