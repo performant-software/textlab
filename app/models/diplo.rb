@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'saxon-xslt'
 
 class Diplo < ActiveRecord::Base
@@ -120,7 +121,7 @@ class Diplo < ActiveRecord::Base
               <p/>
               </sourceDesc>
               </fileDesc></teiHeader>\n"
-   tei_xml <<  "<text><body><ab>\n#{xml_fragment}\n</ab></body></text>\n"
+   tei_xml <<  "<text><body>\n#{xml_fragment}\n/body></text>\n"
    tei_xml << "</TEI>"
    tei_xml
   end
