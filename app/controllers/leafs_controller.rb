@@ -1,5 +1,5 @@
 class LeafsController < ApplicationController
-  before_action :set_leaf, only: [:show, :update, :destroy]
+  before_action :set_leaf, only: [:show, :update, :destroy, :download_facsimile]
   before_action :authenticate_user!
 
   # GET /leafs/1.json
@@ -19,11 +19,19 @@ class LeafsController < ApplicationController
   end
 
   # PATCH/PUT /leafs/1.json
-  def update    
+  def update
     if @leaf.update(leaf_params)
       render json: @leaf.obj(current_user.id)
     else
       render json: @leaf.errors, status: :unprocessable_entity
+    end
+  end
+
+  def download_facsimile
+    if @leaf.tile_source
+      render json: @leaf.medium_url.to_json
+    else
+      head :no_content 
     end
   end
 

@@ -39,6 +39,20 @@ TextLab.Leaf = Backbone.Model.extend({
     Backbone.sync(method, model, options);
   },
 
+  facsimileDownload: function() {
+    var thisID = this.id;
+    var facsimileURL = _.template("/leafs/" + thisID + "/download_facsimile");
+    $.ajax({
+      url: facsimileURL({ leafID: thisID }),
+      dataType: 'json',
+      success: function(imageUrl) {
+        if (imageUrl != undefined) {
+          window.open(imageUrl);
+        }
+      }
+    });
+  },
+
   addZone: function( zone ) {
     var zoneID = this.get("next_zone_label")
     this.set("next_zone_label", zoneID+1);

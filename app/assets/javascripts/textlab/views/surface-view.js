@@ -9,7 +9,8 @@ TextLab.SurfaceView = Backbone.View.extend({
 		'click #add-mode-button': 'addMode',
 		'click #nav-mode-button': 'navMode',
 		'click #toggle-zones-button': 'toggleZones',
-		'click #edit-info-button': 'onEditInfo'
+		'click #edit-info-button': 'onEditInfo',
+    'click #download-facsimile-button': 'downloadFacsimile'
 	},
 
 	dashPattern: [50, 10],
@@ -81,6 +82,11 @@ TextLab.SurfaceView = Backbone.View.extend({
 
 		return false;
 	},
+
+  downloadFacsimile: function(e) {
+    this.model.facsimileDownload();
+    return false;
+  },
 
 	onEditInfo: function(e) {
 		var callback = _.bind(function(leaf) {
@@ -319,18 +325,21 @@ TextLab.SurfaceView = Backbone.View.extend({
 	},
 
 	deleteZone: function(zoneGroup) {
-		var zone = this.selectedZoneGroup.data.zone;
-		var zoneLabel = zone.get('zone_label');
-		zone.destroy({
-			success: _.bind(function() {
-				zoneGroup.remove();
-				paper.view.draw();
-				if (this.tabbedEditor.activeTab) {
-					this.tabbedEditor.activeTab.xmlEditor.removeZoneLink(zoneLabel);
-				}
-			}, this),
-			error: TextLab.Routes.onError
-		});
+    var confirmation = confirm("Are you sure want to delete this zone?");
+    if (confirmation == true) {
+      var zone = this.selectedZoneGroup.data.zone;
+      var zoneLabel = zone.get('zone_label');
+      zone.destroy({
+        success: _.bind(function() {
+          zoneGroup.remove();
+          paper.view.draw();
+          if (this.tabbedEditor.activeTab) {
+            this.tabbedEditor.activeTab.xmlEditor.removeZoneLink(zoneLabel);
+          }
+        }, this),
+        error: TextLab.Routes.onError
+      });
+    }
 	},
 
 	dragNewZone: function(dragAt) {

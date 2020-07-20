@@ -78,6 +78,10 @@ class Leaf < ActiveRecord::Base
      "#{self.tile_source}/full/150,/0/default.jpg"
   end
 
+  def medium_url
+    "#{self.tile_source}/full/600,/0/default.jpg"
+  end
+
   def export_obj
     # retrieve the published transcription
     transcription = self.transcriptions.where(published:true).first
