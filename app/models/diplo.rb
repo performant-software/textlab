@@ -121,7 +121,7 @@ class Diplo < ActiveRecord::Base
               <p/>
               </sourceDesc>
               </fileDesc></teiHeader>\n"
-   tei_xml <<  "<text><body>\n#{xml_fragment}\n/body></text>\n"
+   tei_xml <<  "<text><body>\n#{xml_fragment}\n</body></text>\n"
    tei_xml << "</TEI>"
    tei_xml
   end
