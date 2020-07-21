@@ -41,16 +41,8 @@ TextLab.Leaf = Backbone.Model.extend({
 
   facsimileDownload: function() {
     var thisID = this.id;
-    var facsimileURL = _.template("/leafs/" + thisID + "/download_facsimile");
-    $.ajax({
-      url: facsimileURL({ leafID: thisID }),
-      dataType: 'json',
-      success: function(imageUrl) {
-        if (imageUrl != undefined) {
-          window.open(imageUrl);
-        }
-      }
-    });
+    link = document.getElementById("download-facsimile-button");
+    link.href = "/leafs/" + thisID + "/download_facsimile";
   },
 
   addZone: function( zone ) {

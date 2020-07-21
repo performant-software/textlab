@@ -28,8 +28,10 @@ class LeafsController < ApplicationController
   end
 
   def download_facsimile
-    if @leaf.tile_source
-      render json: @leaf.medium_url.to_json
+    if @leaf.tile_source.present?
+      require 'open-uri'
+      data = open(@leaf.medium_url).read
+      send_data data, disposition: 'attachment', filename: "default.jpg"
     else
       head :no_content 
     end

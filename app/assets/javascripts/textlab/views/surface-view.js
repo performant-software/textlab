@@ -9,8 +9,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 		'click #add-mode-button': 'addMode',
 		'click #nav-mode-button': 'navMode',
 		'click #toggle-zones-button': 'toggleZones',
-		'click #edit-info-button': 'onEditInfo',
-    'click #download-facsimile-button': 'downloadFacsimile'
+		'click #edit-info-button': 'onEditInfo'
 	},
 
 	dashPattern: [50, 10],
@@ -82,11 +81,6 @@ TextLab.SurfaceView = Backbone.View.extend({
 
 		return false;
 	},
-
-  downloadFacsimile: function(e) {
-    this.model.facsimileDownload();
-    return false;
-  },
 
 	onEditInfo: function(e) {
 		var callback = _.bind(function(leaf) {
@@ -528,6 +522,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 		}
 		this.viewer = null;
 		this.initViewer();
+    this.model.facsimileDownload();
 	},
 
 	initViewer: function() {
