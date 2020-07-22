@@ -205,6 +205,7 @@ hr{
   // application main
   $(document).ready(function() {
     var irrelevant_zones = <%= raw @irrelevant_zones.to_json %>
+    var relevant_zones = <%= raw @relevant_zones.to_json %>
     var current_leaf = <%=raw @leaf.to_json %>
     var leafViewer = new TextLab.LeafViewer({
       el: $('#leaf-viewer'),
@@ -218,6 +219,9 @@ hr{
       var zoneLabel = fac_val.slice( fac_val.length-4 );
       if (irrelevant_zones.includes(zoneLabel)) {
         fac.style.display = "none";
+      }
+      if (relevant_zones.includes(zoneLabel)) {
+        fac.style.display = "inline";
       }
     });
 

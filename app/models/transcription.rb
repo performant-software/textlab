@@ -34,12 +34,14 @@ class Transcription < ActiveRecord::Base
     zones_hash
   end
 
-  def stages_hash(stage)
+  def stages_hash(stages)
     new_hash = {}
     zones = self.zones_hash
     zones.keys.each do |zone|
-      if zones[zone]["change"].present? && zones[zone]["change"] == stage
-        new_hash[zone] = zones[zone]
+      stages.each do |stage| 
+        if zones[zone]["change"].present? && zones[zone]["change"] == stage
+          new_hash[zone] = zones[zone]
+        end
       end
     end
     new_hash
