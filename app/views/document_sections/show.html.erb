@@ -5,7 +5,7 @@
 
   <% if @subsections.length > 0 %>
     <div class="subsections">
-      <h3><%= @ancestor_nodes.length > 0 ? "Subsections" : "Table of Contents" %></h2>
+      <h3><%= @ancestor_nodes.length > 0 ? "Subsections" : "Table of Contents" %></h3>
       <ul>
         <% @subsections.each { |subsection| %>
           <li><%= link_to subsection.name, document_section_path(subsection) %></li>
@@ -19,7 +19,7 @@
   // application main
   $(document).ready(function() {
     var sectionViewer = new TextLab.SectionViewer({ el: $('#section-viewer') } );
-    sectionViewer.render();  
+    sectionViewer.render();
   });
 
 </script>
