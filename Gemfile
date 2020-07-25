@@ -11,6 +11,7 @@ gem 'rails_12factor', group: :production
 gem 'puma', group: :production
 
 # Ruby Gems
+gem 'rack-cors'
 gem 'jbuilder', '~> 2.0'
 gem 'exception_notification'
 gem 'devise'
