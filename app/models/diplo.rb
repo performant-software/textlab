@@ -102,9 +102,9 @@ class Diplo < ActiveRecord::Base
   end
 
   def self.create_tei_document( xml_fragment )
-    tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
-    tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"
-    tei_xml << "<teiHeader><fileDesc>
+   tei_xml = "<?xml-stylesheet type=\"text/xsl\" href=\"xml/tei/stylesheet/html5/tei.xsl\"?>"
+   tei_xml << "<TEI xmlns=\"http://www.tei-c.org/ns/1.0\">"
+   tei_xml << "<teiHeader><fileDesc>
               <titleStmt>
               <title>one</title>
               </titleStmt>
@@ -121,9 +121,9 @@ class Diplo < ActiveRecord::Base
               <p/>
               </sourceDesc>
               </fileDesc></teiHeader>\n"
-    tei_xml <<  "<text><body><ab>\n#{xml_fragment}\n</ab></body></text>\n"
-    tei_xml << "</TEI>"
-    tei_xml
+   tei_xml <<  "<text><body>\n#{xml_fragment}\n</body></text>\n"
+   tei_xml << "</TEI>"
+   tei_xml
   end
 
   def self.remove_omitted_tags( transcription )

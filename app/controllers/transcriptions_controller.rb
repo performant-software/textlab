@@ -44,13 +44,9 @@ class TranscriptionsController < ApplicationController
         @next_leaf =  @document_node.next_leaf
         @ancestor_nodes = @document_node.ancestor_nodes
         @node_title = @transcription.leaf.name
-        stage_vals = @transcription.zones_hash.keys.map {|stage| @transcription.zones_hash[stage]["change"]}.uniq.compact.sort
-        if params[:stage].present?
-          @stages = @transcription.stages_hash(stage_vals[0..(stage_vals.index(params[:stage]))])
-        else
-          @stages = @transcription.stages_hash(stage_vals)
-        end
-        @all_stages_hash = JSON.parse(@transcription.document.project_config.vocabs.as_json)["stage"]
+        @stages = @transcription.stages_hash(params[:stage])
+        @all_stages_hash = @transcription.document.project_config.vocabs["stage"]
+        stage_vals = @transcription.zones_hash.keys.map {|stage| @transcription.zones_hash[stage]["change"]}.uniq
         @filtered_stages_hash = @all_stages_hash.select {|stage| stage_vals.include?(stage["value"])}
         unless @transcription.leaf.nil?
           @leaf = {
@@ -66,8 +62,7 @@ class TranscriptionsController < ApplicationController
             tile_source: nil
           }
         end
-        @relevant_zones = @stages.keys
-        @irrelevant_zones = @transcription.leaf.zones.pluck(:zone_label) - @relevant_zones
+        @irrelevant_zones = @transcription.leaf.zones.pluck(:zone_label) - @transcription.stages_hash(params[:stage]).keys
 
         render layout: 'tl_viewer'
       }
