@@ -50,7 +50,7 @@ class TranscriptionsController < ApplicationController
         else
           @stages = @transcription.stages_hash(stage_vals)
         end
-        @all_stages_hash = JSON.parse(@transcription.document.project_config.vocabs.as_json)["stage"]
+        @all_stages_hash = @transcription.document.project_config.vocabs["stage"]
         @filtered_stages_hash = @all_stages_hash.select {|stage| stage_vals.include?(stage["value"])}
         unless @transcription.leaf.nil?
           @leaf = {

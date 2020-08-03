@@ -19,7 +19,7 @@ class Transcription < ActiveRecord::Base
     zones_hash = {}
     %w(metamark add del subst restore).each do |attrs|
       fragment.xpath("//#{attrs}").each do |mark|
-        zone = mark.attributes["facs"]&.value&.split("-")&.last
+        zone = mark.attributes["facs"].value.split("-").last
         unless zones_hash.keys.include?(zone)
           temp_hash = {}
           %w(place function rend change facs hand).each do |attr|
@@ -34,12 +34,14 @@ class Transcription < ActiveRecord::Base
     zones_hash
   end
 
-  def stages_hash(stage)
+  def stages_hash(stages)
     new_hash = {}
     zones = self.zones_hash
     zones.keys.each do |zone|
-      if zones[zone]["change"].present? && zones[zone]["change"] == stage
-        new_hash[zone] = zones[zone]
+      stages.each do |stage| 
+        if zones[zone]["change"].present? && zones[zone]["change"] == stage
+          new_hash[zone] = zones[zone]
+        end
       end
     end
     new_hash
