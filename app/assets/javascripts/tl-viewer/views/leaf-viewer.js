@@ -93,6 +93,13 @@ TextLab.LeafViewer = Backbone.View.extend({
         innerhtml = innerhtml + "<p><b> Function: </b>";
         innerhtml = innerhtml +  funct + "</p>";
       };
+
+      if (zone_obj.tei) {
+        const tei = zone_obj.tei;
+        innerhtml = innerhtml + "<p><b> TEI: </b>";
+        innerhtml = innerhtml +  tei + "</p>";
+      }
+
       if(zone_obj.rend) {
         var rend = zone_obj.rend;
         innerhtml = innerhtml + "<p><b> Rend: </b>";
