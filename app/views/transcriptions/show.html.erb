@@ -217,11 +217,9 @@ hr{
     _.each(facs, function(fac) {
       var fac_val = fac.attributes.facs.value;
       var zoneLabel = fac_val.slice( fac_val.length-4 );
-      if (irrelevant_zones.includes(zoneLabel)) {
-        fac.style.display = "none";
-      }
+
       if (relevant_zones.includes(zoneLabel)) {
-        fac.style.display = "inline";
+        fac.style.backgroundColor = "#FFFF00";
       }
     });
 

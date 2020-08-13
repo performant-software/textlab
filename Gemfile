@@ -39,3 +39,6 @@ gem 'factory_bot_rails'
 
 # Docs
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Environment variables
+gem 'dotenv-rails', groups: [:development, :test]
