@@ -21,7 +21,9 @@ class Transcription < ActiveRecord::Base
       fragment.xpath("//#{attrs}").each do |mark|
         zone = mark.attributes["facs"].value.split("-").last
         unless zones_hash.keys.include?(zone)
-          temp_hash = {}
+          temp_hash = {
+            tei: attrs
+          }
           %w(place function rend change facs hand).each do |attr|
             if mark.attributes.keys.include?(attr)
               temp_hash[attr] = mark.attributes[attr].value
