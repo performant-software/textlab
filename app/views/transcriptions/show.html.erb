@@ -212,12 +212,12 @@ hr{
       model: <%=raw @leaf.to_json %>
   });
     leafViewer.render();
-    var facs = $('[facs]').get();
+    var facs = $('#diplo-pane').find('[facs]').get();
 
     _.each(facs, function(fac) {
       var fac_val = fac.attributes.facs.value;
       var zoneLabel = fac_val.slice( fac_val.length-4 );
-
+      
       if (relevant_zones.includes(zoneLabel)) {
         fac.style.backgroundColor = "#FFFF00";
       }
