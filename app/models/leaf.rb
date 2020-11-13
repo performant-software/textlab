@@ -50,10 +50,7 @@ class Leaf < ActiveRecord::Base
     sequences
   end
 
-  def published_sequence_objs
-    seqs = self.sequences.where( published: true )
-    seqs.map { |s| s.list_obj }
-  end
+
 
   def published_transcription
     self.transcriptions.find_by( published: true )

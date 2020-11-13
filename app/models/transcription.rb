@@ -82,4 +82,9 @@ class Transcription < ActiveRecord::Base
     }
   end
 
+  def published_sequence_objs
+    seqs = self.sequences.where( published: true )
+    seqs.map { |s| s.list_obj }
+  end
+
 end
