@@ -14,7 +14,7 @@
           error: false 
         }) %>
         <% if(mode!='edit') { %> 
-          <%= partials.dropdownInput( { 
+          <%= partials.dropdownInput({
             field_name: 'editorType', 
             field_title: 'Editor Type', 
             field_value: _.first(editorTypes).value, 
@@ -22,7 +22,19 @@
             no_blank: true,
             options: editorTypes,
             error: false 
-          }) %>  
+          }) %>
+          <% style = _.first(editorTypes).value === 'sequence' ? 'display: block' : 'display: none' %>
+          <div class="transcription-id" style="<%= style %>">
+            <%= partials.dropdownInput({
+              field_name: 'transcriptionId',
+              field_title: 'Transcription',
+              field_value: '',
+              field_instructions: 'Choose the transcription for the sequence.',
+              no_blank: true,
+              options: transcriptions,
+              error: false
+            }) %>
+          </div>
         <% } %>
       </div>
       <div class="modal-footer">

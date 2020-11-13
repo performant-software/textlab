@@ -6,12 +6,25 @@ class Transcription < ActiveRecord::Base
   belongs_to :user
   belongs_to :leaf
   has_one :diplo, dependent: :destroy
+  has_many :zones, dependent: :destroy
+  has_many :sequences, dependent: :destroy
 
   # TODO if publish setting is changed, make sure all others are unpublished
 
   # tells editing permissions which fields contain writable content
   def content_fields
-    [ :name, :content ]
+    [ :name, :content, :next_zone_label ]
+  end
+
+  def copy(attrs)
+    copy = self.dup
+    copy.update_attributes(attrs)
+
+    self.zones.each do |zone|
+      copy.zones << zone.dup
+    end
+
+    copy
   end
 
   def zones_hash
@@ -61,9 +74,11 @@ class Transcription < ActiveRecord::Base
       shared: self.shared,
       submitted: self.submitted,
       published: self.published,
+      next_zone_label: self.next_zone_label,
       owner: owner,
       owner_name: self.user.display_name,
-      zone_hash: zones_hash
+      zone_hash: zones_hash,
+      zones: self.zones.map{ |z| z.obj }
     }
   end
 

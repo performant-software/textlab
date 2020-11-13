@@ -4,7 +4,7 @@ class SequencesController < ApplicationController
 
   def index
     # get the sequences for a given leaf for current user
-    leaf_id = sequence_params[:leaf_id]
+    leaf_id = params[:leaf_id]
     leaf = Leaf.find(leaf_id)
     render json: leaf.get_sequence_objs( current_user.id )
   end
@@ -68,7 +68,7 @@ class SequencesController < ApplicationController
     end
 
     def sequence_params
-      params.permit( :p, :leaf_id, :name, :shared, :submitted, :published, :document_id )
+      params.permit( :p, :transcription_id, :name, :shared, :submitted, :published, :document_id )
     end
 
 end

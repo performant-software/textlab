@@ -87,6 +87,18 @@ class TranscriptionsController < ApplicationController
     end
   end
 
+  # POST /transcriptions/:id/copy
+  def copy
+    transcription = @transcription.copy({ name: params[:name] })
+    transcription.user = current_user
+
+    if transcription.save
+      render json: transcription.obj(current_user.id)
+    else
+      render json: transcription.errors, status: :unprocessable_entity
+    end
+  end
+
   # PATCH/PUT /transcriptions/1.json
   def update
 
@@ -120,6 +132,6 @@ class TranscriptionsController < ApplicationController
     end
 
     def transcription_params
-      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published )
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published, :next_zone_label )
     end
 end

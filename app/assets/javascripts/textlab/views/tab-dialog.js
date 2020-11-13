@@ -11,24 +11,32 @@ TextLab.TabDialog = Backbone.View.extend({
   
   events: {
     'click .ok-button': 'onOK',
-    'click .cancel-button': 'onCancel'
+    'click .cancel-button': 'onCancel',
+    'change #editorType': 'onEditorTypeChange'
   },
             	
 	initialize: function(options) {
     this.callback = options.callback;
     this.leaf = options.leaf;
     this.mode = options.mode;
+    this.transcriptions = options.transcriptions;
+  },
+
+  onEditorTypeChange: function () {
+    this.$('.transcription-id').toggle();
   },
   
   onOK: function() {    
     this.close( _.bind( function() { 
 
       var editorType = this.$('#editorType').val();
-      if( this.mode != 'edit' ) {
+      if (this.mode != 'edit') {
         if( editorType == 'transcription' ) {
           this.model = TextLab.Transcription.newTranscription(this.leaf);
         } else {
-          this.model = TextLab.Sequence.newSequence(this.leaf);
+          const transcriptionId = this.$('#transcriptionId').val();
+          const documentId = this.leaf.document_id;
+          this.model = TextLab.Sequence.newSequence(transcriptionId, documentId);
         }        
       }
 
@@ -58,7 +66,7 @@ TextLab.TabDialog = Backbone.View.extend({
   
   render: function() {
 
-    var editorTypeList = [ 
+    var editorTypeList = [
       { value: 'transcription', text: 'Transcription' }
     ];
 
@@ -66,11 +74,14 @@ TextLab.TabDialog = Backbone.View.extend({
       editorTypeList.push( { value: 'sequence', text: 'Sequence' } );
     }
 
+    const transcriptionsList = _.map(this.transcriptions, (t) => ({ value: t.id, text: t.get('name') }));
+
     this.$el.html(this.template({ 
       name: (this.model) ? this.model.get('name') : '', 
       editorTypes: editorTypeList, 
       partials: this.partials, 
-      mode: this.mode 
+      mode: this.mode,
+      transcriptions: transcriptionsList
     }));    
 
     $('#modal-container').html(this.$el);

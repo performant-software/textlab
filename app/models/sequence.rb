@@ -4,7 +4,7 @@ class Sequence < ActiveRecord::Base
 
   belongs_to :document
   belongs_to :user
-  belongs_to :leaf
+  belongs_to :transcription
   has_many :narrative_steps, dependent: :destroy
 
   # tells editing permissions which fields contain writable content
@@ -44,7 +44,8 @@ class Sequence < ActiveRecord::Base
       published: self.published,
       narrative_steps: steps,
       owner: owner,
-      owner_name: self.user.display_name
+      owner_name: self.user.display_name,
+      transcription: self.transcription.obj(current_user_id)
     }
   end
 

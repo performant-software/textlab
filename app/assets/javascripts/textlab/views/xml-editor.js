@@ -23,7 +23,8 @@ events: {
 	'click .submit-button': 'onClickSubmit',
 	'click .return-button': 'onClickReturn',
 	'click .rename-button': 'onClickRename',
-	'click .delete-button': 'onClickDelete'
+	'click .delete-button': 'onClickDelete',
+  'click .copy-button': 'onClickCopy'
 },
 
 autoSaveDelay: 1000,
@@ -143,11 +144,12 @@ relinkZones: function(){
 	// Build a LUT of valid possible zoneLinks
 	var validZonelinks = [];
 	var leafID=this.leaf.attributes.xml_id;
-	for(var key in this.leaf.zones._byId) {
-		var zoneLabel = this.leaf.zones._byId[key].attributes.zone_label;
-		var thisID = leafID+"-"+zoneLabel;
-		validZonelinks.push(thisID);
-    }
+
+  for (var key in this.model.zones._byId) {
+    var zoneLabel = this.model.zones._byId[key].attributes.zone_label;
+    var thisID = leafID + "-" + zoneLabel;
+    validZonelinks.push(thisID);
+  }
 
 	// Add mark
 	var validLinksInText = [];
@@ -297,6 +299,18 @@ onClickDelete: function() {
 	return false;
 },
 
+onClickCopy: function () {
+  const onCopyCallback = _.bind(function(name) {
+    this.model.copy({ name }, _.bind((attributes) => {
+      const editorModel = TextLab.Transcription.newTranscription(this.model, attributes);
+      this.tabbedEditor.selectTab(this.tabbedEditor.openXMLEditorTab(editorModel))
+    }, this));
+  }, this);
+
+  const tabDialog = new TextLab.CopyDialog({ callback: onCopyCallback });
+  tabDialog.render();
+},
+
 togglePublishButton: function(buttonState) {
 	if (buttonState) {
 		this.$('.unpublish-button').addClass('hidden');
@@ -437,7 +451,7 @@ setSurfaceView: function(surfaceView) {
 onClickZoneLink: function(e) {
 	var xmlZoneLabel = $(e.currentTarget).html();
 	var zoneLabel = this.leaf.removeZoneLabelPrefix(xmlZoneLabel);
-	var zone = this.leaf.zones.getZoneByLabel(zoneLabel);
+	var zone = this.model.zones.getZoneByLabel(zoneLabel);
 	this.surfaceView.selectZone(zone);
 	return false;
 },
@@ -466,18 +480,6 @@ render: function() {
 		statusMessage = "Transcription shared by: " + this.model.get('owner_name');
 	}
 
-	var actionWidthClass = '';
-	if (showActionMenu) {
-		if (showPublishButton) {
-			actionWidthClass = 'room-for-action-and-publish';
-		} else {
-			actionWidthClass = 'room-for-action-menu';
-		}
-	}
-	if (showReturnButton) {
-		actionWidthClass = 'room-for-return-button';
-	}
-
 	var dropDownTags = [];
 	_.each(this.config.tags, function(tag, key) {
 		if (tag.omitFromMenu != true) {
@@ -495,8 +497,7 @@ render: function() {
 		submitted: this.model.get('submitted'),
 		shared: this.model.get('shared'),
 		showTags: showTags,
-		statusMessage: statusMessage,
-		actionWidthClass: actionWidthClass
+		statusMessage: statusMessage
 	}));
 },
 

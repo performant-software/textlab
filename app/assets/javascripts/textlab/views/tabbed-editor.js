@@ -125,7 +125,12 @@ TextLab.TabbedEditor = Backbone.View.extend({
       }
     }, this);
 
-    var tabDialog = new TextLab.TabDialog( { leaf: this.model, callback: onCreateCallback } );
+    var tabDialog = new TextLab.TabDialog({
+      leaf: this.model,
+      callback: onCreateCallback,
+      transcriptions: this.transcriptions.models
+    });
+
     tabDialog.render();
   },
 
@@ -137,6 +142,20 @@ TextLab.TabbedEditor = Backbone.View.extend({
       this.selectTab(tab);
       tab.sequenceEditor.activateNarrativeStepDialog( firstStep, zone_id );
     }, this) });
+  },
+
+  getTranscription() {
+    let transcription;
+
+    if (this.activeTab) {
+      if (this.activeTab.transcription) {
+        transcription = this.activeTab.transcription;
+      } else if (this.activeTab.sequence && this.activeTab.sequence.transcription) {
+        transcription = this.activeTab.sequence.transcription;
+      }
+    }
+
+    return transcription;
   },
 
   onOpen: function() {
@@ -216,6 +235,9 @@ TextLab.TabbedEditor = Backbone.View.extend({
 
     this.activeTab = tab;
     this.resizeActivePanel();
+
+    // Trigger a tab change event to be observed by other views
+    this.trigger('tabChange');
   },
 
   starTab: function( tabType, modelID ) {

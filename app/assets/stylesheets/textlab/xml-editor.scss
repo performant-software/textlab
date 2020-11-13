@@ -1,9 +1,18 @@
 #xml-editor {
 
   .xml-editor-toolbar {
-    padding: 20px 5px 20px 15px;
+    padding: 10px 5px 5px 15px;
     background: #e6e6e6;
     border-bottom: 1px solid gray;
+
+    .dropdown.inline {
+      display: inline-block;
+    }
+
+    .dropdown-menu.open-right {
+      left: initial;
+      right: 0px;
+    }
   }
 
   .zone-link {

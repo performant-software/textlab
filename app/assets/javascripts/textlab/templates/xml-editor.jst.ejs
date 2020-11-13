@@ -28,7 +28,8 @@
   <div class="status-message"><%= statusMessage %></div>
   <div class="error-message"></div>
 
-  <div class='actions <%= actionWidthClass %>' >
+  <div class="actions">
+  <button id="buttonCopy" class='toolbar-button btn btn-sm btn-default copy-button' href='#' ><i class="fa fa-copy" aria-hidden="true"></i> Copy</button>
 	<button id="buttonRelink" class='toolbar-button btn btn-sm btn-default relink-button' href='#' ><i class="fa fa-link" aria-hidden="true"></i> Relink</button>
 	<button class='toolbar-button btn btn-sm btn-default preview-button' href='#' ><i class="fa fa-cloud-upload" aria-hidden="true"></i> Preview</button>
     <% if( showPublishButton ) { %>
@@ -41,11 +42,11 @@
     <% } %>
 
     <% if( showActionMenu ) { %>
-      <div class="dropdown">
+      <div class="dropdown inline">
         <button id="action-dropdown" class="btn btn-sm btn-default dropdown-toggle" type="button" data-toggle="dropdown">
           <i class="fa fa-bars" aria-hidden="true"></i>
         </button>
-        <ul class="dropdown-menu">
+        <ul class="dropdown-menu open-right">
           <% if( showSubmitButton ) { %>
             <li><a class='submit-button <%= submitted ? 'hidden' : '' %>' href="#"><i class="fa fa-send" aria-hidden="true"></i> Submit</a></li>
           <% } %>

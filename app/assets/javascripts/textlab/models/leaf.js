@@ -1,18 +1,6 @@
 TextLab.Leaf = Backbone.Model.extend({
   urlRoot: "leafs",
 
-  initialize: function( attributes, options ) {
-    this.afterLoad( attributes );
-  },
-
-  afterLoad: function( attributes ) {
-    if( attributes && attributes["zones"] ) {
-      this.zones = new TextLab.ZoneCollection(attributes["zones"]);
-    } else {
-      this.zones = new TextLab.ZoneCollection();
-    }
-  },
-
   beforeSave: function() {
 
   },
@@ -45,13 +33,6 @@ TextLab.Leaf = Backbone.Model.extend({
     link.href = "/leafs/" + thisID + "/download_facsimile";
   },
 
-  addZone: function( zone ) {
-    var zoneID = this.get("next_zone_label")
-    this.set("next_zone_label", zoneID+1);
-    zone.set("leaf_id", this.id );
-    zone.generateZoneLabel(zoneID);
-    this.zones.add( zone );
-  },
   /*
   addZoneLink: function( zoneLink ) {
     zoneLink.set("leaf_id", this.id );
