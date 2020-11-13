@@ -3,7 +3,7 @@ class AddTranscriptionIdToZones < ActiveRecord::Migration
     # Add the transcription_id column
     add_reference :zones, :transcription, index: true, foreign_key: true
 
-    # TODO: Comment me
+    # Update the existing zones to link to the first transcription
     execute <<-SQL.squish
         WITH first_transcriptions AS (
       SELECT a.id, a.leaf_id

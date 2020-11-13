@@ -3,7 +3,7 @@ class AddTranscriptionIdToSequences < ActiveRecord::Migration
     # Add the transcription_id column
     add_reference :sequences, :transcription, index: true, foreign_key: true
 
-    # TODO: Comment me
+    # Update all sequences to link to the first transcription
     execute <<-SQL.squish
       WITH first_transcriptions AS (
         SELECT a.id, a.leaf_id
