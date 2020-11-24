@@ -1,30 +1,63 @@
 <div id='leaf-viewer'>
   <div class="row">
-    <div class="leaf-pane col-md-5 left-col">
-      <div class='nav-actions'>
+    <div class="col-md-5 left-col">
+
+      <div class='nav nav-actions'>
         <% unless @prev_leaf.nil? %>
-          <a class="prev-leaf-button" href="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left'></i> Previous Leaf</a>
+          <a class="prev-leaf-button" 
+          ef="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left'></i> Previous Leaf</a>
         <% end %>
         <% unless @next_leaf.nil? %>
           <a class="next-leaf-button" href="<%= url_for @next_leaf %>">Next Leaf <i class='fa fa-chevron-circle-right'></i></a>
         <% end %>
       </div>
-      <div id='openseadragon'></div>
+
+      <div class="col-md-5 right-col">
+        <ul class="nav nav-tabs nav-actions">
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Diplomatic</a>
+    <div class="dropdown-menu">
+      <% @filtered_stages_hash.each do |stage| %>
+        <% if params[:stage] == stage["value"] %>
+          <a class="dropdown-item" style="color:black" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+        <% else %>
+          <a class="dropdown-item" href=<%= "?stage=#{stage["value"]}" %>><%= stage["text"] %> </a>
+        <% end %>
+      <hr>
+    <% end %>
     </div>
-    <div class="col-md-5 right-col">
-      <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#" class='tab-button' data-tab='diplo-pane'>Diplomatic</a></li>
-        <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
-      </ul>
-      <div>
-      <div class='tab-pane' id="diplo-pane">
-        <%= render partial: 'diplo' %>
+  </li>
+          <li role="presentation"><a href="#" class='tab-button' data-tab='base-pane'>Base</a></li>
+        </ul>
       </div>
-      <div class='tab-pane' id="base-pane">
-        <%= render partial: 'base' %>
-      </div>      
+
     </div>
+
+
+      <div class = "imageWrapper">
+        <div data-role="splitter" class="h-100">
+          <div class = "leftWrapper">
+          <div class="d-flex flex-justify-center flex-align-center">
+            <div id='openseadragon'>
+		<div id="zone_atts" style="display:none"></div>
+	    </div>
+
+          </div>
+        </div>
+
+        <div class = "rightWrapper">
+          <div class="d-flex flex-justify-center flex-align-center">
+            <div class='tab-pane' id="diplo-pane", style="width:690px;height:550px;">
+              <%= render partial: 'diplo' %>
+            </div>
+            <div class='tab-pane' id="base-pane">
+              <%= render partial: 'base' %>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
   <div class="row">
     <p>Transcribed by: <%= @transcription.user.attribution_name %></p>
@@ -36,16 +69,162 @@
   </div>
 </div>
 
+<script src="https://cdn.metroui.org.ua/v4/js/metro.min.js"></script>
 
+<link rel="stylesheet" href="https://cdn.metroui.org.ua/v4/css/metro-all.min.css">
+
+<style>
+  .gutter{
+    width: 11px !important;
+  }
+  .gutter:hover{
+          cursor: ew-resize;
+	  -webkit-touch-callout: none; /* iOS Safari */
+   	  -webkit-user-select: none; /* Safari */
+     	  -khtml-user-select: none; /* Konqueror HTML */
+       	  -moz-user-select: none; /* Old versions of Firefox */
+          -ms-user-select: none; /* Internet Explorer/Edge */
+          user-select: none;
+   }
+  .tab-pane {
+    width: 100% !important;
+    padding-right: 2rem;
+  }
+
+
+-viewer #diplomatic-panel {
+    width: 100% !important;
+  }
+
+.col-md-5{
+	display: flex;
+    	flex-direction: row;
+    	float: right;
+    	left: 13rem;
+    	@media screen and (min-width: 1700px) {
+  left: 21rem;
+	}
+}
+
+#leaf-viewer .nav-actions {
+	display: flex;
+       flex-direction: row;
+	width: 23rem;
+    	right: 11rem;
+ 	padding-left: 0px !important;
+ 	@media screen and (min-width: 1700px) {
+  left: 20rem;
+	}
+}
+
+.prev-leaf-button{
+	width: 13rem;
+
+}
+
+next-leaf-button{
+	    width: 13rem;
+}
+
+#leaf-viewer .nav-actions .next-leaf-button {
+    width: 19rem;
+    padding-left: 0px !important;
+}
+.textfromleaf {
+    margin: 0px 20px 40px 20px;
+
+    width: 100%;
+}
+
+.rightWrapper{
+	min-width: 17rem;
+}
+
+.leftWrapper{
+	min-width: 18rem;
+	width: 34rem !important;;
+}
+
+#leaf-viewer #base-panel {
+	    width: 100% !important;
+    		height: 590px;
+}
+
+#leaf-viewer #diplomatic-panel {
+	width: 100% !important;
+	height: 580px !important;
+}
+.imageWrapper{
+	width: 98vw;
+}
+
+#leaf-viewer #openseadragon {
+    width: 100% !important;
+    height: 580px;
+    margin: 20px;
+    border: 1px solid black;
+}
+
+#zone_atts{
+   	background: rgb(247, 243, 224);
+	position: absolute;
+	width: 15rem;
+	box-shadow: rgb(0, 0, 0) 0px 0px 5px 1px;
+	z-index: 5;
+	align-content: center;
+	border-radius: 4px;
+	border-width: 0px;
+	border-style: none solid solid;
+	border-color: black;
+	padding: 5px;
+	line-height: 28px;
+	right: 0rem;
+	display: none;
+}
+
+.dropdown-menu{
+    width: 24rem;
+    padding: 0.8rem 0.5rem;
+    line-height: 1.5rem;
+    
+}
+
+.dropdown-item{
+    line-height: 1.5rem;	
+}
+hr{
+    background-color: #c1c1c1;
+    width: 100%;
+    height: 1px;
+    padding: 0rem;
+    margin: 0.8rem 0rem;
+}
+</style>
 <script>
 
   // application main
   $(document).ready(function() {
-    var leafViewer = new TextLab.LeafViewer({ 
-      el: $('#leaf-viewer'), 
+    var irrelevant_zones = <%= raw @irrelevant_zones.to_json %>
+    var relevant_zones = <%= raw @relevant_zones.to_json %>
+    var current_leaf = <%=raw @leaf.to_json %>
+    var leafViewer = new TextLab.LeafViewer({
+      el: $('#leaf-viewer'),
       model: <%=raw @leaf.to_json %>
-    });
-    leafViewer.render();  
   });
+    leafViewer.render();
+    var facs = $('#diplo-pane').find('[facs]').get();
+
+    _.each(facs, function(fac) {
+      var fac_val = fac.attributes.facs.value;
+      var zoneLabel = fac_val.slice( fac_val.length-4 );
+      
+      if (relevant_zones.includes(zoneLabel)) {
+        fac.style.backgroundColor = "#FFFF00";
+      }
+    });
+
+  });
+
+
 
 </script>

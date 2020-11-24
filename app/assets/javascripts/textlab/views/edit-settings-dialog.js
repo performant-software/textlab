@@ -11,7 +11,6 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
     checkMark: JST['textlab/templates/common/check-mark'],
     dropdownInput: JST['textlab/templates/common/dropdown-input']
 	},
-  
   events: {
     'click .update-button': 'onUpdate',
     'click .cancel-button': 'onCancel'
@@ -80,11 +79,16 @@ TextLab.EditSettingsDialog = Backbone.View.extend({
     
     this.$el.html(this.template({ 
       document: this.model.toJSON(), 
+      document_id: this.model.id,
       partials: this.partials, 
       projectConfigs: projectConfigList,
       publishFieldTitle: publishFieldTitle 
     }));    
     
+      console.log("this.model is");
+      console.log(this.model);
+      console.log(this.model.attributes.id);
+      console.log(this.model.id);
     this.membersPanel = new TextLab.MembersPanel( { collection: this.model.members } );    
     this.membersPanel.render();
     this.$("#"+this.membersPanel.id).replaceWith(this.membersPanel.$el);

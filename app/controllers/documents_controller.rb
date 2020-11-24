@@ -1,5 +1,5 @@
 class DocumentsController < ApplicationController
-  before_action :set_document, only: [:show, :update, :destroy]
+  before_action :set_document, only: [:show, :update, :destroy, :export_tei]
   before_action :authenticate_user!, except: :show
 
   # GET /documents.json
@@ -34,6 +34,14 @@ class DocumentsController < ApplicationController
       render json: @document.obj(current_user.id)
     else
       render json: @document.errors, status: :unprocessable_entity
+    end
+  end
+
+  def export_tei
+    @tei_xml = @document.tei_xml
+    respond_to do |format| 
+      # format.xml { render :xml => @document.tei_xml }
+      format.xml { send_data @tei_xml, filename: "#{@document.id}.xml", disposition: 'attachment'}
     end
   end
 

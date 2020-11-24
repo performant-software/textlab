@@ -1087,8 +1087,8 @@ function OpenSeadragon( options ){
                 flickMomentum: 0.25,
                 pinchRotate: false
             },
-            zoomPerClick:           2,
-            zoomPerScroll:          1.2,
+            zoomPerClick:           1.2,
+            zoomPerScroll:          1.1,
             zoomPerSecond:          1.0,
             blendTime:              0,
             alwaysBlend:            false,

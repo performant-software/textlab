@@ -319,18 +319,21 @@ TextLab.SurfaceView = Backbone.View.extend({
 	},
 
 	deleteZone: function(zoneGroup) {
-		var zone = this.selectedZoneGroup.data.zone;
-		var zoneLabel = zone.get('zone_label');
-		zone.destroy({
-			success: _.bind(function() {
-				zoneGroup.remove();
-				paper.view.draw();
-				if (this.tabbedEditor.activeTab) {
-					this.tabbedEditor.activeTab.xmlEditor.removeZoneLink(zoneLabel);
-				}
-			}, this),
-			error: TextLab.Routes.onError
-		});
+    var confirmation = confirm("Are you sure want to delete this zone?");
+    if (confirmation == true) {
+      var zone = this.selectedZoneGroup.data.zone;
+      var zoneLabel = zone.get('zone_label');
+      zone.destroy({
+        success: _.bind(function() {
+          zoneGroup.remove();
+          paper.view.draw();
+          if (this.tabbedEditor.activeTab) {
+            this.tabbedEditor.activeTab.xmlEditor.removeZoneLink(zoneLabel);
+          }
+        }, this),
+        error: TextLab.Routes.onError
+      });
+    }
 	},
 
 	dragNewZone: function(dragAt) {
@@ -519,6 +522,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 		}
 		this.viewer = null;
 		this.initViewer();
+    this.model.facsimileDownload();
 	},
 
 	initViewer: function() {

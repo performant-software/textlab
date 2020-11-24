@@ -78,6 +78,10 @@ class Leaf < ActiveRecord::Base
      "#{self.tile_source}/full/150,/0/default.jpg"
   end
 
+  def medium_url
+    "#{self.tile_source}/full/600,/0/default.jpg"
+  end
+
   def export_obj
     # retrieve the published transcription
     transcription = self.transcriptions.where(published:true).first
@@ -101,15 +105,13 @@ class Leaf < ActiveRecord::Base
   end
 
   def obj(current_user_id)
-
     zonesJSON = self.zones.map { |zone| zone.obj }
-
     {
       id: self.id,
       name: self.name,
       document_id: self.document_id,
       xml_id: self.xml_id,
-      tile_source: self.tile_source,
+      tile_source: self.tile_source&.gsub('/full/full/0/default.jpg',''),
       next_zone_label: self.next_zone_label,
       secondary_enabled: secondary_enabled(current_user_id),
       zones: zonesJSON

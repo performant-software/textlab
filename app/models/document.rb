@@ -34,6 +34,40 @@ class Document < ActiveRecord::Base
    
   end
 
+  def tei_xml
+    xml_string = ""
+    tei_xml = ""
+    self.document_sections.each do |section|
+      if section.subsections.present?
+        section.subsections.each do |subsec|
+          if subsec.document_node.present?
+            if subsec.document_node.child_nodes.present?
+              subsec.document_node.child_nodes.order(:position).each do |child|
+                transcription = Transcription.find_by(leaf_id: child.leaf_id)
+                if transcription.present?
+                  if transcription.content.present?
+                    xml_string = "#{xml_string}#{transcription.content}"
+                  end
+                end
+              end
+            end
+          end
+        end
+      elsif section.document_node.present?
+        if section.document_node.child_nodes.present?
+          section.document_node.child_nodes.order(:position).each do |child|
+            transcription = Transcription.find_by(leaf_id: child.leaf_id)
+            if transcription.present?
+              if transcription.content.present?
+                xml_string = "#{xml_string}#{transcription.content}"
+              end
+            end
+          end
+        end
+      end
+    end
+    Diplo.create_tei_document(xml_string)
+  end
   def change_image_source_domain!( domain, mel=false )
     leafs.each { |leaf|
       if leaf.change_image_source_domain( domain, mel )
@@ -46,7 +80,7 @@ class Document < ActiveRecord::Base
     position = 0
     manifest = JSON.parse(leaf_manifest)
     document = parent_node.document
-    
+
     manifest.each { |leaf_obj|
       leaf = Leaf.new({
         document: document,
@@ -54,7 +88,7 @@ class Document < ActiveRecord::Base
         xml_id: leaf_obj['xml_id'],
         tile_source: leaf_obj['tile_source']
       })
-      
+
       if leaf.save
         leaf_node = DocumentNode.new( {
           document: document,

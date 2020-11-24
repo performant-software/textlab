@@ -15,6 +15,8 @@ class TranscriptionsController < ApplicationController
       redirect_to root_url
       return
     end
+    Rails.logger.info "******* The transcription obj is"
+    Rails.logger.info @transcription.obj.inspect
 
     respond_to do |format|
       format.html {
@@ -42,13 +44,21 @@ class TranscriptionsController < ApplicationController
         @next_leaf =  @document_node.next_leaf
         @ancestor_nodes = @document_node.ancestor_nodes
         @node_title = @transcription.leaf.name
-
+        stage_vals = @transcription.zones_hash.keys.map {|stage| @transcription.zones_hash[stage]["change"]}.uniq.compact.sort
+        if params[:stage].present?
+          @stages = @transcription.stages_hash(stage_vals[0..(stage_vals.index(params[:stage]))])
+        else
+          @stages = @transcription.stages_hash(stage_vals)
+        end
+        @all_stages_hash = JSON.parse(@transcription.document.project_config.vocabs)["stage"]
+        @filtered_stages_hash = @all_stages_hash.select {|stage| stage_vals.include?(stage["value"])}
         unless @transcription.leaf.nil?
           @leaf = {
             xml_id: @transcription.leaf.xml_id,
-            zones: @transcription.leaf.zones.map { |zone| zone.obj },
+            zones: @transcription.leaf.zones.where(zone_label: @stages.keys).map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
-            sequences: @transcription.leaf.published_sequence_objs
+            sequences: @transcription.leaf.published_sequence_objs,
+            zone_hash: @stages,
           }
         else
           @leaf = {
@@ -56,6 +66,8 @@ class TranscriptionsController < ApplicationController
             tile_source: nil
           }
         end
+        @relevant_zones = @stages.keys
+        @irrelevant_zones = @transcription.leaf.zones.pluck(:zone_label) - @relevant_zones
 
         render layout: 'tl_viewer'
       }

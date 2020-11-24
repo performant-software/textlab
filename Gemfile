@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
 
 # Core
+gem 'jruby-jars', '9.1.12.0'
 gem 'rails', '4.2.9'
 gem 'activerecord-jdbcpostgresql-adapter'
 
@@ -10,6 +11,7 @@ gem 'rails_12factor', group: :production
 gem 'puma', group: :production
 
 # Ruby Gems
+gem 'rack-cors'
 gem 'jbuilder', '~> 2.0'
 gem 'exception_notification'
 gem 'devise'
@@ -37,3 +39,6 @@ gem 'factory_bot_rails'
 
 # Docs
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Environment variables
+gem 'dotenv-rails', groups: [:development, :test]
