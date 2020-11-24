@@ -2,6 +2,23 @@ TextLab.Transcription = Backbone.Model.extend({
   urlRoot: "transcriptions",
 
   initialize: function( attributes, options ) {
+    this.afterLoad(attributes);
+  },
+
+  afterLoad: function( attributes ) {
+    if (attributes && attributes['zones']) {
+      this.zones = new TextLab.ZoneCollection(attributes['zones']);
+    } else {
+      this.zones = new TextLab.ZoneCollection();
+    }
+  },
+
+  addZone: function(zone) {
+    var zoneID = this.get('next_zone_label')
+    this.set('next_zone_label', zoneID + 1);
+    zone.set('transcription_id', this.id);
+    zone.generateZoneLabel(zoneID);
+    this.zones.add(zone);
   },
 
   isReadOnly: function( isProjectOwner ) {
@@ -23,6 +40,18 @@ TextLab.Transcription = Backbone.Model.extend({
     }
 
     return readOnly;
+  },
+
+  copy: function(attributes, callback) {
+    const copyURL = _.template("/transcriptions/<%= transcriptionID %>/copy");
+
+    $.ajax({
+      method: 'POST',
+      url: copyURL({ transcriptionID: this.id }),
+      data: attributes,
+      dataType: 'json',
+      success: callback
+    });
   },
 
   sync: function(method, model, options) {
@@ -49,7 +78,7 @@ TextLab.Transcription = Backbone.Model.extend({
 
 });
 
-TextLab.Transcription.newTranscription = function( leaf ) {
+TextLab.Transcription.newTranscription = function( leaf, attrs = {} ) {
   var transcription = new TextLab.Transcription({
     leaf_id: leaf.id,
     name: 'untitled',
@@ -57,7 +86,8 @@ TextLab.Transcription.newTranscription = function( leaf ) {
     shared: false,
     submitted: false,
     published: false,
-    owner: true
+    owner: true,
+    ...attrs
   });
   return transcription;
 };

@@ -23,6 +23,12 @@ TextLab.SurfaceView = Backbone.View.extend({
 		this.owner = options.owner;
 		this.dragStart = null;
 
+		// On tab change, reset the zones and the transcription
+		this.tabbedEditor.on('tabChange', () => {
+		  this.selectLeaf(this.model);
+		  this.transcription = this.tabbedEditor.getTranscription();
+    });
+
  		$(window).on('resize', _.bind(this.onWindowResize, this));
 	},
 
@@ -346,8 +352,8 @@ TextLab.SurfaceView = Backbone.View.extend({
 
 		var zone;
 		if (!this.selectedZoneGroup) {
-			zone = new TextLab.Zone(zoneRect);
-			this.model.addZone(zone);
+		  zone = new TextLab.Zone(zoneRect);
+		  this.transcription.addZone(zone);
 		} else {
 			zone = this.selectedZoneGroup.data.zone;
 			zone.set(zoneRect);
@@ -410,9 +416,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 
 	zoneSaved: function(zone) {
 		console.log("zone " + zone.get("zone_label") + " is saved.");
-		this.model.save({
-			next_zone_label: this.model.get('next_zone_label')
-		}, {
+		this.transcription.save(null, {
 			patch: true,
 			success: this.leafSaved,
 			error: TextLab.Routes.onError
@@ -515,7 +519,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 	},
 
 	selectLeaf: function(leaf) {
-		this.model = leaf;
+    this.model = leaf;
 		if (this.viewer) {
 			this.viewer.destroy();
 			this.viewReady = false;
@@ -552,10 +556,12 @@ TextLab.SurfaceView = Backbone.View.extend({
 		this.overlay = this.viewer.paperjsOverlay();
 
 		var renderZones = _.bind(function() {
-			_.each(this.model.zones.models, this.renderZone, this);
-			this.overlay.resize();
-			this.overlay.resizecanvas();
-			this.viewReady = true;
+		  if (this.transcription && this.transcription.zones) {
+        _.each(this.transcription.zones.models, this.renderZone, this);
+        this.overlay.resize();
+        this.overlay.resizecanvas();
+        this.viewReady = true;
+      }
 		}, this);
 
 		this.model.getTileSource(_.bind(function(tileSource) {

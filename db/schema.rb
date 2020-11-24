@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171231213953) do
+ActiveRecord::Schema.define(version: 20201113142826) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,10 +52,9 @@ ActiveRecord::Schema.define(version: 20171231213953) do
   create_table "leafs", force: :cascade do |t|
     t.string   "name"
     t.text     "tile_source"
-    t.integer  "next_zone_label", default: 1, null: false
     t.integer  "document_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "xml_id"
   end
 
@@ -85,14 +84,16 @@ ActiveRecord::Schema.define(version: 20171231213953) do
   end
 
   create_table "sequences", force: :cascade do |t|
-    t.integer "leaf_id"
     t.string  "name"
     t.integer "document_id"
     t.integer "user_id"
     t.boolean "shared"
     t.boolean "submitted"
     t.boolean "published"
+    t.integer "transcription_id"
   end
+
+  add_index "sequences", ["transcription_id"], name: "index_sequences_on_transcription_id", using: :btree
 
   create_table "sites", force: :cascade do |t|
     t.string   "name"
@@ -188,9 +189,10 @@ ActiveRecord::Schema.define(version: 20171231213953) do
     t.integer  "user_id"
     t.boolean  "shared"
     t.boolean  "submitted"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "published"
+    t.integer  "next_zone_label", default: 1, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -229,9 +231,13 @@ ActiveRecord::Schema.define(version: 20171231213953) do
     t.integer  "lrx"
     t.integer  "lry"
     t.string   "zone_label"
-    t.integer  "leaf_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "transcription_id"
   end
 
+  add_index "zones", ["transcription_id"], name: "index_zones_on_transcription_id", using: :btree
+
+  add_foreign_key "sequences", "transcriptions"
+  add_foreign_key "zones", "transcriptions"
 end

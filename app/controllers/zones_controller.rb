@@ -44,6 +44,6 @@ class ZonesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def zone_params
-      params.permit( :zone_label, :ulx, :uly, :lrx, :lry, :leaf_id )
+      params.permit( :zone_label, :ulx, :uly, :lrx, :lry, :transcription_id )
     end
 end

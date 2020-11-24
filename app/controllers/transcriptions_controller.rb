@@ -55,9 +55,9 @@ class TranscriptionsController < ApplicationController
         unless @transcription.leaf.nil?
           @leaf = {
             xml_id: @transcription.leaf.xml_id,
-            zones: @transcription.leaf.zones.where(zone_label: @stages.keys).map { |zone| zone.obj },
+            zones: @transcription.zones.where(zone_label: @stages.keys).map { |zone| zone.obj },
             tile_source: @transcription.leaf.tile_source,
-            sequences: @transcription.leaf.published_sequence_objs,
+            sequences: @transcription.published_sequence_objs,
             zone_hash: @stages,
           }
         else
@@ -67,7 +67,7 @@ class TranscriptionsController < ApplicationController
           }
         end
         @relevant_zones = @stages.keys
-        @irrelevant_zones = @transcription.leaf.zones.pluck(:zone_label) - @relevant_zones
+        @irrelevant_zones = @transcription.zones.pluck(:zone_label) - @relevant_zones
 
         render layout: 'tl_viewer'
       }
@@ -84,6 +84,18 @@ class TranscriptionsController < ApplicationController
       render json: @transcription.obj(current_user.id)
     else
       render json: @transcription.errors, status: :unprocessable_entity
+    end
+  end
+
+  # POST /transcriptions/:id/copy
+  def copy
+    transcription = @transcription.copy({ name: params[:name] })
+    transcription.user = current_user
+
+    if transcription.save
+      render json: transcription.obj(current_user.id)
+    else
+      render json: transcription.errors, status: :unprocessable_entity
     end
   end
 
@@ -120,6 +132,6 @@ class TranscriptionsController < ApplicationController
     end
 
     def transcription_params
-      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published )
+      params.permit( :leaf_id, :name, :content, :shared, :submitted, :document_id, :published, :next_zone_label )
     end
 end

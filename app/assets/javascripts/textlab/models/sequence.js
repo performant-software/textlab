@@ -11,8 +11,12 @@ TextLab.Sequence = Backbone.Model.extend({
     } else {
       this.narrativeSteps = new TextLab.NarrativeStepCollection();
     }
+
+    if (attributes && attributes['transcription']) {
+      this.transcription = new TextLab.Transcription(attributes['transcription'])
+    }
   },
-  
+
   sync: function(method, model, options) {
     
     // add hook for afterLoad event that does something after the model has been loaded
@@ -77,11 +81,11 @@ TextLab.Sequence = Backbone.Model.extend({
     
 });
 
-TextLab.Sequence.newSequence = function( leaf ) {  
+TextLab.Sequence.newSequence = function( transcription_id, document_id ) {
   var sequence = new TextLab.Sequence({ 
-    leaf_id: leaf.id, 
+    transcription_id,
+    document_id,
     name: 'untitled',
-    document_id: leaf.get('document_id'), 
     shared: false, 
     submitted: false,
     published: false,

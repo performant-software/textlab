@@ -219,7 +219,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
 
   // prepare list of options for zone drop down
   generateZoneList: function() {
-    var zoneOptions = _.map( this.leaf.zones.models, function( zone ) {
+    var zoneOptions = _.map( this.model.transcription.zones.models, function( zone ) {
       return { value: zone.id, text: zone.get('zone_label') };
     });
     
@@ -265,7 +265,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
     // look up the zone labels for each zone
     var narrativeSteps = _.map( steps, function(step) {
       var zoneID = parseInt(step.zone_id);
-      var zone = this.leaf.zones.get(zoneID);
+      var zone = this.model.transcription.zones.get(zoneID);
       if( zone ) {
         step.zoneLabel = zone.get('zone_label');
       }
@@ -274,7 +274,8 @@ TextLab.SequenceEditor = Backbone.View.extend({
 
     this.$('#sequence-grid').html(this.gridTemplate({
       readOnly: this.model.isReadOnly(this.tabbedEditor.projectOwner), 
-      narrativeSteps: narrativeSteps
+      narrativeSteps: narrativeSteps,
+      transcription: this.model.transcription.get('name')
     })); 
   },
 
@@ -313,18 +314,6 @@ TextLab.SequenceEditor = Backbone.View.extend({
     } else if( this.model.get('shared') && readOnly ) {
       statusMessage = "Sequence shared by: "+this.model.get('owner_name');
     }
-
-    var actionWidthClass = '';
-    if( showActionMenu ) {
-      if( showPublishButton ) {
-        actionWidthClass = 'room-for-action-and-publish';
-      } else {
-        actionWidthClass = 'room-for-action-menu';
-      }
-    }
-    if( showReturnButton ) {
-      actionWidthClass = 'room-for-return-button';
-    }
               
     this.$el.html(this.template({ 
       showAddStep: showAddStep,
@@ -335,8 +324,7 @@ TextLab.SequenceEditor = Backbone.View.extend({
       published: this.model.get('published'),
       submitted: this.model.get('submitted'),
       shared: this.model.get('shared'),
-      statusMessage: statusMessage,
-      actionWidthClass: actionWidthClass
+      statusMessage: statusMessage
     })); 
 
     this.renderGrid();

@@ -1,6 +1,6 @@
 class Zone < ActiveRecord::Base
   
-  belongs_to :leaf
+  belongs_to :transcription
     
   def obj
     { 

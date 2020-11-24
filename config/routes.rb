@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :project_configs, only: [ :index, :show, :update, :create, :destroy ]
   resources :sequences, only: [ :index, :show, :update, :create, :destroy ]
   resources :transcriptions, only: [ :index, :show, :update, :create, :destroy ]
+  post '/transcriptions/:id/copy', to: 'transcriptions#copy'
   resources :zones, only: [ :show, :update, :create, :destroy ]
   resources :accounts, only: [ :index, :show, :update ]
   resources :sites, only: [ :index, :show, :update, :create, :destroy ]
