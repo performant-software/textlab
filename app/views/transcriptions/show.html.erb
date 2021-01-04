@@ -4,8 +4,7 @@
 
       <div class='nav nav-actions'>
         <% unless @prev_leaf.nil? %>
-          <a class="prev-leaf-button" 
-          ef="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left'></i> Previous Leaf</a>
+          <a class="prev-leaf-button" href="<%= url_for @prev_leaf %>"><i class='fa fa-chevron-circle-left'></i> Previous Leaf</a>
         <% end %>
         <% unless @next_leaf.nil? %>
           <a class="next-leaf-button" href="<%= url_for @next_leaf %>">Next Leaf <i class='fa fa-chevron-circle-right'></i></a>
