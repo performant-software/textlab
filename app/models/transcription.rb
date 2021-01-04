@@ -32,6 +32,7 @@ class Transcription < ActiveRecord::Base
     zones_hash = {}
     %w(metamark add del subst restore).each do |attrs|
       fragment.xpath("//#{attrs}").each do |mark|
+        next unless mark.attributes["facs"].present?
         zone = mark.attributes["facs"].value.split("-").last
         unless zones_hash.keys.include?(zone)
           temp_hash = {
