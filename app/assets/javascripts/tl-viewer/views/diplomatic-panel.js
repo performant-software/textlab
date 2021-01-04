@@ -132,21 +132,22 @@ TextLab.DiplomaticPanel = Backbone.View.extend({
            }, 400);
         });
 
-        var anchorOffset = $(this).offset();
-
         $(this).removeAttr('title').mouseenter(function() {
            if (tip.fadeTimeout) {
               clearTimeout(tip.fadeTimeout);
            }
+
+           const anchorOffset = $(this).position();
+
            tip.css({
+              top: anchorOffset.top,
+              left: anchorOffset.left,
               opacity : 1
            }).fadeIn();
-        }).mousemove(function(mouse) {
-           $(tip).offset({ top: anchorOffset.top + 15, left: anchorOffset.left + 15 });
         }).mouseleave(function() {
            tip.fadeTimeout = setTimeout(function() {
               tip.fadeOut();
-           }, 1000);
+           }, 400);
         });
      });
   },
