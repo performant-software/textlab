@@ -77,7 +77,7 @@ class Transcription < ActiveRecord::Base
       published: self.published,
       next_zone_label: self.next_zone_label,
       owner: owner,
-      owner_name: self.user.display_name,
+      owner_name: self.user&.display_name,
       zone_hash: zones_hash,
       zones: self.zones.map{ |z| z.obj }
     }
