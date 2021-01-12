@@ -14,7 +14,7 @@ gem 'puma', '< 6', group: :production
 gem 'rack-cors'
 gem 'jbuilder', '~> 2.0'
 gem 'exception_notification'
-gem 'devise'
+gem 'devise', '~> 4.4.3'
 gem 'devise-encryptable'
 gem 'saxon-xslt', '~> 0.7.2'
 gem 'nokogiri', '~> 1.8.2'
