@@ -22,7 +22,7 @@ gem 'nokogiri', '~> 1.11.1'
 # Asset Pipeline
 gem 'sass-rails', '~> 5.0.6'
 #gem 'sassc-rails'
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass', '~> 3.4.1'
 gem 'font-awesome-sass'
 gem 'uglifier', '>= 1.3.0'
 gem 'therubyrhino'
