@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.3.3', :engine => 'jruby', :engine_version => '9.1.12.0'
+ruby '2.5.7', :engine => 'jruby', :engine_version => '9.2.9.0'
 
 # Core
 gem 'jruby-jars', '9.1.12.0'
@@ -8,7 +8,7 @@ gem 'activerecord-jdbcpostgresql-adapter'
 
 # Heroku
 gem 'rails_12factor', group: :production
-gem 'puma', group: :production
+gem 'puma', '< 6', group: :production
 
 # Ruby Gems
 gem 'rack-cors'
