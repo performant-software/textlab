@@ -1,5 +1,5 @@
 class Document < ActiveRecord::Base
-      	
+
   belongs_to :user
   belongs_to :project_config
   has_many :leafs, dependent: :destroy
@@ -8,14 +8,14 @@ class Document < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
 
   attr_writer :leaf_manifest
-        
+
   def self.get_all( current_user )
 		documents = Document.where( user_id: current_user.id )
 		owned_docs = documents.map { |document| document.list_obj() }
     team_docs = current_user.memberships.map { |membership| membership.document.team_list_obj(membership) }
-    (owned_docs + team_docs).sort_by { |doc| doc[:name] } 
-	end  
-  
+    (owned_docs + team_docs).sort_by { |doc| doc[:name] }
+	end
+
   after_create do |document|
     root_section = DocumentSection.new
     root_section.document = self
@@ -31,43 +31,27 @@ class Document < ActiveRecord::Base
     if @leaf_manifest
       Document.import_manifest(@leaf_manifest, root_node)
     end
-   
+
+  end
+
+  def append_node(node, xml)
+    # Append the XML content to the array, if present
+    if node.leaf_id.present?
+      transcription = Transcription.find_by(leaf_id: node.leaf_id, published: true)
+      xml << transcription.content unless transcription.nil?
+    end
+
+    # Recursively append the transcription data for the child nodes
+    node.child_nodes.order(:position).each{ |c| append_node(c, xml) }
   end
 
   def tei_xml
-    xml_string = ""
-    tei_xml = ""
-    self.document_sections.each do |section|
-      if section.subsections.present?
-        section.subsections.each do |subsec|
-          if subsec.document_node.present?
-            if subsec.document_node.child_nodes.present?
-              subsec.document_node.child_nodes.order(:position).each do |child|
-                transcription = Transcription.find_by(leaf_id: child.leaf_id)
-                if transcription.present?
-                  if transcription.content.present?
-                    xml_string = "#{xml_string}#{transcription.content}"
-                  end
-                end
-              end
-            end
-          end
-        end
-      elsif section.document_node.present?
-        if section.document_node.child_nodes.present?
-          section.document_node.child_nodes.order(:position).each do |child|
-            transcription = Transcription.find_by(leaf_id: child.leaf_id)
-            if transcription.present?
-              if transcription.content.present?
-                xml_string = "#{xml_string}#{transcription.content}"
-              end
-            end
-          end
-        end
-      end
-    end
-    Diplo.create_tei_document(xml_string)
+    xml = []
+    append_node root_node, xml
+    
+    Diplo.create_tei_document xml.join('')
   end
+
   def change_image_source_domain!( domain, mel=false )
     leafs.each { |leaf|
       if leaf.change_image_source_domain( domain, mel )
@@ -96,30 +80,30 @@ class Document < ActiveRecord::Base
           leaf: leaf,
           document_node_id: parent_node.id
         })
-        leaf_node.save! 
+        leaf_node.save!
         position = position + 1
       end
-    } 
+    }
   end
-  
+
   def is_owner?(current_user_id)
     ( !self.user_id.nil? && self.user_id == current_user_id )
   end
-  
+
   def is_member?(current_user_id)
-    self.memberships.where( user_id: current_user_id ).length > 0  
-  end  
-  
+    self.memberships.where( user_id: current_user_id ).length > 0
+  end
+
   def can_view?(current_user)
     self.published || (!current_user.nil? && ( self.is_owner?(current_user.id) || self.is_member?(current_user.id) ))
   end
-  
+
   def root_node
     self.document_nodes.where({ document_node_id: nil, document_id: self.id }).first
   end
-  
+
   def child_sections
-    self.root_node.child_nodes.order(:position).map { |child_node|  
+    self.root_node.child_nodes.order(:position).map { |child_node|
       child_node.document_section
     }.compact
   end
@@ -136,9 +120,9 @@ class Document < ActiveRecord::Base
       owner: false
     }
   end
-      
+
   def list_obj()
-    { 
+    {
       id: self.id,
       name: self.name,
       description: self.description,
@@ -150,7 +134,7 @@ class Document < ActiveRecord::Base
 
   def self.export_list_obj
     Document.where( published: true ).map { |document|
-      { 
+      {
         id: document.id,
         name: document.name,
         description: document.description
@@ -163,8 +147,8 @@ class Document < ActiveRecord::Base
     sections = self.root_node.child_nodes.order(:position).map { |node|
       node.document_section.export_obj unless node.document_section.nil?
     }.compact
-    
-    { 
+
+    {
       id: self.id,
       name: self.name,
       description: self.description,
@@ -172,14 +156,14 @@ class Document < ActiveRecord::Base
     }
   end
 
-  
+
   def obj(current_user_id=nil)
     leafsJSON = self.leafs.map { |leaf| leaf.obj(current_user_id) }
     sectionsJSON = self.document_sections.map { |section| section.obj }
     nodesJSON = self.document_nodes.map { |node| node.obj }
     membersJSON = self.memberships.map { |membership| membership.obj }
-    
-    { 
+
+    {
       id: self.id,
       name: self.name,
       description: self.description,
@@ -193,6 +177,6 @@ class Document < ActiveRecord::Base
       project_config_id: self.project_config_id
     }
   end
- 
-  
+
+
 end
