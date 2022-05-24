@@ -269,7 +269,6 @@ TextLab.SurfaceView = Backbone.View.extend({
 			secondaryEnabled: secondaryEnabled
 		});
 
-
 		// This 'event' is an OpenSeadragon event, it offers us 'position'
 		// We can access mouse event as event.originalEvent. 0,0 is top center of the screen (!),
 		// So we correct for that first
@@ -288,6 +287,7 @@ TextLab.SurfaceView = Backbone.View.extend({
 			title: 'Zone ' + zone.get("zone_label"),
 			placement: 'bottom',
 			html: true,
+			sanitize: false,
 			content: popOverHTML
 		});
 

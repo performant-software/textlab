@@ -33,20 +33,6 @@ TextLab.Leaf = Backbone.Model.extend({
     link.href = "/leafs/" + thisID + "/download_facsimile";
   },
 
-  /*
-  addZoneLink: function( zoneLink ) {
-    zoneLink.set("leaf_id", this.id );
-    this.zoneLinks.add( zoneLink );
-  },
-
-  isZoneLinkBroken: function( zoneLink ) {
-    var zone = _.find( this.zones.models, function( zone ) {
-      return zone.get("zone_label") == zoneLink.get("zone_label");
-    });
-
-    return zone == null;
-  },
- */
   getTranscriptions: function( callback ) {
     var transcriptionsURL = _.template("/transcriptions?leaf_id=<%= leafID %>");
 
@@ -80,15 +66,6 @@ TextLab.Leaf = Backbone.Model.extend({
       }
     });
 
-  },
-
-  getZoneLabelPrefix: function() {
-    return '#' + this.get('xml_id') + '-';
-  },
-
-  removeZoneLabelPrefix: function(xmlZoneLabel) {
-    var labelPrefix = this.getZoneLabelPrefix();
-    return xmlZoneLabel.slice(labelPrefix.length);
   },
 
   getTileSource: function( callback ) {
