@@ -54,7 +54,7 @@ class Transcription < ActiveRecord::Base
     new_hash = {}
     zones = self.zones_hash
     zones.keys.each do |zone|
-      stages.each do |stage| 
+      stages.each do |stage|
         if zones[zone]["change"].present? && zones[zone]["change"] == stage
           new_hash[zone] = zones[zone]
         end
@@ -79,7 +79,8 @@ class Transcription < ActiveRecord::Base
       owner: owner,
       owner_name: self.user&.display_name,
       zone_hash: zones_hash,
-      zones: self.zones.map{ |z| z.obj }
+      zones: self.zones.map{ |z| z.obj },
+      xml_id: self.leaf.xml_id
     }
   end
 

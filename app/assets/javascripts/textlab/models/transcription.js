@@ -21,6 +21,15 @@ TextLab.Transcription = Backbone.Model.extend({
     this.zones.add(zone);
   },
 
+  getZoneLabelPrefix: function() {
+    return `#${this.get('xml_id')}-`;
+  },
+
+  removeZoneLabelPrefix: function(xmlZoneLabel) {
+    var labelPrefix = this.getZoneLabelPrefix();
+    return xmlZoneLabel.slice(labelPrefix.length);
+  },
+
   isReadOnly: function( isProjectOwner ) {
     var owner = this.get('owner');
     var shared = this.get('shared');

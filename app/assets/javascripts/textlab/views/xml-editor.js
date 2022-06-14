@@ -76,7 +76,7 @@ activateTagDialog: function(tagID, zone) {
 		}, this);
 
 		var attributeModalDialog = new TextLab.AttributeModalDialog({
-			model: this.leaf,
+			model: this.model,
 			config: this.config,
 			zone: zone,
 			tag: tag,
@@ -86,7 +86,6 @@ activateTagDialog: function(tagID, zone) {
 	} else {
 		this.generateTag(tag);
 	}
-
 },
 
 onClickTagMenuItem: function(event) {
@@ -156,7 +155,7 @@ relinkZones: function(){
 	while ((match = regex.exec(contents)) != null) {
 
 		// If this match is a pb link, don't bother
-		var labelPrefix = this.leaf.getZoneLabelPrefix();
+		var labelPrefix = this.model.getZoneLabelPrefix();
 		var hasID = match[0].split(labelPrefix);
 		if(hasID.length > 1){
 
@@ -450,7 +449,7 @@ setSurfaceView: function(surfaceView) {
 
 onClickZoneLink: function(e) {
 	var xmlZoneLabel = $(e.currentTarget).html();
-	var zoneLabel = this.leaf.removeZoneLabelPrefix(xmlZoneLabel);
+	var zoneLabel = this.model.removeZoneLabelPrefix(xmlZoneLabel);
 	var zone = this.model.zones.getZoneByLabel(zoneLabel);
 	this.surfaceView.selectZone(zone);
 	return false;

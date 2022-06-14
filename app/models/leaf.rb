@@ -112,7 +112,8 @@ class Leaf < ActiveRecord::Base
       document_id: self.document_id,
       xml_id: self.xml_id,
       tile_source: self.tile_source&.gsub('/full/full/0/default.jpg',''),
-      secondary_enabled: secondary_enabled(current_user_id)
+      secondary_enabled: secondary_enabled(current_user_id),
+      transcriptions: self.transcriptions.map{ |t| t.obj(current_user_id) }
     }
   end
 
